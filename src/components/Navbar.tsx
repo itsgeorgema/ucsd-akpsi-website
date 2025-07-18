@@ -21,24 +21,19 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-blue-900 text-white shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex-shrink-0">
-            <Link href="/" className="text-xl font-bold hover:text-blue-200 transition-colors">
-              UCSD AKPSI
-            </Link>
-          </div>
+    <nav className="absolute top-4 right-4 z-50">
+      <div className="bg-gray-800/30 backdrop-blur-sm rounded-lg shadow-lg border border-gray-600/20">
+        <div className="flex items-center px-6 py-3">
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
+            <div className="flex items-center space-x-6">
               {navItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  className={`px-4 py-2 rounded-md text-sm font-bold transition-colors ${
                     mounted && pathname === item.href
-                      ? 'bg-blue-800 text-white'
-                      : 'text-blue-100 hover:bg-blue-700 hover:text-white'
+                      ? 'bg-gray-700/50 text-white'
+                      : 'text-white hover:bg-gray-700/30'
                   }`}
                 >
                   {item.label}
@@ -49,7 +44,7 @@ export default function Navbar() {
 
           {/* Mobile menu button */}
           <div className="md:hidden">
-            <button className="text-blue-100 hover:text-white focus:outline-none focus:text-white">
+            <button className="text-white hover:text-white/80 focus:outline-none focus:text-white">
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
