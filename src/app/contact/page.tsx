@@ -1,11 +1,14 @@
 "use client";
 
+import { akpsiColors } from '../../styles/colors';
+import { akpsiFonts } from '../../styles/fonts';
+
 export default function Contact() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 via-orange-50 to-gray-50 flex items-center justify-center py-12 px-4">
+    <div className={`min-h-screen bg-gradient-to-b ${akpsiColors.orangeGradient} flex items-center justify-center py-12 px-4`}>
       <div className="max-w-md w-full">
         {/* Contact Us Heading */}
-        <h1 className="text-3xl font-bold text-black text-center mb-8">
+        <h1 className={`text-3xl text-center mb-8 ${akpsiColors.black} ${akpsiFonts.sectionTitleFont}`}>
           Contact Us
         </h1>
         
@@ -14,25 +17,25 @@ export default function Contact() {
           {/* First Name and Last Name Row */}
           <div className="flex space-x-4">
             <div className="flex-1">
-              <label className="block text-sm font-medium text-black mb-2">
+              <label className={`block text-sm mb-2 ${akpsiColors.black} ${akpsiFonts.sectionTextFont}`}>
                 First Name
               </label>
-              <div className="border-b border-black pb-1">
+              <div className={`border-b pb-1 ${akpsiColors.black}`}>
                 <input
                   type="text"
-                  className="w-full bg-transparent outline-none text-black placeholder-gray-500"
+                  className={`w-full bg-transparent outline-none ${akpsiColors.black} placeholder-gray-500`}
                   placeholder=""
                 />
               </div>
             </div>
             <div className="flex-1">
-              <label className="block text-sm font-medium text-black mb-2">
+              <label className={`block text-sm mb-2 ${akpsiColors.black} ${akpsiFonts.sectionTextFont}`}>
                 Last Name
               </label>
-              <div className="border-b border-black pb-1">
+              <div className={`border-b pb-1 ${akpsiColors.black}`}>
                 <input
                   type="text"
-                  className="w-full bg-transparent outline-none text-black placeholder-gray-500"
+                  className={`w-full bg-transparent outline-none ${akpsiColors.black} placeholder-gray-500`}
                   placeholder=""
                 />
               </div>
@@ -41,14 +44,14 @@ export default function Contact() {
           
           {/* Email Field */}
           <div>
-            <label className="block text-sm font-medium text-black mb-2">
+            <label className={`block text-sm mb-2 ${akpsiColors.black} ${akpsiFonts.sectionTextFont}`}>
               Email *
             </label>
-            <div className="border-b border-black pb-1">
+            <div className={`border-b pb-1 ${akpsiColors.black}`}>
               <input
                 type="email"
                 required
-                className="w-full bg-transparent outline-none text-black placeholder-gray-500"
+                className={`w-full bg-transparent outline-none ${akpsiColors.black} placeholder-gray-500`}
                 placeholder=""
               />
             </div>
@@ -56,13 +59,13 @@ export default function Contact() {
           
           {/* Message Field */}
           <div>
-            <label className="block text-sm font-medium text-black mb-2">
+            <label className={`block text-sm mb-2 ${akpsiColors.black} ${akpsiFonts.sectionTextFont}`}>
               Write a message
             </label>
-            <div className="border-b border-black pb-1">
+            <div className={`border-b pb-1 ${akpsiColors.black}`}>
               <textarea
                 rows={4}
-                className="w-full bg-transparent outline-none text-black placeholder-gray-500 resize-none"
+                className={`w-full bg-transparent outline-none ${akpsiColors.black} placeholder-gray-500 resize-none`}
                 placeholder=""
               ></textarea>
             </div>
@@ -71,7 +74,7 @@ export default function Contact() {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-black text-white py-3 px-6 rounded-full font-medium hover:bg-gray-800 transition-colors"
+            className={`w-full py-3 px-6 rounded-full font-medium transition-colors bg-black text-white hover:bg-gray-800`}
           >
             Submit
           </button>
