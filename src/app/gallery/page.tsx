@@ -1,8 +1,11 @@
+import { akpsiColors } from '../../styles/colors';
+import { akpsiFonts } from '../../styles/fonts';
+
 export default function Gallery() {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+    <div className={`flex items-center justify-center min-h-screen ${akpsiColors.mainBg}`}>
       <div className="text-center">
-        <h1 className="text-4xl font-bold text-blue-900 mb-4">
+        <h1 className={`text-4xl mb-4 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
           Gallery
         </h1>
       </div>
