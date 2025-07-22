@@ -28,19 +28,20 @@ export default function Navbar() {
         <div className="flex items-center">
           <div className="hidden md:block">
             <div className="flex items-center">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`px-6 py-3 text-sm ${akpsiFonts.navBarFont} transition-colors ${
-                    mounted && pathname === item.href
-                      ? akpsiColors.navBarTextActive
-                      : `${akpsiColors.navBarText} ${akpsiColors.navBarTextHover}`
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
+              {navItems.map((item) => {
+                const isActive = mounted && pathname === item.href;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`px-6 py-3 text-sm ${akpsiFonts.navBarFont} transition-colors rounded-md
+                      ${isActive ? `${akpsiColors.navBarTextActive} ${akpsiColors.navBarBgActive}` : `${akpsiColors.navBarText} ${akpsiColors.navBarTextHover}`}
+                    `}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
             </div>
           </div>
 

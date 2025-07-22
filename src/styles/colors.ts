@@ -6,6 +6,7 @@ export const akpsiColors = {
   navBarText: 'text-white',
   navBarTextActive: 'text-yellow-100',
   navBarTextHover: 'hover:text-yellow-100',
+  navBarBgActive: 'bg-gray-800/30',
   heroTitle: 'text-white',
   heroSubtitle: 'text-white',
   sectionTitle: 'text-blue-900',
