@@ -30,20 +30,60 @@ export default function Navbar() {
             </Link>
           </div>
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    mounted && pathname === item.href
-                      ? 'bg-blue-800 text-white'
-                      : 'text-blue-100 hover:bg-blue-700 hover:text-white'
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
+            <div className="flex items-center">
+              {navItems.map((item) => {
+                const isActive = mounted && pathname === item.href;
+                const isBrothers = 'Brothers' === item.label;
+                const isBrothersActive = mounted && (pathname === `${item.href}/internal1` || pathname === `${item.href}/internal2`);
+
+                  if (isBrothers) {
+                    return (
+                      <div key={item.href} className="relative group">
+                        <div
+                          className={`px-6 py-3 text-sm ${akpsiFonts.navBarFont} transition-colors rounded-md
+                            ${isBrothersActive
+                              ? `${akpsiColors.navBarTextActive} ${akpsiColors.navBarBgActive}`
+                              : `${akpsiColors.navBarText} ${akpsiColors.navBarTextHover}`
+                            }
+                          `}
+                        >
+                          {item.label}
+                        </div>
+
+                        {/* Dropdown links appear on hover */}
+                        <div className="absolute left-0 mt-0 hidden group-hover:flex flex-col bg-white shadow-lg rounded-md z-50">
+                          <Link
+                            href="/brothers/internal1"
+                            className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 whitespace-nowrap"
+                          >
+                            Internal Link 1
+                          </Link>
+                          <Link
+                            href="/brothers/internal2"
+                            className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 whitespace-nowrap"
+                          >
+                            Internal Link 2
+                          </Link>
+                        </div>
+                      </div>
+                    );
+                    }
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={`px-6 py-3 text-sm ${akpsiFonts.navBarFont} transition-colors rounded-md
+                          
+                        ${isActive ? `${akpsiColors.navBarTextActive} ${akpsiColors.navBarBgActive}` : `${akpsiColors.navBarText} ${akpsiColors.navBarTextHover}`}
+                          
+                      `}
+                    >
+                      {item.label}
+                    </Link>
+                  );
+
+              }
+            )}
             </div>
           </div>
 
