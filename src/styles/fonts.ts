@@ -8,4 +8,7 @@ export const akpsiFonts = {
   sectionTextFont: 'font-medium',
   bodyFont: 'font-sans', // Geist Sans from layout
   monoFont: 'font-mono', // Geist Mono from layout
-}; 
+};
+
+// Hero font for homepage hero section
+export const heroFont = 'font-hero'; 
