@@ -50,16 +50,16 @@ export default function Navbar() {
                         {/* Dropdown links appear on hover */}
                         <div className="absolute left-0 mt-0 hidden group-hover:flex flex-col bg-white shadow-lg rounded-md z-50">
                           <Link
-                            href="/brothers/internal1"
+                            href="/brothers/exec"
                             className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 whitespace-nowrap"
                           >
-                            Internal Link 1
+                            Executive Committee
                           </Link>
                           <Link
-                            href="/brothers/internal2"
+                            href="/brothers/actives"
                             className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 whitespace-nowrap"
                           >
-                            Internal Link 2
+                            Active Brothers
                           </Link>
                         </div>
                       </div>
