@@ -12,7 +12,7 @@ type Brother = {
   pronouns?: string;
   position?: string;
   location?: string;
-  desc?: string;
+  bio?: string;
 };
 
 export default function BrotherBio() {
