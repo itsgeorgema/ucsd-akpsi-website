@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { akpsiColors } from '../../../styles/colors';
 import { akpsiFonts } from '../../../styles/fonts';
-import { createClientBrowser } from '../../../lib/supabase';
+import { createClient } from '../../../../supabase/client';
 import { usePathname } from 'next/navigation';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
@@ -15,7 +15,8 @@ export default function ActiveBrothers() {
 
   useEffect(() => {
     const fetchImages = async () => {
-      const supabase = createClientBrowser();
+      const supabase = await createClient();
+      
       const { data, error } = await supabase
         .from('actives-spring25')
         .select('image_path, name')
