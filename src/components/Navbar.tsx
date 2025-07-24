@@ -40,6 +40,7 @@ export default function Navbar() {
             <div className="flex items-center">
               {navItems.map((item) => {
                 const isActive = mounted && pathname === item.href;
+
                 if (item.dropdown) {
                   return (
                     <div key={item.href} className="relative group">
@@ -88,6 +89,7 @@ export default function Navbar() {
                   </Link>
                 );
               })}
+
             </div>
           </div>
         </div>

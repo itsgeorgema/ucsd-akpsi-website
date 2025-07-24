@@ -1,12 +1,14 @@
-import { akpsiColors } from '../../styles/colors';
-import { akpsiFonts } from '../../styles/fonts';
+'use client';
+import { useState, useEffect, use } from 'react';
+import { akpsiColors } from '../../../styles/colors';
+import { akpsiFonts } from '../../../styles/fonts';
 
 export default function Brothers() {
   return (
     <div className={`flex items-center justify-center min-h-screen ${akpsiColors.mainBg}`}>
       <div className="text-center">
         <h1 className={`text-4xl mb-4 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
-          Brothers
+          Executive Committee
         </h1>
       </div>
     </div>
