@@ -9,6 +9,7 @@ import { akpsiFonts } from '../styles/fonts';
 export default function Navbar() {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -17,7 +18,7 @@ export default function Navbar() {
   const navItems = [
     { href: '/', label: 'Home' },
     { href: '/about', label: 'About' },
-    { href: '/brothers', label: 'Brothers' },
+    { href: '/brothers', label: 'Brothers', dropdown: true },
     { href: '/gallery', label: 'Gallery' },
     { href: '/recruitment', label: 'Recruitment' },
   ];
@@ -40,6 +41,39 @@ export default function Navbar() {
             <div className="flex items-center">
               {navItems.map((item) => {
                 const isActive = mounted && pathname === item.href;
+                if (item.dropdown) {
+                  return (
+                    <div key={item.href} className="relative">
+                      <button
+                        className={`px-6 py-3 text-sm ${akpsiFonts.navBarFont} transition-colors rounded-md focus:outline-none ${isActive ? `${akpsiColors.navBarTextActive} ${akpsiColors.navBarBgActive}` : `${akpsiColors.navBarText} ${akpsiColors.navBarTextHover}`}`}
+                        onClick={() => setDropdownOpen((open) => !open)}
+                        onBlur={() => setTimeout(() => setDropdownOpen(false), 150)}
+                        aria-haspopup="true"
+                        aria-expanded={dropdownOpen}
+                      >
+                        {item.label}
+                      </button>
+                      {dropdownOpen && (
+                        <div className={`absolute left-1/2 -translate-x-1/2 mt-2 w-44 ${akpsiColors.navBarBg} ${akpsiColors.navBarBorder} border rounded-lg shadow-lg flex flex-col z-50`}>
+                          <Link
+                            href="/brothers/executive"
+                            className={`px-3 py-1 text-xs ${akpsiFonts.navBarFont} transition-colors rounded-t-lg ${akpsiColors.navBarText} ${akpsiColors.navBarTextHover} whitespace-nowrap text-ellipsis`}
+                            onClick={() => setDropdownOpen(false)}
+                          >
+                            EXECUTIVE COMMITTEE
+                          </Link>
+                          <Link
+                            href="/brothers/active"
+                            className={`px-3 py-1 text-xs ${akpsiFonts.navBarFont} transition-colors rounded-b-lg ${akpsiColors.navBarText} ${akpsiColors.navBarTextHover} whitespace-nowrap text-ellipsis`}
+                            onClick={() => setDropdownOpen(false)}
+                          >
+                            ACTIVE BROTHERS
+                          </Link>
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
                 return (
                   <Link
                     key={item.href}
@@ -52,20 +86,10 @@ export default function Navbar() {
                   </Link>
                 );
               })}
-
             </div>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden px-6 py-3">
-            <button className="text-white hover:text-white/80 focus:outline-none focus:text-white">
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
           </div>
         </div>
       </div>
     </nav>
   );
-} 
+}
