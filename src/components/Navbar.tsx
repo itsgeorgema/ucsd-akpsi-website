@@ -17,83 +17,83 @@ export default function Navbar() {
   const navItems = [
     { href: '/', label: 'Home' },
     { href: '/about', label: 'About' },
-    { href: '/brothers', label: 'Brothers' },
+    { href: '/brothers', label: 'Brothers', dropdown: true },
     { href: '/gallery', label: 'Gallery' },
     { href: '/recruitment', label: 'Recruitment' },
   ];
 
   return (
     <nav className="absolute top-4 right-4 z-50">
+      <div className="fixed top-[-2.5rem] left-4 z-50 flex items-center">
+        <Link href="/">
+          <img
+            src="/akpsiLogo.png"
+            alt="Alpha Kappa Psi Logo"
+            className="h-40 w-40 object-contain cursor-pointer"
+          />
+        </Link>
+      </div>
+      
       <div className={`${akpsiColors.navBarBg} backdrop-blur-sm rounded-lg shadow-lg border ${akpsiColors.navBarBorder}`}>
         <div className="flex items-center">
           <div className="hidden md:block">
             <div className="flex items-center">
               {navItems.map((item) => {
                 const isActive = mounted && pathname === item.href;
-                const isBrothers = 'Brothers' === item.label;
-                const isBrothersActive = mounted && (pathname === `${item.href}/internal1` || pathname === `${item.href}/internal2`);
 
-                  if (isBrothers) {
-                    return (
-                      <div key={item.href} className="relative group">
-                        <div
-                          className={`px-6 py-3 text-sm ${akpsiFonts.navBarFont} transition-colors rounded-md
-                            ${isBrothersActive
-                              ? `${akpsiColors.navBarTextActive} ${akpsiColors.navBarBgActive}`
-                              : `${akpsiColors.navBarText} ${akpsiColors.navBarTextHover}`
-                            }
-                          `}
+                if (item.dropdown) {
+                  return (
+                    <div key={item.href} className="relative group">
+                      <div>
+                        <button
+                          className={`px-6 py-3 text-sm ${akpsiFonts.navBarFont} transition-colors focus:outline-none ${isActive ? `${akpsiColors.navBarTextActive} ${akpsiColors.navBarBgActive}` : `${akpsiColors.navBarText} ${akpsiColors.navBarTextHover} ${akpsiColors.navBarBgHover}`}`}
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                          tabIndex={0}
                         >
                           {item.label}
-                        </div>
-
-                        {/* Dropdown links appear on hover */}
-                        <div className="absolute left-0 mt-0 hidden group-hover:flex flex-col bg-white shadow-lg rounded-md z-50">
-                          <Link
-                            href="/brothers/exec"
-                            className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 whitespace-nowrap"
-                          >
-                            Executive Committee
-                          </Link>
-                          <Link
-                            href="/brothers/actives"
-                            className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 whitespace-nowrap"
-                          >
-                            Active Brothers
-                          </Link>
+                        </button>
+                        <div className={`absolute left-1/2 -translate-x-1/2 mt-0 w-44 ${akpsiColors.navBarBg} ${akpsiColors.navBarBorder} border rounded-lg shadow-lg flex flex-col z-50 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity`}
+                          tabIndex={-1}>
+                            {[
+                              { href: '/brothers/executive', label: 'EXECUTIVE COMMITTEE' },
+                              { href: '/brothers/active', label: 'ACTIVE BROTHERS' },
+                            ].map((dropdownItem) => {
+                              const isDropdownActive = mounted && pathname === dropdownItem.href;
+                              return (
+                                <Link
+                                  key={dropdownItem.href}
+                                  href={dropdownItem.href}
+                                  className={`px-3 py-2 text-xs ${akpsiFonts.navBarFont} transition-colors whitespace-nowrap text-ellipsis
+                                    ${isDropdownActive ? `${akpsiColors.navBarTextActive} ${akpsiColors.navBarBgActive}` : `${akpsiColors.navBarText} ${akpsiColors.navBarTextHover} ${akpsiColors.navBarBgHover}`}
+                                  `}
+                                >
+                                  {dropdownItem.label}
+                                </Link>
+                              );
+                            })}
                         </div>
                       </div>
-                    );
-                    }
-                  return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className={`px-6 py-3 text-sm ${akpsiFonts.navBarFont} transition-colors rounded-md
-                          
-                        ${isActive ? `${akpsiColors.navBarTextActive} ${akpsiColors.navBarBgActive}` : `${akpsiColors.navBarText} ${akpsiColors.navBarTextHover}`}
-                          
-                      `}
-                    >
-                      {item.label}
-                    </Link>
+                    </div>
                   );
+                }
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`px-6 py-3 text-sm ${akpsiFonts.navBarFont} transition-colors
+                      ${isActive ? `${akpsiColors.navBarTextActive} ${akpsiColors.navBarBgActive}` : `${akpsiColors.navBarText} ${akpsiColors.navBarTextHover} ${akpsiColors.navBarBgHover}`}
+                    `}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
 
-              }
-            )}
             </div>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden px-6 py-3">
-            <button className="text-white hover:text-white/80 focus:outline-none focus:text-white">
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
           </div>
         </div>
       </div>
     </nav>
   );
-} 
+}
