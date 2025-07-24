@@ -9,7 +9,6 @@ import { akpsiFonts } from '../styles/fonts';
 export default function Navbar() {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -43,34 +42,37 @@ export default function Navbar() {
                 const isActive = mounted && pathname === item.href;
                 if (item.dropdown) {
                   return (
-                    <div key={item.href} className="relative">
-                      <button
-                        className={`px-6 py-3 text-sm ${akpsiFonts.navBarFont} transition-colors rounded-md focus:outline-none ${isActive ? `${akpsiColors.navBarTextActive} ${akpsiColors.navBarBgActive}` : `${akpsiColors.navBarText} ${akpsiColors.navBarTextHover}`}`}
-                        onClick={() => setDropdownOpen((open) => !open)}
-                        onBlur={() => setTimeout(() => setDropdownOpen(false), 150)}
-                        aria-haspopup="true"
-                        aria-expanded={dropdownOpen}
-                      >
-                        {item.label}
-                      </button>
-                      {dropdownOpen && (
-                        <div className={`absolute left-1/2 -translate-x-1/2 mt-2 w-44 ${akpsiColors.navBarBg} ${akpsiColors.navBarBorder} border rounded-lg shadow-lg flex flex-col z-50`}>
-                          <Link
-                            href="/brothers/executive"
-                            className={`px-3 py-1 text-xs ${akpsiFonts.navBarFont} transition-colors rounded-t-lg ${akpsiColors.navBarText} ${akpsiColors.navBarTextHover} whitespace-nowrap text-ellipsis`}
-                            onClick={() => setDropdownOpen(false)}
-                          >
-                            EXECUTIVE COMMITTEE
-                          </Link>
-                          <Link
-                            href="/brothers/active"
-                            className={`px-3 py-1 text-xs ${akpsiFonts.navBarFont} transition-colors rounded-b-lg ${akpsiColors.navBarText} ${akpsiColors.navBarTextHover} whitespace-nowrap text-ellipsis`}
-                            onClick={() => setDropdownOpen(false)}
-                          >
-                            ACTIVE BROTHERS
-                          </Link>
+                    <div key={item.href} className="relative group">
+                      <div>
+                        <button
+                          className={`px-6 py-3 text-sm ${akpsiFonts.navBarFont} transition-colors focus:outline-none ${isActive ? `${akpsiColors.navBarTextActive} ${akpsiColors.navBarBgActive}` : `${akpsiColors.navBarText} ${akpsiColors.navBarTextHover} ${akpsiColors.navBarBgHover}`}`}
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                          tabIndex={0}
+                        >
+                          {item.label}
+                        </button>
+                        <div className={`absolute left-1/2 -translate-x-1/2 mt-0 w-44 ${akpsiColors.navBarBg} ${akpsiColors.navBarBorder} border rounded-lg shadow-lg flex flex-col z-50 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity`}
+                          tabIndex={-1}>
+                            {[
+                              { href: '/brothers/executive', label: 'EXECUTIVE COMMITTEE' },
+                              { href: '/brothers/active', label: 'ACTIVE BROTHERS' },
+                            ].map((dropdownItem) => {
+                              const isDropdownActive = mounted && pathname === dropdownItem.href;
+                              return (
+                                <Link
+                                  key={dropdownItem.href}
+                                  href={dropdownItem.href}
+                                  className={`px-3 py-2 text-xs ${akpsiFonts.navBarFont} transition-colors whitespace-nowrap text-ellipsis
+                                    ${isDropdownActive ? `${akpsiColors.navBarTextActive} ${akpsiColors.navBarBgActive}` : `${akpsiColors.navBarText} ${akpsiColors.navBarTextHover} ${akpsiColors.navBarBgHover}`}
+                                  `}
+                                >
+                                  {dropdownItem.label}
+                                </Link>
+                              );
+                            })}
                         </div>
-                      )}
+                      </div>
                     </div>
                   );
                 }
@@ -78,8 +80,8 @@ export default function Navbar() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`px-6 py-3 text-sm ${akpsiFonts.navBarFont} transition-colors rounded-md
-                      ${isActive ? `${akpsiColors.navBarTextActive} ${akpsiColors.navBarBgActive}` : `${akpsiColors.navBarText} ${akpsiColors.navBarTextHover}`}
+                    className={`px-6 py-3 text-sm ${akpsiFonts.navBarFont} transition-colors
+                      ${isActive ? `${akpsiColors.navBarTextActive} ${akpsiColors.navBarBgActive}` : `${akpsiColors.navBarText} ${akpsiColors.navBarTextHover} ${akpsiColors.navBarBgHover}`}
                     `}
                   >
                     {item.label}

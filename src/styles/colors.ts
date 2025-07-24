@@ -1,12 +1,13 @@
 // UCSD AKPsi Website Color Variables
 
 export const akpsiColors = {
-  navBarBg: 'bg-gray-800/30',
+  navBarBg: 'bg-gray-800/25',
   navBarBorder: 'border-gray-600/20',
   navBarText: 'text-white',
   navBarTextActive: 'text-yellow-100',
   navBarTextHover: 'hover:text-yellow-100',
-  navBarBgActive: 'bg-gray-800/30',
+  navBarBgActive: 'bg-gray-900/20',
+  navBarBgHover: 'hover:bg-gray-900/10',
   heroTitle: 'text-white',
   heroSubtitle: 'text-white',
   sectionTitle: 'text-blue-900',
