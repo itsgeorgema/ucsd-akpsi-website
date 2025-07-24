@@ -51,7 +51,7 @@ export default function ActiveBrothers() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mt-8">
             {brothers.map((brother, idx) => (
               <div key={idx} className="flex flex-col items-center">
-                <Link href={`/brothers/active/${encodeURIComponent(brother.name)}`}>
+                <Link href={`/brothers/active/${encodeURIComponent(brother.name.replace(/\s/g, ""))}`}>
                   <img
                     src={brother.imageUrl}
                     alt={brother.name}

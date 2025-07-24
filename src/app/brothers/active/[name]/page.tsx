@@ -26,15 +26,17 @@ export default function BrotherBio() {
       const supabase = await createClient();
       const { data, error } = await supabase
         .from('actives-spring25')
-        .select('*')
-        .eq('name', name)
-        .single();
-      if (!error && data) {
-        const { data: publicUrlData } = supabase
-          .storage
-          .from('brothers-spring25')
-          .getPublicUrl(data.image_path);
-        setBrother({ ...data, imageUrl: publicUrlData?.publicUrl || '' });
+        .select('*');
+      if (!error && data && Array.isArray(data)) {
+        // Find the brother whose name matches the FirstLast format
+        const found = data.find(b => b.name.replace(/\s/g, '') === name);
+        if (found) {
+          const { data: publicUrlData } = supabase
+            .storage
+            .from('brothers-spring25')
+            .getPublicUrl(found.image_path);
+          setBrother({ ...found, imageUrl: publicUrlData?.publicUrl || '' });
+        }
       }
       setLoading(false);
     };
