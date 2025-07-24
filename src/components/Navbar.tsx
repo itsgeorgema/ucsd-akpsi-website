@@ -23,8 +23,8 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="absolute top-4 right-4 z-50">
-      <div className="fixed top-[-2.5rem] left-4 z-50 flex items-center">
+    <>
+      <div className="absolute top-[-2.5rem] left-4 z-50 flex items-center">
         <Link href="/">
           <img
             src="/akpsiLogo.png"
@@ -33,67 +33,68 @@ export default function Navbar() {
           />
         </Link>
       </div>
-      
-      <div className={`${akpsiColors.navBarBg} backdrop-blur-sm rounded-lg shadow-lg border ${akpsiColors.navBarBorder}`}>
-        <div className="flex items-center">
-          <div className="hidden md:block">
-            <div className="flex items-center">
-              {navItems.map((item) => {
-                const isActive = mounted && pathname === item.href;
+      <nav className="absolute top-4 right-4 z-50">
+        <div className={`${akpsiColors.navBarBg} backdrop-blur-sm rounded-lg shadow-lg border ${akpsiColors.navBarBorder}`}>
+          <div className="flex items-center">
+            <div className="hidden md:block">
+              <div className="flex items-center">
+                {navItems.map((item) => {
+                  const isActive = mounted && pathname === item.href;
 
-                if (item.dropdown) {
-                  return (
-                    <div key={item.href} className="relative group">
-                      <div>
-                        <button
-                          className={`px-6 py-3 text-sm ${akpsiFonts.navBarFont} transition-colors focus:outline-none ${isActive ? `${akpsiColors.navBarTextActive} ${akpsiColors.navBarBgActive}` : `${akpsiColors.navBarText} ${akpsiColors.navBarTextHover} ${akpsiColors.navBarBgHover}`}`}
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                          tabIndex={0}
-                        >
-                          {item.label}
-                        </button>
-                        <div className={`absolute left-1/2 -translate-x-1/2 mt-0 w-44 ${akpsiColors.navBarBg} ${akpsiColors.navBarBorder} border rounded-lg shadow-lg flex flex-col z-50 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity`}
-                          tabIndex={-1}>
-                            {[
-                              { href: '/brothers/executive', label: 'EXECUTIVE COMMITTEE' },
-                              { href: '/brothers/active', label: 'ACTIVE BROTHERS' },
-                            ].map((dropdownItem) => {
-                              const isDropdownActive = mounted && pathname === dropdownItem.href;
-                              return (
-                                <Link
-                                  key={dropdownItem.href}
-                                  href={dropdownItem.href}
-                                  className={`px-3 py-2 text-xs ${akpsiFonts.navBarFont} transition-colors whitespace-nowrap text-ellipsis
-                                    ${isDropdownActive ? `${akpsiColors.navBarTextActive} ${akpsiColors.navBarBgActive}` : `${akpsiColors.navBarText} ${akpsiColors.navBarTextHover} ${akpsiColors.navBarBgHover}`}
-                                  `}
-                                >
-                                  {dropdownItem.label}
-                                </Link>
-                              );
-                            })}
+                  if (item.dropdown) {
+                    return (
+                      <div key={item.href} className="relative group">
+                        <div>
+                          <button
+                            className={`px-6 py-3 text-sm ${akpsiFonts.navBarFont} transition-colors focus:outline-none ${isActive ? `${akpsiColors.navBarTextActive} ${akpsiColors.navBarBgActive}` : `${akpsiColors.navBarText} ${akpsiColors.navBarTextHover} ${akpsiColors.navBarBgHover}`}`}
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                            tabIndex={0}
+                          >
+                            {item.label}
+                          </button>
+                          <div className={`absolute left-1/2 -translate-x-1/2 mt-0 w-44 ${akpsiColors.navBarBg} ${akpsiColors.navBarBorder} border rounded-lg shadow-lg flex flex-col z-50 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity`}
+                            tabIndex={-1}>
+                              {[
+                                { href: '/brothers/executive', label: 'EXECUTIVE COMMITTEE' },
+                                { href: '/brothers/active', label: 'ACTIVE BROTHERS' },
+                              ].map((dropdownItem) => {
+                                const isDropdownActive = mounted && pathname === dropdownItem.href;
+                                return (
+                                  <Link
+                                    key={dropdownItem.href}
+                                    href={dropdownItem.href}
+                                    className={`px-3 py-2 text-xs ${akpsiFonts.navBarFont} transition-colors whitespace-nowrap text-ellipsis
+                                      ${isDropdownActive ? `${akpsiColors.navBarTextActive} ${akpsiColors.navBarBgActive}` : `${akpsiColors.navBarText} ${akpsiColors.navBarTextHover} ${akpsiColors.navBarBgHover}`}
+                                    `}
+                                  >
+                                    {dropdownItem.label}
+                                  </Link>
+                                );
+                              })}
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    );
+                  }
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={`px-6 py-3 text-sm ${akpsiFonts.navBarFont} transition-colors
+                        ${isActive ? `${akpsiColors.navBarTextActive} ${akpsiColors.navBarBgActive}` : `${akpsiColors.navBarText} ${akpsiColors.navBarTextHover} ${akpsiColors.navBarBgHover}`}
+                      `}
+                    >
+                      {item.label}
+                    </Link>
                   );
-                }
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`px-6 py-3 text-sm ${akpsiFonts.navBarFont} transition-colors
-                      ${isActive ? `${akpsiColors.navBarTextActive} ${akpsiColors.navBarBgActive}` : `${akpsiColors.navBarText} ${akpsiColors.navBarTextHover} ${akpsiColors.navBarBgHover}`}
-                    `}
-                  >
-                    {item.label}
-                  </Link>
-                );
-              })}
+                })}
 
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </>
   );
 }
