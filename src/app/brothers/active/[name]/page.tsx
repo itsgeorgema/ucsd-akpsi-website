@@ -51,9 +51,8 @@ export default function BrotherBio() {
         <img src={brother.imageUrl} alt={brother.name} className="w-80 h-80 object-contain mb-4" />
         <h1 className="text-3xl font-bold mb-2">{brother.name}</h1>
         <div className="text-lg mb-2">{brother.pronouns}</div>
-        <div className="text-lg mb-2">{brother.position}</div>
         <div className="text-lg mb-2">{brother.location}</div>
-        <div className="max-w-xl text-center text-base mt-4">{brother.bio}</div>
+        <div className="max-w-xl text-center text-base mt-4 whitespace-pre-line">{brother.bio}</div>
       </main>
       <Footer />
     </div>
