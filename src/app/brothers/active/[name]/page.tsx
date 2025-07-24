@@ -1,6 +1,6 @@
 'use client';
 
-import { createClientBrowser } from '../../../../lib/supabase';
+import { createClient } from '../../../../../supabase/client';
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Navbar from '../../../../components/Navbar';
@@ -23,7 +23,7 @@ export default function BrotherBio() {
 
   useEffect(() => {
     const fetchBrother = async () => {
-      const supabase = createClientBrowser();
+      const supabase = await createClient();
       const { data, error } = await supabase
         .from('actives-spring25')
         .select('*')
