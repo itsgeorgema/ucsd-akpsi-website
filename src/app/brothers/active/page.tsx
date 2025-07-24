@@ -1,7 +1,5 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { akpsiColors } from '../../../styles/colors';
-import { akpsiFonts } from '../../../styles/fonts';
 import { createClient } from '../../../../supabase/client';
 import { usePathname } from 'next/navigation';
 import Navbar from '../../../components/Navbar';
@@ -41,30 +39,40 @@ export default function ActiveBrothers() {
   }, [pathname]);
 
   return (
-    <div className={`${akpsiColors.mainBg} min-h-screen flex flex-col`}>
-      <Navbar />
-      <main className="flex-1 flex flex-col items-center justify-center">
-        <div className="text-center w-full">
-          <h1 className={`text-4xl mb-4 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
-            Active Brothers
-          </h1>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mt-8">
-            {brothers.map((brother, idx) => (
-              <div key={idx} className="flex flex-col items-center">
-                <Link href={`/brothers/active/${encodeURIComponent(brother.name)}`}>
-                  <img
-                    src={brother.imageUrl}
-                    alt={brother.name}
-                    className="w-80 h-80 object-contain cursor-pointer hover:scale-105 transition-transform"
-                  />
-                </Link>
-                <span className="text-lg font-semibold mt-2">{brother.name}</span>
-              </div>
-            ))}
+    <div className="relative min-h-screen flex flex-col">
+      {/* Full Page Background */}
+      <div 
+        className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url(/brothers/brothersBackground.jpg)" }}
+      />
+      {/* Overlay for readability */}
+      <div className="fixed top-0 left-0 w-full h-full z-10 bg-black/30" />
+      <div className="relative z-20 min-h-screen flex flex-col">
+        <Navbar />
+        <main className="flex-1 flex flex-col items-center justify-center">
+          <div className="w-full flex flex-col items-center mt-35">
+            <div className="text-center mb-2">
+              <div className="text-white text-sm tracking-widest mb-2">INTRODUCING OUR</div>
+              <h1 className="text-5xl font-bold text-white tracking-wide mb-8">ACTIVE BROTHERS</h1>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12">
+              {brothers.map((brother, idx) => (
+                <div key={idx} className="flex flex-col items-center">
+                  <Link href={`/brothers/active/${encodeURIComponent(brother.name)}`}>
+                    <img
+                      src={brother.imageUrl}
+                      alt={brother.name}
+                      className="w-80 h-80 object-contain rounded-small cursor-pointer hover:scale-105 transition-transform"
+                    />
+                  </Link>
+                  <span className="text-lg font-semibold mt-2 text-white" style={{fontFamily: 'Montserrat, Arial, Helvetica, sans-serif'}}>{brother.name}</span>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </main>
-      <Footer />
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 } 
