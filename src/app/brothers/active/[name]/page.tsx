@@ -52,7 +52,13 @@ export default function BrotherBio() {
         <h1 className="text-3xl font-bold mb-2">{brother.name}</h1>
         <div className="text-lg mb-2">{brother.pronouns}</div>
         <div className="text-lg mb-2">{brother.location}</div>
-        <div className="text-lg mb-2">{brother.linkedin}</div>
+        <button
+    onClick={() => window.open(brother.linkedin, "_blank", "noopener,noreferrer")}
+    className="text-lg mb-2 px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700 transition-colors"
+    type="button"
+  >
+    LinkedIn
+  </button>
         <div className="max-w-xl text-center text-base mt-4 whitespace-pre-line">{brother.bio}</div>
       </main>
       <Footer />
