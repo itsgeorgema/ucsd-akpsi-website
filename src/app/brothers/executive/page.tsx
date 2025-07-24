@@ -3,7 +3,7 @@ import { useState, useEffect, use } from 'react';
 import { akpsiColors } from '../../../styles/colors';
 import { akpsiFonts } from '../../../styles/fonts';
 import Footer from '../../../components/Footer';
-import { createClientBrowser } from '../../../lib/supabase'; // make sure your client is configured
+import { createClient } from '../../../../supabase/client'; // make sure your client is configured
 import { url } from 'inspector';
 import Link from 'next/link';
 
@@ -17,7 +17,7 @@ export default function ExecutiveCommittee() {
 
     useEffect(() => {
       const fetchEcom = async () => {
-        const supabase = createClientBrowser();
+        const supabase = await createClient();
         const { data, error } = await supabase
           .from('ecomm-spring-25') // replace with your actual table name
           .select('*');
