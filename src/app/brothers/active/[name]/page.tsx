@@ -10,7 +10,7 @@ type Brother = {
   name: string;
   imageUrl: string;
   pronouns?: string;
-  position?: string;
+  linkedin?: string;
   location?: string;
   bio?: string;
 };
@@ -52,6 +52,7 @@ export default function BrotherBio() {
         <h1 className="text-3xl font-bold mb-2">{brother.name}</h1>
         <div className="text-lg mb-2">{brother.pronouns}</div>
         <div className="text-lg mb-2">{brother.location}</div>
+        <div className="text-lg mb-2">{brother.linkedin}</div>
         <div className="max-w-xl text-center text-base mt-4 whitespace-pre-line">{brother.bio}</div>
       </main>
       <Footer />
