@@ -9,7 +9,7 @@ import Link from 'next/link';
 
 export default function ExecutiveCommittee() {
 
-  type ecomMember = {name: string, image_path: string, pronouns: string, position: string, location: string, bio: string, linkedin: string} 
+  type ecomMember = {name: string, image_path: string, pronouns: string, position: string, location: string, bio: string, linkedin: string, imageUrl?: string} 
   
 
     const [ecom, setEcom] = useState<ecomMember[]>([]);
@@ -25,7 +25,18 @@ export default function ExecutiveCommittee() {
         if (error) {
           console.error('Error fetching ECOM data:', error);
         } else {
-          setEcom(data);
+          // For each member, get the public image URL from storage
+          const ecomWithImages = data.map((member: ecomMember) => {
+            const { data: publicUrlData } = supabase
+              .storage
+              .from('brothers-spring25')
+              .getPublicUrl(member.image_path);
+            return {
+              ...member,
+              imageUrl: publicUrlData?.publicUrl || '',
+            };
+          });
+          setEcom(ecomWithImages);
         }
 
         setLoading(false);
@@ -60,7 +71,7 @@ export default function ExecutiveCommittee() {
                 className="flex bg-white rounded-xl shadow-md p-6 transition hover:shadow-lg"
               >
                 <div>
-                  <img src={`/home/brothers/${member.image_path}`}/>
+                  <img src={member.imageUrl} alt={member.name} />
                 </div>
                 <div>
                 <h2 className="text-xl text-gray-700 font-bold">{member.name}</h2>
