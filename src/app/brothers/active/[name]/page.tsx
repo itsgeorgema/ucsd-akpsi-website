@@ -79,7 +79,6 @@ export default function BrotherPage() {
                     {loading && (
             <div className="flex flex-col items-center justify-center min-h-[60vh] text-white">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mb-4"></div>
-              <div className={`text-xl ${akpsiFonts.sectionTextFont}`}>Loading brother profile...</div>
             </div>
           )}
           {!loading && !brother && (
