@@ -28,10 +28,8 @@ export default function Home() {
           setCompanies([]);
         } else if (data) {
           console.log('Fetched companies data:', data);
-          // Generate public URLs for each company image
           const companiesWithUrls = data.map(company => {
             console.log('Processing company:', company);
-            // Clean the image_path by trimming whitespace and newlines
             const cleanImagePath = company.image_path.trim();
             const { data: imageData } = supabase.storage
               .from('home-page-companies')
@@ -150,15 +148,15 @@ export default function Home() {
 
         {/* PRESIDENT'S MESSAGE SECTION */}
         <section className="relative z-10 flex flex-col md:flex-row items-center justify-center w-full py-16 px-4 md:px-0 bg-white font-hero">
-          <div className="flex-1 max-w-2xl w-full md:pr-12 text-black">
+        <div className="flex-1 max-w-2xl w-full md:pr-12 text-black">
             <h3 className="text-5xl font-bold mb-8 leading-tight text-left">FROM<br />OUR PRESIDENT</h3>
             <p className="mb-4 text-base font-normal leading-relaxed text-left">Welcome! This is the website for the Nu Xi Chapter of Alpha Kappa Psi. Here, you can explore our values, who our brothers are, and how you can get involved. Before diving into the details, the brothers of the Nu Xi Chapter would like to thank you for your interest in our fraternity.</p>
-            <p className="mb-4 text-base font-normal leading-relaxed text-left">Alpha Kappa Psi is a pre-professional student fraternity here at UC San Diego. We are built on the key values of Brotherhood, Knowledge, Integrity, Unity, and Service. The community you&apos;ll find here at Alpha Kappa Psi is unparalleled. Not only do our brothers strive towards their personal and professional aspirations, but we do so together, building genuine bonds that last us a lifetime.</p>
-            <p className="mb-4 text-base font-normal leading-relaxed text-left">Our brothers come from diverse backgrounds and majors, ranging from Business and Engineering to Arts and Sciences. This diversity allows us to learn from each other&apos;s perspectives and experiences, creating a well-rounded community that prepares us for the real world.</p>
-            <p className="mb-4 text-base font-normal leading-relaxed text-left">We hope this website gives you a glimpse into what makes our chapter special. Feel free to explore and learn more about our brothers, events, and opportunities. If you have any questions or would like to get involved, don&apos;t hesitate to reach out!</p>
+            <p className="mb-4 text-base font-normal leading-relaxed text-left">Alpha Kappa Psi is a pre-professional student fraternity here at UC San Diego. We are built on the key values of Brotherhood, Knowledge, Integrity, Unity, and Service. The community you’ll find here at Alpha Kappa Psi is unparalleled. Not only do our brothers strive towards their personal and professional aspirations, but we do so together, building genuine bonds that last us a lifetime.</p>
+            <p className="mb-4 text-base font-normal leading-relaxed text-left">With that being said, we highly encourage you to explore our website to learn more about our fraternity, our brothers, and what we stand for. If you’re interested in joining our community, we encourage you to come out to our upcoming Fall 2025 Rush. At Rush, you’ll get the chance to meet the brothers and learn more about how this fraternity can help you grow both personally and professionally.</p>
+            <div className="mt-6 text-base font-normal text-left">Sincerely,<br />Lebron James</div>
           </div>
-          <div className="flex-1 max-w-md w-full md:pl-12">
-            <img src="/about/group-about.jpg" alt="President" className="w-full h-auto rounded-lg shadow-lg" />
+          <div className="flex-1 flex justify-center items-center w-full max-w-lg mt-10 md:mt-0">
+            <img src="/home/president.png" alt="President" className="w-full max-w-xs md:max-w-sm h-auto rounded-none object-cover" />
           </div>
         </section>
 
