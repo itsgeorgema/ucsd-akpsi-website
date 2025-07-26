@@ -1,8 +1,62 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { createClient } from '../../supabase/client';
 import Footer from '../components/Footer';
 import ScrollArrow from '../components/ScrollArrow';
 import { heroFont } from '../styles/fonts';
 
+interface Company {
+  image_path: string;
+  imageUrl: string;
+}
+
 export default function Home() {
+  const [companies, setCompanies] = useState<Company[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCompanies = async () => {
+      try {
+        const supabase = createClient();
+        const { data, error } = await supabase
+          .from('companies')
+          .select('image_path');
+
+        if (error) {
+          console.error('Error fetching companies:', error);
+          setCompanies([]);
+        } else if (data) {
+          console.log('Fetched companies data:', data);
+          const companiesWithUrls = data.map(company => {
+            console.log('Processing company:', company);
+            const cleanImagePath = company.image_path.trim();
+            const { data: imageData } = supabase.storage
+              .from('home-page-companies')
+              .getPublicUrl(cleanImagePath);
+            
+            console.log('Generated URL for', cleanImagePath, ':', imageData.publicUrl);
+            
+            return {
+              image_path: cleanImagePath,
+              imageUrl: imageData.publicUrl,
+            };
+          });
+
+          console.log('Final companies with URLs:', companiesWithUrls);
+          setCompanies(companiesWithUrls);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        setCompanies([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCompanies();
+  }, []);
+
   return (
     <div className="relative w-full min-h-screen flex flex-col justify-between">
       {/* Fixed full-page background */}
@@ -84,7 +138,7 @@ export default function Home() {
         <section className="relative z-10 flex items-center justify-center w-full min-h-[440px] md:min-h-[520px] py-16 md:py-24" style={{ background: 'none' }}>
           <div className="max-w-lg w-full px-6 md:px-12 flex flex-col items-start justify-center mx-auto">
             <h2 className={`text-white text-2xl md:text-4xl font-light mb-6 leading-snug text-left ${heroFont}`} style={{textShadow: '0 2px 16px rgba(0,0,0,0.25)'}}>
-              Alpha Kappa Psi <b>(ΑΚΨ)</b> is the nation’s premier<br />
+              Alpha Kappa Psi <b>(ΑΚΨ)</b> is the nation&apos;s premier<br />
               co-ed Business fraternity,<br />
               providing mentorship and resources to students through programs, alumni networks, and much more.
             </h2>
@@ -94,7 +148,7 @@ export default function Home() {
 
         {/* PRESIDENT'S MESSAGE SECTION */}
         <section className="relative z-10 flex flex-col md:flex-row items-center justify-center w-full py-16 px-4 md:px-0 bg-white font-hero">
-          <div className="flex-1 max-w-2xl w-full md:pr-12 text-black">
+        <div className="flex-1 max-w-2xl w-full md:pr-12 text-black">
             <h3 className="text-5xl font-bold mb-8 leading-tight text-left">FROM<br />OUR PRESIDENT</h3>
             <p className="mb-4 text-base font-normal leading-relaxed text-left">Welcome! This is the website for the Nu Xi Chapter of Alpha Kappa Psi. Here, you can explore our values, who our brothers are, and how you can get involved. Before diving into the details, the brothers of the Nu Xi Chapter would like to thank you for your interest in our fraternity.</p>
             <p className="mb-4 text-base font-normal leading-relaxed text-left">Alpha Kappa Psi is a pre-professional student fraternity here at UC San Diego. We are built on the key values of Brotherhood, Knowledge, Integrity, Unity, and Service. The community you’ll find here at Alpha Kappa Psi is unparalleled. Not only do our brothers strive towards their personal and professional aspirations, but we do so together, building genuine bonds that last us a lifetime.</p>
@@ -108,6 +162,7 @@ export default function Home() {
 
         {/* INDUSTRIES SECTION */}
         <section className="relative py-20 flex justify-center items-center">
+          {/* Gradient overlay, same as values section */}
           <div
             className="absolute inset-0 w-full h-full pointer-events-none rounded-none"
             style={{
@@ -162,42 +217,26 @@ export default function Home() {
         <section className="relative py-16 bg-white z-10">
           <h2 className="text-3xl md:text-4xl font-semibold text-center mb-10 tracking-widest text-gray-600">WHERE WE&apos;RE AT</h2>
           <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-8 items-center justify-items-center px-4">
-            {/* Row 1 */}
-            <img src="/home/companies/apple.png" alt="Apple" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/google.png" alt="Google" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/amazon.png" alt="Amazon" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/nvidia.png" alt="Nvidia" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/meta.png" alt="Meta" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/atlassian.png" alt="Atlassian" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/tesla.png" alt="Tesla" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/microsoft.png" alt="Microsoft" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/stifel.png" alt="Stifel" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/deloitte.png" alt="Deloitte" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/fullscreen.png" alt="Fullscreen" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/sony.png" alt="Sony" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/mercedes.png" alt="Mercedes" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/nike.png" alt="Nike" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/citi.png" alt="Citi" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/viasat.png" alt="Viasat" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/ameritrade.png" alt="Ameritrade" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/purestorage.png" alt="PureStorage" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/bespoke.png" alt="Bespoke" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/cbs.png" alt="CBS" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/Lumentum.png" alt="Lumentum" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/livenation.png" alt="LiveNation" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/blackrock.png" alt="BlackRock" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/bankofamerica.png" alt="BankofAmerica" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/johnsonjohnson.png" alt="JohnsonJohnson" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/capitaladvisors.png" alt="CapitalAdvisors" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/visa.png" alt="Visa" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/hewlettpackard.png" alt="HewlettPackard" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/adobe.png" alt="Adobe" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/goldmansachs.png" alt="GoldmanSachs" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/bainbridge.png" alt="Bainbridge" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/outreach.png" alt="Outreach" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/warnerbros.png" alt="WarnerBros" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/ibm.png" alt="IBM" className="w-40 h-24 object-contain" />
-            <img src="/home/companies/dreamworks.png" alt="Dreamworks" className="w-40 h-24 object-contain" />
+            {loading ? (
+              <div className="col-span-5 text-center text-gray-500">Loading companies...</div>
+            ) : (
+              <>
+                {console.log('Rendering companies:', companies)}
+                {companies.length === 0 ? (
+                  <div className="col-span-5 text-center text-gray-500">No companies found</div>
+                ) : (
+                  companies.map((company, index) => (
+                    <img 
+                      key={index}
+                      src={company.imageUrl} 
+                      alt={company.image_path ? company.image_path.replace('.png', '') : 'Company logo'} 
+                      className="w-40 h-24 object-contain" 
+                      onError={() => console.error('Image failed to load:', company.imageUrl)}
+                    />
+                  ))
+                )}
+              </>
+            )}
           </div>
         </section>
 
