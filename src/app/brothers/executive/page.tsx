@@ -58,31 +58,33 @@ export default function ExecutiveCommittee() {
       <div className="relative z-20 flex flex-col min-h-screen justify-between">
 
       
-        <div className="text-center">
+        <div className="">
           <h2 className={`text-3xl md:text-4xl mb-10 text-center text-white font-bold`}>
-            Executive Committee
+            EXECUTIVE COMMITTEE
           </h2>
 
           
-          <div className="flex flex-col items-center">
+          <div className="w-screen flex flex-col items-center">
             {ecom.map((member) => (
               <div
                 key={member.name}
-                className="flex bg-white rounded-xl shadow-md p-6 transition hover:shadow-lg"
+                className="flex w-full h-[1100px] bg-white shadow-md transition hover:shadow-lg"
               >
-                <div>
-                  <img src={member.imageUrl} alt={member.name} />
+                <div className="w-1/3 h-full">
+                  <img className="w-full h-full object-cover" src={member.imageUrl} alt={member.name} />
                 </div>
-                <div>
-                <h2 className="text-xl text-gray-700 font-bold">{member.name}</h2>
-                <p className="text-sm text-gray-700">{member.pronouns}</p>
-                <p className="text-blue-600 font-semibold">{member.position}</p>
-                <p className="text-sm text-gray-700 italic">{member.location}</p>
-                <p className="mt-2 text-gray-700">{member.bio}</p>
-                <button 
-                className="inline-block border-2 border-color-black px-10 py-2 font-semibold text-sm text-gray-700 hover: bg-black-700"
-                ><Link href={member.linkedin}>LinkedIn</Link>
-                </button>
+                <div className="flex flex-col w-2/3 space-y-4 h-full px-10 py-6">
+                  <p className="text-black">{member.position}</p>
+                  <h2 className="text-5xl text-black">{member.name}</h2>
+                  <p className="text-sm text-black italic">{member.pronouns}</p>
+                  <p className="text-sm text-black italic">{member.location}</p>
+                  <p className="mt-2 text-black">{member.bio}</p>
+                  <Link href={member.linkedin}> 
+                    <button 
+                    className="cursor-pointer w-[140px] flex border-2 border-color-black px-10 py-2 text-sm text-black transition duration-250 hover:bg-black hover:text-white"
+                    >LinkedIn
+                    </button>
+                  </Link>
                 </div>
 
               </div>
