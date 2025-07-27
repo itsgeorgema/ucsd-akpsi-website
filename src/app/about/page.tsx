@@ -1,11 +1,21 @@
 "use client";
 
+import { useState, useEffect } from 'react';
 import ScrollArrow from '../../components/ScrollArrow';
 import Footer from '../../components/Footer';
+import LoadingSpinner from '../../components/LoadingSpinner';
 import { akpsiColors } from '../../styles/colors';
 import { akpsiFonts } from '../../styles/fonts';
 
 export default function About() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Set loading to false immediately when component mounts
+    // This will be replaced with actual data fetching logic later
+    setLoading(false);
+  }, []);
+
   // Text content variables
   const pageContent = {
     hero: {
@@ -51,110 +61,118 @@ export default function About() {
         }}
       />
       
-      {/* Hero Section */}
-      <section className="relative h-[80vh] flex flex-col items-center justify-center text-center z-10">
-        {/* Crest/Logo */}
-        <div className="relative z-10 flex flex-col items-center">
-          <div className="mb-8">
-            <img src="/about/crest.png" alt="AKPsi Crest" className="object-contain w-72 h-80 mx-auto" />
-          </div>
-          <h1 className={`text-5xl md:text-7xl mb-6 drop-shadow-2xl ${akpsiColors.heroTitle} ${akpsiFonts.heroTitleFont}`}>{pageContent.hero.title}</h1>
-          <p className={`text-xl md:text-2xl mb-12 drop-shadow-lg max-w-3xl mx-auto ${akpsiColors.heroSubtitle} ${akpsiFonts.sectionTextFont}`}>
-            {pageContent.hero.subtitle}
-          </p>
-          <ScrollArrow />
-        </div>
-      </section>
+      {loading ? (
+        <main className="flex-1 flex items-center justify-center py-16 px-4">
+          <LoadingSpinner size="large" fullScreen={false} type="component" />
+        </main>
+      ) : (
+        <>
+          {/* Hero Section */}
+          <section className="relative h-[80vh] flex flex-col items-center justify-center text-center z-10">
+            {/* Crest/Logo */}
+            <div className="relative z-10 flex flex-col items-center">
+              <div className="mb-8">
+                <img src="/about/crest.png" alt="AKPsi Crest" className="object-contain w-72 h-80 mx-auto" />
+              </div>
+              <h1 className={`text-5xl md:text-7xl mb-6 drop-shadow-2xl ${akpsiColors.heroTitle} ${akpsiFonts.heroTitleFont}`}>{pageContent.hero.title}</h1>
+              <p className={`text-xl md:text-2xl mb-12 drop-shadow-lg max-w-3xl mx-auto ${akpsiColors.heroSubtitle} ${akpsiFonts.sectionTextFont}`}>
+                {pageContent.hero.subtitle}
+              </p>
+              <ScrollArrow />
+            </div>
+          </section>
 
-      {/* What is Alpha Kappa Psi Section */}
-      <section id="akpsi-info" className={`relative py-20 z-10 ${akpsiColors.sectionBg}`}>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className={`text-4xl text-center mb-12 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>{pageContent.akpsiInfo.title}</h2>
-          <div className={`space-y-6 text-lg leading-relaxed ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
-            {pageContent.akpsiInfo.paragraphs.map((paragraph, index) => (
-              <p key={index} dangerouslySetInnerHTML={{ __html: paragraph }} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Main Image */}
-      <section className={`relative py-0 z-10 ${akpsiColors.mainBg}`}>
-        <div className="w-full">
-          <div className="w-full h-[36rem] rounded-none overflow-hidden flex items-center justify-center">
-            <img src="/about/group-about.jpg" alt="Group Photo About Page" className="w-full h-full object-cover" />
-          </div>
-        </div>
-      </section>
-
-      {/* About Nu Xi Chapter Section */}
-      <section className={`relative py-20 z-10 ${akpsiColors.sectionBg}`}>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className={`text-4xl text-center mb-8 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>{pageContent.nuXiInfo.title}</h2>
-          <h3 className={`text-2xl text-center mb-12 ${akpsiColors.sectionSubtitle} ${akpsiFonts.sectionSubtitleFont}`}>{pageContent.nuXiInfo.subtitle}</h3>
-          <div className={`space-y-6 text-lg leading-relaxed ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
-            {pageContent.nuXiInfo.paragraphs.map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Chapter Statistics */}
-      <section className={`relative py-20 z-10 ${akpsiColors.sectionBg}`}>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className={`text-4xl text-center mb-16 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>{pageContent.statistics.title}</h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            {/* Gender Statistics */}
-            <div className="text-center">
-              <h3 className={`text-2xl mb-8 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>{pageContent.statistics.genderTitle}</h3>
-              <div className={`w-64 h-64 ${akpsiColors.statCircleBg} rounded-full mx-auto flex items-center justify-center mb-4`}>
-                <span className={`text-lg ${akpsiColors.statCircleText}`}>{pageContent.statistics.genderPlaceholder}</span>
+          {/* What is Alpha Kappa Psi Section */}
+          <section id="akpsi-info" className={`relative py-20 z-10 ${akpsiColors.sectionBg}`}>
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 className={`text-4xl text-center mb-12 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>{pageContent.akpsiInfo.title}</h2>
+              <div className={`space-y-6 text-lg leading-relaxed ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
+                {pageContent.akpsiInfo.paragraphs.map((paragraph, index) => (
+                  <p key={index} dangerouslySetInnerHTML={{ __html: paragraph }} />
+                ))}
               </div>
             </div>
-            {/* Grade Level Statistics */}
-            <div className="text-center">
-              <h3 className={`text-2xl mb-8 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>{pageContent.statistics.gradeLevelTitle}</h3>
-              <div className={`w-64 h-64 ${akpsiColors.statCircleBg} rounded-full mx-auto flex items-center justify-center mb-4`}>
-                <span className={`text-lg ${akpsiColors.statCircleText}`}>{pageContent.statistics.gradeLevelPlaceholder}</span>
+          </section>
+
+          {/* Main Image */}
+          <section className={`relative py-0 z-10 ${akpsiColors.mainBg}`}>
+            <div className="w-full">
+              <div className="w-full h-[36rem] rounded-none overflow-hidden flex items-center justify-center">
+                <img src="/about/group-about.jpg" alt="Group Photo About Page" className="w-full h-full object-cover" />
               </div>
             </div>
-          </div>
-        </div>
-      </section>
+          </section>
 
-      {/* Contact Section */}
-      <section className={`relative py-20 z-10 ${akpsiColors.sectionBg}`}>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className={`text-4xl text-center mb-8 ${akpsiColors.black} ${akpsiFonts.sectionTitleFont}`}>{pageContent.contact.title}</h2>
-          <p className={`text-center mb-12 text-lg max-w-2xl mx-auto ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
-            {pageContent.contact.subtitle}
-          </p>
-          
-          <a
-            href="/contact"
-            className={`inline-block px-8 py-3 rounded-lg transition-colors font-semibold ${akpsiColors.contactButton}`}
-          >
-            {pageContent.contact.buttonText}
-          </a>
-        </div>
-      </section>
+          {/* About Nu Xi Chapter Section */}
+          <section className={`relative py-20 z-10 ${akpsiColors.sectionBg}`}>
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 className={`text-4xl text-center mb-8 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>{pageContent.nuXiInfo.title}</h2>
+              <h3 className={`text-2xl text-center mb-12 ${akpsiColors.sectionSubtitle} ${akpsiFonts.sectionSubtitleFont}`}>{pageContent.nuXiInfo.subtitle}</h3>
+              <div className={`space-y-6 text-lg leading-relaxed ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
+                {pageContent.nuXiInfo.paragraphs.map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
+              </div>
+            </div>
+          </section>
 
-      {/* Group Photo Section */}
-      <section className={`relative py-0 z-10 ${akpsiColors.sectionBg}`}>
-        <div className="w-full">
-          <div className="w-full h-[33rem] rounded-none overflow-hidden flex items-center justify-center">
-            <img 
-              src="/about/group2.jpg" 
-              alt="Alpha Kappa Psi Nu Xi Chapter Group Photo on Beach" 
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </div>
-      </section>
+          {/* Chapter Statistics */}
+          <section className={`relative py-20 z-10 ${akpsiColors.sectionBg}`}>
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 className={`text-4xl text-center mb-16 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>{pageContent.statistics.title}</h2>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                {/* Gender Statistics */}
+                <div className="text-center">
+                  <h3 className={`text-2xl mb-8 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>{pageContent.statistics.genderTitle}</h3>
+                  <div className={`w-64 h-64 ${akpsiColors.statCircleBg} rounded-full mx-auto flex items-center justify-center mb-4`}>
+                    <span className={`text-lg ${akpsiColors.statCircleText}`}>{pageContent.statistics.genderPlaceholder}</span>
+                  </div>
+                </div>
+                {/* Grade Level Statistics */}
+                <div className="text-center">
+                  <h3 className={`text-2xl mb-8 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>{pageContent.statistics.gradeLevelTitle}</h3>
+                  <div className={`w-64 h-64 ${akpsiColors.statCircleBg} rounded-full mx-auto flex items-center justify-center mb-4`}>
+                    <span className={`text-lg ${akpsiColors.statCircleText}`}>{pageContent.statistics.gradeLevelPlaceholder}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
 
-      {/* Footer */}
-      <Footer />
+          {/* Contact Section */}
+          <section className={`relative py-20 z-10 ${akpsiColors.sectionBg}`}>
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+              <h2 className={`text-4xl text-center mb-8 ${akpsiColors.black} ${akpsiFonts.sectionTitleFont}`}>{pageContent.contact.title}</h2>
+              <p className={`text-center mb-12 text-lg max-w-2xl mx-auto ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
+                {pageContent.contact.subtitle}
+              </p>
+              
+              <a
+                href="/contact"
+                className={`inline-block px-8 py-3 rounded-lg transition-colors font-semibold ${akpsiColors.contactButton}`}
+              >
+                {pageContent.contact.buttonText}
+              </a>
+            </div>
+          </section>
+
+          {/* Group Photo Section */}
+          <section className={`relative py-0 z-10 ${akpsiColors.sectionBg}`}>
+            <div className="w-full">
+              <div className="w-full h-[33rem] rounded-none overflow-hidden flex items-center justify-center">
+                <img 
+                  src="/about/group2.jpg" 
+                  alt="Alpha Kappa Psi Nu Xi Chapter Group Photo on Beach" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </section>
+
+          {/* Footer */}
+          <Footer />
+        </>
+      )}
     </div>
   );
 }

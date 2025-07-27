@@ -77,7 +77,7 @@ export default function ExecutiveCommittee() {
       <div className="fixed top-0 left-0 w-full h-full z-10 bg-gradient-to-br from-black/40 via-black/30 to-black/50" />
       <div className="relative z-20 min-h-screen flex flex-col">
         <Navbar />
-        <main className="flex-1 flex items-center justify-center py-16 px-4 mt-20">
+        <main className="flex-1 flex items-center justify-center py-16 px-4">
           {loading && (
             <LoadingSpinner size="large" fullScreen={false} type="component" />
           )}
@@ -119,7 +119,7 @@ export default function ExecutiveCommittee() {
                       
                       {/* Enhanced Content Section */}
                       <div className="lg:col-span-2 flex flex-col h-full">
-                        <div className={`${akpsiColors.sectionBg}/95 backdrop-blur-md rounded-3xl shadow-2xl p-8 lg:p-12 border ${akpsiColors.sectionBg}/20`}>
+                        <div className={`${akpsiColors.sectionBg} rounded-3xl shadow-2xl p-8 lg:p-12 border border-gray-200`}>
                           {/* Header Section */}
                           <div className="mb-8">
                             <div className="flex items-center mb-4">
