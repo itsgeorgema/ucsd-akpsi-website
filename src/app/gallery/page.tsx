@@ -91,7 +91,7 @@ export default function Gallery() {
                       <img 
                         src={image.imageUrl} 
                         alt={`Gallery image ${index + 1}`} 
-                        className="w-full h-64 object-cover"
+                        className="w-full h-80 object-cover"
                       />
                     </div>
                   </div>
