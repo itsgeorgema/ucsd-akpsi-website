@@ -10,14 +10,43 @@ import Link from 'next/link';
 
 export default function ActiveBrothers() {
   const [brothers, setBrothers] = useState<Array<{ name: string; imageUrl: string }>>([]);
+  const [backgroundImage, setBackgroundImage] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const pathname = usePathname();
 
   useEffect(() => {
-    const fetchImages = async () => {
+    const fetchData = async () => {
       try {
         const supabase = await createClient();
         
+        // Fetch background image
+        console.log('Starting to fetch background image...');
+        const { data: bgData, error: bgError } = await supabase
+          .from('brothers-page')
+          .select('*');
+
+        if (bgError) {
+          console.error('Error fetching background image:', bgError);
+        } else if (bgData) {
+          console.log('All data in brothers-page table:', bgData);
+          
+          // Find the background image by looking for the specific filename
+          const backgroundItem = bgData.find(item => item.image_path === 'brothersBackground.jpeg');
+          console.log('Found background item:', backgroundItem);
+          
+          if (backgroundItem) {
+            const { data: imageData } = supabase.storage
+              .from('brothers-page')
+              .getPublicUrl(backgroundItem.image_path);
+            
+            console.log('Background image URL:', imageData.publicUrl);
+            setBackgroundImage(imageData.publicUrl);
+          } else {
+            console.log('brothersBackground.jpeg not found in table');
+          }
+        }
+        
+        // Fetch brothers data
         const { data, error } = await supabase
           .from('actives-spring25')
           .select('image_path, name')
@@ -45,16 +74,18 @@ export default function ActiveBrothers() {
         setLoading(false);
       }
     };
-    fetchImages();
+    fetchData();
   }, [pathname]);
 
   return (
     <div className="relative min-h-screen flex flex-col">
       {/* Full Page Background */}
-      <div 
-        className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url(/brothers/brothersBackground.jpg)" }}
-      />
+      {backgroundImage && (
+        <div 
+          className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${backgroundImage})` }}
+        />
+      )}
       {/* Overlay for readability */}
       <div className="fixed top-0 left-0 w-full h-full z-10 bg-black/30" />
       <div className="relative z-20 min-h-screen flex flex-col">

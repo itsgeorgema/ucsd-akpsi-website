@@ -20,12 +20,42 @@ interface Executive {
 
 export default function ExecutiveCommittee() {
   const [executives, setExecutives] = useState<Executive[]>([]);
+  const [backgroundImage, setBackgroundImage] = useState<string>('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchExecutives = async () => {
+    const fetchData = async () => {
       try {
         const supabase = createClient();
+        
+        // Fetch background image
+        console.log('Starting to fetch background image...');
+        const { data: bgData, error: bgError } = await supabase
+          .from('brothers-page')
+          .select('*');
+
+        if (bgError) {
+          console.error('Error fetching background image:', bgError);
+        } else if (bgData) {
+          console.log('All data in brothers-page table:', bgData);
+          
+          // Find the background image by looking for the specific filename
+          const backgroundItem = bgData.find(item => item.image_path === 'brothersBackground.jpeg');
+          console.log('Found background item:', backgroundItem);
+          
+          if (backgroundItem) {
+            const { data: imageData } = supabase.storage
+              .from('brothers-page')
+              .getPublicUrl(backgroundItem.image_path);
+            
+            console.log('Background image URL:', imageData.publicUrl);
+            setBackgroundImage(imageData.publicUrl);
+          } else {
+            console.log('brothersBackground.jpeg not found in table');
+          }
+        }
+        
+        // Fetch executives data
         const { data, error } = await supabase
           .from('ecomm-spring-25')
           .select('*');
@@ -63,16 +93,18 @@ export default function ExecutiveCommittee() {
       }
     };
 
-    fetchExecutives();
+    fetchData();
   }, []);
 
   return (
     <div className="relative min-h-screen flex flex-col">
       {/* Full Page Background */}
-      <div 
-        className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url(/brothers/brothersBackground.jpg)" }}
-      />
+      {backgroundImage && (
+        <div 
+          className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${backgroundImage})` }}
+        />
+      )}
       {/* Enhanced overlay for better readability */}
       <div className="fixed top-0 left-0 w-full h-full z-10 bg-gradient-to-br from-black/40 via-black/30 to-black/50" />
       <div className="relative z-20 min-h-screen flex flex-col">
