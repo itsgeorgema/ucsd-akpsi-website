@@ -195,11 +195,11 @@ export default function Home() {
                   {president ? president.name : 'Loading...'}
                 </div>
               </div>
-              <div className="flex-1 flex justify-center items-center w-full max-w-lg mt-10 md:mt-0">
+              <div className="flex-1 flex justify-center items-center w-full max-w-xl mt-10 md:mt-0">
                 {president ? (
-                  <img src={president.imageUrl} alt={`${president.name} - President`} className="w-full max-w-sm md:max-w-md h-auto rounded-2xl object-cover" />
+                  <img src={president.imageUrl} alt={`${president.name} - President`} className="w-full max-w-md md:max-w-lg h-auto rounded-md object-cover scale-110" />
                 ) : (
-                  <div className="w-full max-w-sm md:max-w-md h-64 bg-gray-200 rounded-2xl flex items-center justify-center">
+                  <div className="w-full max-w-md md:max-w-lg h-80 bg-gray-200 rounded-2xl flex items-center justify-center">
                     <span className="text-gray-500">Loading president image...</span>
                   </div>
                 )}

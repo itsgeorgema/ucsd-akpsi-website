@@ -28,32 +28,14 @@ export default function ExecutiveCommittee() {
       try {
         const supabase = createClient();
         
-        // Fetch background image
+        // Fetch background image directly from storage
         console.log('Starting to fetch background image...');
-        const { data: bgData, error: bgError } = await supabase
-          .from('brothers-page')
-          .select('*');
-
-        if (bgError) {
-          console.error('Error fetching background image:', bgError);
-        } else if (bgData) {
-          console.log('All data in brothers-page table:', bgData);
-          
-          // Find the background image by looking for the specific filename
-          const backgroundItem = bgData.find(item => item.image_path === 'brothersBackground.jpeg');
-          console.log('Found background item:', backgroundItem);
-          
-          if (backgroundItem) {
-            const { data: imageData } = supabase.storage
-              .from('brothers-page')
-              .getPublicUrl(backgroundItem.image_path);
-            
-            console.log('Background image URL:', imageData.publicUrl);
-            setBackgroundImage(imageData.publicUrl);
-          } else {
-            console.log('brothersBackground.jpeg not found in table');
-          }
-        }
+        const { data: imageData } = supabase.storage
+          .from('background')
+          .getPublicUrl('background.jpeg');
+        
+        console.log('Background image URL:', imageData.publicUrl);
+        setBackgroundImage(imageData.publicUrl);
         
         // Fetch executives data
         const { data, error } = await supabase
