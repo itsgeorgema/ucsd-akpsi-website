@@ -59,11 +59,13 @@ export default function ActiveBrothers() {
               {brothers.map((brother, idx) => (
                 <div key={idx} className="flex flex-col items-center">
                   <Link href={`/brothers/active/${encodeURIComponent(brother.name)}`}>
-                    <img
-                      src={brother.imageUrl}
-                      alt={brother.name}
-                      className="w-80 h-80 object-contain rounded-small cursor-pointer hover:scale-105 transition-transform"
-                    />
+                    <div className="w-80 h-80 rounded-2xl overflow-hidden cursor-pointer hover:scale-105 transition-transform">
+                      <img
+                        src={brother.imageUrl}
+                        alt={brother.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                   </Link>
                   <span className="text-lg font-semibold mt-2 text-white" style={{fontFamily: 'Montserrat, Arial, Helvetica, sans-serif'}}>{brother.name}</span>
                 </div>
