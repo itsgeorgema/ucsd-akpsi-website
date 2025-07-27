@@ -119,7 +119,7 @@ export default function ExecutiveCommittee() {
                       
                       {/* Enhanced Content Section */}
                       <div className="lg:col-span-2 flex flex-col h-full">
-                        <div className={`${akpsiColors.sectionBg}/95 backdrop-blur-md rounded-3xl shadow-2xl p-8 lg:p-12 border ${akpsiColors.sectionBg}/20`}>
+                        <div className={`${akpsiColors.sectionBg} rounded-3xl shadow-2xl p-8 lg:p-12 border border-gray-200`}>
                           {/* Header Section */}
                           <div className="mb-8">
                             <div className="flex items-center mb-4">

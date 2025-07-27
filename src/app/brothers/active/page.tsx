@@ -68,21 +68,23 @@ export default function ActiveBrothers() {
                 <div className="text-white text-sm tracking-widest mb-2">INTRODUCING OUR</div>
                 <h1 className="text-5xl font-bold text-white tracking-wide mb-8">ACTIVE BROTHERS</h1>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12">
-                {brothers.map((brother, idx) => (
-                  <div key={idx} className="flex flex-col items-center">
-                    <Link href={`/brothers/active/${encodeURIComponent(brother.name)}`}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12">
+              {brothers.map((brother, idx) => (
+                <div key={idx} className="flex flex-col items-center">
+                  <Link href={`/brothers/active/${encodeURIComponent(brother.name.replace(/\s/g, ""))}`}>
+                    <div className="w-80 h-110 rounded-sm overflow-hidden cursor-pointer hover:scale-105 transition-transform">
                       <img
                         src={brother.imageUrl}
                         alt={brother.name}
-                        className="w-80 h-80 object-contain rounded-small cursor-pointer hover:scale-105 transition-transform"
+                        className="w-full h-full object-cover object-center scale-110"
                       />
-                    </Link>
-                    <span className="text-lg font-semibold mt-2 text-white" style={{fontFamily: 'Montserrat, Arial, Helvetica, sans-serif'}}>{brother.name}</span>
-                  </div>
-                ))}
-              </div>
+                    </div>
+                  </Link>
+                  <span className="text-lg font-semibold mt-2 text-white" style={{fontFamily: 'Montserrat, Arial, Helvetica, sans-serif'}}>{brother.name}</span>
+                </div>
+              ))}
             </div>
+          </div>
           )}
         </main>
         <Footer />

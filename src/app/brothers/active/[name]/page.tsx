@@ -32,28 +32,26 @@ export default function BrotherPage() {
         const supabase = createClient();
         const decodedName = decodeURIComponent(name);
         
-      const { data, error } = await supabase
-        .from('actives-spring25')
-        .select('*')
-          .eq('name', decodedName)
-        .single();
-
+        const { data, error } = await supabase
+          .from('actives-spring25')
+          .select('*');
+        
         if (error) {
           console.error('Error fetching brother:', error);
           setBrother(null);
         } else if (data) {
-          const { data: imageData } = supabase.storage
-          .from('brothers-spring25')
-          .getPublicUrl(data.image_path);
+          // Find brother by comparing the name without spaces
+          const found = data.find(b => b.name.replace(/\s/g, '') === decodedName);
+          if (found) {
+            const { data: publicUrlData } = supabase
+              .storage
+              .from('brothers-spring25')
+              .getPublicUrl(found.image_path);
 
-          setBrother({
-            name: data.name,
-            pronouns: data.pronouns,
-            location: data.location,
-            bio: data.bio,
-            linkedin: data.linkedin,
-            imageUrl: imageData.publicUrl,
-          });
+            setBrother({ ...found, imageUrl: publicUrlData?.publicUrl || '' });
+          } else {
+            setBrother(null);
+          }
         }
       } catch (error) {
         console.error('Error:', error);
@@ -108,7 +106,7 @@ export default function BrotherPage() {
                 
                 {/* Enhanced Content Section */}
                 <div className="lg:col-span-2 flex flex-col h-full">
-                  <div className={`${akpsiColors.sectionBg}/95 backdrop-blur-md rounded-3xl shadow-2xl p-8 lg:p-12 border ${akpsiColors.sectionBg}/20`}>
+                  <div className={`${akpsiColors.sectionBg} rounded-3xl shadow-2xl p-8 lg:p-12 border border-gray-200`}>
                     {/* Header Section */}
                     <div className="mb-8">
                       <div className="flex items-center mb-4">
