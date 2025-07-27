@@ -154,8 +154,8 @@ export default function About() {
                 {images.crest ? (
                   <img src={images.crest} alt="AKPsi Crest" className="object-contain w-72 h-80 mx-auto" />
                 ) : (
-                  <div className="w-72 h-80 bg-gray-200 flex items-center justify-center">
-                    <span className="text-gray-500">Loading crest...</span>
+                  <div className={`w-72 h-80 ${akpsiColors.statCircleBg} flex items-center justify-center`}>
+                    <span className={`${akpsiColors.statCircleText} ${akpsiFonts.bodyFont}`}>Loading crest...</span>
                   </div>
                 )}
               </div>
@@ -186,9 +186,9 @@ export default function About() {
                 {images.groupPhoto1 ? (
                   <img src={images.groupPhoto1} alt="Group Photo About Page" className="w-full h-full object-cover" />
                 ) : (
-                  <div className="w-full h-[36rem] bg-gray-200 flex items-center justify-center">
-                    <span className="text-gray-500">Loading group photo...</span>
-                  </div>
+                                  <div className={`w-full h-[36rem] ${akpsiColors.statCircleBg} flex items-center justify-center`}>
+                  <span className={`${akpsiColors.statCircleText} ${akpsiFonts.bodyFont}`}>Loading group photo...</span>
+                </div>
                 )}
               </div>
             </div>
@@ -223,8 +223,8 @@ export default function About() {
                         className="w-[28rem] h-[28rem] object-contain"
                       />
                     ) : (
-                      <div className="w-[28rem] h-[28rem] bg-gray-200 flex items-center justify-center rounded-lg">
-                        <span className="text-gray-500">Loading gender chart...</span>
+                      <div className={`w-[28rem] h-[28rem] ${akpsiColors.statCircleBg} flex items-center justify-center rounded-lg`}>
+                        <span className={`${akpsiColors.statCircleText} ${akpsiFonts.bodyFont}`}>Loading gender chart...</span>
                       </div>
                     )}
                   </div>
@@ -240,8 +240,8 @@ export default function About() {
                         className="w-[28rem] h-[28rem] object-contain"
                       />
                     ) : (
-                      <div className="w-[28rem] h-[28rem] bg-gray-200 flex items-center justify-center rounded-lg">
-                        <span className="text-gray-500">Loading grade level chart...</span>
+                      <div className={`w-[28rem] h-[28rem] ${akpsiColors.statCircleBg} flex items-center justify-center rounded-lg`}>
+                        <span className={`${akpsiColors.statCircleText} ${akpsiFonts.bodyFont}`}>Loading grade level chart...</span>
                       </div>
                     )}
                   </div>
@@ -278,9 +278,9 @@ export default function About() {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <div className="w-full h-[33rem] bg-gray-200 flex items-center justify-center">
-                    <span className="text-gray-500">Loading group photo...</span>
-                  </div>
+                                  <div className={`w-full h-[33rem] ${akpsiColors.statCircleBg} flex items-center justify-center`}>
+                  <span className={`${akpsiColors.statCircleText} ${akpsiFonts.bodyFont}`}>Loading group photo...</span>
+                </div>
                 )}
               </div>
             </div>
