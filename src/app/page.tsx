@@ -12,24 +12,32 @@ interface Company {
   imageUrl: string;
 }
 
+interface President {
+  name: string;
+  imageUrl: string;
+}
+
 export default function Home() {
   const [companies, setCompanies] = useState<Company[]>([]);
+  const [president, setPresident] = useState<President | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchCompanies = async () => {
+    const fetchData = async () => {
       try {
         const supabase = createClient();
-        const { data, error } = await supabase
+        
+        // Fetch companies
+        const { data: companiesData, error: companiesError } = await supabase
           .from('companies')
           .select('image_path');
 
-        if (error) {
-          console.error('Error fetching companies:', error);
+        if (companiesError) {
+          console.error('Error fetching companies:', companiesError);
           setCompanies([]);
-        } else if (data) {
-          console.log('Fetched companies data:', data);
-          const companiesWithUrls = data.map(company => {
+        } else if (companiesData) {
+          console.log('Fetched companies data:', companiesData);
+          const companiesWithUrls = companiesData.map(company => {
             console.log('Processing company:', company);
             const cleanImagePath = company.image_path.trim();
             const { data: imageData } = supabase.storage
@@ -47,6 +55,28 @@ export default function Home() {
           console.log('Final companies with URLs:', companiesWithUrls);
           setCompanies(companiesWithUrls);
         }
+
+        // Fetch president data
+        const { data: presidentData, error: presidentError } = await supabase
+          .from('ecomm-spring-25')
+          .select('name, image_path')
+          .eq('position', 'President')
+          .single();
+
+        if (presidentError) {
+          console.error('Error fetching president:', presidentError);
+        } else if (presidentData) {
+          console.log('Fetched president data:', presidentData);
+          const cleanImagePath = presidentData.image_path.trim();
+          const { data: imageData } = supabase.storage
+            .from('brothers-spring25')
+            .getPublicUrl(cleanImagePath);
+          
+          setPresident({
+            name: presidentData.name,
+            imageUrl: imageData.publicUrl
+          });
+        }
       } catch (error) {
         console.error('Error:', error);
         setCompanies([]);
@@ -55,7 +85,7 @@ export default function Home() {
       }
     };
 
-    fetchCompanies();
+    fetchData();
   }, []);
 
   return (
@@ -160,10 +190,19 @@ export default function Home() {
                 <p className="mb-4 text-base font-normal leading-relaxed text-left">Welcome! This is the website for the Nu Xi Chapter of Alpha Kappa Psi. Here, you can explore our values, who our brothers are, and how you can get involved. Before diving into the details, the brothers of the Nu Xi Chapter would like to thank you for your interest in our fraternity.</p>
                 <p className="mb-4 text-base font-normal leading-relaxed text-left">Alpha Kappa Psi is a pre-professional student fraternity here at UC San Diego. We are built on the key values of Brotherhood, Knowledge, Integrity, Unity, and Service. The community you'll find here at Alpha Kappa Psi is unparalleled. Not only do our brothers strive towards their personal and professional aspirations, but we do so together, building genuine bonds that last us a lifetime.</p>
                 <p className="mb-4 text-base font-normal leading-relaxed text-left">With that being said, we highly encourage you to explore our website to learn more about our fraternity, our brothers, and what we stand for. If you're interested in joining our community, we encourage you to come out to our upcoming Fall 2025 Rush. At Rush, you'll get the chance to meet the brothers and learn more about how this fraternity can help you grow both personally and professionally.</p>
-                <div className="mt-6 text-base font-normal text-left">Sincerely,<br />Lebron James</div>
+                <div className="mt-6 text-base font-normal text-left">
+                  Sincerely,<br />
+                  {president ? president.name : 'Loading...'}
+                </div>
               </div>
               <div className="flex-1 flex justify-center items-center w-full max-w-lg mt-10 md:mt-0">
-                <img src="/home/president.png" alt="President" className="w-full max-w-xs md:max-w-sm h-auto rounded-none object-cover" />
+                {president ? (
+                  <img src={president.imageUrl} alt={`${president.name} - President`} className="w-full max-w-sm md:max-w-md h-auto rounded-2xl object-cover" />
+                ) : (
+                  <div className="w-full max-w-sm md:max-w-md h-64 bg-gray-200 rounded-2xl flex items-center justify-center">
+                    <span className="text-gray-500">Loading president image...</span>
+                  </div>
+                )}
               </div>
             </section>
 
