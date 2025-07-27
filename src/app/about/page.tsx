@@ -140,11 +140,12 @@ export default function About() {
         />
       )}
       
-      {loading ? (
-        <main className="flex-1 flex items-center justify-center py-16 px-4">
-          <LoadingSpinner size="large" fullScreen={false} type="component" />
-        </main>
-      ) : (
+      <div className="relative z-20 min-h-screen flex flex-col">
+        {loading ? (
+          <main className="flex-1 flex items-center justify-center py-16 px-4">
+            <LoadingSpinner size="large" fullScreen={false} type="component" />
+          </main>
+        ) : (
         <>
           {/* Hero Section */}
           <section className="relative h-[80vh] flex flex-col items-center justify-center text-center z-10">
@@ -289,7 +290,8 @@ export default function About() {
           {/* Footer */}
           <Footer />
         </>
-      )}
+        )}
+      </div>
     </div>
   );
 }
