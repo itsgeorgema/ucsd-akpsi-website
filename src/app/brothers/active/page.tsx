@@ -10,14 +10,25 @@ import Link from 'next/link';
 
 export default function ActiveBrothers() {
   const [brothers, setBrothers] = useState<Array<{ name: string; imageUrl: string }>>([]);
+  const [backgroundImage, setBackgroundImage] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const pathname = usePathname();
 
   useEffect(() => {
-    const fetchImages = async () => {
+    const fetchData = async () => {
       try {
         const supabase = await createClient();
         
+        // Fetch background image directly from storage
+        console.log('Starting to fetch background image...');
+        const { data: imageData } = supabase.storage
+          .from('background')
+          .getPublicUrl('background.jpeg');
+        
+        console.log('Background image URL:', imageData.publicUrl);
+        setBackgroundImage(imageData.publicUrl);
+        
+        // Fetch brothers data
         const { data, error } = await supabase
           .from('actives-spring25')
           .select('image_path, name')
@@ -45,16 +56,18 @@ export default function ActiveBrothers() {
         setLoading(false);
       }
     };
-    fetchImages();
+    fetchData();
   }, [pathname]);
 
   return (
     <div className="relative min-h-screen flex flex-col">
       {/* Full Page Background */}
-      <div 
-        className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url(/brothers/brothersBackground.jpg)" }}
-      />
+      {backgroundImage && (
+        <div 
+          className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${backgroundImage})` }}
+        />
+      )}
       {/* Overlay for readability */}
       <div className="fixed top-0 left-0 w-full h-full z-10 bg-black/30" />
       <div className="relative z-20 min-h-screen flex flex-col">
