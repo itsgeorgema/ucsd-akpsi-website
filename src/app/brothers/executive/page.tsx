@@ -191,6 +191,7 @@ export default function ExecutiveCommittee() {
         </main>
         <Footer />
       </div>
+
     </div>
   );
-} 
+}

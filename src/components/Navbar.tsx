@@ -34,7 +34,7 @@ export default function Navbar() {
         </Link>
       </div>
       <nav className="absolute top-4 right-4 z-50">
-        <div className={`${akpsiColors.navBarBg} backdrop-blur-sm rounded-lg shadow-lg border ${akpsiColors.navBarBorder}`}>
+        <div className={`${akpsiColors.navBarBg} rounded-lg shadow-lg border ${akpsiColors.navBarBorder}`}>
           <div className="flex items-center">
             <div className="hidden md:block">
               <div className="flex items-center">
