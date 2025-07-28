@@ -183,7 +183,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="relative w-full min-h-screen flex flex-col justify-between">
+    <div className="relative">
       {/* Fixed full-page background */}
       <div 
         className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat"
@@ -191,7 +191,7 @@ export default function Home() {
       />
       {/* Overlay for readability */}
       <div className="fixed top-0 left-0 w-full h-full z-10 bg-black/40" />
-      <div className="relative z-20 flex flex-col min-h-screen justify-between">
+      <div className="relative z-20 min-h-screen flex flex-col">
         {loading ? (
           <main className="flex-1 flex items-center justify-center py-16 px-4">
             <LoadingSpinner size="large" fullScreen={false} type="component" />
@@ -199,18 +199,20 @@ export default function Home() {
         ) : (
           <>
             {/* HERO SECTION */}
-            <section className="relative flex flex-col items-center justify-center min-h-[70vh] pt-16 pb-8">
-              <div className="mb-6">
-                {homeImages.akpsiLogo && (
-                  <img
-                    src={homeImages.akpsiLogo}
-                    alt="Alpha Kappa Psi Logo"
-                    className="h-28 w-auto mx-auto"
-                    style={{ objectFit: 'contain' }}
-                  />
-                )}
+            <section className="relative flex flex-col items-center justify-center text-center z-10 min-h-screen">
+              <div className="relative z-10 flex flex-col items-center">
+                <div className="mb-6">
+                  {homeImages.akpsiLogo && (
+                    <img
+                      src={homeImages.akpsiLogo}
+                      alt="Alpha Kappa Psi Logo"
+                      className="h-28 w-auto mx-auto"
+                      style={{ objectFit: 'contain' }}
+                    />
+                  )}
+                </div>
+                <ScrollArrow />
               </div>
-              <ScrollArrow />
             </section>
 
             {/* VALUES SECTION */}

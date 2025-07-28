@@ -148,7 +148,7 @@ export default function About() {
         ) : (
         <>
           {/* Hero Section */}
-          <section className="relative h-[80vh] flex flex-col items-center justify-center text-center z-10">
+          <section className="relative flex flex-col items-center justify-center text-center z-10 min-h-screen">
             {/* Crest/Logo */}
             <div className="relative z-10 flex flex-col items-center">
               <div className="mb-8">
