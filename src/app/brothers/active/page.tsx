@@ -77,15 +77,15 @@ export default function ActiveBrothers() {
             <LoadingSpinner size="large" fullScreen={false} type="component" />
           ) : (
             <div className="w-full flex flex-col items-center">
-              <div className="text-center mb-2">
+              <div className="text-center mb-2 mt-8 md:mt-12">
                 <div className="text-white text-sm tracking-widest mb-2">INTRODUCING OUR</div>
-                <h1 className="text-5xl font-bold text-white tracking-wide mb-8">ACTIVE BROTHERS</h1>
+                <h1 className="text-4xl lg:text-5xl font-bold text-white tracking-wide mb-7">ACTIVE BROTHERS</h1>
               </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
               {brothers.map((brother, idx) => (
                 <div key={idx} className="flex flex-col items-center">
                   <Link href={`/brothers/active/${encodeURIComponent(brother.name.replace(/\s/g, ""))}`}>
-                    <div className="w-80 h-110 rounded-sm overflow-hidden cursor-pointer hover:scale-105 transition-transform">
+                    <div className="w-72 h-96 rounded-sm overflow-hidden cursor-pointer hover:scale-105 transition-transform">
                       <img
                         src={brother.imageUrl}
                         alt={brother.name}
