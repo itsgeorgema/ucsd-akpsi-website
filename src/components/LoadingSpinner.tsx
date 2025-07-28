@@ -13,12 +13,6 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   fullScreen = true,
   type = 'component'
 }) => {
-  const sizeClasses = {
-    small: 'h-8 w-8',
-    medium: 'h-16 w-16', 
-    large: 'h-24 w-24'
-  };
-
   const containerClasses = fullScreen 
     ? "fixed top-16 left-0 right-0 bottom-0 flex flex-col items-center justify-center bg-background/95 backdrop-blur-lg z-40"
     : "flex items-center justify-center w-full h-full";
