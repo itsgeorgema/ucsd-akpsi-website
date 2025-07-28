@@ -25,6 +25,12 @@ export default function InfiniteCarousel({ images }: InfiniteCarouselProps) {
   // Calculate the width of a single set of images
   const singleSetWidth = width / 3; // Since we have 3 sets of images
 
+  // Calculate dynamic duration based on number of images
+  // More images = slower speed, fewer images = faster speed
+  const baseDuration = 45; // Base duration in seconds (reduced from 60)
+  const imageCount = images.length;
+  const dynamicDuration = Math.max(baseDuration, baseDuration + (imageCount - 8) * 3); // Reduced multiplier from 4 to 3
+
   return (
     <div className="relative overflow-hidden">
       <motion.div
@@ -37,7 +43,7 @@ export default function InfiniteCarousel({ images }: InfiniteCarouselProps) {
             x: [0, -singleSetWidth],
           }}
           transition={{
-            duration: 25,
+            duration: dynamicDuration,
             repeat: Infinity,
             ease: 'linear',
           }}
