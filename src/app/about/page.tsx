@@ -1,19 +1,96 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import { createClient } from '../../../supabase/client';
 import ScrollArrow from '../../components/ScrollArrow';
 import Footer from '../../components/Footer';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { akpsiColors } from '../../styles/colors';
 import { akpsiFonts } from '../../styles/fonts';
 
+interface AboutImages {
+  background: string;
+  crest: string;
+  groupPhoto1: string;
+  groupPhoto2: string;
+  genderPie: string;
+  gradePie: string;
+}
+
 export default function About() {
+  const [images, setImages] = useState<AboutImages>({
+    background: '',
+    crest: '',
+    groupPhoto1: '',
+    groupPhoto2: '',
+    genderPie: '',
+    gradePie: ''
+  });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Set loading to false immediately when component mounts
-    // This will be replaced with actual data fetching logic later
-    setLoading(false);
+    const fetchImages = async () => {
+      try {
+        const supabase = createClient();
+        
+        // Define image paths to fetch directly from storage bucket
+        const imagePaths = [
+          'aboutBackground.jpeg',
+          'crest.png',
+          'groupAbout1.jpeg', 
+          'groupAbout2.jpeg',
+          'genderPie.png',
+          'gradePie.png'
+        ];
+        
+        // Generate public URLs for each image directly from storage
+        const imageUrls: AboutImages = {
+          background: '',
+          crest: '',
+          groupPhoto1: '',
+          groupPhoto2: '',
+          genderPie: '',
+          gradePie: ''
+        };
+
+        imagePaths.forEach(imagePath => {
+          const { data: imageData } = supabase.storage
+            .from('about-page')
+            .getPublicUrl(imagePath);
+          
+          // Map image paths to their corresponding state properties
+          switch (imagePath) {
+            case 'aboutBackground.jpeg':
+              imageUrls.background = imageData.publicUrl;
+              break;
+            case 'crest.png':
+              imageUrls.crest = imageData.publicUrl;
+              break;
+            case 'groupAbout1.jpeg':
+              imageUrls.groupPhoto1 = imageData.publicUrl;
+              break;
+            case 'groupAbout2.jpeg':
+              imageUrls.groupPhoto2 = imageData.publicUrl;
+              break;
+            case 'genderPie.png':
+              imageUrls.genderPie = imageData.publicUrl;
+              break;
+            case 'gradePie.png':
+              imageUrls.gradePie = imageData.publicUrl;
+              break;
+          }
+        });
+
+        console.log('Generated image URLs:', imageUrls);
+        setImages(imageUrls);
+      } catch (error) {
+        console.error('Error:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchImages();
   }, []);
 
   // Text content variables
@@ -54,25 +131,34 @@ export default function About() {
   return (
     <div className="relative">
       {/* Full Page Background */}
-      <div 
-        className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat"
-        style={{ 
-          backgroundImage: 'url(/about/aboutBackground.jpg)',
-        }}
-      />
+      {images.background && (
+        <div 
+          className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat"
+          style={{ 
+            backgroundImage: `url(${images.background})`,
+          }}
+        />
+      )}
       
-      {loading ? (
-        <main className="flex-1 flex items-center justify-center py-16 px-4">
-          <LoadingSpinner size="large" fullScreen={false} type="component" />
-        </main>
-      ) : (
+      <div className="relative z-20 min-h-screen flex flex-col">
+        {loading ? (
+          <main className="flex-1 flex items-center justify-center py-16 px-4">
+            <LoadingSpinner size="large" fullScreen={false} type="component" />
+          </main>
+        ) : (
         <>
           {/* Hero Section */}
           <section className="relative h-[80vh] flex flex-col items-center justify-center text-center z-10">
             {/* Crest/Logo */}
             <div className="relative z-10 flex flex-col items-center">
               <div className="mb-8">
-                <img src="/about/crest.png" alt="AKPsi Crest" className="object-contain w-72 h-80 mx-auto" />
+                {images.crest ? (
+                  <img src={images.crest} alt="AKPsi Crest" className="object-contain w-72 h-80 mx-auto" />
+                ) : (
+                  <div className={`w-72 h-80 ${akpsiColors.statCircleBg} flex items-center justify-center`}>
+                    <span className={`${akpsiColors.statCircleText} ${akpsiFonts.bodyFont}`}>Loading crest...</span>
+                  </div>
+                )}
               </div>
               <h1 className={`text-5xl md:text-7xl mb-6 drop-shadow-2xl ${akpsiColors.heroTitle} ${akpsiFonts.heroTitleFont}`}>{pageContent.hero.title}</h1>
               <p className={`text-xl md:text-2xl mb-12 drop-shadow-lg max-w-3xl mx-auto ${akpsiColors.heroSubtitle} ${akpsiFonts.sectionTextFont}`}>
@@ -98,7 +184,13 @@ export default function About() {
           <section className={`relative py-0 z-10 ${akpsiColors.mainBg}`}>
             <div className="w-full">
               <div className="w-full h-[36rem] rounded-none overflow-hidden flex items-center justify-center">
-                <img src="/about/group-about.jpg" alt="Group Photo About Page" className="w-full h-full object-cover" />
+                {images.groupPhoto1 ? (
+                  <img src={images.groupPhoto1} alt="Group Photo About Page" className="w-full h-full object-cover" />
+                ) : (
+                                  <div className={`w-full h-[36rem] ${akpsiColors.statCircleBg} flex items-center justify-center`}>
+                  <span className={`${akpsiColors.statCircleText} ${akpsiFonts.bodyFont}`}>Loading group photo...</span>
+                </div>
+                )}
               </div>
             </div>
           </section>
@@ -118,21 +210,41 @@ export default function About() {
 
           {/* Chapter Statistics */}
           <section className={`relative py-20 z-10 ${akpsiColors.sectionBg}`}>
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <h2 className={`text-4xl text-center mb-16 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>{pageContent.statistics.title}</h2>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+              <div className="flex flex-col lg:flex-row items-start justify-between gap-20">
                 {/* Gender Statistics */}
-                <div className="text-center">
+                <div className="flex flex-col items-center">
                   <h3 className={`text-2xl mb-8 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>{pageContent.statistics.genderTitle}</h3>
-                  <div className={`w-64 h-64 ${akpsiColors.statCircleBg} rounded-full mx-auto flex items-center justify-center mb-4`}>
-                    <span className={`text-lg ${akpsiColors.statCircleText}`}>{pageContent.statistics.genderPlaceholder}</span>
+                  <div className="flex justify-center">
+                    {images.genderPie ? (
+                      <img 
+                        src={images.genderPie} 
+                        alt="Gender Distribution Pie Chart" 
+                        className="w-[28rem] h-[28rem] object-contain"
+                      />
+                    ) : (
+                      <div className={`w-[28rem] h-[28rem] ${akpsiColors.statCircleBg} flex items-center justify-center rounded-lg`}>
+                        <span className={`${akpsiColors.statCircleText} ${akpsiFonts.bodyFont}`}>Loading gender chart...</span>
+                      </div>
+                    )}
                   </div>
                 </div>
                 {/* Grade Level Statistics */}
-                <div className="text-center">
+                <div className="flex flex-col items-center">
                   <h3 className={`text-2xl mb-8 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>{pageContent.statistics.gradeLevelTitle}</h3>
-                  <div className={`w-64 h-64 ${akpsiColors.statCircleBg} rounded-full mx-auto flex items-center justify-center mb-4`}>
-                    <span className={`text-lg ${akpsiColors.statCircleText}`}>{pageContent.statistics.gradeLevelPlaceholder}</span>
+                  <div className="flex justify-center ml-22">
+                    {images.gradePie ? (
+                      <img 
+                        src={images.gradePie} 
+                        alt="Grade Level Distribution Pie Chart" 
+                        className="w-[28rem] h-[28rem] object-contain"
+                      />
+                    ) : (
+                      <div className={`w-[28rem] h-[28rem] ${akpsiColors.statCircleBg} flex items-center justify-center rounded-lg`}>
+                        <span className={`${akpsiColors.statCircleText} ${akpsiFonts.bodyFont}`}>Loading grade level chart...</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -160,11 +272,17 @@ export default function About() {
           <section className={`relative py-0 z-10 ${akpsiColors.sectionBg}`}>
             <div className="w-full">
               <div className="w-full h-[33rem] rounded-none overflow-hidden flex items-center justify-center">
-                <img 
-                  src="/about/group2.jpg" 
-                  alt="Alpha Kappa Psi Nu Xi Chapter Group Photo on Beach" 
-                  className="w-full h-full object-cover"
-                />
+                {images.groupPhoto2 ? (
+                  <img 
+                    src={images.groupPhoto2} 
+                    alt="Alpha Kappa Psi Nu Xi Chapter Group Photo on Beach" 
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                                  <div className={`w-full h-[33rem] ${akpsiColors.statCircleBg} flex items-center justify-center`}>
+                  <span className={`${akpsiColors.statCircleText} ${akpsiFonts.bodyFont}`}>Loading group photo...</span>
+                </div>
+                )}
               </div>
             </div>
           </section>
@@ -172,7 +290,8 @@ export default function About() {
           {/* Footer */}
           <Footer />
         </>
-      )}
+        )}
+      </div>
     </div>
   );
 }
