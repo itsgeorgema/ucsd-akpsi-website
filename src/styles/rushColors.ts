@@ -63,4 +63,6 @@ export const rushColors = {
   rushText: 'text-white',
   rushTextSubtitle: 'text-white/80',
   rushTextBody: 'text-white/90',
+  rushTextHighlight: 'text-[#DBE64C]',
+  rushTextHighlightBold: 'text-[#DBE64C] font-semibold',
 }; 

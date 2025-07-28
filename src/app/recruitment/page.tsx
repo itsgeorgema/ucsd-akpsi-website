@@ -168,17 +168,17 @@ export default function Recruitment() {
             <div className="grid lg:grid-cols-2 gap-12 mb-12">
               {/* Left Side - About Content */}
               <div className="space-y-6">
-                <h2 className={`text-4xl ${akpsiFonts.sectionTitleFont} ${rushColors.rushText}`}>
+                <h2 className={`text-4xl ${akpsiFonts.sectionTitleFont} ${rushColors.rushTextHighlight}`}>
                   ABOUT RECRUITMENT
                 </h2>
                 <p className={`text-lg leading-relaxed ${rushColors.rushTextBody} ${akpsiFonts.bodyFont}`}>
-                  The brothers of Alpha Kappa Psi cordially invite you to attend our Fall 2025 In-Person Rush: Blueprint for Excellence!
+                  The brothers of Alpha Kappa Psi cordially invite you to attend our Fall 2025 In-Person Rush:<span className={rushColors.rushTextHighlightBold}> Blueprint for Excellence</span>!
                 </p>
                 <p className={`text-lg leading-relaxed ${rushColors.rushTextBody} ${akpsiFonts.bodyFont}`}>
                   Come out in Week 2 of Fall Quarter to meet our amazing active members and esteemed alumni. Get a glimpse of the professional development and tight-knit community we can offer.
                 </p>
-                <p className={`text-lg ${akpsiFonts.sectionSubtitleFont} ${rushColors.rushTextSubtitle} ${akpsiFonts.bodyFont}`}>
-                  Please fill out this form to stay updated on our upcoming events!
+                <p className={`text-lg ${akpsiFonts.sectionSubtitleFont} ${rushColors.rushTextHighlight} ${akpsiFonts.bodyFont}`}>
+                  Please fill out the interest form to stay updated on our upcoming events!
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <a 
@@ -239,8 +239,8 @@ export default function Recruitment() {
                 ) : recruitmentEvents.length > 0 ? (
                   recruitmentEvents.map((event, index) => (
                     <div key={index} className={`${akpsiColors.glassBg} ${akpsiColors.glassBlur} rounded-lg p-6 ${akpsiColors.glassBorder}`}>
-                      <h3 className={`text-xl ${akpsiFonts.sectionTitleFont} mb-2 ${rushColors.rushText}`}>{event.eventName.toUpperCase()}</h3>
-                      <p className={`${rushColors.rushTextSubtitle} ${akpsiFonts.sectionSubtitleFont} mb-2 ${akpsiFonts.sectionTextFont}`}>
+                      <h3 className={`text-xl ${akpsiFonts.sectionTitleFont} mb-2 ${rushColors.rushTextHighlight}`}>{event.eventName.toUpperCase()}</h3>
+                      <p className={`${rushColors.rushTextHighlight} ${akpsiFonts.sectionSubtitleFont} mb-2 ${akpsiFonts.sectionTextFont}`}>
                         {event.day.toUpperCase()}, {event.date}
                       </p>
                       <p className={`${rushColors.rushTextSubtitle} ${akpsiFonts.sectionSubtitleFont} mb-2 ${akpsiFonts.sectionTextFont}`}>
@@ -276,7 +276,7 @@ export default function Recruitment() {
                   QUESTIONS? CONTACT US!
                 </h2>
               <div className={`${akpsiColors.glassBg} ${akpsiColors.glassBlur} rounded-lg p-8 ${akpsiColors.glassBorder}`}>
-                <h3 className={`text-xl ${akpsiFonts.sectionTitleFont} mb-4 ${rushColors.rushText}`}>Rush Chairs</h3>
+                <h3 className={`text-xl ${akpsiFonts.sectionTitleFont} mb-4 ${rushColors.rushTextHighlight}`}>Rush Chairs</h3>
                 <div className={`space-y-2 ${rushColors.rushTextBody}`}>
                   {contactInfo.chairs.map((chair, index) => (
                     <p key={index} className={`text-lg ${akpsiFonts.bodyFont}`}>
@@ -284,13 +284,13 @@ export default function Recruitment() {
                     </p>
                   ))}
                   <div className={`text-lg mt-4 ${akpsiFonts.bodyFont} text-center`}>
-                    <span>@ucsdakpsi</span>
+                    <span className={rushColors.rushTextHighlight}>@ucsdakpsi</span>
                     <span className="mx-2">|</span>
                     {contactInfo.email && (
-                      <span>{contactInfo.email}</span>
+                      <span className={rushColors.rushTextHighlight}>{contactInfo.email}</span>
                     )}
                     {contactInfo.email && <span className="mx-2">|</span>}
-                    <span>akpsiucsd.com</span>
+                    <span className={rushColors.rushTextHighlight}>akpsiucsd.com</span>
                   </div>
                 </div>
               </div>
