@@ -6,6 +6,8 @@ import Footer from '../../components/Footer';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { akpsiColors } from '../../styles/colors';
 import { akpsiFonts } from '../../styles/fonts';
+import { rushColors } from '../../styles/rushColors';
+import InfiniteCarousel from '../../components/InfiniteCarousel';
 
 export default function Recruitment() {
   const [backgroundImage, setBackgroundImage] = useState<string>('');
@@ -22,57 +24,42 @@ export default function Recruitment() {
     instagram: ''
   });
 
+  const [contactInfo, setContactInfo] = useState<{
+    chairs: Array<{ name: string; number: string }>;
+    email: string;
+  }>({
+    chairs: [],
+    email: ''
+  });
+
+  const [recruitmentEvents, setRecruitmentEvents] = useState<Array<{
+    eventName: string;
+    date: string;
+    day: string;
+    description: string;
+    details: string;
+  }>>([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const supabase = createClient();
         
-        // Fetch background image
-        const { data: bgData, error: bgError } = await supabase
-          .from('spring25Rush')
-          .select('image_path')
-          .eq('image_path', 'spring25RushBackground.png')
-          .single();
+        // Fetch background image directly from storage
+        const { data: bgImageData } = supabase.storage
+          .from('rush-fall25')
+          .getPublicUrl('fall25Background.png');
+        
+        setBackgroundImage(bgImageData.publicUrl);
 
-        if (bgError) {
-          console.error('Error fetching background image:', bgError);
-        } else if (bgData) {
-          const cleanImagePath = bgData.image_path.trim();
-          const { data: imageData } = supabase.storage
-            .from('rush-spring25')
-            .getPublicUrl(cleanImagePath);
-          
-          setBackgroundImage(imageData.publicUrl);
-        }
+        // Fetch flyer image directly from storage
+        const { data: flyerImageData } = supabase.storage
+          .from('rush-fall25')
+          .getPublicUrl('fall25Flyer.png');
+        
+        setFlyerImage(flyerImageData.publicUrl);
 
-        // Fetch all images from spring25Rush table to see what's available
-        const { data: allImagesData, error: imagesError } = await supabase
-          .from('spring25Rush')
-          .select('image_path');
-
-        if (imagesError) {
-          console.error('Error fetching images:', imagesError);
-        } else {
-          console.log('All available images:', allImagesData);
-          
-          // Try to find the flyer image
-          const flyerItem = allImagesData?.find(item => item.image_path === 'spring25RushFlyer.jpg');
-          console.log('Found flyer item:', flyerItem);
-          
-          if (flyerItem) {
-            const cleanFlyerPath = flyerItem.image_path.trim();
-            const { data: flyerImageData } = supabase.storage
-              .from('rush-spring25')
-              .getPublicUrl(cleanFlyerPath);
-            
-            setFlyerImage(flyerImageData.publicUrl);
-            console.log('Flyer image URL set:', flyerImageData.publicUrl);
-          } else {
-            console.log('spring25RushFlyer.jpg not found in table');
-          }
-        }
-
-        // Fetch random gallery images
+        // Fetch all gallery images
         const { data: galleryData, error: galleryError } = await supabase
           .from('gallery')
           .select('image_path, num')
@@ -81,11 +68,10 @@ export default function Recruitment() {
         if (galleryError) {
           console.error('Error fetching gallery images:', galleryError);
         } else if (galleryData) {
-          // Shuffle the array and take first 3
+          // Shuffle all images but keep all of them
           const shuffled = [...galleryData].sort(() => Math.random() - 0.5);
-          const randomImages = shuffled.slice(0, 8);
           
-          const imagesWithUrls = randomImages.map((image) => {
+          const imagesWithUrls = shuffled.map((image) => {
             const cleanImagePath = image.image_path.trim();
             const { data: imageData } = supabase.storage
               .from('gallery')
@@ -119,6 +105,37 @@ export default function Recruitment() {
             instagram: instagramLink
           });
         }
+
+        // Fetch recruitment contact information
+        const { data: contactData, error: contactError } = await supabase
+          .from('recruitmentContact')
+          .select('name, number, email');
+        if (contactError) {
+          console.error('Error fetching contact information:', contactError);
+        } else if (contactData && contactData.length > 0) {
+          // Get the email from the first person (should be the same for all)
+          const email = contactData[0].email || '';
+          // Get all chairs' names and numbers
+          const chairs = contactData.map(person => ({
+            name: person.name,
+            number: person.number
+          }));
+          setContactInfo({
+            chairs,
+            email
+          });
+        }
+
+        // Fetch recruitment events
+        const { data: eventsData, error: eventsError } = await supabase
+          .from('recruitmentEvents')
+          .select('eventName, date, day, description, details, order')
+          .order('order', { ascending: true });
+        if (eventsError) {
+          console.error('Error fetching recruitment events:', eventsError);
+        } else if (eventsData) {
+          setRecruitmentEvents(eventsData);
+        }
       } catch (error) {
         console.error('Error:', error);
       } finally {
@@ -146,21 +163,21 @@ export default function Recruitment() {
             <LoadingSpinner size="large" fullScreen={false} type="component" />
           )}
           {!loading && (
-            <div className={`${akpsiColors.sectionBg} rounded-2xl shadow-2xl p-10 max-w-6xl w-full mx-auto`}>
+            <div className={`${akpsiColors.glassBg} ${akpsiColors.glassBlurMd} rounded-2xl shadow-2xl p-10 max-w-6xl w-full mx-auto ${akpsiColors.glassBorder}`}>
             {/* ABOUT RECRUITMENT Section */}
             <div className="grid lg:grid-cols-2 gap-12 mb-12">
               {/* Left Side - About Content */}
               <div className="space-y-6">
-                <h2 className={`text-4xl ${akpsiFonts.sectionTitleFont} ${akpsiColors.sectionTitle}`}>
+                <h2 className={`text-4xl ${akpsiFonts.sectionTitleFont} ${rushColors.rushText}`}>
                   ABOUT RECRUITMENT
                 </h2>
-                <p className={`text-lg leading-relaxed ${akpsiColors.sectionText} ${akpsiFonts.bodyFont}`}>
-                  The brothers of Alpha Kappa Psi cordially invite you to attend our Spring 2025 In-Person Rush: Broadcasting Your Success!
+                <p className={`text-lg leading-relaxed ${rushColors.rushTextBody} ${akpsiFonts.bodyFont}`}>
+                  The brothers of Alpha Kappa Psi cordially invite you to attend our Fall 2025 In-Person Rush: Blueprint for Excellence!
                 </p>
-                <p className={`text-lg leading-relaxed ${akpsiColors.sectionText} ${akpsiFonts.bodyFont}`}>
-                  Come out in Week 2 of Spring Quarter to meet our amazing active members and esteemed alumni. Get a glimpse of the professional development and tight-knit community we can offer.
+                <p className={`text-lg leading-relaxed ${rushColors.rushTextBody} ${akpsiFonts.bodyFont}`}>
+                  Come out in Week 2 of Fall Quarter to meet our amazing active members and esteemed alumni. Get a glimpse of the professional development and tight-knit community we can offer.
                 </p>
-                <p className={`text-lg ${akpsiFonts.sectionSubtitleFont} ${akpsiColors.sectionText} ${akpsiFonts.bodyFont}`}>
+                <p className={`text-lg ${akpsiFonts.sectionSubtitleFont} ${rushColors.rushTextSubtitle} ${akpsiFonts.bodyFont}`}>
                   Please fill out this form to stay updated on our upcoming events!
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -168,7 +185,7 @@ export default function Recruitment() {
                     href={links.interestForm || '#'}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`px-8 py-3 ${akpsiColors.contactButton} ${akpsiColors.contactButtonHover} ${akpsiFonts.sectionSubtitleFont} rounded-lg transition-colors ${akpsiFonts.sectionTextFont} text-center ${!links.interestForm ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    className={`px-8 py-3 ${akpsiColors.glassBg} ${akpsiColors.glassBgHover} ${akpsiColors.glassBlur} ${akpsiFonts.sectionSubtitleFont} rounded-lg transition-all duration-300 transform hover:scale-105 ${akpsiFonts.sectionTextFont} text-center ${rushColors.rushText} ${akpsiColors.glassBorderHover} ${!links.interestForm ? 'opacity-50 cursor-not-allowed' : ''}`}
                     onClick={(e) => {
                       console.log('Interest form clicked, link:', links.interestForm);
                       if (!links.interestForm) {
@@ -183,7 +200,7 @@ export default function Recruitment() {
                     href={links.applicationWebsite || '#'}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`px-8 py-3 ${akpsiColors.contactButton} ${akpsiColors.contactButtonHover} ${akpsiFonts.sectionSubtitleFont} rounded-lg transition-colors ${akpsiFonts.sectionTextFont} text-center ${!links.applicationWebsite ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    className={`px-8 py-3 ${rushColors.rushButtonSecondary} ${akpsiFonts.sectionSubtitleFont} rounded-lg transition-all duration-300 transform hover:scale-105 ${akpsiFonts.sectionTextFont} text-center ${rushColors.rushText} ${rushColors.rushButtonSecondaryBorder} ${!links.applicationWebsite ? 'opacity-50 cursor-not-allowed' : ''}`}
                     onClick={!links.applicationWebsite ? (e) => e.preventDefault() : undefined}
                   >
                     APPLICATION
@@ -196,14 +213,13 @@ export default function Recruitment() {
                 {flyerImage ? (
                   <img 
                     src={flyerImage} 
-                    alt="Spring 2025 Rush Flyer" 
                     className="w-full h-auto object-cover rounded-xl"
                   />
                 ) : (
                   <div className={`${akpsiColors.statCircleBg} rounded-xl p-6 flex items-center justify-center h-64`}>
                     <div className={`text-center ${akpsiColors.statCircleText} ${akpsiFonts.bodyFont}`}>
                       <p className={`text-lg mb-2 ${akpsiFonts.sectionTextFont}`}>Loading flyer...</p>
-                      <p className={`text-sm ${akpsiFonts.sectionTextFont}`}>spring25RushFlyer.jpg</p>
+                      <p className={`text-sm ${akpsiFonts.sectionTextFont}`}>flyer.png</p>
                     </div>
                   </div>
                 )}
@@ -212,56 +228,41 @@ export default function Recruitment() {
 
             {/* RUSH WEEK SCHEDULE Section */}
             <div className="mb-12">
-              <h2 className={`text-4xl ${akpsiFonts.sectionTitleFont} mb-8 text-center ${akpsiColors.sectionTitle}`}>
-                RUSH WEEK SCHEDULE
-              </h2>
+                              <h2 className={`text-4xl ${akpsiFonts.sectionTitleFont} mb-8 text-center ${rushColors.rushText}`}>
+                  RUSH WEEK SCHEDULE
+                </h2>
               <div className="space-y-6">
-                {/* INFO NIGHT */}
-                <div className={`${akpsiColors.mainBg} rounded-lg p-6`}>
-                  <h3 className={`text-xl ${akpsiFonts.sectionTitleFont} mb-2 ${akpsiColors.sectionTitle}`}>INFO NIGHT</h3>
-                  <p className={`${akpsiColors.sectionSubtitle} ${akpsiFonts.sectionSubtitleFont} mb-2 ${akpsiFonts.sectionTextFont}`}>MONDAY, 4/07 @ 6:00 PM</p>
-                  <p className={`${akpsiColors.sectionSubtitle} ${akpsiFonts.sectionSubtitleFont} mb-2 ${akpsiFonts.sectionTextFont}`}>Price Center Theater | Casual Attire</p>
-                  <p className={`${akpsiColors.sectionText} ${akpsiFonts.bodyFont}`}>Come hear inspirational talks from our brothers as we talk about career opportunities and professional development growth! See how you&apos;ll fit in with the brothers from our chapter.</p>
-                </div>
-
-                {/* BUSINESS WORKSHOP */}
-                <div className={`${akpsiColors.mainBg} rounded-lg p-6`}>
-                  <h3 className={`text-xl ${akpsiFonts.sectionTitleFont} mb-2 ${akpsiColors.sectionTitle}`}>BUSINESS WORKSHOP</h3>
-                  <p className={`${akpsiColors.sectionSubtitle} ${akpsiFonts.sectionSubtitleFont} mb-2 ${akpsiFonts.sectionTextFont}`}>TUESDAY, 4/08 @ 8:00 PM</p>
-                  <p className={`${akpsiColors.sectionSubtitle} ${akpsiFonts.sectionSubtitleFont} mb-2 ${akpsiFonts.sectionTextFont}`}>Price Center-Ballroom West B | Business Casual Attire</p>
-                  <p className={`${akpsiColors.sectionText} ${akpsiFonts.bodyFont}`}>Bring your resumes (and cover letters optional) so we can guide you a step closer to your dream career. Inspirational talks from our brothers are also included!</p>
-                </div>
-
-                {/* CASE STUDY NIGHT */}
-                <div className={`${akpsiColors.mainBg} rounded-lg p-6`}>
-                  <h3 className={`text-xl ${akpsiFonts.sectionTitleFont} mb-2 ${akpsiColors.sectionTitle}`}>CASE STUDY NIGHT</h3>
-                  <p className={`${akpsiColors.sectionSubtitle} ${akpsiFonts.sectionSubtitleFont} mb-2 ${akpsiFonts.sectionTextFont}`}>WEDNESDAY, 4/09 | *BY APPOINTMENT ONLY</p>
-                  <p className={`${akpsiColors.sectionSubtitle} ${akpsiFonts.sectionSubtitleFont} mb-2 ${akpsiFonts.sectionTextFont}`}>TBA | Professional Attire</p>
-                  <p className={`${akpsiColors.sectionText} ${akpsiFonts.bodyFont}`}>Tackle a real-life business problem and test your teamwork and analytical skills. Case Study Night participation is mandatory for membership consideration.</p>
-                </div>
-
-                {/* SOCIAL MIXER */}
-                <div className={`${akpsiColors.mainBg} rounded-lg p-6`}>
-                  <h3 className={`text-xl ${akpsiFonts.sectionTitleFont} mb-2 ${akpsiColors.sectionTitle}`}>SOCIAL MIXER</h3>
-                  <p className={`${akpsiColors.sectionSubtitle} ${akpsiFonts.sectionSubtitleFont} mb-2 ${akpsiFonts.sectionTextFont}`}>FRIDAY, 4/11 | *INVITE ONLY</p>
-                  <p className={`${akpsiColors.sectionSubtitle} ${akpsiFonts.sectionSubtitleFont} mb-2 ${akpsiFonts.sectionTextFont}`}>TBA | Casual Attire</p>
-                  <p className={`${akpsiColors.sectionText} ${akpsiFonts.bodyFont}`}>Mingle with our brothers in a casual setting with food and drinks provided. Experience wholesome brotherhood within our tight-knit family in AKPsi!</p>
-                </div>
-
-                {/* INTERVIEWS */}
-                <div className={`${akpsiColors.mainBg} rounded-lg p-6`}>
-                  <h3 className={`text-xl ${akpsiFonts.sectionTitleFont} mb-2 ${akpsiColors.sectionTitle}`}>INTERVIEWS</h3>
-                  <p className={`${akpsiColors.sectionSubtitle} ${akpsiFonts.sectionSubtitleFont} mb-2 ${akpsiFonts.sectionTextFont}`}>SATURDAY, 4/12 | *BY APPOINTMENT ONLY</p>
-                  <p className={`${akpsiColors.sectionSubtitle} ${akpsiFonts.sectionSubtitleFont} mb-2 ${akpsiFonts.sectionTextFont}`}>TBA | Professional Attire</p>
-                  <p className={`${akpsiColors.sectionText} ${akpsiFonts.bodyFont}`}>Interview participation is mandatory for membership consideration.</p>
-                </div>
+                {loading ? (
+                  <div className={`${akpsiColors.glassBg} ${akpsiColors.glassBlur} rounded-lg p-6 ${akpsiColors.glassBorder} text-center`}>
+                    <p className={`${rushColors.rushText} ${akpsiFonts.bodyFont}`}>Loading events...</p>
+                  </div>
+                ) : recruitmentEvents.length > 0 ? (
+                  recruitmentEvents.map((event, index) => (
+                    <div key={index} className={`${akpsiColors.glassBg} ${akpsiColors.glassBlur} rounded-lg p-6 ${akpsiColors.glassBorder}`}>
+                      <h3 className={`text-xl ${akpsiFonts.sectionTitleFont} mb-2 ${rushColors.rushText}`}>{event.eventName.toUpperCase()}</h3>
+                      <p className={`${rushColors.rushTextSubtitle} ${akpsiFonts.sectionSubtitleFont} mb-2 ${akpsiFonts.sectionTextFont}`}>
+                        {event.day.toUpperCase()}, {event.date}
+                      </p>
+                      <p className={`${rushColors.rushTextSubtitle} ${akpsiFonts.sectionSubtitleFont} mb-2 ${akpsiFonts.sectionTextFont}`}>
+                        {event.details}
+                      </p>
+                      <p className={`${rushColors.rushTextBody} ${akpsiFonts.bodyFont}`}>
+                        {event.description}
+                      </p>
+                    </div>
+                  ))
+                ) : (
+                  <div className={`${akpsiColors.glassBg} ${akpsiColors.glassBlur} rounded-lg p-6 ${akpsiColors.glassBorder} text-center`}>
+                    <p className={`${rushColors.rushText} ${akpsiFonts.bodyFont}`}>No events found. Please check back later!</p>
+                  </div>
+                )}
               </div>
               <div className="text-center mt-8">
                 <a 
                   href={links.instagram || '#'}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`px-8 py-3 ${akpsiColors.contactButton} ${akpsiColors.contactButtonHover} ${akpsiFonts.sectionSubtitleFont} rounded-lg transition-colors ${akpsiFonts.sectionTextFont} inline-block ${!links.instagram ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  className={`px-8 py-3 ${rushColors.rushButtonSecondary} ${akpsiFonts.sectionSubtitleFont} rounded-lg transition-all duration-300 transform hover:scale-105 ${akpsiFonts.sectionTextFont} inline-block ${rushColors.rushText} ${rushColors.rushButtonSecondaryBorder} ${!links.instagram ? 'opacity-50 cursor-not-allowed' : ''}`}
                   onClick={!links.instagram ? (e) => e.preventDefault() : undefined}
                 >
                   STAY UPDATED
@@ -271,16 +272,26 @@ export default function Recruitment() {
 
                         {/* QUESTIONS? CONTACT US! Section */}
             <div className="text-center">
-              <h2 className={`text-4xl ${akpsiFonts.sectionTitleFont} mb-6 ${akpsiColors.sectionTitle}`}>
-                QUESTIONS? CONTACT US!
-              </h2>
-              <div className={`${akpsiColors.mainBg} rounded-lg p-8`}>
-                <h3 className={`text-xl ${akpsiFonts.sectionTitleFont} mb-4 ${akpsiColors.sectionTitle}`}>Rush Chairs</h3>
-                <div className={`space-y-2 ${akpsiColors.sectionText}`}>
-                  <p className={`text-lg ${akpsiFonts.bodyFont}`}>Kristen Lee: (732) 484-8791</p>
-                  <p className={`text-lg ${akpsiFonts.bodyFont}`}>Jessie Ha: (626) 267-4161</p>
-                  <p className={`text-lg mt-4 ${akpsiFonts.bodyFont}`}>akpspring25rush@gmail.com</p>
-                  <p className={`text-lg ${akpsiFonts.bodyFont}`}>@ucsdakpsi | akpsiucsd.com</p>
+                              <h2 className={`text-4xl ${akpsiFonts.sectionTitleFont} mb-6 ${rushColors.rushText}`}>
+                  QUESTIONS? CONTACT US!
+                </h2>
+              <div className={`${akpsiColors.glassBg} ${akpsiColors.glassBlur} rounded-lg p-8 ${akpsiColors.glassBorder}`}>
+                <h3 className={`text-xl ${akpsiFonts.sectionTitleFont} mb-4 ${rushColors.rushText}`}>Rush Chairs</h3>
+                <div className={`space-y-2 ${rushColors.rushTextBody}`}>
+                  {contactInfo.chairs.map((chair, index) => (
+                    <p key={index} className={`text-lg ${akpsiFonts.bodyFont}`}>
+                      {chair.name}: {chair.number}
+                    </p>
+                  ))}
+                  <div className={`text-lg mt-4 ${akpsiFonts.bodyFont} text-center`}>
+                    <span>@ucsdakpsi</span>
+                    <span className="mx-2">|</span>
+                    {contactInfo.email && (
+                      <span>{contactInfo.email}</span>
+                    )}
+                    {contactInfo.email && <span className="mx-2">|</span>}
+                    <span>akpsiucsd.com</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -288,65 +299,8 @@ export default function Recruitment() {
             {/* RANDOM GALLERY IMAGES Section */}
             {galleryImages.length > 0 && (
               <div className="mt-12">
-                <div className="relative">
-                  <div className="flex gap-4 overflow-hidden gallery-container scroll-smooth">
-                    {galleryImages.map((image, index) => (
-                      <div key={index} className="flex-shrink-0">
-                        <div className="relative overflow-hidden rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105">
-                          <img 
-                            src={image.imageUrl} 
-                            alt={`Gallery image ${index + 1}`} 
-                            className="w-64 h-48 object-cover"
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  
-                  {/* Left Arrow */}
-                  <button 
-                    className={`absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 ${akpsiColors.sectionBg}/80 hover:${akpsiColors.sectionBg} ${akpsiColors.sectionText} rounded-full p-2 shadow-lg transition-all duration-200`}
-                    onClick={() => {
-                      const container = document.querySelector('.gallery-container') as HTMLElement;
-                      if (container) {
-                        const scrollAmount = 280; // 256px image + 16px gap
-                        const currentScroll = container.scrollLeft;
-                        
-                        // Scroll left smoothly
-                        container.scrollTo({
-                          left: Math.max(0, currentScroll - scrollAmount),
-                          behavior: 'smooth'
-                        });
-                      }
-                    }}
-                  >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                    </svg>
-                  </button>
-                  
-                  {/* Right Arrow */}
-                  <button 
-                    className={`absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 ${akpsiColors.sectionBg}/80 hover:${akpsiColors.sectionBg} ${akpsiColors.sectionText} rounded-full p-2 shadow-lg transition-all duration-200`}
-                    onClick={() => {
-                      const container = document.querySelector('.gallery-container') as HTMLElement;
-                      if (container) {
-                        const scrollAmount = 280; // 256px image + 16px gap
-                        const currentScroll = container.scrollLeft;
-                        const maxScroll = (galleryImages.length * scrollAmount) - scrollAmount;
-                        
-                        // Scroll right smoothly
-                        container.scrollTo({
-                          left: Math.min(maxScroll, currentScroll + scrollAmount),
-                          behavior: 'smooth'
-                        });
-                      }
-                    }}
-                  >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
+                <div className="px-4 sm:px-6 lg:px-8">
+                  <InfiniteCarousel images={galleryImages} />
                 </div>
               </div>
             )}
