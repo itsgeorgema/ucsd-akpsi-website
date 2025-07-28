@@ -201,12 +201,14 @@ export default function Home() {
             {/* HERO SECTION */}
             <section className="relative flex flex-col items-center justify-center min-h-[70vh] pt-16 pb-8">
               <div className="mb-6">
-                <img
-                  src={homeImages.akpsiLogo}
-                  alt="Alpha Kappa Psi Logo"
-                  className="h-28 w-auto mx-auto"
-                  style={{ objectFit: 'contain' }}
-                />
+                {homeImages.akpsiLogo && (
+                  <img
+                    src={homeImages.akpsiLogo}
+                    alt="Alpha Kappa Psi Logo"
+                    className="h-28 w-auto mx-auto"
+                    style={{ objectFit: 'contain' }}
+                  />
+                )}
               </div>
               <ScrollArrow />
             </section>
@@ -224,31 +226,41 @@ export default function Home() {
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-8 text-center">
                   {/* Brotherhood */}
                   <div>
-                    <img src={homeImages.broho} alt="Brotherhood" className="h-25 w-25 mx-auto mb-2" />
+                    {homeImages.broho && (
+                      <img src={homeImages.broho} alt="Brotherhood" className="h-25 w-25 mx-auto mb-2" />
+                    )}
                     <div className="text-lg text-white font-semibold">BROTHERHOOD</div>
                     <div className="text-sm text-white">We are a family of life-long friends that stick together through thick and thin.</div>
                   </div>
                   {/* Integrity */}
                   <div>
-                    <img src={homeImages.integrity} alt="Integrity" className="h-25 w-25 mx-auto mb-2" />
+                    {homeImages.integrity && (
+                      <img src={homeImages.integrity} alt="Integrity" className="h-25 w-25 mx-auto mb-2" />
+                    )}
                     <div className="text-lg text-white font-semibold">INTEGRITY</div>
                     <div className="text-sm text-white">We do things through hard work and dedication, while not taking any unnecessary shortcuts.</div>
                   </div>
                   {/* Service */}
                   <div>
-                    <img src={homeImages.service} alt="Service" className="h-25 w-25 mx-auto mb-2" />
+                    {homeImages.service && (
+                      <img src={homeImages.service} alt="Service" className="h-25 w-25 mx-auto mb-2" />
+                    )}
                     <div className="text-lg text-white font-semibold">SERVICE</div>
                     <div className="text-sm text-white">We believe in giving back to the communities that have shaped us into the people we are today.</div>
                   </div>
                   {/* Unity */}
                   <div>
-                    <img src={homeImages.unity} alt="Unity" className="h-25 w-25 mx-auto mb-2" />
+                    {homeImages.unity && (
+                      <img src={homeImages.unity} alt="Unity" className="h-25 w-25 mx-auto mb-2" />
+                    )}
                     <div className="text-lg text-white font-semibold">UNITY</div>
                     <div className="text-sm text-white">We strive to build our bonds and strengthen the brotherhood that we are proud of.</div>
                   </div>
                   {/* Knowledge */}
                   <div>
-                    <img src={homeImages.knowledge} alt="Knowledge" className="h-25 w-25 mx-auto mb-2" />
+                    {homeImages.knowledge && (
+                      <img src={homeImages.knowledge} alt="Knowledge" className="h-25 w-25 mx-auto mb-2" />
+                    )}
                     <div className="text-lg text-white font-semibold">KNOWLEDGE</div>
                     <div className="text-sm text-white">We are scholars of diverse disciplines and professionals in varied industries.</div>
                   </div>
@@ -260,7 +272,9 @@ export default function Home() {
             <section className="relative py-0 z-10">
               <div className="w-full">
                 <div className="w-full h-[28rem] md:h-[33rem] overflow-hidden flex items-center justify-center">
-                  <img src={homeImages.groupPhoto1} alt="AKPsi Group Photo" className="w-full h-full object-cover object-[center_35%]" />
+                  {homeImages.groupPhoto1 && (
+                    <img src={homeImages.groupPhoto1} alt="AKPsi Group Photo" className="w-full h-full object-cover object-[center_35%]" />
+                  )}
                 </div>
               </div>
             </section>
@@ -314,7 +328,9 @@ export default function Home() {
                 <div className="flex flex-col md:flex-row items-center justify-center w-full gap-12">
                   {/* Pie Chart Image with Overlayed Labels and Lines */}
                   <div className="relative flex-shrink-0 w-[480px] h-[480px] flex items-center justify-center">
-                    <img src={homeImages.industryDistribution} alt="Industries Pie Chart" className="w-[360px] h-[360px] object-contain mx-auto" />
+                    {homeImages.industryDistribution && (
+                      <img src={homeImages.industryDistribution} alt="Industries Pie Chart" className="w-[360px] h-[360px] object-contain mx-auto" />
+                    )}
                     {/* SVG lines connecting labels to chart */}
                     <svg className="absolute top-0 left-0 w-full h-full pointer-events-none" width="480" height="480">
                       {/* 29% Business (vertical up, shifted left) */}
@@ -348,7 +364,9 @@ export default function Home() {
             <section className="relative py-0 z-10">
               <div className="w-full">
                 <div className="w-full  md:h-[35rem] overflow-hidden flex items-center justify-center">
-                  <img src={homeImages.groupPhoto2} alt="AKPsi Group Photo 2" className="w-full h-full object-cover object-[center_40%]" />
+                  {homeImages.groupPhoto2 && (
+                    <img src={homeImages.groupPhoto2} alt="AKPsi Group Photo 2" className="w-full h-full object-cover object-[center_40%]" />
+                  )}
                 </div>
               </div>
             </section>

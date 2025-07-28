@@ -114,7 +114,9 @@ export default function Footer({ className = "" }: FooterProps) {
           <div className="flex items-center justify-between">
             {/* Logo and Text */}
             <div className="flex items-center space-x-4">
-              <img src={logoUrl} alt="Alpha Kappa Psi Logo" className="h-12 w-auto" />
+              {logoUrl && (
+                <img src={logoUrl} alt="Alpha Kappa Psi Logo" className="h-12 w-auto" />
+              )}
             </div>
             
             {/* Social Media Icons and Login Button */}
