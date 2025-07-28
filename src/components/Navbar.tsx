@@ -46,7 +46,7 @@ export default function Navbar() {
       <div className="absolute top-[-2.5rem] left-4 z-50 flex items-center">
         <Link href="/">
           <img
-            src={logoUrl || "/akpsiLogo.png"}
+            src={logoUrl}
             alt="Alpha Kappa Psi Logo"
             className="h-40 w-40 object-contain cursor-pointer"
           />
