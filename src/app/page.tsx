@@ -17,15 +17,109 @@ interface President {
   imageUrl: string;
 }
 
+interface HomeImages {
+  background: string;
+  groupPhoto1: string;
+  groupPhoto2: string;
+  industryDistribution: string;
+  broho: string;
+  integrity: string;
+  service: string;
+  unity: string;
+  knowledge: string;
+  akpsiLogo: string;
+}
+
 export default function Home() {
   const [companies, setCompanies] = useState<Company[]>([]);
   const [president, setPresident] = useState<President | null>(null);
+  const [homeImages, setHomeImages] = useState<HomeImages>({
+    background: '',
+    groupPhoto1: '',
+    groupPhoto2: '',
+    industryDistribution: '',
+    broho: '',
+    integrity: '',
+    service: '',
+    unity: '',
+    knowledge: '',
+    akpsiLogo: ''
+  });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const supabase = createClient();
+        
+        // Fetch home page images from storage bucket
+        const imagePaths = [
+          'homePageBackground.jpg',
+          'homePageGroupPhoto.jpg',
+          'homePageGroupPhoto2.png',
+          'industryDistribution.png',
+          'broho.png',
+          'integrity.png',
+          'service.png',
+          'unity.png',
+          'knowledge.png'
+        ];
+
+        // Fetch AKPsi logo from misc bucket
+        const { data: logoData } = supabase.storage
+          .from('misc')
+          .getPublicUrl('akpsiLogo.png');
+
+        const newHomeImages: HomeImages = {
+          background: '',
+          groupPhoto1: '',
+          groupPhoto2: '',
+          industryDistribution: '',
+          broho: '',
+          integrity: '',
+          service: '',
+          unity: '',
+          knowledge: '',
+          akpsiLogo: logoData?.publicUrl || ''
+        };
+
+        imagePaths.forEach(imagePath => {
+          const { data: imageData } = supabase.storage
+            .from('home-page')
+            .getPublicUrl(imagePath);
+          
+          switch (imagePath) {
+            case 'homePageBackground.jpg':
+              newHomeImages.background = imageData.publicUrl;
+              break;
+            case 'homePageGroupPhoto.jpg':
+              newHomeImages.groupPhoto1 = imageData.publicUrl;
+              break;
+            case 'homePageGroupPhoto2.png':
+              newHomeImages.groupPhoto2 = imageData.publicUrl;
+              break;
+            case 'industryDistribution.png':
+              newHomeImages.industryDistribution = imageData.publicUrl;
+              break;
+            case 'broho.png':
+              newHomeImages.broho = imageData.publicUrl;
+              break;
+            case 'integrity.png':
+              newHomeImages.integrity = imageData.publicUrl;
+              break;
+            case 'service.png':
+              newHomeImages.service = imageData.publicUrl;
+              break;
+            case 'unity.png':
+              newHomeImages.unity = imageData.publicUrl;
+              break;
+            case 'knowledge.png':
+              newHomeImages.knowledge = imageData.publicUrl;
+              break;
+          }
+        });
+
+        setHomeImages(newHomeImages);
         
         // Fetch companies
         const { data: companiesData, error: companiesError } = await supabase
@@ -93,7 +187,7 @@ export default function Home() {
       {/* Fixed full-page background */}
       <div 
         className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/home/homePageBackground.jpg')" }}
+        style={{ backgroundImage: homeImages.background ? `url(${homeImages.background})` : "url('/home/homePageBackground.jpg')" }}
       />
       {/* Overlay for readability */}
       <div className="fixed top-0 left-0 w-full h-full z-10 bg-black/40" />
@@ -108,7 +202,7 @@ export default function Home() {
             <section className="relative flex flex-col items-center justify-center min-h-[70vh] pt-16 pb-8">
               <div className="mb-6">
                 <img
-                  src="/akpsiLogo.png"
+                  src={homeImages.akpsiLogo || "/akpsiLogo.png"}
                   alt="Alpha Kappa Psi Logo"
                   className="h-28 w-auto mx-auto"
                   style={{ objectFit: 'contain' }}
@@ -130,31 +224,31 @@ export default function Home() {
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-8 text-center">
                   {/* Brotherhood */}
                   <div>
-                    <img src="/home/values/broho.png" alt="Brotherhood" className="h-25 w-25 mx-auto mb-2" />
+                    <img src={homeImages.broho || "/home/values/broho.png"} alt="Brotherhood" className="h-25 w-25 mx-auto mb-2" />
                     <div className="text-lg text-white font-semibold">BROTHERHOOD</div>
                     <div className="text-sm text-white">We are a family of life-long friends that stick together through thick and thin.</div>
                   </div>
                   {/* Integrity */}
                   <div>
-                    <img src="/home/values/integrity.png" alt="Integrity" className="h-25 w-25 mx-auto mb-2" />
+                    <img src={homeImages.integrity || "/home/values/integrity.png"} alt="Integrity" className="h-25 w-25 mx-auto mb-2" />
                     <div className="text-lg text-white font-semibold">INTEGRITY</div>
                     <div className="text-sm text-white">We do things through hard work and dedication, while not taking any unnecessary shortcuts.</div>
                   </div>
                   {/* Service */}
                   <div>
-                    <img src="/home/values/service.png" alt="Service" className="h-25 w-25 mx-auto mb-2" />
+                    <img src={homeImages.service || "/home/values/service.png"} alt="Service" className="h-25 w-25 mx-auto mb-2" />
                     <div className="text-lg text-white font-semibold">SERVICE</div>
                     <div className="text-sm text-white">We believe in giving back to the communities that have shaped us into the people we are today.</div>
                   </div>
                   {/* Unity */}
                   <div>
-                    <img src="/home/values/unity.png" alt="Unity" className="h-25 w-25 mx-auto mb-2" />
+                    <img src={homeImages.unity || "/home/values/unity.png"} alt="Unity" className="h-25 w-25 mx-auto mb-2" />
                     <div className="text-lg text-white font-semibold">UNITY</div>
                     <div className="text-sm text-white">We strive to build our bonds and strengthen the brotherhood that we are proud of.</div>
                   </div>
                   {/* Knowledge */}
                   <div>
-                    <img src="/home//values/knowledge.png" alt="Knowledge" className="h-25 w-25 mx-auto mb-2" />
+                    <img src={homeImages.knowledge || "/home/values/knowledge.png"} alt="Knowledge" className="h-25 w-25 mx-auto mb-2" />
                     <div className="text-lg text-white font-semibold">KNOWLEDGE</div>
                     <div className="text-sm text-white">We are scholars of diverse disciplines and professionals in varied industries.</div>
                   </div>
@@ -166,7 +260,7 @@ export default function Home() {
             <section className="relative py-0 z-10">
               <div className="w-full">
                 <div className="w-full h-[28rem] md:h-[33rem] overflow-hidden flex items-center justify-center">
-                  <img src="/home/homePageGroupPhoto.jpg" alt="AKPsi Group Photo" className="w-full h-full object-cover object-[center_35%]" />
+                  <img src={homeImages.groupPhoto1 || "/home/homePageGroupPhoto.jpg"} alt="AKPsi Group Photo" className="w-full h-full object-cover object-[center_35%]" />
                 </div>
               </div>
             </section>
@@ -220,7 +314,7 @@ export default function Home() {
                 <div className="flex flex-col md:flex-row items-center justify-center w-full gap-12">
                   {/* Pie Chart Image with Overlayed Labels and Lines */}
                   <div className="relative flex-shrink-0 w-[480px] h-[480px] flex items-center justify-center">
-                    <img src="/home/industryDistribution.png" alt="Industries Pie Chart" className="w-[360px] h-[360px] object-contain mx-auto" />
+                    <img src={homeImages.industryDistribution || "/home/industryDistribution.png"} alt="Industries Pie Chart" className="w-[360px] h-[360px] object-contain mx-auto" />
                     {/* SVG lines connecting labels to chart */}
                     <svg className="absolute top-0 left-0 w-full h-full pointer-events-none" width="480" height="480">
                       {/* 29% Business (vertical up, shifted left) */}
@@ -254,7 +348,7 @@ export default function Home() {
             <section className="relative py-0 z-10">
               <div className="w-full">
                 <div className="w-full  md:h-[35rem] overflow-hidden flex items-center justify-center">
-                  <img src="/home/homePageGroupPhoto2.png" alt="AKPsi Group Photo 2" className="w-full h-full object-cover object-[center_40%]" />
+                  <img src={homeImages.groupPhoto2 || "/home/homePageGroupPhoto2.png"} alt="AKPsi Group Photo 2" className="w-full h-full object-cover object-[center_40%]" />
                 </div>
               </div>
             </section>
