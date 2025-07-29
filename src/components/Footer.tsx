@@ -26,10 +26,15 @@ export default function Footer({ className = "" }: FooterProps) {
     facebook: '',
     linkedin: ''
   });
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const fetchSocialLinks = async () => {
+    const checkAuthAndFetchLinks = async () => {
       try {
+        // Check authentication
+        const isAuth = localStorage.getItem('akpsi-auth') === 'true';
+        setIsAuthenticated(isAuth);
+        
         const supabase = createClient();
         
         // Fetch links by name
@@ -56,7 +61,7 @@ export default function Footer({ className = "" }: FooterProps) {
       }
     };
 
-    fetchSocialLinks();
+    checkAuthAndFetchLinks();
   }, []);
 
   const socialIcons = [
@@ -115,15 +120,22 @@ export default function Footer({ className = "" }: FooterProps) {
                 </a>
               ))}
               
-              {/* Login Button */}
+              {/* Login/Logout Button */}
               <button
                 className={akpsiColors.footerLogin + " " + akpsiFonts.sectionSubtitleFont + " underline cursor-pointer transition-colors"}
                 onClick={() => {
-                  // TODO: Implement login functionality
-                  console.log('Login button clicked - functionality not implemented yet');
+                  if (isAuthenticated) {
+                    // Logout: clear authentication
+                    localStorage.removeItem('akpsi-auth');
+                    localStorage.removeItem('akpsi-auth-time');
+                    window.location.href = '/';
+                  } else {
+                    // Login: go to login page
+                    window.location.href = '/login';
+                  }
                 }}
               >
-                LOGIN
+                {isAuthenticated ? 'LOGOUT' : 'LOGIN'}
               </button>
             </div>
           </div>

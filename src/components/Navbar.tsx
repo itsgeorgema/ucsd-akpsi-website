@@ -2,26 +2,57 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { akpsiColors } from '../styles/colors';
 import { akpsiFonts } from '../styles/fonts';
 
 export default function Navbar() {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
+  
+  // Simple function to check if user is authenticated
+  const isUserAuthenticated = () => {
+    if (typeof window === 'undefined') return false;
+    
+    // Check localStorage only
+    return localStorage.getItem('akpsi-auth') === 'true';
+  };
+
+  // Force immediate authentication check - this happens BEFORE any React rendering
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
+    // Immediately check auth and force state update
+    const authStatus = isUserAuthenticated();
+    setIsAuthenticated(authStatus);
     setMounted(true);
-  }, []);
+    
+    // Only check auth periodically for login/logout changes
+    const checkAuthPeriodically = () => {
+      const currentAuthStatus = isUserAuthenticated();
+      if (currentAuthStatus !== isAuthenticated) {
+        setIsAuthenticated(currentAuthStatus);
+      }
+    };
+    
+    // Check every 1 second for auth changes only
+    const interval = setInterval(checkAuthPeriodically, 1000);
+    
+    return () => {
+      clearInterval(interval);
+    };
+  }, []); // Only run once on mount
 
-  const navItems = [
+  // Only recreate navItems when authentication state changes
+  const navItems = useMemo(() => [
     { href: '/', label: 'Home' },
     { href: '/about', label: 'About' },
     { href: '/brothers', label: 'Brothers', dropdown: true },
     { href: '/gallery', label: 'Gallery' },
     { href: '/recruitment', label: 'Recruitment' },
-  ];
-
+    ...(isAuthenticated ? [{ href: '/members', label: 'Resources' }] : []),
+  ], [isAuthenticated]);
+  
   return (
     <>
       <div className="absolute top-[-2.5rem] left-4 z-50 flex items-center">
@@ -36,7 +67,7 @@ export default function Navbar() {
       <nav className="absolute top-4 right-4 z-50">
         <div className={`${akpsiColors.navBarBg} rounded-lg shadow-lg border ${akpsiColors.navBarBorder}`}>
           <div className="flex items-center">
-            <div className="hidden md:block">
+            <div className="block">
               <div className="flex items-center">
                 {navItems.map((item) => {
                   const isActive = mounted && pathname === item.href;
