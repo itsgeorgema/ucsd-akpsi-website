@@ -13,6 +13,7 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [backgroundUrl, setBackgroundUrl] = useState('');
   const router = useRouter();
+  
   useEffect(() => {
     const fetchBackground = async () => {
       try {
@@ -45,14 +46,7 @@ export default function Login() {
       const result = await response.json();
 
       if (response.ok && result.success) {
-        // Store authentication in localStorage for backward compatibility
-        localStorage.setItem('akpsi-auth', 'true');
-        localStorage.setItem('akpsi-auth-time', Date.now().toString());
-        
-        // Dispatch custom event to immediately update AuthContext
-        window.dispatchEvent(new Event('auth-change'));
-        
-        // Force immediate navigation
+        // Navigate to protected page
         router.replace('/actives');
       } else {
         setError(result.error || 'Incorrect password. Please try again.');

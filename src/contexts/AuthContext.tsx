@@ -17,7 +17,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const response = await fetch('/api/validate-session', {
         method: 'POST',
-        credentials: 'include', // Include cookies
+        credentials: 'include',
       });
       
       const result = await response.json();
@@ -30,11 +30,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = async () => {
     try {
-      // Clear client-side storage for backward compatibility
-      localStorage.removeItem('akpsi-auth');
-      localStorage.removeItem('akpsi-auth-time');
-      sessionStorage.removeItem('isAuthenticated');
-      
       // Call logout endpoint to clear server-side cookie
       await fetch('/api/logout', {
         method: 'POST',
@@ -42,9 +37,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
       
       setIsAuthenticated(false);
-      
-      // Dispatch custom event for immediate UI updates
-      window.dispatchEvent(new Event('auth-change'));
     } catch (error) {
       console.error('Logout error:', error);
       // Still clear local state even if server call fails
@@ -55,41 +47,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     checkAuth();
     
-    // Event-driven auth updates for better performance
-    const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === 'isAuthenticated' || e.key === 'akpsi-auth') {
-        checkAuth();
-      }
-    };
-    
+    // Check when tab becomes visible again (for session expiration)
     const handleVisibilityChange = () => {
       if (!document.hidden) {
         checkAuth();
       }
     };
-
-    // Custom event listener for immediate auth updates
-    const handleAuthChange = () => {
-      checkAuth();
-    };
     
-    // Listen for storage changes (cross-tab auth updates)
-    window.addEventListener('storage', handleStorageChange);
-    
-    // Check when tab becomes visible again
     document.addEventListener('visibilitychange', handleVisibilityChange);
     
-    // Listen for custom auth change events
-    window.addEventListener('auth-change', handleAuthChange);
-    
-    // Periodic check every 5 minutes for session expiration
-    const interval = setInterval(checkAuth, 5 * 60 * 1000);
-    
     return () => {
-      clearInterval(interval);
-      window.removeEventListener('storage', handleStorageChange);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('auth-change', handleAuthChange);
     };
   }, []);
 
