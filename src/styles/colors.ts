@@ -25,4 +25,22 @@ export const akpsiColors = {
   footerLogin: 'text-white hover:text-white/80',
   black: 'text-black',
   orangeGradient: 'from-gray-50 via-orange-50 to-gray-50',
+  // Input field colors
+  inputBorder: 'border-gray-300',
+  inputPlaceholder: 'placeholder-gray-500',
+  focusRing: 'focus:ring-blue-500',
+  focusBorder: 'focus:border-blue-500',
+  inputGlass: 'bg-white/20',
+  inputFocus: 'focus:bg-white/30',
+  inputGlassHover: 'hover:bg-white/25',
+  inputGlassText: 'text-gray-800',
+  inputGlassHoverText: 'text-gray-900',
+  // Error and success colors
+  errorText: 'text-red-600',
+  successText: 'text-green-600',
+  // Glass morphism colors
+  glassBg: 'bg-white/20',
+  glassHover: 'hover:bg-white/30',
+  glassText: 'text-gray-800',
+  glassHoverText: 'hover:text-gray-900',
 }; 
