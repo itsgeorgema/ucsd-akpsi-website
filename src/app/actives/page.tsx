@@ -1,0 +1,192 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { createClient } from '../../../supabase/client';
+import { akpsiFonts } from '../../styles/fonts';
+import { akpsiColors } from '../../styles/colors';
+import Footer from '../../components/Footer';
+import LoadingSpinner from '../../components/LoadingSpinner';
+import { useRouter } from 'next/navigation';
+
+interface ResourceButton {
+  name: string;
+  link?: string;
+}
+
+const resourceButtons: ResourceButton[] = [
+  { name: 'Active Member Resources' },
+  { name: 'Active Linktree' },
+  { name: 'Alumni Contacts' },
+  { name: 'Family Trees' },
+];
+
+// Authentication wrapper component
+function AuthGuard({ children }: { children: React.ReactNode }) {
+  const [isChecking, setIsChecking] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const router = useRouter();
+  
+  useEffect(() => {
+    const validateSession = async () => {
+      try {
+        const response = await fetch('/api/validate-session', {
+          method: 'POST',
+          credentials: 'include',
+        });
+        
+        const result = await response.json();
+        
+        if (!result.valid) {
+          // Not authenticated, redirect immediately
+          router.replace('/login');
+          return;
+        }
+        
+        // Authenticated, allow rendering
+        setIsAuthenticated(true);
+        setIsChecking(false);
+      } catch (error) {
+        console.error('Session validation error:', error);
+        router.replace('/login');
+      }
+    };
+
+    validateSession();
+  }, [router]);
+
+  // Show nothing while checking or redirecting
+  if (isChecking || !isAuthenticated) {
+    return null;
+  }
+
+  return <>{children}</>;
+}
+
+// The actual actives page component
+function ActivesPageContent() {
+  const [backgroundUrl, setBackgroundUrl] = useState('');
+  const [links, setLinks] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        
+        const supabase = createClient();
+        
+        // Fetch background image for all users
+        const { data: bgData } = supabase.storage.from('background').getPublicUrl('background.jpeg');
+        setBackgroundUrl(bgData?.publicUrl || '');
+        
+        // Fetch links from resources table via API route (server-side with service role)
+        const response = await fetch('/api/resources', {
+          credentials: 'include', // Include cookies for authentication
+        });
+        const result = await response.json();
+        
+        let linksData = null;
+        let error = null;
+        
+        if (response.ok) {
+          linksData = result.data;
+        } else {
+          error = result.error;
+        }
+        
+        if (!error && linksData) {
+          // Map the resource names to the correct order
+          const resourceMap = {
+            'ActiveMemberResources': linksData.find((item: { resource: string; link: string }) => item.resource === 'ActiveMemberResources')?.link,
+            'ActiveLinkTree': linksData.find((item: { resource: string; link: string }) => item.resource === 'ActiveLinkTree')?.link,
+            'AlumniContacts': linksData.find((item: { resource: string; link: string }) => item.resource === 'AlumniContacts')?.link,
+            'FamilyTrees': linksData.find((item: { resource: string; link: string }) => item.resource === 'FamilyTrees')?.link,
+          };
+          
+          const linkUrls = [
+            resourceMap.ActiveMemberResources,
+            resourceMap.ActiveLinkTree,
+            resourceMap.AlumniContacts,
+            resourceMap.FamilyTrees
+          ].filter(link => link);
+          
+          setLinks(linkUrls);
+        }
+      } catch {
+        setBackgroundUrl('');
+        setLinks([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  return (
+    <div className="relative">
+      {/* Full Page Background */}
+      {backgroundUrl && (
+        <div
+          className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${backgroundUrl})` }}
+        />
+      )}
+      {/* Overlay for readability */}
+      <div className="fixed top-0 left-0 w-full h-full z-10 bg-black/20" />
+      
+      <div className="relative z-20 min-h-screen flex flex-col">
+        {loading ? (
+          <main className="flex-1 flex items-center justify-center py-16 px-4">
+            <LoadingSpinner size="large" fullScreen={false} type="component" />
+          </main>
+        ) : (
+        <>
+          {/* Hero Section */}
+          <section className="relative flex flex-col items-center justify-center text-center z-10 min-h-screen">
+            <div className="relative z-10 flex flex-col items-center">
+              <h1 className={`text-5xl md:text-6xl mb-6 text-center ${akpsiColors.heroTitle} ${akpsiFonts.sectionTitleFont}`}>Active Member Resources</h1>
+              <p className={`text-lg ${akpsiColors.heroSubtitle} text-center mb-8 max-w-2xl ${akpsiFonts.bodyFont}`}>Please do not share any of these resources with people outside of Nu Xi.<br />Make sure to use this responsibly, you are protecting our legacy :)</p>
+              <div className="flex flex-col gap-4 w-full max-w-md">
+                {resourceButtons.map((item, idx) => {
+                  const link = links[idx];
+                  return link ? (
+                    <a
+                      key={idx}
+                      href={link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`block w-full py-3 px-6 rounded-lg border-2 ${akpsiColors.glassBorder} ${akpsiColors.glassText} text-lg font-semibold text-center ${akpsiColors.glassBg} hover:bg-black/30 hover:text-white transition-colors duration-200 shadow-md ${akpsiColors.glassBlurMd} ${akpsiFonts.bodyFont}`}
+                    >
+                      {item.name}
+                    </a>
+                  ) : (
+                    <button
+                      key={idx}
+                      className={`block w-full py-3 px-6 rounded-lg border-2 ${akpsiColors.glassBorder} ${akpsiColors.glassText} text-lg font-semibold text-center ${akpsiColors.glassBg} cursor-not-allowed opacity-70 shadow-md ${akpsiColors.glassBlurMd} ${akpsiFonts.bodyFont}`}
+                      disabled
+                    >
+                      {item.name}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+
+          {/* Footer */}
+          <Footer />
+        </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// Main export - wraps the content with authentication guard
+export default function ActivesPage() {
+  return (
+    <AuthGuard>
+      <ActivesPageContent />
+    </AuthGuard>
+  );
+} 
