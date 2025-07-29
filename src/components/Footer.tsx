@@ -27,6 +27,24 @@ export default function Footer({ className = "" }: FooterProps) {
     linkedin: ''
   });
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [logoUrl, setLogoUrl] = useState('');
+
+  useEffect(() => {
+    const fetchLogo = async () => {
+      try {
+        const supabase = createClient();
+        const { data: logoData } = supabase.storage
+          .from('misc')
+          .getPublicUrl('akpsiLogo.png');
+        
+        setLogoUrl(logoData?.publicUrl || '');
+      } catch (error) {
+        console.error('Error fetching logo:', error);
+      }
+    };
+
+    fetchLogo();
+  }, []);
 
   useEffect(() => {
     const checkAuthAndFetchLinks = async () => {
@@ -101,7 +119,9 @@ export default function Footer({ className = "" }: FooterProps) {
           <div className="flex items-center justify-between">
             {/* Logo and Text */}
             <div className="flex items-center space-x-4">
-              <img src="/akpsiLogo.png" alt="Alpha Kappa Psi Logo" className="h-12 w-auto" />
+              {logoUrl && (
+                <img src={logoUrl} alt="Alpha Kappa Psi Logo" className="h-12 w-auto" />
+              )}
             </div>
             
             {/* Social Media Icons and Login Button */}

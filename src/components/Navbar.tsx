@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState, useMemo } from 'react';
+import { createClient } from '../../supabase/client';
 import { akpsiColors } from '../styles/colors';
 import { akpsiFonts } from '../styles/fonts';
 
@@ -20,6 +21,7 @@ export default function Navbar() {
 
   // Force immediate authentication check - this happens BEFORE any React rendering
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [logoUrl, setLogoUrl] = useState('');
 
   useEffect(() => {
     // Immediately check auth and force state update
@@ -43,6 +45,23 @@ export default function Navbar() {
     };
   }, []); // Only run once on mount
 
+  useEffect(() => {
+    const fetchLogo = async () => {
+      try {
+        const supabase = createClient();
+        const { data: logoData } = supabase.storage
+          .from('misc')
+          .getPublicUrl('akpsiLogo.png');
+        
+        setLogoUrl(logoData?.publicUrl || '');
+      } catch (error) {
+        console.error('Error fetching logo:', error);
+      }
+    };
+
+    fetchLogo();
+  }, []);
+
   // Only recreate navItems when authentication state changes
   const navItems = useMemo(() => [
     { href: '/', label: 'Home' },
@@ -57,11 +76,13 @@ export default function Navbar() {
     <>
       <div className="absolute top-[-2.5rem] left-4 z-50 flex items-center">
         <Link href="/">
-          <img
-            src="/akpsiLogo.png"
-            alt="Alpha Kappa Psi Logo"
-            className="h-40 w-40 object-contain cursor-pointer"
-          />
+          {logoUrl && (
+            <img
+              src={logoUrl}
+              alt="Alpha Kappa Psi Logo"
+              className="h-40 w-40 object-contain cursor-pointer"
+            />
+          )}
         </Link>
       </div>
       <nav className="absolute top-4 right-4 z-50">
