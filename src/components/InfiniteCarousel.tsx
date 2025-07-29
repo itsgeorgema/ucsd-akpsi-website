@@ -27,9 +27,10 @@ export default function InfiniteCarousel({ images }: InfiniteCarouselProps) {
 
   // Calculate dynamic duration based on number of images
   // More images = slower speed, fewer images = faster speed
+  const BASELINE_IMAGE_COUNT = 8; // The baseline number of images for calculating dynamic duration
   const baseDuration = 45; // Base duration in seconds (reduced from 60)
   const imageCount = images.length;
-  const dynamicDuration = Math.max(baseDuration, baseDuration + (imageCount - 8) * 3); // Reduced multiplier from 4 to 3
+  const dynamicDuration = Math.max(baseDuration, baseDuration + (imageCount - BASELINE_IMAGE_COUNT) * 3); // Reduced multiplier from 4 to 3
 
   return (
     <div className="relative overflow-hidden">
