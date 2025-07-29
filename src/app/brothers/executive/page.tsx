@@ -104,17 +104,18 @@ export default function ExecutiveCommittee() {
           {!loading && executives.length > 0 && (
             <div className="w-full max-w-8xl mx-auto">
               {/* Header Section */}
-              <div className="text-center mb-16">
+              <div className="text-center mb-16 mt-8 md:mt-12">
                 <h1 className={`text-5xl lg:text-6xl ${akpsiFonts.heroTitleFont} ${akpsiColors.heroTitle} mb-4`}>
                   Executive Committee
                 </h1>
+
               </div>
 
               {/* Executive List - Side by Side Layout */}
-              <div className="space-y-16">
+              <div className="space-y-8">
                 {executives.map((executive, index) => (
                   <div key={index} className="w-full">
-                    <div className="grid lg:grid-cols-3 gap-16 items-stretch">
+                    <div className="grid lg:grid-cols-3 gap-8 items-stretch">
                       {/* Enhanced Profile Image Section */}
                       <div className="lg:col-span-1 flex flex-col items-center lg:items-start h-full">
                         <div className="relative group h-full">
@@ -133,17 +134,17 @@ export default function ExecutiveCommittee() {
                       
                       {/* Enhanced Content Section */}
                       <div className="lg:col-span-2 flex flex-col h-full">
-                        <div className={`${akpsiColors.sectionBg} rounded-3xl shadow-2xl p-8 lg:p-12 border border-gray-200`}>
+                        <div className={`${akpsiColors.sectionBg} rounded-3xl shadow-2xl p-4 lg:p-6 border border-gray-200`}>
                           {/* Header Section */}
-                          <div className="mb-8">
+                          <div className="mb-4">
                             <div className="flex items-center mb-4">
                               <span className={`text-sm ${akpsiColors.statCircleText} uppercase tracking-widest ${akpsiFonts.sectionSubtitleFont} ${akpsiColors.statCircleBg} px-3 py-1 rounded-full`}>
                                 {executive.position}
                               </span>
                             </div>
                             
-                            <div className="flex items-center gap-2 mb-3">
-                              <h1 className={`text-5xl lg:text-6xl ${akpsiFonts.heroTitleFont} ${akpsiColors.black} leading-tight`}>
+                            <div className="flex items-center gap-2 mb-2">
+                              <h1 className={`text-3xl lg:text-4xl ${akpsiFonts.heroTitleFont} ${akpsiColors.black} leading-tight`}>
                                 {executive.name}
                               </h1>
                               
@@ -168,14 +169,14 @@ export default function ExecutiveCommittee() {
                               )}
                             </div>
                             
-                            <div className="flex flex-wrap items-center gap-4 mb-6">
-                              <div className={`flex items-center text-lg ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
+                            <div className="flex flex-wrap items-center gap-4 mb-3">
+                              <div className={`flex items-center text-sm ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
                                 <svg className={`w-5 h-5 mr-2 ${akpsiColors.statCircleText}`} fill="currentColor" viewBox="0 0 20 20">
                                   <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                                 </svg>
                                 {executive.pronouns}
                               </div>
-                              <div className={`flex items-center text-lg ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
+                              <div className={`flex items-center text-sm ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
                                 <svg className={`w-5 h-5 mr-2 ${akpsiColors.statCircleText}`} fill="currentColor" viewBox="0 0 20 20">
                                   <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                                 </svg>
@@ -185,8 +186,8 @@ export default function ExecutiveCommittee() {
                           </div>
                           
                           {/* Bio Section */}
-                          <div className="mb-8">
-                            <div className={`text-lg ${akpsiColors.sectionText} leading-relaxed whitespace-pre-line ${akpsiFonts.bodyFont} ${akpsiColors.mainBg}/50 rounded-xl p-6 border-l-4 ${akpsiColors.sectionTitle}`}>
+                          <div className="mb-6">
+                            <div className={`text-base ${akpsiColors.sectionText} leading-relaxed whitespace-pre-line ${akpsiFonts.bodyFont} ${akpsiColors.mainBg}/50 rounded-xl p-4 border-l-4 ${akpsiColors.sectionTitle}`}>
                               {executive.bio}
                             </div>
                           </div>

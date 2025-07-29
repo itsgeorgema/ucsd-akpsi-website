@@ -1,67 +1,57 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
+import { createClient } from '../../supabase/client';
 import { akpsiColors } from '../styles/colors';
 import { akpsiFonts } from '../styles/fonts';
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [mounted, setMounted] = useState(false);
+  const [mounted] = useState(false);
   
-  // Simple function to check if user is authenticated
-  const isUserAuthenticated = () => {
-    if (typeof window === 'undefined') return false;
-    
-    // Check localStorage only
-    return localStorage.getItem('akpsi-auth') === 'true';
-  };
-
-  // Force immediate authentication check - this happens BEFORE any React rendering
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [logoUrl, setLogoUrl] = useState('');
 
   useEffect(() => {
-    // Immediately check auth and force state update
-    const authStatus = isUserAuthenticated();
-    setIsAuthenticated(authStatus);
-    setMounted(true);
-    
-    // Only check auth periodically for login/logout changes
-    const checkAuthPeriodically = () => {
-      const currentAuthStatus = isUserAuthenticated();
-      if (currentAuthStatus !== isAuthenticated) {
-        setIsAuthenticated(currentAuthStatus);
+    const fetchLogo = async () => {
+      try {
+        const supabase = createClient();
+        const { data: logoData } = supabase.storage
+          .from('misc')
+          .getPublicUrl('akpsiLogo.png');
+        
+        setLogoUrl(logoData?.publicUrl || '');
+      } catch (error) {
+        console.error('Error fetching logo:', error);
       }
     };
-    
-    // Check every 1 second for auth changes only
-    const interval = setInterval(checkAuthPeriodically, 1000);
-    
-    return () => {
-      clearInterval(interval);
-    };
-  }, []); // Only run once on mount
 
-  // Only recreate navItems when authentication state changes
-  const navItems = useMemo(() => [
+    fetchLogo();
+  }, []);
+
+  const navItems = [
     { href: '/', label: 'Home' },
     { href: '/about', label: 'About' },
     { href: '/brothers', label: 'Brothers', dropdown: true },
     { href: '/gallery', label: 'Gallery' },
     { href: '/recruitment', label: 'Recruitment' },
-    ...(isAuthenticated ? [{ href: '/members', label: 'Resources' }] : []),
-  ], [isAuthenticated]);
+  ];
   
   return (
     <>
       <div className="absolute top-[-2.5rem] left-4 z-50 flex items-center">
         <Link href="/">
-          <img
-            src="/akpsiLogo.png"
-            alt="Alpha Kappa Psi Logo"
-            className="h-40 w-40 object-contain cursor-pointer"
-          />
+          {logoUrl && (
+            <Image
+              src={logoUrl}
+              alt="Alpha Kappa Psi Logo"
+              width={160}
+              height={160}
+              className="h-40 w-40 object-contain cursor-pointer"
+            />
+          )}
         </Link>
       </div>
       <nav className="absolute top-4 right-4 z-50">
