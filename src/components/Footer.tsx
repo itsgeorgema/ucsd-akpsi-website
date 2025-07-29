@@ -1,10 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 import { createClient } from '../../supabase/client';
 import { akpsiColors } from '../styles/colors';
 import { akpsiFonts } from '../styles/fonts';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '../contexts/AuthContext';
 
 interface FooterProps {
   className?: string;
@@ -27,9 +28,10 @@ export default function Footer({ className = "" }: FooterProps) {
     facebook: '',
     linkedin: ''
   });
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { isAuthenticated, logout } = useAuth();
   const [logoUrl, setLogoUrl] = useState('');
-
+  const router = useRouter();
+  
   useEffect(() => {
     const fetchLogo = async () => {
       try {
@@ -48,12 +50,8 @@ export default function Footer({ className = "" }: FooterProps) {
   }, []);
 
   useEffect(() => {
-    const checkAuthAndFetchLinks = async () => {
+    const fetchLinks = async () => {
       try {
-        // Check authentication
-        const isAuth = localStorage.getItem('akpsi-auth') === 'true';
-        setIsAuthenticated(isAuth);
-        
         const supabase = createClient();
         
         // Fetch links by name
@@ -80,7 +78,7 @@ export default function Footer({ className = "" }: FooterProps) {
       }
     };
 
-    checkAuthAndFetchLinks();
+    fetchLinks();
   }, []);
 
   const socialIcons = [
@@ -153,12 +151,11 @@ export default function Footer({ className = "" }: FooterProps) {
                 onClick={() => {
                   if (isAuthenticated) {
                     // Logout: clear authentication
-                    localStorage.removeItem('akpsi-auth');
-                    localStorage.removeItem('akpsi-auth-time');
-                    window.location.href = '/';
+                    logout();
+                    router.push('/');
                   } else {
                     // Login: go to login page
-                    window.location.href = '/login';
+                    router.push('/login');
                   }
                 }}
               >

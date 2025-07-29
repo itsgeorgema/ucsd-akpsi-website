@@ -1,16 +1,17 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { createClient } from '../../supabase/client';
 import { akpsiColors } from '../styles/colors';
 import { akpsiFonts } from '../styles/fonts';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function Navbar() {
   const pathname = usePathname();
   const [mounted] = useState(false);
+  const { isAuthenticated } = useAuth();
   
   const [logoUrl, setLogoUrl] = useState('');
 
@@ -37,6 +38,8 @@ export default function Navbar() {
     { href: '/brothers', label: 'Brothers', dropdown: true },
     { href: '/gallery', label: 'Gallery' },
     { href: '/recruitment', label: 'Recruitment' },
+    // Add Actives tab only when authenticated
+    ...(isAuthenticated ? [{ href: '/actives', label: 'Actives' }] : []),
   ];
   
   return (
@@ -44,11 +47,9 @@ export default function Navbar() {
       <div className="absolute top-[-2.5rem] left-4 z-50 flex items-center">
         <Link href="/">
           {logoUrl && (
-            <Image
+            <img
               src={logoUrl}
               alt="Alpha Kappa Psi Logo"
-              width={160}
-              height={160}
               className="h-40 w-40 object-contain cursor-pointer"
             />
           )}
