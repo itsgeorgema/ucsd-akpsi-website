@@ -108,6 +108,7 @@ export default function ExecutiveCommittee() {
                 <h1 className={`text-5xl lg:text-6xl ${akpsiFonts.heroTitleFont} ${akpsiColors.heroTitle} mb-4`}>
                   Executive Committee
                 </h1>
+
               </div>
 
               {/* Executive List - Side by Side Layout */}
