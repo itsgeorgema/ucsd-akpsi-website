@@ -121,7 +121,7 @@ export default function Footer({ className = "" }: FooterProps) {
             {/* Logo and Text */}
             <div className="flex items-center space-x-4">
               {logoUrl && (
-                <Image 
+                <img 
                   src={logoUrl} 
                   alt="Alpha Kappa Psi Logo" 
                   width={48}
