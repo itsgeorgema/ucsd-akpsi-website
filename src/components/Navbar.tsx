@@ -2,48 +2,16 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { createClient } from '../../supabase/client';
 import { akpsiColors } from '../styles/colors';
 import { akpsiFonts } from '../styles/fonts';
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [mounted, setMounted] = useState(false);
+  const [mounted] = useState(false);
   
-  // Simple function to check if user is authenticated
-  const isUserAuthenticated = () => {
-    if (typeof window === 'undefined') return false;
-    
-    // Check localStorage only
-    return localStorage.getItem('akpsi-auth') === 'true';
-  };
-
-  // Force immediate authentication check - this happens BEFORE any React rendering
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [logoUrl, setLogoUrl] = useState('');
-
-  useEffect(() => {
-    // Immediately check auth and force state update
-    const authStatus = isUserAuthenticated();
-    setIsAuthenticated(authStatus);
-    setMounted(true);
-    
-    // Only check auth periodically for login/logout changes
-    const checkAuthPeriodically = () => {
-      const currentAuthStatus = isUserAuthenticated();
-      if (currentAuthStatus !== isAuthenticated) {
-        setIsAuthenticated(currentAuthStatus);
-      }
-    };
-    
-    // Check every 1 second for auth changes only
-    const interval = setInterval(checkAuthPeriodically, 1000);
-    
-    return () => {
-      clearInterval(interval);
-    };
-  }, []); // Only run once on mount
 
   useEffect(() => {
     const fetchLogo = async () => {
@@ -62,15 +30,13 @@ export default function Navbar() {
     fetchLogo();
   }, []);
 
-  // Only recreate navItems when authentication state changes
-  const navItems = useMemo(() => [
+  const navItems = [
     { href: '/', label: 'Home' },
     { href: '/about', label: 'About' },
     { href: '/brothers', label: 'Brothers', dropdown: true },
     { href: '/gallery', label: 'Gallery' },
     { href: '/recruitment', label: 'Recruitment' },
-    ...(isAuthenticated ? [{ href: '/members', label: 'Resources' }] : []),
-  ], [isAuthenticated]);
+  ];
   
   return (
     <>
