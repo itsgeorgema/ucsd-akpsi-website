@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { createClient } from '../../supabase/client';
 import { akpsiColors } from '../styles/colors';
 import { akpsiFonts } from '../styles/fonts';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '../contexts/AuthContext';
 
 interface FooterProps {
   className?: string;
@@ -26,8 +28,10 @@ export default function Footer({ className = "" }: FooterProps) {
     facebook: '',
     linkedin: ''
   });
+  const { isAuthenticated, logout } = useAuth();
   const [logoUrl, setLogoUrl] = useState('');
-
+  const router = useRouter();
+  
   useEffect(() => {
     const fetchLogo = async () => {
       try {
@@ -46,7 +50,7 @@ export default function Footer({ className = "" }: FooterProps) {
   }, []);
 
   useEffect(() => {
-    const fetchSocialLinks = async () => {
+    const fetchLinks = async () => {
       try {
         const supabase = createClient();
         
@@ -74,7 +78,7 @@ export default function Footer({ className = "" }: FooterProps) {
       }
     };
 
-    fetchSocialLinks();
+    fetchLinks();
   }, []);
 
   const socialIcons = [
@@ -115,7 +119,13 @@ export default function Footer({ className = "" }: FooterProps) {
             {/* Logo and Text */}
             <div className="flex items-center space-x-4">
               {logoUrl && (
-                <img src={logoUrl} alt="Alpha Kappa Psi Logo" className="h-12 w-auto" />
+                <img 
+                  src={logoUrl} 
+                  alt="Alpha Kappa Psi Logo" 
+                  width={48}
+                  height={48}
+                  className="h-12 w-auto" 
+                />
               )}
             </div>
             
@@ -135,15 +145,21 @@ export default function Footer({ className = "" }: FooterProps) {
                 </a>
               ))}
               
-              {/* Login Button */}
+              {/* Login/Logout Button */}
               <button
                 className={akpsiColors.footerLogin + " " + akpsiFonts.sectionSubtitleFont + " underline cursor-pointer transition-colors"}
                 onClick={() => {
-                  // TODO: Implement login functionality
-                  console.log('Login button clicked - functionality not implemented yet');
+                  if (isAuthenticated) {
+                    // Logout: clear authentication
+                    logout();
+                    router.push('/');
+                  } else {
+                    // Login: go to login page
+                    router.push('/login');
+                  }
                 }}
               >
-                LOGIN
+                {isAuthenticated ? 'LOGOUT' : 'LOGIN'}
               </button>
             </div>
           </div>

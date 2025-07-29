@@ -6,15 +6,14 @@ import { useEffect, useState } from 'react';
 import { createClient } from '../../supabase/client';
 import { akpsiColors } from '../styles/colors';
 import { akpsiFonts } from '../styles/fonts';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [mounted, setMounted] = useState(false);
+  const [mounted] = useState(false);
+  const { isAuthenticated } = useAuth();
+  
   const [logoUrl, setLogoUrl] = useState('');
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     const fetchLogo = async () => {
@@ -39,8 +38,10 @@ export default function Navbar() {
     { href: '/brothers', label: 'Brothers', dropdown: true },
     { href: '/gallery', label: 'Gallery' },
     { href: '/recruitment', label: 'Recruitment' },
+    // Add Actives tab only when authenticated
+    ...(isAuthenticated ? [{ href: '/actives', label: 'Actives' }] : []),
   ];
-
+  
   return (
     <>
       <div className="absolute top-[-2.5rem] left-4 z-50 flex items-center">
@@ -57,7 +58,7 @@ export default function Navbar() {
       <nav className="absolute top-4 right-4 z-50">
         <div className={`${akpsiColors.navBarBg} rounded-lg shadow-lg border ${akpsiColors.navBarBorder}`}>
           <div className="flex items-center">
-            <div className="hidden md:block">
+            <div className="block">
               <div className="flex items-center">
                 {navItems.map((item) => {
                   const isActive = mounted && pathname === item.href;
