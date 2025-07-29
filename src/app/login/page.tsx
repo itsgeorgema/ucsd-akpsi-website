@@ -32,10 +32,18 @@ export default function Login() {
     setError('');
 
     try {
-      // Check password against environment variable
-      const correctPassword = process.env.NEXT_PUBLIC_ACTIVE_PASSWORD;
-      
-      if (password === correctPassword) {
+      // Send password to server for verification
+      const response = await fetch('/api/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
         // Store authentication in localStorage only
         localStorage.setItem('akpsi-auth', 'true');
         localStorage.setItem('akpsi-auth-time', Date.now().toString());
@@ -43,7 +51,7 @@ export default function Login() {
         // Force immediate navigation
         window.location.replace('/members');
       } else {
-        setError('Incorrect password. Please try again.');
+        setError(result.error || 'Incorrect password. Please try again.');
       }
     } catch {
       setError('An error occurred. Please try again.');
