@@ -127,7 +127,7 @@ function MembersPageContent() {
         ) : (
           <main className="flex-1 flex flex-col items-center justify-center px-4 py-12">
             <h1 className={`text-5xl md:text-6xl ${akpsiColors.black} mb-6 text-center ${akpsiFonts.sectionTitleFont}`}>Active Member Resources</h1>
-            <p className={`text-lg ${akpsiColors.black} text-center mb-2 max-w-2xl ${akpsiFonts.bodyFont}`}>Please do not share any of these resources with people outside of the frat.<br />Make sure to use this responsibly, you are protecting our legacy :)</p>
+            <p className={`text-lg ${akpsiColors.black} text-center mb-2 max-w-2xl ${akpsiFonts.bodyFont}`}>Please do not share any of these resources with people outside of Nu Xi.<br />Make sure to use this responsibly, you are protecting our legacy :)</p>
             <div className="mt-8 flex flex-col gap-4 w-full max-w-md">
               {resourceButtons.map((item, idx) => {
                 const link = links[idx];
