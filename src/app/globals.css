@@ -30,3 +30,28 @@ body {
 .font-hero {
   font-family: 'Montserrat', Arial, Helvetica, sans-serif;
 }
+
+/* Typewriter cursor styles */
+.typewriter-cursor {
+  display: inline-block;
+  width: 0.1em;
+  height: 1.1em;
+  background-color: #fef3c7; /* Yellow-100 color matching navBarTextActive */
+  margin-left: 0;
+  border-radius: 1px;
+  animation: blink-caret 1s infinite;
+  vertical-align: text-top;
+  transform: translateY(0em);
+}
+
+/* The typewriter cursor blink effect */
+@keyframes blink-caret {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Class to disable blinking when actively typing */
+.typewriter-cursor.no-blink {
+  animation: none;
+  opacity: 1;
+}

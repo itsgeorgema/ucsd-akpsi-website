@@ -213,6 +213,7 @@ export default function Recruitment() {
                 {flyerImage ? (
                   <img 
                     src={flyerImage} 
+                    alt="Rush Flyer"
                     className="w-full h-auto object-cover rounded-xl"
                   />
                 ) : (

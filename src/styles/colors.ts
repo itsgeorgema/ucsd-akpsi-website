@@ -11,6 +11,7 @@ export const akpsiColors = {
   heroTitle: 'text-white',
   heroSubtitle: 'text-white',
   sectionTitle: 'text-blue-900',
+  sectionTitleBg: 'bg-blue-900',
   sectionSubtitle: 'text-blue-800',
   sectionText: 'text-gray-700',
   sectionBg: 'bg-white',

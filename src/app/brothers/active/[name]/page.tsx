@@ -105,7 +105,7 @@ export default function BrotherPage() {
                 <div className="lg:col-span-1 flex flex-col items-center lg:items-start h-full">
                   <div className="relative group h-full">
                     {/* Main Profile Image */}
-                    <div className="relative overflow-hidden rounded-2xl shadow-2xl transform transition-transform duration-300 group-hover:scale-[1.02] h-full">
+                    <div className="relative overflow-hidden rounded-2xl shadow-2xl h-full">
                       <img 
                         src={brother.imageUrl} 
                         alt={brother.name} 
