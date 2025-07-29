@@ -3,15 +3,34 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { createClient } from '../../supabase/client';
 import { akpsiColors } from '../styles/colors';
 import { akpsiFonts } from '../styles/fonts';
 
 export default function Navbar() {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
+  const [logoUrl, setLogoUrl] = useState('');
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const fetchLogo = async () => {
+      try {
+        const supabase = createClient();
+        const { data: logoData } = supabase.storage
+          .from('misc')
+          .getPublicUrl('akpsiLogo.png');
+        
+        setLogoUrl(logoData?.publicUrl || '');
+      } catch (error) {
+        console.error('Error fetching logo:', error);
+      }
+    };
+
+    fetchLogo();
   }, []);
 
   const navItems = [
@@ -26,11 +45,13 @@ export default function Navbar() {
     <>
       <div className="absolute top-[-2.5rem] left-4 z-50 flex items-center">
         <Link href="/">
-          <img
-            src="/akpsiLogo.png"
-            alt="Alpha Kappa Psi Logo"
-            className="h-40 w-40 object-contain cursor-pointer"
-          />
+          {logoUrl && (
+            <img
+              src={logoUrl}
+              alt="Alpha Kappa Psi Logo"
+              className="h-40 w-40 object-contain cursor-pointer"
+            />
+          )}
         </Link>
       </div>
       <nav className="absolute top-4 right-4 z-50">

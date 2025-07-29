@@ -88,7 +88,7 @@ export default function Gallery() {
               ) : (
                 <div className="w-full max-w-6xl mx-auto">
                   {/* Header Section */}
-                  <div className="text-center mb-16 mt-24">
+                  <div className="text-center mb-16 mt-8 md:mt-12">
                     <h1 className={`text-5xl lg:text-6xl ${akpsiFonts.heroTitleFont} ${akpsiColors.heroTitle} mb-4`}>
                       GALLERY
                     </h1>
