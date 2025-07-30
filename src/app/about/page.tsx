@@ -30,6 +30,8 @@ interface StatModalData {
   description: string;
 }
 
+type ActiveTab = 'akpsi' | 'nuxi' | 'statistics';
+
 export default function About() {
   const [companies, setCompanies] = useState<Company[]>([]);
   const [images, setImages] = useState<AboutImages>({
@@ -44,6 +46,8 @@ export default function About() {
   });
   const [loading, setLoading] = useState(true);
   const [selectedStat, setSelectedStat] = useState<StatModalData | null>(null);
+  const [activeTab, setActiveTab] = useState<ActiveTab>('akpsi');
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -150,7 +154,7 @@ export default function About() {
   // Text content variables
   const pageContent = {
     hero: {
-      title: "OUR HISTORY",
+      title: "ABOUT US",
       subtitle: "Learn more about the Nu Xi Chapter and the history of our fraternity."
     },
     akpsiInfo: {
@@ -182,6 +186,16 @@ export default function About() {
     }
   };
 
+  const handleTabChange = (tab: ActiveTab) => {
+    if (tab === activeTab) return;
+    
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setActiveTab(tab);
+      setIsTransitioning(false);
+    }, 150);
+  };
+
   const openStatModal = (type: 'gender' | 'grade') => {
     const modalData: StatModalData = {
       title: type === 'gender' ? pageContent.statistics.genderTitle : pageContent.statistics.gradeLevelTitle,
@@ -189,6 +203,247 @@ export default function About() {
       description: type === 'gender' ? pageContent.statistics.genderDescription : pageContent.statistics.gradeLevelDescription
     };
     setSelectedStat(modalData);
+  };
+
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case 'akpsi':
+        return (
+          <div className={`transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
+            <div className="text-center mb-12">
+              <h2 className={`text-4xl font-bold mb-6 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+                {pageContent.akpsiInfo.title}
+              </h2>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-8 mb-8">
+              {/* Founding Card */}
+              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
+                <div className="flex items-center mb-6">
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                    <span className="text-blue-900 font-bold text-sm">1904</span>
+                  </div>
+                  <h3 className={`text-2xl font-bold ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+                    {pageContent.akpsiInfo.foundingTitle}
+                  </h3>
+                </div>
+                <p className={`text-base leading-relaxed ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
+                  {pageContent.akpsiInfo.foundingText}
+                </p>
+              </div>
+
+              {/* Network Card */}
+              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
+                <div className="flex items-center mb-6">
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                    <span className="text-blue-900 font-bold text-xs">298K+</span>
+                  </div>
+                  <h3 className={`text-2xl font-bold ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+                    {pageContent.akpsiInfo.networkTitle}
+                  </h3>
+                </div>
+                <p className={`text-base leading-relaxed ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
+                  {pageContent.akpsiInfo.networkText}
+                </p>
+              </div>
+            </div>
+
+            {/* Featured Image */}
+            <div className="relative rounded-2xl overflow-hidden shadow-lg">
+              {images.groupPhoto1 ? (
+                <img src={images.groupPhoto1} alt="Group Photo About Page" className="w-full h-64 object-cover" />
+              ) : (
+                <div className={`w-full h-64 ${akpsiColors.statCircleBg} flex items-center justify-center`}>
+                  <span className={`${akpsiColors.statCircleText}`}>Loading group photo...</span>
+                </div>
+              )}
+            </div>
+          </div>
+        );
+
+      case 'nuxi':
+        return (
+          <div className={`transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
+            <div className="text-center mb-12">
+              <h2 className={`text-4xl font-bold mb-4 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+                {pageContent.nuXiInfo.title}
+              </h2>
+              <h3 className={`text-xl font-medium mb-6 ${akpsiColors.sectionSubtitle} ${akpsiFonts.sectionSubtitleFont}`}>
+                {pageContent.nuXiInfo.subtitle}
+              </h3>
+            </div>
+            
+            <div className="grid lg:grid-cols-2 gap-8 items-center">
+              {/* Content Cards */}
+              <div className="space-y-6">
+                {/* Professional Excellence Card */}
+                <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
+                  <div className="flex items-center mb-4">
+                    <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                      <svg className="w-5 h-5 text-blue-900" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+                      </svg>
+                    </div>
+                    <h3 className={`text-xl font-bold ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+                      {pageContent.nuXiInfo.professionalTitle}
+                    </h3>
+                  </div>
+                  <p className={`text-base leading-relaxed ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
+                    {pageContent.nuXiInfo.professionalText}
+                  </p>
+                </div>
+
+                {/* Brotherhood & Community Card */}
+                <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
+                  <div className="flex items-center mb-4">
+                    <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                      <svg className="w-5 h-5 text-blue-900" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                      </svg>
+                    </div>
+                    <h3 className={`text-xl font-bold ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+                      {pageContent.nuXiInfo.communityTitle}
+                    </h3>
+                  </div>
+                  <p className={`text-base leading-relaxed ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
+                    {pageContent.nuXiInfo.communityText}
+                  </p>
+                </div>
+              </div>
+
+              {/* Chapter Image */}
+              <div className="relative">
+                <div className="relative rounded-2xl overflow-hidden shadow-lg">
+                  {images.groupPhoto2 ? (
+                    <img 
+                      src={images.groupPhoto2} 
+                      alt="Nu Xi Chapter Group Photo" 
+                      className="w-full h-80 object-cover"
+                    />
+                  ) : (
+                    <div className={`w-full h-80 ${akpsiColors.statCircleBg} flex items-center justify-center`}>
+                      <span className={`${akpsiColors.statCircleText}`}>Loading chapter photo...</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'statistics':
+        return (
+          <div className={`transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
+            <div className="text-center mb-12">
+              <h2 className={`text-4xl font-bold mb-6 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+                {pageContent.statistics.title}
+              </h2>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-8 mb-8">
+              {/* Gender Statistics Card */}
+              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg text-center">
+                <h3 className={`text-2xl font-bold mb-6 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+                  {pageContent.statistics.genderTitle}
+                </h3>
+                <div className="flex justify-center items-center mb-6">
+                  {images.genderPie ? (
+                    <div className="relative flex items-center justify-center w-48 h-48">
+                      <img 
+                        src={images.genderPie} 
+                        alt="Gender Distribution Pie Chart" 
+                        className="max-w-full max-h-full object-contain"
+                      />
+                    </div>
+                  ) : (
+                    <div className={`w-48 h-48 ${akpsiColors.statCircleBg} rounded-full flex items-center justify-center`}>
+                      <span className={`${akpsiColors.statCircleText}`}>Loading chart...</span>
+                    </div>
+                  )}
+                </div>
+                <button 
+                  className="px-6 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors duration-300 font-semibold text-sm"
+                  onClick={() => openStatModal('gender')}
+                >
+                  View Details
+                </button>
+              </div>
+
+              {/* Grade Level Statistics Card */}
+              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg text-center">
+                <h3 className={`text-2xl font-bold mb-6 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+                  {pageContent.statistics.gradeLevelTitle}
+                </h3>
+                <div className="flex justify-center items-center mb-6">
+                  {images.gradePie ? (
+                    <div className="relative flex items-center justify-center w-48 h-48">
+                      <img 
+                        src={images.gradePie} 
+                        alt="Grade Level Distribution Pie Chart" 
+                        className="max-w-full max-h-full object-contain"
+                      />
+                    </div>
+                  ) : (
+                    <div className={`w-48 h-48 ${akpsiColors.statCircleBg} rounded-full flex items-center justify-center`}>
+                      <span className={`${akpsiColors.statCircleText}`}>Loading chart...</span>
+                    </div>
+                  )}
+                </div>
+                <button 
+                  className="px-6 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors duration-300 font-semibold text-sm"
+                  onClick={() => openStatModal('grade')}
+                >
+                  View Details
+                </button>
+              </div>
+            </div>
+
+            {/* Industry Distribution */}
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
+              <h3 className={`text-2xl font-bold text-center mb-8 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+                INDUSTRY DISTRIBUTION
+              </h3>
+              <div className="flex flex-col lg:flex-row items-center justify-center gap-8">
+                {/* Industry Chart */}
+                <div className="relative flex-shrink-0">
+                  {images.industryDistribution ? (
+                    <img 
+                      src={images.industryDistribution} 
+                      alt="Industries Distribution Chart" 
+                      className="w-64 h-64 object-contain"
+                    />
+                  ) : (
+                    <div className={`w-64 h-64 ${akpsiColors.statCircleBg} rounded-full flex items-center justify-center`}>
+                      <span className={`${akpsiColors.statCircleText}`}>Loading industry chart...</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Industry Labels */}
+                <div className="grid grid-cols-1 gap-3">
+                  {[
+                    { label: "37% STEM", color: "#ec7c6c" },
+                    { label: "29% Business", color: "#16044f" },
+                    { label: "20% Design", color: "#9d336f" },
+                    { label: "10% Finance & Accounting", color: "#ca5772" },
+                    { label: "4% Political Science", color: "#651766" }
+                  ].map((industry, index) => (
+                    <div key={index} className="flex items-center p-3 bg-gray-50 rounded-lg">
+                      <div className="w-4 h-4 rounded-full mr-3" style={{ backgroundColor: industry.color }}></div>
+                      <span className={`text-sm font-semibold ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+                        {industry.label}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
+      default:
+        return null;
+    }
   };
 
   return (
@@ -252,286 +507,73 @@ export default function About() {
             </div>
           </section>
 
-          {/* What is Alpha Kappa Psi Section - REDESIGNED */}
-          <section id="akpsi-info" className="relative py-20 z-10 bg-gradient-to-b from-white/95 to-gray-50/95 backdrop-blur-sm">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-16">
-                                <h2 className={`text-5xl font-bold mb-6 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
-                  {pageContent.akpsiInfo.title}
-                </h2>
-                <div className="w-24 h-1 bg-gradient-to-r from-blue-900 to-blue-700 mx-auto rounded-md"></div>
-              </div>
-              
-              <div className="grid md:grid-cols-2 gap-8 mb-16">
-                {/* Founding Card */}
-                <div className={`${akpsiColors.sectionBg}/90 backdrop-blur-sm rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 p-8 border ${akpsiColors.navBarBorder} hover:scale-105`}>
-                  <div className="flex items-center mb-6">
-                                      <div className={`w-12 h-12 ${akpsiColors.sectionTitleBg} rounded-full flex items-center justify-center mr-4`}>
-                    <span className={`${akpsiColors.contactButtonText} font-bold text-xl`}>1904</span>
-                  </div>
-                    <h3 className={`text-2xl font-bold ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
-                      {pageContent.akpsiInfo.foundingTitle}
-                    </h3>
-                  </div>
-                  <p className={`text-lg leading-relaxed ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
-                    {pageContent.akpsiInfo.foundingText}
-                  </p>
-                </div>
-
-                {/* Network Card */}
-                <div className={`${akpsiColors.sectionBg}/90 backdrop-blur-sm rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 p-8 border ${akpsiColors.navBarBorder} hover:scale-105`}>
-                  <div className="flex items-center mb-6">
-                                      <div className={`w-12 h-12 ${akpsiColors.sectionTitleBg} rounded-full flex items-center justify-center mr-4`}>
-                    <span className={`${akpsiColors.contactButtonText} font-bold text-sm`}>298K+</span>
-                  </div>
-                    <h3 className={`text-2xl font-bold ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
-                      {pageContent.akpsiInfo.networkTitle}
-                    </h3>
-                  </div>
-                  <p className={`text-lg leading-relaxed ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
-                    {pageContent.akpsiInfo.networkText}
-                  </p>
-              </div>
-            </div>
-
-              {/* Featured Image */}
-              <div className="relative rounded-lg overflow-hidden shadow-2xl hover:scale-105 transition-transform duration-300">
-                {images.groupPhoto1 ? (
-                  <img src={images.groupPhoto1} alt="Group Photo About Page" className="w-full h-96 object-cover" />
-                ) : (
-                                    <div className={`w-full h-96 ${akpsiColors.statCircleBg} flex items-center justify-center`}>
-                    <span className={`${akpsiColors.statCircleText}`}>Loading group photo...</span>
-                  </div>
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-              </div>
-            </div>
-          </section>
-
-          {/* About Nu Xi Chapter Section - REDESIGNED */}
-          <section className="relative py-20 z-10 bg-gradient-to-b from-gray-50/95 to-white/95 backdrop-blur-sm">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-16">
-                <h2 className={`text-5xl font-bold mb-4 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
-                  {pageContent.nuXiInfo.title}
-                </h2>
-                <h3 className={`text-2xl font-medium mb-6 ${akpsiColors.sectionSubtitle} ${akpsiFonts.sectionSubtitleFont}`}>
-                  {pageContent.nuXiInfo.subtitle}
-                </h3>
-                <div className="w-24 h-1 bg-gradient-to-r from-blue-900 to-blue-700 mx-auto rounded-md"></div>
-              </div>
-              
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                {/* Content Cards */}
-                <div className="space-y-8">
-                  {/* Professional Excellence Card */}
-                  <div 
-                    className={`${akpsiColors.sectionBg}/90 backdrop-blur-sm rounded-lg shadow-xl p-8 border ${akpsiColors.navBarBorder} transition-all duration-300 hover:shadow-2xl hover:scale-105`}
+                    {/* Combined Modal Card and Companies Section */}
+          <section className="relative py-20 z-10 px-4 sm:px-6 lg:px-8" data-modal-card>
+            {/* Translucent background layer */}
+            <div className="absolute inset-0 bg-white/95 backdrop-blur-sm rounded-3xl"></div>
+            
+            <div className="relative z-10 max-w-6xl mx-auto">
+              <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden">
+                {/* Tab Buttons */}
+                <div className="flex border-b border-gray-200">
+                  <button
+                    onClick={() => handleTabChange('akpsi')}
+                    className={`flex-1 py-4 px-6 text-center font-semibold transition-all duration-300 ${
+                      activeTab === 'akpsi'
+                        ? 'bg-blue-50 text-blue-900 border-b-2 border-blue-900'
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                    }`}
                   >
-                    <div className="flex items-center mb-4">
-                      <div className={`w-10 h-10 ${akpsiColors.sectionTitleBg} rounded-full flex items-center justify-center mr-4`}>
-                        <svg className={`w-5 h-5 ${akpsiColors.contactButtonText}`} fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
-                        </svg>
-                      </div>
-                      <h3 className={`text-2xl font-bold ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
-                        {pageContent.nuXiInfo.professionalTitle}
-                      </h3>
+                    <div className="flex items-center justify-center space-x-2">
+                      <div className={`w-3 h-3 rounded-full ${activeTab === 'akpsi' ? 'bg-pink-400' : 'bg-gray-300'}`}></div>
+                      <span>WHAT IS AKPSI</span>
                     </div>
-                    <p className={`text-lg leading-relaxed ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
-                      {pageContent.nuXiInfo.professionalText}
-                    </p>
-                  </div>
-
-                  {/* Brotherhood & Community Card */}
-                  <div 
-                    className={`${akpsiColors.sectionBg}/90 backdrop-blur-sm rounded-lg shadow-xl p-8 border ${akpsiColors.navBarBorder} transition-all duration-300 hover:shadow-2xl hover:scale-105`}
+                  </button>
+                  <button
+                    onClick={() => handleTabChange('nuxi')}
+                    className={`flex-1 py-4 px-6 text-center font-semibold transition-all duration-300 ${
+                      activeTab === 'nuxi'
+                        ? 'bg-blue-50 text-blue-900 border-b-2 border-blue-900'
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                    }`}
                   >
-                    <div className="flex items-center mb-4">
-                      <div className={`w-10 h-10 ${akpsiColors.sectionTitleBg} rounded-full flex items-center justify-center mr-4`}>
-                        <svg className={`w-5 h-5 ${akpsiColors.contactButtonText}`} fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                      </div>
-                      <h3 className={`text-2xl font-bold ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
-                        {pageContent.nuXiInfo.communityTitle}
-                      </h3>
+                    <div className="flex items-center justify-center space-x-2">
+                      <div className={`w-3 h-3 rounded-full ${activeTab === 'nuxi' ? 'bg-yellow-400' : 'bg-gray-300'}`}></div>
+                      <span>NU XI CHAPTER</span>
                     </div>
-                    <p className={`text-lg leading-relaxed ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
-                      {pageContent.nuXiInfo.communityText}
-                    </p>
-                  </div>
+                  </button>
+                  <button
+                    onClick={() => handleTabChange('statistics')}
+                    className={`flex-1 py-4 px-6 text-center font-semibold transition-all duration-300 ${
+                      activeTab === 'statistics'
+                        ? 'bg-blue-50 text-blue-900 border-b-2 border-blue-900'
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                    }`}
+                  >
+                    <div className="flex items-center justify-center space-x-2">
+                      <div className={`w-3 h-3 rounded-full ${activeTab === 'statistics' ? 'bg-cyan-400' : 'bg-gray-300'}`}></div>
+                      <span>STATISTICS</span>
+                    </div>
+                  </button>
                 </div>
 
-                {/* Chapter Image */}
-                <div className="relative">
-                  <div className="relative rounded-lg overflow-hidden shadow-2xl hover:scale-105 transition-transform duration-300">
-                    {images.groupPhoto2 ? (
-                      <img 
-                        src={images.groupPhoto2} 
-                        alt="Nu Xi Chapter Group Photo" 
-                        className="w-full h-96 object-cover"
-                      />
-                    ) : (
-                      <div className={`w-full h-96 ${akpsiColors.statCircleBg} flex items-center justify-center`}>
-                        <span className={`${akpsiColors.statCircleText}`}>Loading chapter photo...</span>
-                      </div>
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                  </div>
+                {/* Tab Content */}
+                <div className="p-8 lg:p-12 min-h-[600px]">
+                  {renderTabContent()}
                 </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Chapter Statistics - REDESIGNED */}
-          <section className="relative py-20 z-10 bg-gradient-to-b from-white/95 to-gray-50/95 backdrop-blur-sm">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-16">
-                                 <h2 className={`text-5xl font-bold mb-6 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
-                   {pageContent.statistics.title}
-                 </h2>
-                 <div className="w-24 h-1 bg-gradient-to-r from-blue-900 to-blue-700 mx-auto rounded-md"></div>
               </div>
               
-              <div className="grid md:grid-cols-2 gap-12">
-                {/* Gender Statistics Card */}
-                                 <div 
-                   className="bg-white/90 backdrop-blur-sm rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 p-8 border border-gray-200/50 group"
-                 >
-                  <h3 className={`text-3xl font-bold text-center mb-8 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
-                    {pageContent.statistics.genderTitle}
-                  </h3>
-                                     <div className="flex justify-center items-center mb-6">
-                    {images.genderPie ? (
-                       <div className="relative flex items-center justify-center w-80 h-80">
-                      <img 
-                        src={images.genderPie} 
-                        alt="Gender Distribution Pie Chart" 
-                           className="max-w-full max-h-full object-contain transition-transform duration-300"
-                      />
-                         <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                       </div>
-                    ) : (
-                       <div className={`w-80 h-80 ${akpsiColors.statCircleBg} rounded-full flex items-center justify-center`}>
-                         <span className={`${akpsiColors.statCircleText}`}>Loading chart...</span>
-                      </div>
-                    )}
-                   </div>
-                                    <div className="text-center">
-                    <button className={`inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-md hover:from-blue-800 hover:to-blue-600 transition-all duration-300 font-semibold hover:scale-105 cursor-pointer`} onClick={() => openStatModal('gender')}>
-                      View Details
-                      <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </button>
-                  </div>
-                                </div>
-
-                {/* Grade Level Statistics Card */}
-                <div 
-                  className="bg-white/90 backdrop-blur-sm rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 p-8 border border-gray-200/50 group"
-                >
-                  <h3 className={`text-3xl font-bold text-center mb-8 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
-                    {pageContent.statistics.gradeLevelTitle}
-                  </h3>
-                  <div className="flex justify-center items-center mb-6">
-                    {images.gradePie ? (
-                      <div className="relative flex items-center justify-center w-80 h-80">
-                        <img 
-                          src={images.gradePie} 
-                          alt="Grade Level Distribution Pie Chart" 
-                          className="max-w-full max-h-full object-contain transition-transform duration-300"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      </div>
-                    ) : (
-                      <div className={`w-80 h-80 ${akpsiColors.statCircleBg} rounded-full flex items-center justify-center`}>
-                        <span className={`${akpsiColors.statCircleText}`}>Loading chart...</span>
-                      </div>
-                    )}
-                  </div>
-                  <div className="text-center">
-                    <button className={`inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-md hover:from-blue-800 hover:to-blue-600 transition-all duration-300 font-semibold hover:scale-105 cursor-pointer`} onClick={() => openStatModal('grade')}>
-                      View Details
-                      <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Industries Section - REDESIGNED */}
-          <section className="relative py-20 z-10 bg-gradient-to-b from-gray-50/95 to-white/95 backdrop-blur-sm">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-16">
-                                 <h2 className={`text-5xl font-bold mb-6 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
-                   OUR INDUSTRIES
+              {/* Companies Section */}
+              <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl p-8 lg:p-12 mt-8">
+                <div className="text-center mb-12">
+                  <h2 className={`text-4xl font-bold mb-6 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+                    WHERE WE'RE AT
                  </h2>
-                 <div className="w-24 h-1 bg-gradient-to-r from-blue-900 to-blue-700 mx-auto rounded-md"></div>
-              </div>
-              
-              <div className={`${akpsiColors.sectionBg}/90 backdrop-blur-sm rounded-lg shadow-2xl p-12 border ${akpsiColors.navBarBorder}`}>
-                <div className="flex flex-col lg:flex-row items-center justify-center gap-16">
-                  {/* Industry Chart */}
-                  <div className="relative flex-shrink-0">
-                    {images.industryDistribution ? (
-                      <div className="relative">
-                        <img 
-                          src={images.industryDistribution} 
-                          alt="Industries Distribution Chart" 
-                          className="w-96 h-96 object-contain"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-white/10 to-transparent rounded-full"></div>
-                      </div>
-                    ) : (
-                      <div className={`w-96 h-96 ${akpsiColors.statCircleBg} rounded-full flex items-center justify-center`}>
-                        <span className={`${akpsiColors.statCircleText}`}>Loading industry chart...</span>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Industry Labels */}
-                  <div className="grid grid-cols-1 gap-6">
-                    {[
-                      { label: "37% STEM", color: "#ec7c6c", icon: "🔬" },
-                      { label: "29% Business", color: "#16044f", icon: "💼" },
-                      { label: "20% Design", color: "#9d336f", icon: "🎨" },
-                      { label: "10% Finance & Accounting", color: "#ca5772", icon: "💰" },
-                      { label: "4% Political Science", color: "#651766", icon: "🏛️" }
-                    ].map((industry, index) => (
-                      <div key={index} className="flex items-center p-4 bg-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:scale-105">
-                        <div className="w-12 h-12 rounded-full flex items-center justify-center mr-4 text-xl" style={{ backgroundColor: industry.color }}>
-                          {industry.icon}
-                        </div>
-                        <span className={`text-xl font-bold ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
-                          {industry.label}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Companies Section - REDESIGNED */}
-          <section className="relative py-20 z-10 bg-gradient-to-b from-white/95 to-gray-50/95 backdrop-blur-sm">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <div className="text-center mb-16">
-                             <h2 className={`text-5xl font-bold mb-6 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
-                   WHERE WE&apos;RE AT
-                 </h2>
-                 <div className="w-24 h-1 bg-gradient-to-r from-blue-900 to-blue-700 mx-auto rounded-md"></div>
-                <p className={`text-xl mt-6 max-w-3xl mx-auto ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
+                  <p className={`text-lg max-w-3xl mx-auto ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
                   Our brothers have secured positions at leading companies across various industries
                 </p>
               </div>
               
-              <div className={`${akpsiColors.sectionBg}/90 backdrop-blur-sm rounded-lg shadow-2xl p-12 border ${akpsiColors.navBarBorder}`}>
               {companies.length === 0 ? (
                   <div className="text-center py-12">
                     <div className={`w-16 h-16 ${akpsiColors.statCircleBg} rounded-full flex items-center justify-center mx-auto mb-4`}>
@@ -542,11 +584,11 @@ export default function About() {
                     <span className={`text-xl ${akpsiColors.sectionText}`}>No companies found</span>
                   </div>
                 ) : (
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
                     {companies.map((company, index) => (
                       <div 
                         key={index}
-                        className={`group relative ${akpsiColors.sectionBg} rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 p-6 border ${akpsiColors.navBarBorder} hover:scale-105`}
+                        className="group relative bg-white/80 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 hover:scale-105"
                       >
                         <div className="aspect-square flex items-center justify-center">
                           <img 
@@ -556,7 +598,6 @@ export default function About() {
                     onError={() => console.error('Image failed to load:', company.imageUrl)}
                   />
                         </div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       </div>
                     ))}
                   </div>
@@ -565,16 +606,15 @@ export default function About() {
             </div>
           </section>
 
-          {/* Contact Section - REDESIGNED */}
-          <section className="relative py-20 z-10 bg-gradient-to-b from-gray-50/95 to-white/95 backdrop-blur-sm">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                             <div className={`${akpsiColors.sectionBg}/90 backdrop-blur-sm rounded-lg shadow-2xl p-12 border ${akpsiColors.navBarBorder} text-center`}>
+          {/* Contact Section */}
+          <section className="relative py-20 z-10 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto">
+              <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl p-8 lg:p-12 text-center">
                 <div className="mb-8">
-                                     <h2 className={`text-5xl font-bold mb-6 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+                  <h2 className={`text-4xl font-bold mb-6 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
                      {pageContent.contact.title}
                    </h2>
-                   <div className="w-24 h-1 bg-gradient-to-r from-blue-900 to-blue-700 mx-auto rounded-md mb-8"></div>
-                  <p className={`text-xl leading-relaxed max-w-2xl mx-auto ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
+                  <p className={`text-lg leading-relaxed max-w-2xl mx-auto ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
                 {pageContent.contact.subtitle}
               </p>
                 </div>
@@ -582,7 +622,7 @@ export default function About() {
                                  <div className="flex justify-center">
                    <a
                      href="/contact"
-                     className={`group inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-lg hover:from-blue-800 hover:to-blue-600 transition-all duration-300 font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105`}
+                    className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-lg hover:from-blue-800 hover:to-blue-600 transition-all duration-300 font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105"
                    >
                      {pageContent.contact.buttonText}
                      <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -609,9 +649,9 @@ export default function About() {
                 <h3 className={`text-3xl font-bold ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
                   {selectedStat.title}
                 </h3>
-                                 <button
-                   onClick={() => setSelectedStat(null)}
-                   className={`w-10 h-10 ${akpsiColors.statCircleBg} hover:bg-gray-200 rounded-md flex items-center justify-center transition-colors duration-200`}>
+                                                 <button
+                  onClick={() => setSelectedStat(null)}
+                  className={`w-10 h-10 ${akpsiColors.statCircleBg} hover:bg-gray-200 rounded-md flex items-center justify-center transition-colors duration-200 cursor-pointer`}>
                   <svg className={`w-6 h-6 ${akpsiColors.statCircleText}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
