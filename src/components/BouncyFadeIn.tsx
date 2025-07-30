@@ -16,6 +16,7 @@ const BouncyFadeIn: React.FC<BouncyFadeInProps> = ({
   children,
   delay = 0,
   duration = 0.6,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   bounce = 0.7, // More bounce for a more dynamic effect
   threshold = 0.5, // Trigger when 50% of the element is visible
   className,

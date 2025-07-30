@@ -1,29 +1,81 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 @import "tailwindcss";
 
+/**
+ * AKPsi Website Global Styles & CSS Custom Properties
+ * Using the refined color palette: neutrals, muted blues, sophisticated golds, and brand colors
+ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* === NEUTRALS (Foundation) === */
+  --color-neutral-white: #F8F8F8;
+  --color-neutral-black: #212121;
+  --color-neutral-light-gray: #E0E0E0;
+  --color-neutral-medium-gray: #9E9E9E;
+  --color-neutral-dark-gray: #333333;
+  
+  /* === BLUES (Modern, Muted) === */
+  --color-blue-soft: #B3CDE0;
+  --color-blue-medium: #6497B1;
+  
+  /* === GOLDS (Sophisticated Hierarchy) === */
+  --color-gold-muted: #B89334;
+  --color-gold-light: #D4AF37;
+  --color-gold-bright: #FFD700;
+  
+  /* === BRAND === */
+  --color-brand-royal-blue: #003366;
+  
+  /* === SEMANTIC MAPPINGS === */
+  --color-primary: var(--color-blue-medium);
+  --color-primary-hover: var(--color-blue-soft);
+  --color-secondary: var(--color-gold-muted);
+  --color-secondary-hover: var(--color-gold-light);
+  --color-accent: var(--color-brand-royal-blue);
+  
+  --color-background: var(--color-neutral-white);
+  --color-background-alt: var(--color-blue-soft);
+  --color-surface: var(--color-neutral-white);
+  --color-surface-alt: var(--color-neutral-light-gray);
+  
+  --color-text-primary: var(--color-neutral-black);
+  --color-text-secondary: var(--color-neutral-medium-gray);
+  --color-text-inverse: var(--color-neutral-white);
+  --color-text-accent: var(--color-gold-muted);
+  
+  --color-border: var(--color-neutral-light-gray);
+  --color-border-hover: var(--color-neutral-medium-gray);
+  
+  /* Legacy compatibility */
+  --background: var(--color-background);
+  --foreground: var(--color-text-primary);
 }
 
-@theme inline {
+/* Tailwind theme customization */
+:root {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
+/* Dark mode support (future enhancement) */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --color-background: var(--color-neutral-black);
+    --color-text-primary: var(--color-neutral-white);
+    --background: var(--color-background);
+    --foreground: var(--color-text-primary);
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--color-background);
+  color: var(--color-text-primary);
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 }
 
 /* Hero font utility */
@@ -31,12 +83,12 @@ body {
   font-family: 'Montserrat', Arial, Helvetica, sans-serif;
 }
 
-/* Typewriter cursor styles */
+/* Typewriter cursor styles - using the new gold light color */
 .typewriter-cursor {
   display: inline-block;
   width: 0.1em;
   height: 1.1em;
-  background-color: #fef3c7; /* Yellow-100 color matching navBarTextActive */
+  background-color: var(--color-gold-light);
   margin-left: 0;
   border-radius: 1px;
   animation: blink-caret 1s infinite;
@@ -54,4 +106,37 @@ body {
 .typewriter-cursor.no-blink {
   animation: none;
   opacity: 1;
+}
+
+/* Utility classes for the new color system */
+.bg-primary { background-color: var(--color-primary); }
+.bg-primary-hover:hover { background-color: var(--color-primary-hover); }
+.bg-secondary { background-color: var(--color-secondary); }
+.bg-secondary-hover:hover { background-color: var(--color-secondary-hover); }
+.bg-accent { background-color: var(--color-accent); }
+
+.text-primary { color: var(--color-text-primary); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-inverse { color: var(--color-text-inverse); }
+.text-accent { color: var(--color-text-accent); }
+
+.border-primary { border-color: var(--color-border); }
+.border-primary-hover:hover { border-color: var(--color-border-hover); }
+
+/* Smooth transitions for interactive elements */
+.transition-colors {
+  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+/* Glass morphism enhancements */
+.glass-effect {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(248, 248, 248, 0.1);
+  border: 1px solid rgba(248, 248, 248, 0.2);
+}
+
+.glass-effect:hover {
+  background: rgba(248, 248, 248, 0.2);
+  border-color: rgba(248, 248, 248, 0.3);
 }

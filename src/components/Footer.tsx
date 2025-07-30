@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { createClient } from '../../supabase/client';
-import { akpsiColors } from '../styles/colors';
+import { colors } from '../styles/colors';
 import { akpsiFonts } from '../styles/fonts';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../contexts/AuthContext';
@@ -112,7 +112,7 @@ export default function Footer({ className = "" }: FooterProps) {
   ];
 
   return (
-    <section className={`relative py-8 ${akpsiColors.footerText} z-10 ${className}`}>
+    <section className={`relative py-8 ${colors.footer.text} z-10 ${className}`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="px-6 py-4">
           <div className="flex items-center justify-between">
@@ -137,7 +137,7 @@ export default function Footer({ className = "" }: FooterProps) {
                   href={social.href || '#'}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`${akpsiColors.footerIcon} transition-colors ${!social.href ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  className={`${colors.footer.icon} transition-colors ${!social.href ? 'opacity-50 cursor-not-allowed' : ''}`}
                   aria-label={social.name}
                   onClick={!social.href ? (e) => e.preventDefault() : undefined}
                 >
@@ -147,7 +147,7 @@ export default function Footer({ className = "" }: FooterProps) {
               
               {/* Login/Logout Button */}
               <button
-                className={akpsiColors.footerLogin + " " + akpsiFonts.sectionSubtitleFont + " underline cursor-pointer transition-colors"}
+                className={colors.footer.link + " " + akpsiFonts.sectionSubtitleFont + " underline cursor-pointer transition-colors"}
                 onClick={() => {
                   if (isAuthenticated) {
                     // Logout: clear authentication

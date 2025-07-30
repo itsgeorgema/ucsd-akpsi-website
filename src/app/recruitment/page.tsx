@@ -4,7 +4,7 @@ import { createClient } from '../../../supabase/client';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import LoadingSpinner from '../../components/LoadingSpinner';
-import { akpsiColors } from '../../styles/colors';
+import { colors } from '../../styles/colors';
 import { akpsiFonts } from '../../styles/fonts';
 import { rushColors } from '../../styles/rushColors';
 import InfiniteCarousel from '../../components/InfiniteCarousel';
@@ -163,7 +163,7 @@ export default function Recruitment() {
             <LoadingSpinner size="large" fullScreen={false} type="component" />
           )}
           {!loading && (
-            <div className={`${akpsiColors.glassBg} ${akpsiColors.glassBlurMd} rounded-2xl shadow-2xl p-10 max-w-6xl w-full mx-auto ${akpsiColors.glassBorder}`}>
+            <div className={`${colors.glass.bg} backdrop-blur-md rounded-2xl shadow-2xl p-10 max-w-6xl w-full mx-auto ${colors.glass.border}`}>
             {/* ABOUT RECRUITMENT Section */}
             <div className="grid lg:grid-cols-2 gap-12 mb-12">
               {/* Left Side - About Content */}
@@ -185,7 +185,7 @@ export default function Recruitment() {
                     href={links.interestForm || '#'}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`px-8 py-3 ${akpsiColors.glassBg} ${akpsiColors.glassBgHover} ${akpsiColors.glassBlur} ${akpsiFonts.sectionSubtitleFont} rounded-lg transition-all duration-300 transform hover:scale-105 ${akpsiFonts.sectionTextFont} text-center ${rushColors.rushText} ${akpsiColors.glassBorderHover} ${!links.interestForm ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    className={`px-8 py-3 ${colors.glass.bg} ${colors.glass.bgHover} backdrop-blur-sm ${akpsiFonts.sectionSubtitleFont} rounded-lg transition-all duration-300 transform hover:scale-105 ${akpsiFonts.sectionTextFont} text-center ${rushColors.rushText} ${colors.glass.borderHover} ${!links.interestForm ? 'opacity-50 cursor-not-allowed' : ''}`}
                     onClick={(e) => {
                       console.log('Interest form clicked, link:', links.interestForm);
                       if (!links.interestForm) {
@@ -217,8 +217,8 @@ export default function Recruitment() {
                     className="w-full h-auto object-cover rounded-xl"
                   />
                 ) : (
-                  <div className={`${akpsiColors.statCircleBg} rounded-xl p-6 flex items-center justify-center h-64`}>
-                    <div className={`text-center ${akpsiColors.statCircleText} ${akpsiFonts.bodyFont}`}>
+                  <div className={`${colors.bg.surfaceAlt} rounded-xl p-6 flex items-center justify-center h-64`}>
+                    <div className={`text-center ${colors.text.secondary} ${akpsiFonts.bodyFont}`}>
                       <p className={`text-lg mb-2 ${akpsiFonts.sectionTextFont}`}>Loading flyer...</p>
                       <p className={`text-sm ${akpsiFonts.sectionTextFont}`}>flyer.png</p>
                     </div>
@@ -234,12 +234,12 @@ export default function Recruitment() {
                 </h2>
               <div className="space-y-6">
                 {loading ? (
-                  <div className={`${akpsiColors.glassBg} ${akpsiColors.glassBlur} rounded-lg p-6 ${akpsiColors.glassBorder} text-center`}>
+                  <div className={`${colors.glass.bg} backdrop-blur-sm rounded-lg p-6 ${colors.glass.border} text-center`}>
                     <p className={`${rushColors.rushText} ${akpsiFonts.bodyFont}`}>Loading events...</p>
                   </div>
                 ) : recruitmentEvents.length > 0 ? (
                   recruitmentEvents.map((event, index) => (
-                    <div key={index} className={`${akpsiColors.glassBg} ${akpsiColors.glassBlur} rounded-lg p-6 ${akpsiColors.glassBorder}`}>
+                    <div key={index} className={`${colors.glass.bg} backdrop-blur-sm rounded-lg p-6 ${colors.glass.border}`}>
                       <h3 className={`text-xl ${akpsiFonts.sectionTitleFont} mb-2 ${rushColors.rushTextHighlight}`}>{event.eventName.toUpperCase()}</h3>
                       <p className={`${rushColors.rushTextHighlight} ${akpsiFonts.sectionSubtitleFont} mb-2 ${akpsiFonts.sectionTextFont}`}>
                         {event.day.toUpperCase()}, {event.date}
@@ -253,7 +253,7 @@ export default function Recruitment() {
                     </div>
                   ))
                 ) : (
-                  <div className={`${akpsiColors.glassBg} ${akpsiColors.glassBlur} rounded-lg p-6 ${akpsiColors.glassBorder} text-center`}>
+                  <div className={`${colors.glass.bg} backdrop-blur-sm rounded-lg p-6 ${colors.glass.border} text-center`}>
                     <p className={`${rushColors.rushText} ${akpsiFonts.bodyFont}`}>No events found. Please check back later!</p>
                   </div>
                 )}
@@ -276,7 +276,7 @@ export default function Recruitment() {
                               <h2 className={`text-4xl ${akpsiFonts.sectionTitleFont} mb-6 ${rushColors.rushText}`}>
                   QUESTIONS? CONTACT US!
                 </h2>
-              <div className={`${akpsiColors.glassBg} ${akpsiColors.glassBlur} rounded-lg p-8 ${akpsiColors.glassBorder}`}>
+              <div className={`${colors.glass.bg} backdrop-blur-sm rounded-lg p-8 ${colors.glass.border}`}>
                 <h3 className={`text-xl ${akpsiFonts.sectionTitleFont} mb-4 ${rushColors.rushTextHighlight}`}>Rush Chairs</h3>
                 <div className={`space-y-2 ${rushColors.rushTextBody}`}>
                   {contactInfo.chairs.map((chair, index) => (

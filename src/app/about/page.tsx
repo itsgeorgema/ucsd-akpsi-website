@@ -6,7 +6,7 @@ import ScrollArrow from '../../components/ScrollArrow';
 import Footer from '../../components/Footer';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import BouncyFadeIn from '../../components/BouncyFadeIn';
-import { akpsiColors } from '../../styles/colors';
+import { colors } from '../../styles/colors';
 import { akpsiFonts } from '../../styles/fonts';
 
 interface Company {
@@ -50,7 +50,7 @@ export default function About() {
   const [loading, setLoading] = useState(true);
   const [selectedStat, setSelectedStat] = useState<StatModalData | null>(null);
   const [activeTab, setActiveTab] = useState<ActiveTab>('akpsi');
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isTransitioning] = useState(false);
   const [progress, setProgress] = useState(0);
   const [startTime, setStartTime] = useState(Date.now());
   const [displayedTab, setDisplayedTab] = useState<ActiveTab>(activeTab);
@@ -254,38 +254,38 @@ export default function About() {
         content = (
           <div className={`transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
             <div className="text-center mb-12">
-              <h2 className={`text-4xl font-bold mb-6 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+              <h2 className={`text-4xl font-bold mb-6 ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
                 {pageContent.akpsiInfo.title}
               </h2>
             </div>
             
             <div className="grid md:grid-cols-2 gap-8 mb-8">
               {/* Founding Card */}
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
+              <div className="bg-gradient-to-br from-[#F8F8F8] to-[#B3CDE0]/10 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-[#B3CDE0]/20 hover:border-[#D4AF37]/40 transition-all duration-300 group">
                 <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                    <span className="text-blue-900 font-bold text-sm">1904</span>
+                  <div className="w-14 h-14 bg-gradient-to-br from-[#003366] to-[#6497B1] rounded-full flex items-center justify-center mr-4 shadow-lg group-hover:shadow-xl transition-all duration-300">
+                    <span className="text-[#F8F8F8] font-bold text-sm">1904</span>
                   </div>
-                  <h3 className={`text-2xl font-bold ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+                  <h3 className={`text-2xl font-bold bg-gradient-to-r from-[#003366] to-[#6497B1] bg-clip-text text-transparent ${akpsiFonts.sectionTitleFont}`}>
                     {pageContent.akpsiInfo.foundingTitle}
                   </h3>
                 </div>
-                <p className={`text-base leading-relaxed ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
+                <p className={`text-base leading-relaxed ${colors.section.text} ${akpsiFonts.sectionTextFont} relative pl-4 border-l-2 border-[#D4AF37]/30`}>
                   {pageContent.akpsiInfo.foundingText}
                 </p>
               </div>
 
               {/* Network Card */}
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
+              <div className="bg-gradient-to-br from-[#F8F8F8] to-[#D4AF37]/10 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-[#D4AF37]/20 hover:border-[#B89334]/40 transition-all duration-300 group">
                 <div className="flex items-center mb-6">
                   <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
                     <span className="text-blue-900 font-bold text-xs">298K+</span>
                   </div>
-                  <h3 className={`text-2xl font-bold ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+                  <h3 className={`text-2xl font-bold ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
                     {pageContent.akpsiInfo.networkTitle}
                   </h3>
                 </div>
-                <p className={`text-base leading-relaxed ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
+                <p className={`text-base leading-relaxed ${colors.section.text} ${akpsiFonts.sectionTextFont}`}>
                   {pageContent.akpsiInfo.networkText}
                 </p>
               </div>
@@ -296,8 +296,8 @@ export default function About() {
               {images.groupPhoto1 ? (
                 <img src={images.groupPhoto1} alt="Group Photo About Page" className="w-full h-64 object-cover" />
               ) : (
-                <div className={`w-full h-64 ${akpsiColors.statCircleBg} flex items-center justify-center`}>
-                  <span className={`${akpsiColors.statCircleText}`}>Loading group photo...</span>
+                <div className={`w-full h-64 ${colors.bg.surfaceAlt} flex items-center justify-center`}>
+                  <span className={`${colors.text.secondary}`}>Loading group photo...</span>
                 </div>
               )}
             </div>
@@ -309,10 +309,10 @@ export default function About() {
         content = (
           <div className={`transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
             <div className="text-center mb-12">
-              <h2 className={`text-4xl font-bold mb-4 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+              <h2 className={`text-4xl font-bold mb-4 ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
                 {pageContent.nuXiInfo.title}
               </h2>
-              <h3 className={`text-xl font-medium mb-6 ${akpsiColors.sectionSubtitle} ${akpsiFonts.sectionSubtitleFont}`}>
+              <h3 className={`text-xl font-medium mb-6 ${colors.section.subtitle} ${akpsiFonts.sectionSubtitleFont}`}>
                 {pageContent.nuXiInfo.subtitle}
               </h3>
             </div>
@@ -328,11 +328,11 @@ export default function About() {
                         <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
                       </svg>
                     </div>
-                    <h3 className={`text-xl font-bold ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+                    <h3 className={`text-xl font-bold ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
                       {pageContent.nuXiInfo.professionalTitle}
                     </h3>
                   </div>
-                  <p className={`text-base leading-relaxed ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
+                  <p className={`text-base leading-relaxed ${colors.section.text} ${akpsiFonts.sectionTextFont}`}>
                     {pageContent.nuXiInfo.professionalText}
                   </p>
                 </div>
@@ -345,11 +345,11 @@ export default function About() {
                         <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                       </svg>
                     </div>
-                    <h3 className={`text-xl font-bold ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+                    <h3 className={`text-xl font-bold ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
                       {pageContent.nuXiInfo.communityTitle}
                     </h3>
                   </div>
-                  <p className={`text-base leading-relaxed ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
+                  <p className={`text-base leading-relaxed ${colors.section.text} ${akpsiFonts.sectionTextFont}`}>
                     {pageContent.nuXiInfo.communityText}
                   </p>
                 </div>
@@ -365,8 +365,8 @@ export default function About() {
                       className="w-full h-80 object-cover"
                     />
                   ) : (
-                    <div className={`w-full h-80 ${akpsiColors.statCircleBg} flex items-center justify-center`}>
-                      <span className={`${akpsiColors.statCircleText}`}>Loading chapter photo...</span>
+                    <div className={`w-full h-80 ${colors.bg.surfaceAlt} flex items-center justify-center`}>
+                      <span className={`${colors.text.secondary}`}>Loading chapter photo...</span>
                     </div>
                   )}
                 </div>
@@ -380,7 +380,7 @@ export default function About() {
         content = (
           <div className={`transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
             <div className="text-center mb-12">
-              <h2 className={`text-4xl font-bold mb-6 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+              <h2 className={`text-4xl font-bold mb-6 ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
                 {pageContent.statistics.title}
               </h2>
             </div>
@@ -388,7 +388,7 @@ export default function About() {
             <div className="grid md:grid-cols-2 gap-8 mb-8">
               {/* Gender Statistics Card */}
               <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg text-center">
-                <h3 className={`text-2xl font-bold mb-6 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+                <h3 className={`text-2xl font-bold mb-6 ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
                   {pageContent.statistics.genderTitle}
                 </h3>
                 <div className="flex justify-center items-center mb-6">
@@ -401,8 +401,8 @@ export default function About() {
                       />
                     </div>
                   ) : (
-                    <div className={`w-64 h-64 ${akpsiColors.statCircleBg} rounded-full flex items-center justify-center`}>
-                      <span className={`${akpsiColors.statCircleText}`}>Loading chart...</span>
+                    <div className={`w-64 h-64 ${colors.bg.surfaceAlt} rounded-full flex items-center justify-center`}>
+                      <span className={`${colors.text.secondary}`}>Loading chart...</span>
                     </div>
                   )}
                 </div>
@@ -419,7 +419,7 @@ export default function About() {
 
               {/* Grade Level Statistics Card */}
               <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg text-center">
-                <h3 className={`text-2xl font-bold mb-6 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+                <h3 className={`text-2xl font-bold mb-6 ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
                   {pageContent.statistics.gradeLevelTitle}
                 </h3>
                 <div className="flex justify-center items-center mb-6">
@@ -432,8 +432,8 @@ export default function About() {
                       />
                     </div>
                   ) : (
-                    <div className={`w-64 h-64 ${akpsiColors.statCircleBg} rounded-full flex items-center justify-center`}>
-                      <span className={`${akpsiColors.statCircleText}`}>Loading chart...</span>
+                    <div className={`w-64 h-64 ${colors.bg.surfaceAlt} rounded-full flex items-center justify-center`}>
+                      <span className={`${colors.text.secondary}`}>Loading chart...</span>
                     </div>
                   )}
                 </div>
@@ -451,7 +451,7 @@ export default function About() {
 
             {/* Industry Distribution */}
             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
-              <h3 className={`text-2xl font-bold text-center mb-8 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+              <h3 className={`text-2xl font-bold text-center mb-8 ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
                 INDUSTRY DISTRIBUTION
               </h3>
               <div className="flex flex-col lg:flex-row items-center justify-center gap-8">
@@ -464,8 +464,8 @@ export default function About() {
                       className="w-64 h-64 object-contain"
                     />
                   ) : (
-                    <div className={`w-64 h-64 ${akpsiColors.statCircleBg} rounded-full flex items-center justify-center`}>
-                      <span className={`${akpsiColors.statCircleText}`}>Loading industry chart...</span>
+                    <div className={`w-64 h-64 ${colors.bg.surfaceAlt} rounded-full flex items-center justify-center`}>
+                      <span className={`${colors.text.secondary}`}>Loading industry chart...</span>
                     </div>
                   )}
                 </div>
@@ -481,7 +481,7 @@ export default function About() {
                   ].map((industry, index) => (
                     <div key={index} className="flex items-center p-3 bg-gray-50 rounded-lg">
                       <div className="w-4 h-4 rounded-full mr-3" style={{ backgroundColor: industry.color }}></div>
-                      <span className={`text-sm font-semibold ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+                      <span className={`text-sm font-semibold ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
                         {industry.label}
                       </span>
                     </div>
@@ -506,6 +506,7 @@ export default function About() {
     );
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const getProgressBarWidth = (progress: number) => `${progress}%`;
 
   return (
@@ -555,13 +556,13 @@ export default function About() {
                     {images.crest ? (
                       <img src={images.crest} alt="AKPsi Crest" className="object-contain w-72 h-80 mx-auto" />
                     ) : (
-                      <div className={`w-72 h-80 ${akpsiColors.statCircleBg} flex items-center justify-center`}>
-                        <span className={`${akpsiColors.statCircleText} ${akpsiFonts.bodyFont}`}>Loading crest...</span>
+                      <div className={`w-72 h-80 ${colors.bg.surfaceAlt} flex items-center justify-center`}>
+                        <span className={`${colors.text.secondary} ${akpsiFonts.bodyFont}`}>Loading crest...</span>
                       </div>
                     )}
                   </div>
-                  <h1 className={`text-5xl md:text-7xl mb-6 drop-shadow-2xl ${akpsiColors.heroTitle} ${akpsiFonts.heroTitleFont}`}>{pageContent.hero.title}</h1>
-                  <p className={`text-xl md:text-2xl mb-12 drop-shadow-lg max-w-3xl mx-auto ${akpsiColors.heroSubtitle} ${akpsiFonts.sectionTextFont}`}>
+                  <h1 className={`text-5xl md:text-7xl mb-6 drop-shadow-2xl ${colors.text.inverse} ${akpsiFonts.heroTitleFont}`}>{pageContent.hero.title}</h1>
+                  <p className={`text-xl md:text-2xl mb-12 drop-shadow-lg max-w-3xl mx-auto ${colors.glass.textSubtle} ${akpsiFonts.sectionTextFont}`}>
                     {pageContent.hero.subtitle}
                   </p>
                   <ScrollArrow />
@@ -569,8 +570,8 @@ export default function About() {
               </section>
               {/* Combined Modal Card and Companies Section */}
               <section className="relative py-20 z-10 px-4 sm:px-6 lg:px-8" data-modal-card>
-                {/* Translucent background layer */}
-                <div className="absolute inset-0 bg-white/95 backdrop-blur-sm rounded-3xl"></div>
+                {/* Enhanced background layer */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#F8F8F8]/95 via-[#F8F8F8]/90 to-[#B3CDE0]/20 backdrop-blur-lg rounded-3xl border border-[#B3CDE0]/30 shadow-2xl"></div>
                 <div className="relative z-10 max-w-6xl mx-auto">
                   <div className="flex flex-col space-y-6">
                     {/* Tab Buttons - Sliding Flex Group */}
@@ -580,7 +581,7 @@ export default function About() {
                         <button
                           key={tab}
                           onClick={() => handleTabChange(tab as ActiveTab)}
-                          className={`transition-all duration-500 font-semibold rounded-2xl flex items-center justify-start relative h-16 cursor-pointer bg-white/95 text-black shadow-lg overflow-hidden`}
+                          className={`transition-all duration-500 font-semibold rounded-2xl flex items-center justify-start relative h-16 cursor-pointer ${activeTab === tab ? 'bg-gradient-to-r from-[#6497B1] to-[#B3CDE0] text-[#F8F8F8]' : 'bg-gradient-to-r from-[#F8F8F8] to-[#E0E0E0] text-[#212121] hover:from-[#B3CDE0]/20 hover:to-[#D4AF37]/10'} shadow-lg overflow-hidden border ${activeTab === tab ? 'border-[#6497B1]' : 'border-[#E0E0E0] hover:border-[#B3CDE0]/40'}`}
                           style={{
                             flexGrow: activeTab === tab ? 1.5 : 1,
                             flexShrink: 1,
@@ -641,7 +642,7 @@ export default function About() {
                                          {/* Main Card */}
                      <BouncyFadeIn delay={0.2}>
                        <div 
-                         className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden"
+                         className="bg-gradient-to-br from-[#F8F8F8]/95 via-[#F8F8F8]/90 to-[#B3CDE0]/10 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden border border-[#B3CDE0]/30"
                          style={{ height: '800px' }}
                        >
                        {/* Tab Content */}
@@ -654,21 +655,21 @@ export default function About() {
                     <BouncyFadeIn delay={.1} threshold={.2} className="mt-[-100px] pt-[100px]">
                       <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl p-8 lg:p-12 mt-8">
                       <div className="text-center mb-12">
-                        <h2 className={`text-4xl font-bold mb-6 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
-                          WHERE WE'RE AT
+                        <h2 className={`text-4xl font-bold mb-6 ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
+                          WHERE WE&apos;RE AT
                         </h2>
-                        <p className={`text-lg max-w-3xl mx-auto ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
+                        <p className={`text-lg max-w-3xl mx-auto ${colors.section.text} ${akpsiFonts.sectionTextFont}`}>
                           Our brothers have secured positions at leading companies across various industries
                         </p>
                       </div>
                       {companies.length === 0 ? (
                         <div className="text-center py-12">
-                          <div className={`w-16 h-16 ${akpsiColors.statCircleBg} rounded-full flex items-center justify-center mx-auto mb-4`}>
+                          <div className={`w-16 h-16 ${colors.bg.surfaceAlt} rounded-full flex items-center justify-center mx-auto mb-4`}>
                             <svg className="w-8 h-8 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                               <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
                             </svg>
                           </div>
-                          <span className={`text-xl ${akpsiColors.sectionText}`}>No companies found</span>
+                          <span className={`text-xl ${colors.section.text}`}>No companies found</span>
                         </div>
                       ) : (
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
@@ -700,10 +701,10 @@ export default function About() {
                   <div className="max-w-4xl mx-auto">
                     <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl p-8 lg:p-12 text-center">
                     <div className="mb-8">
-                      <h2 className={`text-4xl font-bold mb-6 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+                      <h2 className={`text-4xl font-bold mb-6 ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
                         {pageContent.contact.title}
                       </h2>
-                      <p className={`text-lg leading-relaxed max-w-2xl mx-auto ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
+                      <p className={`text-lg leading-relaxed max-w-2xl mx-auto ${colors.section.text} ${akpsiFonts.sectionTextFont}`}>
                         {pageContent.contact.subtitle}
                       </p>
                     </div>
@@ -731,16 +732,16 @@ export default function About() {
       {/* Statistics Modal */}
       {selectedStat && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className={`${akpsiColors.sectionBg} rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-auto transition-transform duration-300`}>
+          <div className={`${colors.section.bg} rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-auto transition-transform duration-300`}>
             <div className="p-8">
               <div className="flex justify-between items-center mb-6">
-                <h3 className={`text-3xl font-bold ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+                <h3 className={`text-3xl font-bold ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
                   {selectedStat?.title}
                 </h3>
                 <button
                   onClick={() => setSelectedStat(null)}
-                  className={`w-10 h-10 ${akpsiColors.statCircleBg} hover:bg-gray-200 rounded-md flex items-center justify-center transition-colors duration-200 cursor-pointer`}>
-                  <svg className={`w-6 h-6 ${akpsiColors.statCircleText}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  className={`w-10 h-10 ${colors.bg.surfaceAlt} hover:bg-gray-200 rounded-md flex items-center justify-center transition-colors duration-200 cursor-pointer`}>
+                  <svg className={`w-6 h-6 ${colors.text.secondary}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
@@ -754,7 +755,7 @@ export default function About() {
                   />
                 </div>
               </div>
-              <p className={`text-lg leading-relaxed ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
+              <p className={`text-lg leading-relaxed ${colors.section.text} ${akpsiFonts.sectionTextFont}`}>
                 {selectedStat?.description}
               </p>
             </div>

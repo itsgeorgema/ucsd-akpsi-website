@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { createClient } from '../../supabase/client';
-import { akpsiColors } from '../styles/colors';
+import { colors } from '../styles/colors';
 import { akpsiFonts } from '../styles/fonts';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -58,7 +58,7 @@ export default function Navbar() {
         </Link>
       </div>
       <nav className="absolute top-4 right-4 z-50">
-        <div className={`${akpsiColors.navBarBg} rounded-lg shadow-lg border ${akpsiColors.navBarBorder}`}>
+        <div className={`${colors.nav.bg} rounded-lg shadow-lg border ${colors.nav.border}`}>
           <div className="flex items-center">
             <div className="block">
               <div className="flex items-center">
@@ -70,14 +70,14 @@ export default function Navbar() {
                       <div key={item.href} className="relative group">
                         <div>
                           <button
-                            className={`px-6 py-3 text-sm ${akpsiFonts.navBarFont} transition-colors focus:outline-none ${isActive ? `${akpsiColors.navBarTextActive} ${akpsiColors.navBarBgActive}` : `${akpsiColors.navBarText} ${akpsiColors.navBarTextHover} ${akpsiColors.navBarBgHover}`}`}
+                            className={`px-6 py-3 text-sm ${akpsiFonts.navBarFont} transition-colors focus:outline-none ${isActive ? `${colors.nav.textActive} ${colors.nav.bgActive}` : `${colors.nav.text} ${colors.nav.textHover} ${colors.nav.bgHover}`}`}
                             aria-haspopup="true"
                             aria-expanded="false"
                             tabIndex={0}
                           >
                             {item.label}
                           </button>
-                          <div className={`absolute left-1/2 -translate-x-1/2 mt-0 w-44 ${akpsiColors.navBarBg} ${akpsiColors.navBarBorder} border rounded-lg shadow-lg flex flex-col z-50 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity`}
+                          <div className={`absolute left-1/2 -translate-x-1/2 mt-0 w-44 ${colors.nav.bg} ${colors.nav.border} border rounded-lg shadow-lg flex flex-col z-50 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity`}
                             tabIndex={-1}>
                               {[
                                 { href: '/brothers/executive', label: 'EXECUTIVE COMMITTEE' },
@@ -89,7 +89,7 @@ export default function Navbar() {
                                     key={dropdownItem.href}
                                     href={dropdownItem.href}
                                     className={`px-3 py-2 text-xs ${akpsiFonts.navBarFont} transition-colors whitespace-nowrap text-ellipsis
-                                      ${isDropdownActive ? `${akpsiColors.navBarTextActive} ${akpsiColors.navBarBgActive}` : `${akpsiColors.navBarText} ${akpsiColors.navBarTextHover} ${akpsiColors.navBarBgHover}`}
+                                      ${isDropdownActive ? `${colors.nav.textActive} ${colors.nav.bgActive}` : `${colors.nav.text} ${colors.nav.textHover} ${colors.nav.bgHover}`}
                                     `}
                                   >
                                     {dropdownItem.label}
@@ -106,7 +106,7 @@ export default function Navbar() {
                       key={item.href}
                       href={item.href}
                       className={`px-6 py-3 text-sm ${akpsiFonts.navBarFont} transition-colors
-                        ${isActive ? `${akpsiColors.navBarTextActive} ${akpsiColors.navBarBgActive}` : `${akpsiColors.navBarText} ${akpsiColors.navBarTextHover} ${akpsiColors.navBarBgHover}`}
+                        ${isActive ? `${colors.nav.textActive} ${colors.nav.bgActive}` : `${colors.nav.text} ${colors.nav.textHover} ${colors.nav.bgHover}`}
                       `}
                     >
                       {item.label}

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { createClient } from '../../../supabase/client';
 import { akpsiFonts } from '../../styles/fonts';
-import { akpsiColors } from '../../styles/colors';
+import { colors } from '../../styles/colors';
 import Footer from '../../components/Footer';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { useRouter } from 'next/navigation';
@@ -144,8 +144,8 @@ function ActivesPageContent() {
           {/* Hero Section */}
           <section className="relative flex flex-col items-center justify-center text-center z-10 min-h-screen">
             <div className="relative z-10 flex flex-col items-center">
-              <h1 className={`text-5xl md:text-6xl mb-6 text-center ${akpsiColors.heroTitle} ${akpsiFonts.sectionTitleFont}`}>Active Member Resources</h1>
-              <p className={`text-lg ${akpsiColors.heroSubtitle} text-center mb-8 max-w-2xl ${akpsiFonts.bodyFont}`}>Please do not share any of these resources with people outside of Nu Xi.<br />Make sure to use this responsibly, you are protecting our legacy :)</p>
+              <h1 className={`text-5xl md:text-6xl mb-6 text-center ${colors.text.inverse} ${akpsiFonts.sectionTitleFont}`}>Active Member Resources</h1>
+              <p className={`text-lg ${colors.glass.textSubtle} text-center mb-8 max-w-2xl ${akpsiFonts.bodyFont}`}>Please do not share any of these resources with people outside of Nu Xi.<br />Make sure to use this responsibly, you are protecting our legacy :)</p>
               <div className="flex flex-col gap-4 w-full max-w-md">
                 {resourceButtons.map((item, idx) => {
                   const link = links[idx];
@@ -155,14 +155,14 @@ function ActivesPageContent() {
                       href={link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`block w-full py-3 px-6 rounded-lg border-2 ${akpsiColors.glassBorder} ${akpsiColors.glassText} text-lg font-semibold text-center ${akpsiColors.glassBg} hover:bg-black/30 hover:text-white transition-colors duration-200 shadow-md ${akpsiColors.glassBlurMd} ${akpsiFonts.bodyFont}`}
+                      className={`block w-full py-3 px-6 rounded-lg border-2 ${colors.glass.border} ${colors.glass.text} text-lg font-semibold text-center ${colors.glass.bg} hover:bg-black/30 hover:text-white transition-colors duration-200 shadow-md backdrop-blur-md ${akpsiFonts.bodyFont}`}
                     >
                       {item.name}
                     </a>
                   ) : (
                     <button
                       key={idx}
-                      className={`block w-full py-3 px-6 rounded-lg border-2 ${akpsiColors.glassBorder} ${akpsiColors.glassText} text-lg font-semibold text-center ${akpsiColors.glassBg} cursor-not-allowed opacity-70 shadow-md ${akpsiColors.glassBlurMd} ${akpsiFonts.bodyFont}`}
+                      className={`block w-full py-3 px-6 rounded-lg border-2 ${colors.glass.border} ${colors.glass.text} text-lg font-semibold text-center ${colors.glass.bg} cursor-not-allowed opacity-70 shadow-md backdrop-blur-md ${akpsiFonts.bodyFont}`}
                       disabled
                     >
                       {item.name}
