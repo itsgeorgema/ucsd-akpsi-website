@@ -6,6 +6,8 @@ import Footer from '../components/Footer';
 import ScrollArrow from '../components/ScrollArrow';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { heroFont } from '../styles/fonts';
+import InfiniteCarousel from '@/components/InfiniteCarousel';
+import { MusicPlayer } from '@/components/MusicPlayer';
 
 interface Company {
   image_path: string;
@@ -45,6 +47,7 @@ export default function Home() {
     knowledge: '',
     akpsiLogo: ''
   });
+  const [galleryImages, setGalleryImages] = useState<Array<{ imageUrl: string; num: number }>>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -171,13 +174,44 @@ export default function Home() {
             imageUrl: imageData.publicUrl
           });
         }
-      } catch (error) {
-        console.error('Error:', error);
-        setCompanies([]);
-      } finally {
-        setLoading(false);
+      
+    
+
+          // Fetch all gallery images
+      const { data: galleryData, error: galleryError } = await supabase
+        .from('gallery')
+        .select('image_path, num')
+        .order('num', { ascending: true });
+
+      if (galleryError) {
+        console.error('Error fetching gallery images:', galleryError);
+      } else if (galleryData) {
+        // Shuffle all images but keep all of them
+        const shuffled = [...galleryData].sort(() => Math.random() - 0.5);
+        
+        const imagesWithUrls = shuffled.map((image) => {
+          const cleanImagePath = image.image_path.trim();
+          const { data: imageData } = supabase.storage
+            .from('gallery')
+            .getPublicUrl(cleanImagePath);
+          return {
+            imageUrl: imageData.publicUrl,
+            num: image.num,
+          };
+        });
+        
+        setGalleryImages(imagesWithUrls);
       }
-    };
+    
+
+    } catch (error) {
+      console.error('Error:', error);
+      setCompanies([]);
+    } finally {
+      setLoading(false);
+    }
+
+  };
 
     fetchData();
   }, []);
@@ -206,13 +240,27 @@ export default function Home() {
                     <img
                       src={homeImages.akpsiLogo}
                       alt="Alpha Kappa Psi Logo"
-                      className="h-28 w-auto mx-auto"
+                      className="h-50 w-auto mx-auto"
                       style={{ objectFit: 'contain' }}
                     />
                   )}
                 </div>
                 <ScrollArrow />
               </div>
+            </section>
+
+                        {/* HERO DESCRIPTION SECTION */}
+            <section className="relative z-10 flex items-center justify-center w-full min-h-[440px] md:min-h-[520px] py-16 md:py-24" style={{ background: 'none' }}>
+              <div className="max-w-10xl w-full px-6 md:px-20 flex flex-col items-start justify-center mx-auto">
+                <h2 className={`text-white text-2xl md:text-4xl font-light mb-6 leading-snug text-left ${heroFont}`} style={{textShadow: '0 2px 16px rgba(0,0,0,0.25)'}}>
+                  Alpha Kappa Psi <b>(ΑΚΨ)</b> is the nation&apos;s premier<br />
+                  co-ed Business fraternity,<br />
+                  providing mentorship and resources to students through programs, alumni networks, and much more.
+                </h2>
+                <a href="/about" className="mt-4 px-6 py-3 bg-white text-gray-900 font-semibold rounded shadow hover:bg-gray-100 transition-colors">LEARN MORE</a>
+              </div>
+
+              <MusicPlayer />
             </section>
 
             {/* VALUES SECTION */}
@@ -274,24 +322,17 @@ export default function Home() {
             <section className="relative py-0 z-10">
               <div className="w-full">
                 <div className="w-full h-[28rem] md:h-[33rem] overflow-hidden flex items-center justify-center">
-                  {homeImages.groupPhoto1 && (
+                  {/* {homeImages.groupPhoto1 && (
                     <img src={homeImages.groupPhoto1} alt="AKPsi Group Photo" className="w-full h-full object-cover object-[center_35%]" />
-                  )}
+                  )} */}
+                  
+                  <InfiniteCarousel images={galleryImages} />
+
                 </div>
               </div>
             </section>
 
-            {/* HERO DESCRIPTION SECTION */}
-            <section className="relative z-10 flex items-center justify-center w-full min-h-[440px] md:min-h-[520px] py-16 md:py-24" style={{ background: 'none' }}>
-              <div className="max-w-lg w-full px-6 md:px-12 flex flex-col items-start justify-center mx-auto">
-                <h2 className={`text-white text-2xl md:text-4xl font-light mb-6 leading-snug text-left ${heroFont}`} style={{textShadow: '0 2px 16px rgba(0,0,0,0.25)'}}>
-                  Alpha Kappa Psi <b>(ΑΚΨ)</b> is the nation&apos;s premier<br />
-                  co-ed Business fraternity,<br />
-                  providing mentorship and resources to students through programs, alumni networks, and much more.
-                </h2>
-                <a href="/about" className="mt-4 px-6 py-3 bg-white text-gray-900 font-semibold rounded shadow hover:bg-gray-100 transition-colors">LEARN MORE</a>
-              </div>
-            </section>
+
 
             {/* PRESIDENT'S MESSAGE SECTION */}
             <section className="relative z-10 flex flex-col md:flex-row items-center justify-center w-full py-16 px-4 md:px-0 bg-white font-hero">
