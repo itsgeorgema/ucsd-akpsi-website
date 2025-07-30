@@ -6,6 +6,7 @@ import { akpsiColors } from '../../styles/colors';
 import { akpsiFonts } from '../../styles/fonts';
 import Footer from '../../components/Footer';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function Login() {
   const [password, setPassword] = useState('');
@@ -13,6 +14,7 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [backgroundUrl, setBackgroundUrl] = useState('');
   const router = useRouter();
+  const { checkAuth } = useAuth();
   
   useEffect(() => {
     const fetchBackground = async () => {
@@ -46,6 +48,8 @@ export default function Login() {
       const result = await response.json();
 
       if (response.ok && result.success) {
+        // Update authentication state immediately
+        await checkAuth();
         // Navigate to protected page
         router.replace('/actives');
       } else {

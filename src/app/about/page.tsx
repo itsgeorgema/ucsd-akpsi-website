@@ -5,6 +5,7 @@ import { createClient } from '../../../supabase/client';
 import ScrollArrow from '../../components/ScrollArrow';
 import Footer from '../../components/Footer';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import BouncyFadeIn from '../../components/BouncyFadeIn';
 import { akpsiColors } from '../../styles/colors';
 import { akpsiFonts } from '../../styles/fonts';
 
@@ -17,6 +18,7 @@ interface AboutImages {
   background: string;
   backgroundVideo: string;
   crest: string;
+  akpsiLogo: string;
   groupPhoto1: string;
   groupPhoto2: string;
   genderPie: string;
@@ -38,6 +40,7 @@ export default function About() {
     background: '',
     backgroundVideo: '',
     crest: '',
+    akpsiLogo: '',
     groupPhoto1: '',
     groupPhoto2: '',
     genderPie: '',
@@ -48,6 +51,35 @@ export default function About() {
   const [selectedStat, setSelectedStat] = useState<StatModalData | null>(null);
   const [activeTab, setActiveTab] = useState<ActiveTab>('akpsi');
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [startTime, setStartTime] = useState(Date.now());
+  const [displayedTab, setDisplayedTab] = useState<ActiveTab>(activeTab);
+  const [contentAnim, setContentAnim] = useState<'in' | 'out'>('in');
+
+  // Auto-switch tabs every 12 seconds with progress bar
+  useEffect(() => {
+    const duration = 12000; // 12 seconds
+
+    const updateProgress = () => {
+      const elapsed = Date.now() - startTime;
+      const newProgress = Math.min((elapsed / duration) * 100, 100);
+      setProgress(newProgress);
+
+      // Allow progress to reach and stay at 100% briefly before switching
+      if (newProgress >= 100) {
+        setTimeout(() => {
+          const tabs: ActiveTab[] = ['akpsi', 'nuxi', 'statistics'];
+          const currentIndex = tabs.indexOf(activeTab);
+          const nextIndex = (currentIndex + 1) % tabs.length;
+          handleTabChange(tabs[nextIndex]);
+        }, 100); // Small delay to show 100% completion
+      }
+    };
+
+    const interval = setInterval(updateProgress, 50); // Update every 50ms for smooth animation
+
+    return () => clearInterval(interval);
+  }, [activeTab, startTime]);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -59,6 +91,7 @@ export default function About() {
           'aboutBackground.jpeg',
           'backgroundVid3.mp4',
           'crest.png',
+          'akpsiLogo.png',
           'groupAbout1.jpeg', 
           'groupAbout2.jpeg',
           'genderPie.png',
@@ -71,6 +104,7 @@ export default function About() {
           background: '',
           backgroundVideo: '',
           crest: '',
+          akpsiLogo: '',
           groupPhoto1: '',
           groupPhoto2: '',
           genderPie: '',
@@ -93,6 +127,9 @@ export default function About() {
               break;
             case 'crest.png':
               imageUrls.crest = imageData.publicUrl;
+              break;
+            case 'akpsiLogo.png':
+              imageUrls.akpsiLogo = imageData.publicUrl;
               break;
             case 'groupAbout1.jpeg':
               imageUrls.groupPhoto1 = imageData.publicUrl;
@@ -187,14 +224,19 @@ export default function About() {
   };
 
   const handleTabChange = (tab: ActiveTab) => {
-    if (tab === activeTab) return;
-    
-    setIsTransitioning(true);
+  if (tab === activeTab) return;
+  setContentAnim('out');
+  setTimeout(() => {
+    setDisplayedTab(tab);
+    setContentAnim('out'); // Start new content in "out" state
     setTimeout(() => {
-      setActiveTab(tab);
-      setIsTransitioning(false);
-    }, 150);
-  };
+      setContentAnim('in'); // Then animate to "in"
+    }, 50); // Small delay to ensure DOM update
+    setProgress(0);
+    setActiveTab(tab);
+    setStartTime(Date.now());
+  }, 400); // match animation duration
+};
 
   const openStatModal = (type: 'gender' | 'grade') => {
     const modalData: StatModalData = {
@@ -206,9 +248,10 @@ export default function About() {
   };
 
   const renderTabContent = () => {
-    switch (activeTab) {
+    let content;
+    switch (displayedTab) {
       case 'akpsi':
-        return (
+        content = (
           <div className={`transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
             <div className="text-center mb-12">
               <h2 className={`text-4xl font-bold mb-6 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
@@ -260,9 +303,10 @@ export default function About() {
             </div>
           </div>
         );
+        break;
 
       case 'nuxi':
-        return (
+        content = (
           <div className={`transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
             <div className="text-center mb-12">
               <h2 className={`text-4xl font-bold mb-4 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
@@ -330,9 +374,10 @@ export default function About() {
             </div>
           </div>
         );
+        break;
 
       case 'statistics':
-        return (
+        content = (
           <div className={`transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
             <div className="text-center mb-12">
               <h2 className={`text-4xl font-bold mb-6 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
@@ -348,7 +393,7 @@ export default function About() {
                 </h3>
                 <div className="flex justify-center items-center mb-6">
                   {images.genderPie ? (
-                    <div className="relative flex items-center justify-center w-48 h-48">
+                    <div className="relative flex items-center justify-center w-64 h-64">
                       <img 
                         src={images.genderPie} 
                         alt="Gender Distribution Pie Chart" 
@@ -356,16 +401,19 @@ export default function About() {
                       />
                     </div>
                   ) : (
-                    <div className={`w-48 h-48 ${akpsiColors.statCircleBg} rounded-full flex items-center justify-center`}>
+                    <div className={`w-64 h-64 ${akpsiColors.statCircleBg} rounded-full flex items-center justify-center`}>
                       <span className={`${akpsiColors.statCircleText}`}>Loading chart...</span>
                     </div>
                   )}
                 </div>
                 <button 
-                  className="px-6 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors duration-300 font-semibold text-sm"
+                  className="group inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-lg hover:from-blue-800 hover:to-blue-600 transition-all duration-300 font-semibold hover:scale-105 shadow-lg hover:shadow-xl transform cursor-pointer"
                   onClick={() => openStatModal('gender')}
                 >
                   View Details
+                  <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
                 </button>
               </div>
 
@@ -376,7 +424,7 @@ export default function About() {
                 </h3>
                 <div className="flex justify-center items-center mb-6">
                   {images.gradePie ? (
-                    <div className="relative flex items-center justify-center w-48 h-48">
+                    <div className="relative flex items-center justify-center w-64 h-64">
                       <img 
                         src={images.gradePie} 
                         alt="Grade Level Distribution Pie Chart" 
@@ -384,16 +432,19 @@ export default function About() {
                       />
                     </div>
                   ) : (
-                    <div className={`w-48 h-48 ${akpsiColors.statCircleBg} rounded-full flex items-center justify-center`}>
+                    <div className={`w-64 h-64 ${akpsiColors.statCircleBg} rounded-full flex items-center justify-center`}>
                       <span className={`${akpsiColors.statCircleText}`}>Loading chart...</span>
                     </div>
                   )}
                 </div>
                 <button 
-                  className="px-6 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors duration-300 font-semibold text-sm"
+                  className="group inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-lg hover:from-blue-800 hover:to-blue-600 transition-all duration-300 font-semibold hover:scale-105 shadow-lg hover:shadow-xl transform cursor-pointer"
                   onClick={() => openStatModal('grade')}
                 >
                   View Details
+                  <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
                 </button>
               </div>
             </div>
@@ -440,216 +491,253 @@ export default function About() {
             </div>
           </div>
         );
+        break;
 
       default:
-        return null;
+        content = null;
     }
+    return (
+      <div
+        key={displayedTab}
+        className={`transition-all duration-500 ${contentAnim === 'in' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ease-in-out`}
+      >
+        {content}
+      </div>
+    );
   };
 
+  const getProgressBarWidth = (progress: number) => `${progress}%`;
+
   return (
-    <div className="relative">
-      {/* Full Page Background Video */}
-      {images.backgroundVideo && (
-        <div className="fixed top-0 left-0 w-full h-full z-0 overflow-hidden">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            className="w-full h-full object-cover"
-            style={{ objectPosition: 'center' }}
-            onError={(e) => console.error('Video error:', e)}
-            onLoadStart={() => console.log('Video loading started')}
-            onCanPlay={() => console.log('Video can play')}
-          >
-            <source src={images.backgroundVideo} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        </div>
-      )}
-      
-      {/* Fallback background image if video fails to load */}
-      {!images.backgroundVideo && images.background && (
-        <div 
-          className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat"
-          style={{ 
-            backgroundImage: `url(${images.background})`,
-          }}
-        />
-      )}
-      
-      <div className="relative z-20 min-h-screen flex flex-col">
-        {loading ? (
-          <main className="flex-1 flex items-center justify-center py-16 px-4">
-            <LoadingSpinner size="large" fullScreen={false} type="component" />
-          </main>
-        ) : (
-        <>
-          {/* Hero Section - UNCHANGED */}
-          <section className="relative flex flex-col items-center justify-center text-center z-10 min-h-screen">
-            {/* Crest/Logo */}
-            <div className="relative z-10 flex flex-col items-center">
-              <div className="mb-8">
-                {images.crest ? (
-                  <img src={images.crest} alt="AKPsi Crest" className="object-contain w-72 h-80 mx-auto" />
-                ) : (
-                  <div className={`w-72 h-80 ${akpsiColors.statCircleBg} flex items-center justify-center`}>
-                    <span className={`${akpsiColors.statCircleText} ${akpsiFonts.bodyFont}`}>Loading crest...</span>
-                  </div>
-                )}
-              </div>
-              <h1 className={`text-5xl md:text-7xl mb-6 drop-shadow-2xl ${akpsiColors.heroTitle} ${akpsiFonts.heroTitleFont}`}>{pageContent.hero.title}</h1>
-              <p className={`text-xl md:text-2xl mb-12 drop-shadow-lg max-w-3xl mx-auto ${akpsiColors.heroSubtitle} ${akpsiFonts.sectionTextFont}`}>
-                {pageContent.hero.subtitle}
-              </p>
-              <ScrollArrow />
-            </div>
-          </section>
-
-                    {/* Combined Modal Card and Companies Section */}
-          <section className="relative py-20 z-10 px-4 sm:px-6 lg:px-8" data-modal-card>
-            {/* Translucent background layer */}
-            <div className="absolute inset-0 bg-white/95 backdrop-blur-sm rounded-3xl"></div>
-            
-            <div className="relative z-10 max-w-6xl mx-auto">
-              <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden">
-                {/* Tab Buttons */}
-                <div className="flex border-b border-gray-200">
-                  <button
-                    onClick={() => handleTabChange('akpsi')}
-                    className={`flex-1 py-4 px-6 text-center font-semibold transition-all duration-300 ${
-                      activeTab === 'akpsi'
-                        ? 'bg-blue-50 text-blue-900 border-b-2 border-blue-900'
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                    }`}
-                  >
-                    <div className="flex items-center justify-center space-x-2">
-                      <div className={`w-3 h-3 rounded-full ${activeTab === 'akpsi' ? 'bg-pink-400' : 'bg-gray-300'}`}></div>
-                      <span>WHAT IS AKPSI</span>
-                    </div>
-                  </button>
-                  <button
-                    onClick={() => handleTabChange('nuxi')}
-                    className={`flex-1 py-4 px-6 text-center font-semibold transition-all duration-300 ${
-                      activeTab === 'nuxi'
-                        ? 'bg-blue-50 text-blue-900 border-b-2 border-blue-900'
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                    }`}
-                  >
-                    <div className="flex items-center justify-center space-x-2">
-                      <div className={`w-3 h-3 rounded-full ${activeTab === 'nuxi' ? 'bg-yellow-400' : 'bg-gray-300'}`}></div>
-                      <span>NU XI CHAPTER</span>
-                    </div>
-                  </button>
-                  <button
-                    onClick={() => handleTabChange('statistics')}
-                    className={`flex-1 py-4 px-6 text-center font-semibold transition-all duration-300 ${
-                      activeTab === 'statistics'
-                        ? 'bg-blue-50 text-blue-900 border-b-2 border-blue-900'
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                    }`}
-                  >
-                    <div className="flex items-center justify-center space-x-2">
-                      <div className={`w-3 h-3 rounded-full ${activeTab === 'statistics' ? 'bg-cyan-400' : 'bg-gray-300'}`}></div>
-                      <span>STATISTICS</span>
-                    </div>
-                  </button>
-                </div>
-
-                {/* Tab Content */}
-                <div className="p-8 lg:p-12 min-h-[600px]">
-                  {renderTabContent()}
-                </div>
-              </div>
-              
-              {/* Companies Section */}
-              <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl p-8 lg:p-12 mt-8">
-                <div className="text-center mb-12">
-                  <h2 className={`text-4xl font-bold mb-6 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
-                    WHERE WE'RE AT
-                 </h2>
-                  <p className={`text-lg max-w-3xl mx-auto ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
-                  Our brothers have secured positions at leading companies across various industries
-                </p>
-              </div>
-              
-              {companies.length === 0 ? (
-                  <div className="text-center py-12">
-                    <div className={`w-16 h-16 ${akpsiColors.statCircleBg} rounded-full flex items-center justify-center mx-auto mb-4`}>
-                      <svg className="w-8 h-8 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
-                      </svg>
-                    </div>
-                    <span className={`text-xl ${akpsiColors.sectionText}`}>No companies found</span>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-                    {companies.map((company, index) => (
-                      <div 
-                        key={index}
-                        className="group relative bg-white/80 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 hover:scale-105"
-                      >
-                        <div className="aspect-square flex items-center justify-center">
-                          <img 
-                    src={company.imageUrl} 
-                    alt={company.image_path ? company.image_path.replace('.png', '') : 'Company logo'} 
-                            className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-300" 
-                    onError={() => console.error('Image failed to load:', company.imageUrl)}
-                  />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          </section>
-
-          {/* Contact Section */}
-          <section className="relative py-20 z-10 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto">
-              <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl p-8 lg:p-12 text-center">
-                <div className="mb-8">
-                  <h2 className={`text-4xl font-bold mb-6 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
-                     {pageContent.contact.title}
-                   </h2>
-                  <p className={`text-lg leading-relaxed max-w-2xl mx-auto ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
-                {pageContent.contact.subtitle}
-              </p>
-                </div>
-              
-                                 <div className="flex justify-center">
-                   <a
-                     href="/contact"
-                    className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-lg hover:from-blue-800 hover:to-blue-600 transition-all duration-300 font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105"
-                   >
-                     {pageContent.contact.buttonText}
-                     <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                     </svg>
-                   </a>
-                 </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Footer */}
-          <Footer />
-        </>
+    <>
+      <div className="relative">
+        {/* Full Page Background Video */}
+        {images.backgroundVideo && (
+          <div className="fixed top-0 left-0 w-full h-full z-0 overflow-hidden">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              className="w-full h-full object-cover"
+              style={{ objectPosition: 'center' }}
+              onError={(e) => console.error('Video error:', e)}
+              onLoadStart={() => console.log('Video loading started')}
+              onCanPlay={() => console.log('Video can play')}
+            >
+              <source src={images.backgroundVideo} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
         )}
+        {/* Fallback background image if video fails to load */}
+        {!images.backgroundVideo && images.background && (
+          <div 
+            className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat"
+            style={{ 
+              backgroundImage: `url(${images.background})`,
+            }}
+          />
+        )}
+        <div className="relative z-20 min-h-screen flex flex-col">
+          {loading ? (
+            <main className="flex-1 flex items-center justify-center py-16 px-4">
+              <LoadingSpinner size="large" fullScreen={false} type="component" />
+            </main>
+          ) : (
+            <>
+              {/* Hero Section - UNCHANGED */}
+              <section className="relative flex flex-col items-center justify-center text-center z-10 min-h-screen">
+                {/* Crest/Logo */}
+                <div className="relative z-10 flex flex-col items-center">
+                  <div className="mb-8">
+                    {images.crest ? (
+                      <img src={images.crest} alt="AKPsi Crest" className="object-contain w-72 h-80 mx-auto" />
+                    ) : (
+                      <div className={`w-72 h-80 ${akpsiColors.statCircleBg} flex items-center justify-center`}>
+                        <span className={`${akpsiColors.statCircleText} ${akpsiFonts.bodyFont}`}>Loading crest...</span>
+                      </div>
+                    )}
+                  </div>
+                  <h1 className={`text-5xl md:text-7xl mb-6 drop-shadow-2xl ${akpsiColors.heroTitle} ${akpsiFonts.heroTitleFont}`}>{pageContent.hero.title}</h1>
+                  <p className={`text-xl md:text-2xl mb-12 drop-shadow-lg max-w-3xl mx-auto ${akpsiColors.heroSubtitle} ${akpsiFonts.sectionTextFont}`}>
+                    {pageContent.hero.subtitle}
+                  </p>
+                  <ScrollArrow />
+                </div>
+              </section>
+              {/* Combined Modal Card and Companies Section */}
+              <section className="relative py-20 z-10 px-4 sm:px-6 lg:px-8" data-modal-card>
+                {/* Translucent background layer */}
+                <div className="absolute inset-0 bg-white/95 backdrop-blur-sm rounded-3xl"></div>
+                <div className="relative z-10 max-w-6xl mx-auto">
+                  <div className="flex flex-col space-y-6">
+                    {/* Tab Buttons - Sliding Flex Group */}
+                    <BouncyFadeIn delay={0.3}>
+                      <div className="relative flex flex-col md:flex-row w-full max-w-6xl mx-auto gap-2 md:gap-x-2 mb-1" style={{minHeight: 64, height: 'auto'}}>
+                        {['akpsi', 'nuxi', 'statistics'].map((tab) => (
+                        <button
+                          key={tab}
+                          onClick={() => handleTabChange(tab as ActiveTab)}
+                          className={`transition-all duration-500 font-semibold rounded-2xl flex items-center justify-start relative h-16 cursor-pointer bg-white/95 text-black shadow-lg overflow-hidden`}
+                          style={{
+                            flexGrow: activeTab === tab ? 1.5 : 1,
+                            flexShrink: 1,
+                            flexBasis: 0,
+                            height: '64px',
+                            minHeight: '64px',
+                            maxHeight: '64px',
+                            transition: 'flex-grow 0.5s cubic-bezier(0.4,0,0.2,1), background 0.3s, color 0.3s',
+                            boxShadow: 'none',
+                          }}
+                        >
+                          {/* Progress bar - fills button edge to edge */}
+                          {activeTab === tab && (
+                            <div
+                              className="absolute top-0 bottom-0 left-0 right-0 z-0 overflow-hidden"
+                            >
+                              <div
+                                className="bg-blue-200 h-full transition-all duration-50 ease-linear rounded-2xl"
+                                style={{ 
+                                  width: `${progress}%`,
+                                }}
+                              />
+                            </div>
+                          )}
+                          <span className="relative z-10 text-left w-full flex items-center pr-8">
+                            <div className={`h-14 w-14 mr-3 ml-1 rounded-2xl flex items-center justify-center bg-blue-700
+                            }`}>
+                              {tab === 'akpsi' && images.crest && (
+                                <img 
+                                  src={images.crest} 
+                                  alt="AKPsi Crest" 
+                                  className="w-12 h-12 object-contain"
+                                />
+                              )}
+                              {tab === 'nuxi' && images.akpsiLogo && (
+                                <img 
+                                  src={images.akpsiLogo} 
+                                  alt="AKPsi Logo" 
+                                  className="w-10 h-10 object-contain"
+                                />
+                              )}
+                              {tab === 'statistics' && (
+                                <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" strokeWidth="0.5" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 18v-4M8 18v-8M12 18v-6M16 18v-10M20 18v-2"/>
+                                </svg>
+                              )}
+                            </div>
+                            <span className="font-semibold text-base">
+                              {tab === 'akpsi' && 'WHAT IS AKPSI'}
+                              {tab === 'nuxi' && 'NU XI CHAPTER'}
+                              {tab === 'statistics' && 'STATISTICS'}
+                            </span>
+                          </span>
+                        </button>
+                      ))}
+                      </div>
+                    </BouncyFadeIn>
+                                         {/* Main Card */}
+                     <BouncyFadeIn delay={0.2}>
+                       <div 
+                         className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden"
+                         style={{ height: '800px' }}
+                       >
+                       {/* Tab Content */}
+                       <div className="p-8 lg:p-12 h-full overflow-y-auto">
+                         {renderTabContent()}
+                       </div>
+                                            </div>
+                     </BouncyFadeIn>
+                    {/* Companies Section */}
+                    <BouncyFadeIn delay={.1} threshold={.2} className="mt-[-100px] pt-[100px]">
+                      <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl p-8 lg:p-12 mt-8">
+                      <div className="text-center mb-12">
+                        <h2 className={`text-4xl font-bold mb-6 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+                          WHERE WE'RE AT
+                        </h2>
+                        <p className={`text-lg max-w-3xl mx-auto ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
+                          Our brothers have secured positions at leading companies across various industries
+                        </p>
+                      </div>
+                      {companies.length === 0 ? (
+                        <div className="text-center py-12">
+                          <div className={`w-16 h-16 ${akpsiColors.statCircleBg} rounded-full flex items-center justify-center mx-auto mb-4`}>
+                            <svg className="w-8 h-8 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+                            </svg>
+                          </div>
+                          <span className={`text-xl ${akpsiColors.sectionText}`}>No companies found</span>
+                        </div>
+                      ) : (
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                          {companies.map((company, index) => (
+                            <div 
+                              key={index}
+                              className="group relative bg-white/80 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 hover:scale-105"
+                            >
+                              <div className="aspect-square flex items-center justify-center">
+                                <img 
+                                  src={company.imageUrl} 
+                                  alt={company.image_path ? company.image_path.replace('.png', '') : 'Company logo'} 
+                                  className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-300" 
+                                  onError={() => console.error('Image failed to load:', company.imageUrl)}
+                                />
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </BouncyFadeIn>
+                  </div>
+                </div>
+              </section>
+              {/* Contact Section */}
+              <section className="relative py-20 z-10 px-4 sm:px-6 lg:px-8">
+                <BouncyFadeIn delay={0.1} threshold={.4} className="mt-[-100px] pt-[100px]">
+                  <div className="max-w-4xl mx-auto">
+                    <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl p-8 lg:p-12 text-center">
+                    <div className="mb-8">
+                      <h2 className={`text-4xl font-bold mb-6 ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
+                        {pageContent.contact.title}
+                      </h2>
+                      <p className={`text-lg leading-relaxed max-w-2xl mx-auto ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
+                        {pageContent.contact.subtitle}
+                      </p>
+                    </div>
+                    <div className="flex justify-center">
+                      <a
+                        href="/contact"
+                        className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-lg hover:from-blue-800 hover:to-blue-600 transition-all duration-300 font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105"
+                      >
+                        {pageContent.contact.buttonText}
+                        <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                  </BouncyFadeIn>
+              </section>
+              {/* Footer */}
+              <Footer />
+            </>
+          )}
+        </div>
       </div>
-
       {/* Statistics Modal */}
       {selectedStat && (
-                 <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-           <div className={`${akpsiColors.sectionBg} rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-auto transition-transform duration-300`}>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className={`${akpsiColors.sectionBg} rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-auto transition-transform duration-300`}>
             <div className="p-8">
               <div className="flex justify-between items-center mb-6">
                 <h3 className={`text-3xl font-bold ${akpsiColors.sectionTitle} ${akpsiFonts.sectionTitleFont}`}>
-                  {selectedStat.title}
+                  {selectedStat?.title}
                 </h3>
-                                                 <button
+                <button
                   onClick={() => setSelectedStat(null)}
                   className={`w-10 h-10 ${akpsiColors.statCircleBg} hover:bg-gray-200 rounded-md flex items-center justify-center transition-colors duration-200 cursor-pointer`}>
                   <svg className={`w-6 h-6 ${akpsiColors.statCircleText}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -657,24 +745,22 @@ export default function About() {
                   </svg>
                 </button>
               </div>
-              
-                             <div className="flex justify-center items-center mb-6">
-                 <div className="relative flex items-center justify-center w-80 h-80">
-                   <img 
-                     src={selectedStat.image} 
-                     alt={selectedStat.title} 
-                     className="max-w-full max-h-full object-contain"
-                   />
-                 </div>
-               </div>
-              
+              <div className="flex justify-center items-center mb-6">
+                <div className="relative flex items-center justify-center w-80 h-80">
+                  <img 
+                    src={selectedStat?.image} 
+                    alt={selectedStat?.title} 
+                    className="max-w-full max-h-full object-contain"
+                  />
+                </div>
+              </div>
               <p className={`text-lg leading-relaxed ${akpsiColors.sectionText} ${akpsiFonts.sectionTextFont}`}>
-                {selectedStat.description}
+                {selectedStat?.description}
               </p>
             </div>
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

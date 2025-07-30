@@ -5,6 +5,7 @@ import { createClient } from '../../supabase/client';
 import Footer from '../components/Footer';
 import ScrollArrow from '../components/ScrollArrow';
 import LoadingSpinner from '../components/LoadingSpinner';
+import BouncyFadeIn from '../components/BouncyFadeIn';
 import { heroFont } from '../styles/fonts';
 import { akpsiColors } from '../styles/colors';
 
@@ -239,59 +240,69 @@ export default function Home() {
                 {/* Values Section - Static Position */}
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 lg:gap-8 mb-4 md:mb-6">
                   {/* Brotherhood */}
-                  <div className={`${akpsiColors.glassText}`}>
-                    {homeImages.broho && (
-                      <div className="mb-2 md:mb-3">
-                        <img src={homeImages.broho} alt="Brotherhood" className="h-12 w-12 md:h-14 md:w-14 lg:h-16 lg:w-16" />
-                      </div>
-                    )}
-                    <h3 className={`text-sm md:text-base lg:text-lg font-semibold mb-1 md:mb-2 ${akpsiColors.glassText}`}>BROTHERHOOD</h3>
-                    <p className={`text-xs md:text-sm ${akpsiColors.glassTextBody} leading-relaxed`}>We are a family of life-long friends that stick together through thick and thin.</p>
-                  </div>
+                  <BouncyFadeIn delay={0.1} threshold={0.1}>
+                    <div className={`${akpsiColors.glassText}`}>
+                      {homeImages.broho && (
+                        <div className="mb-2 md:mb-3">
+                          <img src={homeImages.broho} alt="Brotherhood" className="h-12 w-12 md:h-14 md:w-14 lg:h-16 lg:w-16" />
+                        </div>
+                      )}
+                      <h3 className={`text-sm md:text-base lg:text-lg font-semibold mb-1 md:mb-2 ${akpsiColors.glassText}`}>BROTHERHOOD</h3>
+                      <p className={`text-xs md:text-sm ${akpsiColors.glassTextBody} leading-relaxed`}>We are a family of life-long friends that stick together through thick and thin.</p>
+                    </div>
+                  </BouncyFadeIn>
 
                   {/* Integrity */}
-                  <div className={`${akpsiColors.glassText}`}>
-                    {homeImages.integrity && (
-                      <div className="mb-2 md:mb-3">
-                        <img src={homeImages.integrity} alt="Integrity" className="h-12 w-12 md:h-14 md:w-14 lg:h-16 lg:w-16" />
-                      </div>
-                    )}
-                    <h3 className={`text-sm md:text-base lg:text-lg font-semibold mb-1 md:mb-2 ${akpsiColors.glassText}`}>INTEGRITY</h3>
-                    <p className={`text-xs md:text-sm ${akpsiColors.glassTextBody} leading-relaxed`}>We do things through hard work and dedication, while not taking any unnecessary shortcuts.</p>
-                  </div>
+                  <BouncyFadeIn delay={0.2} threshold={0.1}>
+                    <div className={`${akpsiColors.glassText}`}>
+                      {homeImages.integrity && (
+                        <div className="mb-2 md:mb-3">
+                          <img src={homeImages.integrity} alt="Integrity" className="h-12 w-12 md:h-14 md:w-14 lg:h-16 lg:w-16" />
+                        </div>
+                      )}
+                      <h3 className={`text-sm md:text-base lg:text-lg font-semibold mb-1 md:mb-2 ${akpsiColors.glassText}`}>INTEGRITY</h3>
+                      <p className={`text-xs md:text-sm ${akpsiColors.glassTextBody} leading-relaxed`}>We do things through hard work and dedication, while not taking any unnecessary shortcuts.</p>
+                    </div>
+                  </BouncyFadeIn>
 
                   {/* Service */}
-                  <div className={`${akpsiColors.glassText}`}>
-                    {homeImages.service && (
-                      <div className="mb-2 md:mb-3">
-                        <img src={homeImages.service} alt="Service" className="h-12 w-12 md:h-14 md:w-14 lg:h-16 lg:w-16" />
-                      </div>
-                    )}
-                    <h3 className={`text-sm md:text-base lg:text-lg font-semibold mb-1 md:mb-2 ${akpsiColors.glassText}`}>SERVICE</h3>
-                    <p className={`text-xs md:text-sm ${akpsiColors.glassTextBody} leading-relaxed`}>We believe in giving back to the communities that have shaped us into the people we are today.</p>
-                  </div>
+                  <BouncyFadeIn delay={0.3} threshold={0.1}>
+                    <div className={`${akpsiColors.glassText}`}>
+                      {homeImages.service && (
+                        <div className="mb-2 md:mb-3">
+                          <img src={homeImages.service} alt="Service" className="h-12 w-12 md:h-14 md:w-14 lg:h-16 lg:w-16" />
+                        </div>
+                      )}
+                      <h3 className={`text-sm md:text-base lg:text-lg font-semibold mb-1 md:mb-2 ${akpsiColors.glassText}`}>SERVICE</h3>
+                      <p className={`text-xs md:text-sm ${akpsiColors.glassTextBody} leading-relaxed`}>We believe in giving back to the communities that have shaped us into the people we are today.</p>
+                    </div>
+                  </BouncyFadeIn>
 
                   {/* Unity */}
-                  <div className={`${akpsiColors.glassText}`}>
-                    {homeImages.unity && (
-                      <div className="mb-2 md:mb-3">
-                        <img src={homeImages.unity} alt="Unity" className="h-12 w-12 md:h-14 md:w-14 lg:h-16 lg:w-16" />
-                      </div>
-                    )}
-                    <h3 className={`text-sm md:text-base lg:text-lg font-semibold mb-1 md:mb-2 ${akpsiColors.glassText}`}>UNITY</h3>
-                    <p className={`text-xs md:text-sm ${akpsiColors.glassTextBody} leading-relaxed`}>We strive to build our bonds and strengthen the brotherhood that we are proud of.</p>
-                  </div>
+                  <BouncyFadeIn delay={0.4} threshold={0.1}>
+                    <div className={`${akpsiColors.glassText}`}>
+                      {homeImages.unity && (
+                        <div className="mb-2 md:mb-3">
+                          <img src={homeImages.unity} alt="Unity" className="h-12 w-12 md:h-14 md:w-14 lg:h-16 lg:w-16" />
+                        </div>
+                      )}
+                      <h3 className={`text-sm md:text-base lg:text-lg font-semibold mb-1 md:mb-2 ${akpsiColors.glassText}`}>UNITY</h3>
+                      <p className={`text-xs md:text-sm ${akpsiColors.glassTextBody} leading-relaxed`}>We strive to build our bonds and strengthen the brotherhood that we are proud of.</p>
+                    </div>
+                  </BouncyFadeIn>
 
                   {/* Knowledge */}
-                  <div className={`${akpsiColors.glassText}`}>
-                    {homeImages.knowledge && (
-                      <div className="mb-2 md:mb-3">
-                        <img src={homeImages.knowledge} alt="Knowledge" className="h-12 w-12 md:h-14 md:w-14 lg:h-16 lg:w-16" />
-                      </div>
-                    )}
-                    <h3 className={`text-sm md:text-base lg:text-lg font-semibold mb-1 md:mb-2 ${akpsiColors.glassText}`}>KNOWLEDGE</h3>
-                    <p className={`text-xs md:text-sm ${akpsiColors.glassTextBody} leading-relaxed`}>We are scholars of diverse disciplines and professionals in varied industries.</p>
-                  </div>
+                  <BouncyFadeIn delay={0.5} threshold={0.1}>
+                    <div className={`${akpsiColors.glassText}`}>
+                      {homeImages.knowledge && (
+                        <div className="mb-2 md:mb-3">
+                          <img src={homeImages.knowledge} alt="Knowledge" className="h-12 w-12 md:h-14 md:w-14 lg:h-16 lg:w-16" />
+                        </div>
+                      )}
+                      <h3 className={`text-sm md:text-base lg:text-lg font-semibold mb-1 md:mb-2 ${akpsiColors.glassText}`}>KNOWLEDGE</h3>
+                      <p className={`text-xs md:text-sm ${akpsiColors.glassTextBody} leading-relaxed`}>We are scholars of diverse disciplines and professionals in varied industries.</p>
+                    </div>
+                  </BouncyFadeIn>
                 </div>
 
                 {/* Scroll Arrow */}
@@ -305,16 +316,19 @@ export default function Home() {
             <div className="relative z-10 flex flex-col w-full">
               {/* PRESIDENT'S MESSAGE SECTION */}
               <section id="akpsi-info" className={`flex flex-col md:flex-row items-center rounded-t-3xl justify-center w-full py-16 px-4 md:px-0 ${akpsiColors.sectionBg} ${heroFont}`}>
-                <div className="flex-1 max-w-2xl w-full md:pr-12">
-                    <h3 className={`text-5xl font-bold mb-8 leading-tight text-left ${akpsiColors.sectionTitle}`}>FROM<br />OUR PRESIDENT</h3>
-                    <p className={`mb-4 text-base font-normal leading-relaxed text-left ${akpsiColors.sectionText}`}>Welcome! This is the website for the Nu Xi Chapter of Alpha Kappa Psi. Here, you can explore our values, who our brothers are, and how you can get involved. Before diving into the details, the brothers of the Nu Xi Chapter would like to thank you for your interest in our fraternity.</p>
-                    <p className={`mb-4 text-base font-normal leading-relaxed text-left ${akpsiColors.sectionText}`}>Alpha Kappa Psi is a pre-professional student fraternity here at UC San Diego. We are built on the key values of Brotherhood, Knowledge, Integrity, Unity, and Service. The community you&apos;ll find here at Alpha Kappa Psi is unparalleled. Not only do our brothers strive towards their personal and professional aspirations, but we do so together, building genuine bonds that last us a lifetime.</p>
-                    <p className={`mb-4 text-base font-normal leading-relaxed text-left ${akpsiColors.sectionText}`}>With that being said, we highly encourage you to explore our website to learn more about our fraternity, our brothers, and what we stand for. If you&apos;re interested in joining our community, we encourage you to come out to our upcoming Fall 2025 Rush. At Rush, you&apos;ll get the chance to meet the brothers and learn more about how this fraternity can help you grow both personally and professionally.</p>
-                    <div className={`mt-6 text-base font-normal text-left ${akpsiColors.sectionText}`}>
-                      Sincerely,<br />
-                      {president ? president.name : 'Loading...'}
+                <BouncyFadeIn delay={0.2} threshold={0.3}>
+                  <div className="flex-1 max-w-2xl w-full md:pr-12">
+                      <h3 className={`text-5xl font-bold mb-8 leading-tight text-left ${akpsiColors.sectionTitle}`}>FROM<br />OUR PRESIDENT</h3>
+                      <p className={`mb-4 text-base font-normal leading-relaxed text-left ${akpsiColors.sectionText}`}>Welcome! This is the website for the Nu Xi Chapter of Alpha Kappa Psi. Here, you can explore our values, who our brothers are, and how you can get involved. Before diving into the details, the brothers of the Nu Xi Chapter would like to thank you for your interest in our fraternity.</p>
+                      <p className={`mb-4 text-base font-normal leading-relaxed text-left ${akpsiColors.sectionText}`}>Alpha Kappa Psi is a pre-professional student fraternity here at UC San Diego. We are built on the key values of Brotherhood, Knowledge, Integrity, Unity, and Service. The community you&apos;ll find here at Alpha Kappa Psi is unparalleled. Not only do our brothers strive towards their personal and professional aspirations, but we do so together, building genuine bonds that last us a lifetime.</p>
+                      <p className={`mb-4 text-base font-normal leading-relaxed text-left ${akpsiColors.sectionText}`}>With that being said, we highly encourage you to explore our website to learn more about our fraternity, our brothers, and what we stand for. If you&apos;re interested in joining our community, we encourage you to come out to our upcoming Fall 2025 Rush. At Rush, you&apos;ll get the chance to meet the brothers and learn more about how this fraternity can help you grow both personally and professionally.</p>
+                      <div className={`mt-6 text-base font-normal text-left ${akpsiColors.sectionText}`}>
+                        Sincerely,<br />
+                        {president ? president.name : 'Loading...'}
+                      </div>
                     </div>
-                  </div>
+                </BouncyFadeIn>
+                <BouncyFadeIn delay={0.4} threshold={0.3}>
                   <div className="flex-1 flex justify-center items-center w-full max-w-xl mt-10 md:mt-0">
                     {president ? (
                       <img src={president.imageUrl} alt={`${president.name} - President`} className="w-full max-w-md md:max-w-lg h-auto rounded-md object-cover scale-110" />
@@ -324,30 +338,37 @@ export default function Home() {
                       </div>
                     )}
                   </div>
-                </section>
+                </BouncyFadeIn>
+              </section>
 
                 {/* HERO DESCRIPTION SECTION WITH BACKGROUND IMAGE */}
                 <section className={`relative flex items-center justify-center w-full h-screen ${akpsiColors.sectionBg} ${heroFont} rounded-b-3xl overflow-hidden`}>
-              {/* Group Photo as background */}
-              <div className="absolute inset-0 z-0">
-                <div className="w-full h-full overflow-hidden flex items-center justify-center">
-                  {homeImages.groupPhoto1 && (
-                    <img src={homeImages.groupPhoto1} alt="AKPsi Group Photo" className="w-full h-full object-cover object-[center_35%]" />
-                  )}
-                </div>
-              </div>
-              
-              {/* Glass morphism background */}
-              <div className={`absolute inset-0 ${akpsiColors.glassBlurMd} ${akpsiColors.glassBg} ${akpsiColors.glassBorder} z-10`}></div>
-                              <div className="relative z-20 max-w-lg w-full px-6 md:px-12 flex flex-col items-start justify-center mx-auto">
-                  <h2 className={`${akpsiColors.glassText} text-2xl md:text-4xl font-bold mb-6 leading-snug text-left ${heroFont}`} style={{textShadow: '0 2px 16px rgba(0,0,0,0.25), 0 0 1px rgba(0,0,0,0.8)'}}>
-                    Alpha Kappa Psi <b>(ΑΚΨ)</b> is the nation&apos;s premier<br />
-                    co-ed Business fraternity,<br />
-                    providing mentorship and resources to students through programs, alumni networks, and much more.
-                  </h2>
-                  <a href="/about" className={`mt-4 px-8 py-3 ${akpsiColors.glassBg} ${akpsiColors.glassBgHover} ${akpsiColors.glassBlur} border-2 ${akpsiColors.glassBorder} ${akpsiColors.glassBorderHover} ${akpsiColors.glassText} font-bold rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg`}>LEARN MORE</a>
-                </div>
-              </section>
+                  {/* Group Photo as background */}
+                  <div className="absolute inset-0 z-0">
+                    <div className="w-full h-full overflow-hidden flex items-center justify-center">
+                      {homeImages.groupPhoto1 && (
+                        <img src={homeImages.groupPhoto1} alt="AKPsi Group Photo" className="w-full h-full object-cover object-[center_35%]" />
+                      )}
+                    </div>
+                  </div>
+                  
+                  {/* Glass morphism background - Static backdrop-filter layer */}
+                  <div className={`absolute inset-0 ${akpsiColors.glassBlurMd} ${akpsiColors.glassBg} ${akpsiColors.glassBorder} z-10`}></div>
+                  
+                  {/* Content container - No backdrop-filter, just positioning */}
+                  <div className="relative z-20 max-w-lg w-full px-6 md:px-12 flex flex-col items-start justify-center mx-auto">
+                    <BouncyFadeIn delay={0.1} threshold={0.3}>
+                      <div className="relative z-30">
+                        <h2 className={`${akpsiColors.glassText} text-2xl md:text-4xl font-bold mb-6 leading-snug text-left ${heroFont}`} style={{textShadow: '0 2px 16px rgba(0,0,0,0.25), 0 0 1px rgba(0,0,0,0.8)'}}>
+                          Alpha Kappa Psi <b>(ΑΚΨ)</b> is the nation&apos;s premier<br />
+                          co-ed Business fraternity,<br />
+                          providing mentorship and resources to students through programs, alumni networks, and much more.
+                        </h2>
+                        <a href="/about" className={`mt-4 px-8 py-3 ${akpsiColors.glassBg} ${akpsiColors.glassBgHover} border-2 ${akpsiColors.glassBorder} ${akpsiColors.glassBorderHover} ${akpsiColors.glassText} font-bold rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg`}>LEARN MORE</a>
+                      </div>
+                    </BouncyFadeIn>
+                  </div>
+                </section>
             </div>
 
 

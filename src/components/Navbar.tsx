@@ -10,12 +10,14 @@ import { useAuth } from '../contexts/AuthContext';
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [mounted] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { isAuthenticated } = useAuth();
   
   const [logoUrl, setLogoUrl] = useState('');
 
   useEffect(() => {
+    setMounted(true);
+    
     const fetchLogo = async () => {
       try {
         const supabase = createClient();
