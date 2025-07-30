@@ -237,80 +237,70 @@ export default function Home() {
                   </h1>
                 </div>
 
-                {/* Values Section - Enhanced with visual hierarchy */}
-                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 lg:gap-8 mb-4 md:mb-6">
+                {/* Values Section - Direct placement on background */}
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 md:gap-12 lg:gap-16 mb-4 md:mb-6">
                   {/* Brotherhood */}
                   <BouncyFadeIn delay={0.1} threshold={0.1}>
-                    <div className={`${colors.glass.bg} backdrop-blur-sm rounded-xl p-4 border ${colors.glass.border} hover:border-[#D4AF37] transition-all duration-300 group`}>
+                    <div className="flex flex-col items-center text-center group">
                       {homeImages.broho && (
-                        <div className="mb-3 flex justify-center">
-                          <div className="w-14 h-14 md:w-16 md:h-16 rounded-lg bg-gradient-to-br from-[#D4AF37]/20 to-[#B89334]/20 flex items-center justify-center group-hover:from-[#D4AF37]/30 group-hover:to-[#B89334]/30 transition-all duration-300">
-                            <img src={homeImages.broho} alt="Brotherhood" className="h-8 w-8 md:h-10 md:w-10 filter brightness-0 invert" />
-                          </div>
+                        <div className="mb-4 flex justify-center">
+                          <img src={homeImages.broho} alt="Brotherhood" className="h-12 w-12 md:h-16 md:w-16 filter brightness-0 invert drop-shadow-lg" />
                         </div>
                       )}
-                      <h3 className={`text-sm md:text-base lg:text-lg font-bold mb-2 ${colors.glass.text} text-center group-hover:text-[#D4AF37] transition-colors duration-300`}>BROTHERHOOD</h3>
-                      <p className={`text-xs md:text-sm ${colors.glass.textBody} leading-relaxed text-center`}>We are a family of life-long friends that stick together through thick and thin.</p>
+                      <h3 className={`text-sm md:text-base lg:text-lg font-bold mb-3 text-white drop-shadow-lg group-hover:text-[#D4AF37] transition-colors duration-300`}>BROTHERHOOD</h3>
+                      <p className={`text-xs md:text-sm text-white/90 leading-relaxed drop-shadow-lg`}>We are a family of life-long friends that stick together through thick and thin.</p>
                     </div>
                   </BouncyFadeIn>
 
                   {/* Integrity */}
                   <BouncyFadeIn delay={0.2} threshold={0.1}>
-                    <div className={`${colors.glass.bg} backdrop-blur-sm rounded-xl p-4 border ${colors.glass.border} hover:border-[#6497B1] transition-all duration-300 group`}>
+                    <div className="flex flex-col items-center text-center group">
                       {homeImages.integrity && (
-                        <div className="mb-3 flex justify-center">
-                          <div className="w-14 h-14 md:w-16 md:h-16 rounded-lg bg-gradient-to-br from-[#6497B1]/20 to-[#B3CDE0]/20 flex items-center justify-center group-hover:from-[#6497B1]/30 group-hover:to-[#B3CDE0]/30 transition-all duration-300">
-                            <img src={homeImages.integrity} alt="Integrity" className="h-8 w-8 md:h-10 md:w-10 filter brightness-0 invert" />
-                          </div>
+                        <div className="mb-4 flex justify-center">
+                          <img src={homeImages.integrity} alt="Integrity" className="h-12 w-12 md:h-16 md:w-16 filter brightness-0 invert drop-shadow-lg" />
                         </div>
                       )}
-                      <h3 className={`text-sm md:text-base lg:text-lg font-bold mb-2 ${colors.glass.text} text-center group-hover:text-[#6497B1] transition-colors duration-300`}>INTEGRITY</h3>
-                      <p className={`text-xs md:text-sm ${colors.glass.textBody} leading-relaxed text-center`}>We do things through hard work and dedication, while not taking any unnecessary shortcuts.</p>
+                      <h3 className={`text-sm md:text-base lg:text-lg font-bold mb-3 text-white drop-shadow-lg group-hover:text-[#6497B1] transition-colors duration-300`}>INTEGRITY</h3>
+                      <p className={`text-xs md:text-sm text-white/90 leading-relaxed drop-shadow-lg`}>We do things through hard work and dedication, while not taking any unnecessary shortcuts.</p>
                     </div>
                   </BouncyFadeIn>
 
                   {/* Service */}
                   <BouncyFadeIn delay={0.3} threshold={0.1}>
-                    <div className={`${colors.glass.bg} backdrop-blur-sm rounded-xl p-4 border ${colors.glass.border} hover:border-[#003366] transition-all duration-300 group`}>
+                    <div className="flex flex-col items-center text-center group">
                       {homeImages.service && (
-                        <div className="mb-3 flex justify-center">
-                          <div className="w-14 h-14 md:w-16 md:h-16 rounded-lg bg-gradient-to-br from-[#003366]/20 to-[#6497B1]/20 flex items-center justify-center group-hover:from-[#003366]/30 group-hover:to-[#6497B1]/30 transition-all duration-300">
-                            <img src={homeImages.service} alt="Service" className="h-8 w-8 md:h-10 md:w-10 filter brightness-0 invert" />
-                          </div>
+                        <div className="mb-4 flex justify-center">
+                          <img src={homeImages.service} alt="Service" className="h-12 w-12 md:h-16 md:w-16 filter brightness-0 invert drop-shadow-lg" />
                         </div>
                       )}
-                      <h3 className={`text-sm md:text-base lg:text-lg font-bold mb-2 ${colors.glass.text} text-center group-hover:text-[#003366] transition-colors duration-300`}>SERVICE</h3>
-                      <p className={`text-xs md:text-sm ${colors.glass.textBody} leading-relaxed text-center`}>We believe in giving back to the communities that have shaped us into the people we are today.</p>
+                      <h3 className={`text-sm md:text-base lg:text-lg font-bold mb-3 text-white drop-shadow-lg group-hover:text-[#003366] transition-colors duration-300`}>SERVICE</h3>
+                      <p className={`text-xs md:text-sm text-white/90 leading-relaxed drop-shadow-lg`}>We believe in giving back to the communities that have shaped us into the people we are today.</p>
                     </div>
                   </BouncyFadeIn>
 
                   {/* Unity */}
                   <BouncyFadeIn delay={0.4} threshold={0.1}>
-                    <div className={`${colors.glass.bg} backdrop-blur-sm rounded-xl p-4 border ${colors.glass.border} hover:border-[#B89334] transition-all duration-300 group`}>
+                    <div className="flex flex-col items-center text-center group">
                       {homeImages.unity && (
-                        <div className="mb-3 flex justify-center">
-                          <div className="w-14 h-14 md:w-16 md:h-16 rounded-lg bg-gradient-to-br from-[#B89334]/20 to-[#D4AF37]/20 flex items-center justify-center group-hover:from-[#B89334]/30 group-hover:to-[#D4AF37]/30 transition-all duration-300">
-                            <img src={homeImages.unity} alt="Unity" className="h-8 w-8 md:h-10 md:w-10 filter brightness-0 invert" />
-                          </div>
+                        <div className="mb-4 flex justify-center">
+                          <img src={homeImages.unity} alt="Unity" className="h-12 w-12 md:h-16 md:w-16 filter brightness-0 invert drop-shadow-lg" />
                         </div>
                       )}
-                      <h3 className={`text-sm md:text-base lg:text-lg font-bold mb-2 ${colors.glass.text} text-center group-hover:text-[#B89334] transition-colors duration-300`}>UNITY</h3>
-                      <p className={`text-xs md:text-sm ${colors.glass.textBody} leading-relaxed text-center`}>We strive to build our bonds and strengthen the brotherhood that we are proud of.</p>
+                      <h3 className={`text-sm md:text-base lg:text-lg font-bold mb-3 text-white drop-shadow-lg group-hover:text-[#B89334] transition-colors duration-300`}>UNITY</h3>
+                      <p className={`text-xs md:text-sm text-white/90 leading-relaxed drop-shadow-lg`}>We strive to build our bonds and strengthen the brotherhood that we are proud of.</p>
                     </div>
                   </BouncyFadeIn>
 
                   {/* Knowledge */}
                   <BouncyFadeIn delay={0.5} threshold={0.1}>
-                    <div className={`${colors.glass.bg} backdrop-blur-sm rounded-xl p-4 border ${colors.glass.border} hover:border-[#FFD700] transition-all duration-300 group`}>
+                    <div className="flex flex-col items-center text-center group">
                       {homeImages.knowledge && (
-                        <div className="mb-3 flex justify-center">
-                          <div className="w-14 h-14 md:w-16 md:h-16 rounded-lg bg-gradient-to-br from-[#FFD700]/20 to-[#D4AF37]/20 flex items-center justify-center group-hover:from-[#FFD700]/30 group-hover:to-[#D4AF37]/30 transition-all duration-300">
-                            <img src={homeImages.knowledge} alt="Knowledge" className="h-8 w-8 md:h-10 md:w-10 filter brightness-0 invert" />
-                          </div>
+                        <div className="mb-4 flex justify-center">
+                          <img src={homeImages.knowledge} alt="Knowledge" className="h-12 w-12 md:h-16 md:w-16 filter brightness-0 invert drop-shadow-lg" />
                         </div>
                       )}
-                      <h3 className={`text-sm md:text-base lg:text-lg font-bold mb-2 ${colors.glass.text} text-center group-hover:text-[#FFD700] transition-colors duration-300`}>KNOWLEDGE</h3>
-                      <p className={`text-xs md:text-sm ${colors.glass.textBody} leading-relaxed text-center`}>We are scholars of diverse disciplines and professionals in varied industries.</p>
+                      <h3 className={`text-sm md:text-base lg:text-lg font-bold mb-3 text-white drop-shadow-lg group-hover:text-[#FFD700] transition-colors duration-300`}>KNOWLEDGE</h3>
+                      <p className={`text-xs md:text-sm text-white/90 leading-relaxed drop-shadow-lg`}>We are scholars of diverse disciplines and professionals in varied industries.</p>
                     </div>
                   </BouncyFadeIn>
                 </div>
