@@ -12,22 +12,15 @@ export default function Contact() {
   const [backgroundImage, setBackgroundImage] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const [submitted, setSubmitted] = useState(false);
-  const [showCheckmark, setShowCheckmark] = useState(false);
   const [checkmarkAnimation, setCheckmarkAnimation] = useState(false);
   const checkmarkRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
     if (submitted) {
-      // Delay the checkmark animation to ensure it starts after the component renders
-      const timer = setTimeout(() => {
-        console.log('Starting checkmark animation');
-        setShowCheckmark(true);
-        // Start the animation after a short delay
-        setTimeout(() => {
-          setCheckmarkAnimation(true);
-        }, 200);
-      }, 100);
-      return () => clearTimeout(timer);
+      // Start the animation after a short delay
+      setTimeout(() => {
+        setCheckmarkAnimation(true);
+      }, 200);
     }
   }, [submitted]);
 
@@ -86,7 +79,7 @@ export default function Contact() {
                     <div className="w-16 h-16 bg-gradient-to-br from-[#003366] to-[#6497B1] rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg animate-single-pulse-fade">
                       <svg 
                         ref={checkmarkRef}
-                        className="w-8 h-8 text-white"
+                        className={`w-8 h-8 text-white ${checkmarkAnimation ? 'animate-draw-checkmark' : ''}`}
                         fill="none" 
                         stroke="currentColor" 
                         viewBox="0 0 24 24"
