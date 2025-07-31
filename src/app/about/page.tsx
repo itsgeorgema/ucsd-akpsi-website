@@ -304,7 +304,7 @@ export default function About() {
                     {pageContent.akpsiInfo.foundingTitle}
                   </h3>
                 </div>
-                <p className={`text-base relative pl-4 border-l-2 border-[#D4AF37]/30 ${colors.section.text} ${fontCombinations.content.body} break-words`}>
+                <p className={`text-left relative pl-4 border-l-2 border-[#D4AF37]/30 ${colors.section.text} ${fontCombinations.content.body} break-words`}>
                   {pageContent.akpsiInfo.foundingText}
                 </p>
               </div>
@@ -319,7 +319,7 @@ export default function About() {
                     {pageContent.akpsiInfo.networkTitle}
                   </h3>
                 </div>
-                <p className={`text-base relative pl-4 border-l-2 border-[#003366]/30 ${colors.section.text} ${fontCombinations.content.body} break-words`}>
+                <p className={`text-left relative pl-4 border-l-2 border-[#003366]/30 ${colors.section.text} ${fontCombinations.content.body} break-words`}>
                   {pageContent.akpsiInfo.networkText}
                 </p>
               </div>
@@ -366,7 +366,7 @@ export default function About() {
                       {pageContent.nuXiInfo.professionalTitle}
                     </h3>
                   </div>
-                  <p className={`text-base ${colors.section.text} ${fontCombinations.content.body} break-words`}>
+                  <p className={`text-left ${colors.section.text} ${fontCombinations.content.body} break-words`}>
                     {pageContent.nuXiInfo.professionalText}
                   </p>
                 </div>
@@ -383,7 +383,7 @@ export default function About() {
                       {pageContent.nuXiInfo.communityTitle}
                     </h3>
                   </div>
-                  <p className={`text-base ${colors.section.text} ${fontCombinations.content.body} break-words`}>
+                  <p className={`text-left ${colors.section.text} ${fontCombinations.content.body} break-words`}>
                     {pageContent.nuXiInfo.communityText}
                   </p>
                 </div>

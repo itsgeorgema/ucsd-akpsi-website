@@ -103,7 +103,7 @@ export default function Navbar() {
       <div className="absolute top-4 right-4 z-50">
         <button
           onClick={toggleMenu}
-          className={`bg-white/25 ${colors.glass.border} backdrop-blur-md rounded-lg p-4 shadow-lg transition-all duration-300 hover:${colors.glass.bgHover} focus:outline-none focus:ring-2 focus:ring-white/50`}
+          className={`bg-white/25 cursor-pointer ${colors.glass.border} backdrop-blur-md rounded-lg p-4 shadow-lg transition-all duration-300 hover:${colors.glass.bgHover} focus:outline-none focus:ring-2 focus:ring-white/50`}
           aria-label="Toggle navigation menu"
         >
           <div className="w-6 h-5 flex flex-col justify-between">
@@ -151,7 +151,7 @@ export default function Navbar() {
                     {/* Dropdown Parent */}
                     <button
                       onClick={() => toggleDropdown(item.label)}
-                      className={`group flex items-center w-full px-6 py-4 rounded-lg border nav-shine ${
+                      className={`group flex cursor-pointer items-center w-full px-6 py-4 rounded-lg border nav-shine ${
                         isDropdownActive || openDropdown === item.label
                           ? `${colors.glass.bgHover} ${colors.glass.borderHover} backdrop-blur-sm` 
                           : `border-transparent`

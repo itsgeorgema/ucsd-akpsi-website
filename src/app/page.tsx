@@ -25,7 +25,6 @@ interface HomeImages {
   service: string;
   unity: string;
   knowledge: string;
-  akpsiLogo: string;
 }
 
 export default function Home() {
@@ -40,7 +39,6 @@ export default function Home() {
     service: '',
     unity: '',
     knowledge: '',
-    akpsiLogo: ''
   });
   const [loading, setLoading] = useState(true);
 
@@ -62,11 +60,6 @@ export default function Home() {
           'knowledge.png'
         ];
 
-        // Fetch AKPsi logo from misc bucket
-        const { data: logoData } = supabase.storage
-          .from('misc')
-          .getPublicUrl('akpsiLogo.png');
-
         const newHomeImages: HomeImages = {
           background: '',
           groupPhoto1: '',
@@ -77,7 +70,6 @@ export default function Home() {
           service: '',
           unity: '',
           knowledge: '',
-          akpsiLogo: logoData?.publicUrl || ''
         };
 
         imagePaths.forEach(imagePath => {
@@ -112,6 +104,8 @@ export default function Home() {
               break;
             case 'knowledge.png':
               newHomeImages.knowledge = imageData.publicUrl;
+              break;
+            default:
               break;
           }
         });

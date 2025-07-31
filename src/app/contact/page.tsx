@@ -9,11 +9,16 @@ import Footer from '../../components/Footer';
 import LoadingSpinner from '../../components/LoadingSpinner';
 
 export default function Contact() {
+  const [mounted, setMounted] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const [submitted, setSubmitted] = useState(false);
   const [checkmarkAnimation, setCheckmarkAnimation] = useState(false);
   const checkmarkRef = useRef<SVGSVGElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (submitted) {
@@ -64,7 +69,7 @@ export default function Contact() {
       <div className="relative z-20 min-h-screen flex flex-col">
         <Navbar />
         <main className="flex-1 flex items-center justify-center py-16 px-4 mt-8 md:mt-12">
-          {loading ? (
+          {!mounted || loading ? (
             <LoadingSpinner size="large" fullScreen={false} type="component" />
           ) : (
             <div className="max-w-4xl w-full bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-2xl overflow-hidden">
@@ -194,7 +199,7 @@ export default function Contact() {
             </div>
           )}
         </main>
-        {!loading && <Footer />}
+        {mounted && !loading && <Footer />}
       </div>
     </div>
   );

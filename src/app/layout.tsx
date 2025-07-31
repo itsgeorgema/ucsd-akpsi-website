@@ -4,13 +4,13 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { AuthProvider } from "@/contexts/AuthContext";
 
-// Load fonts with all necessary weights for the design system
+// Load fonts with only the weights actually used in the design system
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
-  // Include all weights used in the font system
-  weight: ["300", "400", "500", "600", "700", "900"],
+  // Only include weights that are actually used: light(300), normal(400), medium(500), semibold(600), bold(700)
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 const geistMono = Geist_Mono({

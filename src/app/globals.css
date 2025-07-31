@@ -186,6 +186,14 @@ body {
   transform: translateY(0em);
 }
 
+/* Disable cursor animation for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .typewriter-cursor {
+    animation: none;
+    opacity: 0;
+  }
+}
+
 /* The typewriter cursor blink effect */
 @keyframes blink-caret {
   0%, 50% { opacity: 1; }
