@@ -132,7 +132,7 @@ function ActivesPageContent() {
         />
       )}
       {/* Overlay for readability */}
-      <div className="fixed top-0 left-0 w-full h-full z-10 bg-black/20" />
+      <div className={`fixed top-0 left-0 w-full h-full z-10 ${colors.hardcoded.activesOverlay}`} />
       
       <div className="relative z-20 min-h-screen flex flex-col">
         {loading ? (

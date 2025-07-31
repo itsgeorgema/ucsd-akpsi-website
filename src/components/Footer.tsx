@@ -112,42 +112,38 @@ export default function Footer({ className = "" }: FooterProps) {
   ];
 
   return (
-    <section className={`relative py-8 ${colors.footer.text} z-10 ${className}`}>
+    <section className={`relative py-4 ${colors.footer.text} z-10 ${className}`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="px-6 py-4">
-          <div className="flex items-center justify-between">
+        <div className="px-6 py-2">
+          <div className="flex flex-col md:flex-row items-center justify-center md:justify-between space-y-4 md:space-y-0 md:space-x-0">
             {/* Logo and Text */}
-            <div className="flex items-center space-x-4">
-              {logoUrl && (
-                <img 
-                  src={logoUrl} 
-                  alt="Alpha Kappa Psi Logo" 
-                  width={48}
-                  height={48}
-                  className="h-12 w-auto" 
-                />
-              )}
+            <div className="flex items-center justify-center mb-[-40px] md:mb-0">
+              <img 
+                src={logoUrl || '/akpsilogo.png'} 
+                alt="Alpha Kappa Psi Logo" 
+                className="h-40 w-40 object-contain cursor-pointer"
+              />
             </div>
-            
             {/* Social Media Icons and Login Button */}
-            <div className="flex items-center space-x-6">
-              {socialIcons.map((social) => (
-                <a 
-                  key={social.name}
-                  href={social.href || '#'}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${colors.footer.icon} transition-colors ${!social.href ? 'opacity-50 cursor-not-allowed' : ''}`}
-                  aria-label={social.name}
-                  onClick={!social.href ? (e) => e.preventDefault() : undefined}
-                >
-                  {social.icon}
-                </a>
-              ))}
-              
+            <div className="flex flex-col md:flex-row items-center space-y-0 md:space-y-0 md:space-x-6">
+              <div className="flex items-center space-x-6 mb-[-5px] md:mb-0">
+                {socialIcons.map((social) => (
+                  <a 
+                    key={social.name}
+                    href={social.href || '#'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${colors.footer.icon} transition-colors ${!social.href ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    aria-label={social.name}
+                    onClick={!social.href ? (e) => e.preventDefault() : undefined}
+                  >
+                    {social.icon}
+                  </a>
+                ))}
+              </div>
               {/* Login/Logout Button */}
               <button
-                className={colors.footer.link + " " + akpsiFonts.sectionSubtitleFont + " underline cursor-pointer transition-colors"}
+                className={colors.footer.link + " " + akpsiFonts.sectionSubtitleFont + " underline cursor-pointer transition-colors mt-4 md:mt-0"}
                 onClick={() => {
                   if (isAuthenticated) {
                     // Logout: clear authentication
@@ -159,7 +155,7 @@ export default function Footer({ className = "" }: FooterProps) {
                   }
                 }}
               >
-                {isAuthenticated ? 'LOGOUT' : 'LOGIN'}
+                {isAuthenticated === undefined ? 'LOGIN' : isAuthenticated ? 'LOGOUT' : 'LOGIN'}
               </button>
             </div>
           </div>

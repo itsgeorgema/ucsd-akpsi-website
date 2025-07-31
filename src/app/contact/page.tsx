@@ -96,7 +96,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="relative min-h-screen w-full flex flex-col justify-between">
+    <div className="relative min-h-screen w-full flex flex-col justify-between contact-page">
       {/* Full Page Background */}
       {backgroundImage && (
         <div 
@@ -115,9 +115,7 @@ export default function Contact() {
             <div className="max-w-4xl w-full bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-2xl overflow-hidden">
               <div className="p-8 lg:p-12">
                 <div className="mb-8">
-                <h1 className={`text-4xl lg:text-5xl ${fontCombinations.section.main} ${colors.glass.text} mb-4`}>
-                Contact Us
-                  </h1>
+                <h2 className={`text-3xl font-bold mb-8 text-center md:text-left ${colors.glass.text} ${fontCombinations.section.main}`}>Contact Us</h2>
                 </div>
 
                 {submitted ? (
@@ -161,7 +159,7 @@ export default function Contact() {
                         className={`${colors.text.secondary} ${fontCombinations.content.body} opacity-0 animate-fadeIn`}
                         style={{ animationDelay: '0.8s', animationFillMode: 'forwards' }}
                       >
-                        We'll get back to you soon.
+                        We&apos;ll get back to you soon.
                       </p>
                     </div>
                   </div>
@@ -234,7 +232,7 @@ export default function Contact() {
                   <div>
                     <button
                       type="submit"
-                      className={`group relative w-full flex justify-center py-4 px-8 border-2 border-[#B89334] hover:border-[#D4AF37] text-base rounded-xl bg-gradient-to-r from-[#B89334] to-[#D4AF37] hover:from-[#D4AF37] hover:to-[#B89334] text-[#F8F8F8] transition-all duration-300 shadow-lg hover:shadow-2xl backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:ring-offset-2 cursor-pointer ${fontCombinations.interactive.primary} transform hover:scale-105 active:scale-95`}
+                      className={`group relative w-full flex justify-center py-4 px-8 border-2 ${colors.hardcoded.contactBorder} ${colors.hardcoded.contactBorderHover} rounded-xl bg-gradient-to-r ${colors.hardcoded.contactGradient} ${colors.hardcoded.contactGradientHover} ${colors.hardcoded.contactText} transition-all duration-300 shadow-lg hover:shadow-2xl backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:ring-offset-2 cursor-pointer ${fontCombinations.interactive.primary} transform hover:scale-105 active:scale-95`}
                     >
                       Send Message
                     </button>

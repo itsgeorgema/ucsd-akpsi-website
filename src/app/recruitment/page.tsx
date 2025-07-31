@@ -155,7 +155,7 @@ export default function Recruitment() {
         />
       )}
       {/* Overlay for readability */}
-      <div className="fixed top-0 left-0 w-full h-full z-10 bg-black/30" />
+      <div className={`fixed top-0 left-0 w-full h-full z-10 ${colors.hardcoded.recruitmentOverlay}`} />
       <div className="relative z-20 min-h-screen flex flex-col">
         <Navbar />
         <main className="flex-1 flex items-center justify-center py-16 px-4 mt-20">
@@ -280,17 +280,17 @@ export default function Recruitment() {
                 <h3 className={`text-xl ${fontCombinations.section.tertiary} mb-4 ${rushColors.rushTextHighlight}`}>Rush Chairs</h3>
                 <div className={`space-y-2 ${rushColors.rushTextBody}`}>
                   {contactInfo.chairs.map((chair, index) => (
-                    <p key={index} className={`text-lg ${fontCombinations.content.lead}`}>
-                      {chair.name}: {chair.number}
+                    <p key={index} className={`text-lg ${fontCombinations.content.lead} break-words block`}>
+                      <span className="font-semibold">{chair.name}:</span> <span className="break-all">{chair.number}</span>
                     </p>
                   ))}
-                  <div className={`text-lg mt-4 ${fontCombinations.content.lead} text-center`}>
+                  <div className={`text-lg mt-4 ${fontCombinations.content.lead} flex flex-col md:flex-row items-center justify-center gap-2 md:gap-0 text-center flex-wrap`}>
                     <span className={rushColors.rushTextHighlight}>@ucsdakpsi</span>
-                    <span className="mx-2">|</span>
+                    <span className="mx-2 hidden md:inline">|</span>
                     {contactInfo.email && (
                       <span className={rushColors.rushTextHighlight}>{contactInfo.email}</span>
                     )}
-                    {contactInfo.email && <span className="mx-2">|</span>}
+                    {contactInfo.email && <span className="mx-2 hidden md:inline">|</span>}
                     <span className={rushColors.rushTextHighlight}>akpsiucsd.com</span>
                   </div>
                 </div>

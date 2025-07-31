@@ -188,5 +188,44 @@ export const colors = {
     accent: 'from-[#6497B1] to-[#B3CDE0]',
     gold: 'from-[#D4AF37] to-[#B89334]',
     neutral: 'from-[#F8F8F8] via-[#E0E0E0] to-[#F8F8F8]',
+    brand: 'from-[#003366] to-[#6497B1]',
+    brandReverse: 'from-[#6497B1] to-[#003366]',
+  },
+  
+  // Hardcoded colors from pages
+  hardcoded: {
+    // About page colors
+    foundingYear: 'text-[#F8F8F8]',
+    networkCount: 'text-[#F8F8F8]',
+    foundingBorder: 'border-[#D4AF37]/30',
+    networkBorder: 'border-[#003366]/30',
+    cardBorder: 'border-[#D4AF37]/20',
+    cardBorderHover: 'hover:border-[#B89334]/40',
+    backgroundLayer: 'border-[#B3CDE0]/30',
+    tabBorder: 'border-[#B3CDE0]/30',
+    tabBorderHover: 'hover:border-[#B3CDE0]/40',
+    contentBorder: 'border-[#B3CDE0]/30',
+    companyBorder: 'border-[#D4AF37]/20',
+    companyBorderHover: 'hover:border-[#B89334]/40',
+    // Main page colors
+    presidentBorder: 'border-[#D4AF37]',
+    presidentBackground: 'border-[#B3CDE0]/30',
+    // Contact page colors
+    contactBorder: 'border-[#B89334]',
+    contactBorderHover: 'hover:border-[#D4AF37]',
+    contactGradient: 'from-[#B89334] to-[#D4AF37]',
+    contactGradientHover: 'hover:from-[#D4AF37] hover:to-[#B89334]',
+    contactText: 'text-[#F8F8F8]',
+    // Login page colors
+    loginCard: 'border-[#F8F8F8]/20',
+    loginGradient: 'from-[#B89334] to-[#D4AF37]',
+    loginGradientHover: 'hover:from-[#D4AF37] hover:to-[#B89334]',
+    loginText: 'text-[#F8F8F8]',
+    // Actives page colors
+    activesOverlay: 'bg-black/20',
+    // Brothers page colors
+    brothersOverlay: 'bg-black/30',
+    // Recruitment page colors
+    recruitmentOverlay: 'bg-black/30',
   }
 } as const; 

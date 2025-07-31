@@ -64,7 +64,7 @@ export default function Gallery() {
   }, []);
 
   return (
-    <div className="relative min-h-screen flex flex-col">
+    <div className="relative min-h-screen flex flex-col gallery-page">
       {/* Full Page Background */}
       {backgroundImage && (
         <div 
