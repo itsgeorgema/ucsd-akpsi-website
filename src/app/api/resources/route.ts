@@ -28,8 +28,6 @@ export async function GET(request: NextRequest) {
       console.error('Error fetching resources:', resourcesError);
       return NextResponse.json({ error: 'Failed to fetch resources' }, { status: 500 });
     }
-    
-    console.log('Resources fetched successfully:', resources);
     return NextResponse.json({ data: resources });
   } catch (error) {
     console.error('Resources API error:', error);

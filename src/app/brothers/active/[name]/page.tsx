@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import { createClient } from '../../../../../supabase/client';
 import Navbar from '../../../../components/Navbar';
 import Footer from '../../../../components/Footer';
-import { akpsiFonts } from '../../../../styles/fonts';
+import { fontCombinations } from '../../../../styles/fonts';
 import { colors } from '../../../../styles/colors';
 import LoadingSpinner from '../../../../components/LoadingSpinner';
 
@@ -94,8 +94,8 @@ export default function BrotherPage() {
           )}
           {!loading && !brother && (
             <div className={`flex flex-col items-center justify-center min-h-[60vh] ${colors.text.inverse}`}>
-              <div className={`text-2xl ${akpsiFonts.sectionTitleFont} mb-2`}>Brother not found</div>
-              <div className={`text-lg opacity-80 ${akpsiFonts.bodyFont} ${colors.glass.textSubtle}`}>The brother you&apos;re looking for doesn&apos;t exist in our database.</div>
+              <div className={`text-2xl ${fontCombinations.section.secondary} mb-2`}>Brother not found</div>
+              <div className={`text-lg opacity-80 ${fontCombinations.content.body} ${colors.glass.textSubtle}`}>The brother you&apos;re looking for doesn&apos;t exist in our database.</div>
             </div>
           )}
           {!loading && brother && (
@@ -123,13 +123,13 @@ export default function BrotherPage() {
                     {/* Header Section */}
                     <div className="mb-4">
                       <div className="flex items-center mb-4">
-                        <span className={`text-sm ${colors.text.secondary} uppercase tracking-widest ${akpsiFonts.sectionSubtitleFont} ${colors.bg.surfaceAlt} px-3 py-1 rounded-full`}>
+                        <span className={`text-sm ${colors.text.secondary} uppercase tracking-widest ${fontCombinations.navigation.secondary} ${colors.bg.surfaceAlt} px-3 py-1 rounded-full`}>
                           Brother Profile
                         </span>
                       </div>
                       
                                               <div className="flex items-center gap-2 mb-2">
-                        <h1 className={`text-3xl lg:text-4xl ${akpsiFonts.heroTitleFont} ${colors.text.primary} leading-tight`}>
+                        <h1 className={`text-3xl lg:text-4xl ${fontCombinations.section.main} ${colors.section.title} leading-tight`}>
                           {brother.name}
                         </h1>
                         
@@ -155,13 +155,13 @@ export default function BrotherPage() {
                       </div>
                       
                       <div className="flex flex-wrap items-center gap-4 mb-3">
-                        <div className={`flex items-center text-sm ${colors.section.text} ${akpsiFonts.sectionTextFont}`}>
+                        <div className={`flex items-center text-sm ${colors.section.text} ${fontCombinations.content.small}`}>
                           <svg className={`w-5 h-5 mr-2 ${colors.text.secondary}`} fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                           </svg>
                           {brother.pronouns}
                         </div>
-                        <div className={`flex items-center text-sm ${colors.section.text} ${akpsiFonts.sectionTextFont}`}>
+                        <div className={`flex items-center text-sm ${colors.section.text} ${fontCombinations.content.small}`}>
                           <svg className={`w-5 h-5 mr-2 ${colors.text.secondary}`} fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                           </svg>
@@ -172,7 +172,7 @@ export default function BrotherPage() {
                     
                     {/* Bio Section */}
                     <div className="mb-6">
-                      <div className={`text-base ${colors.section.text} leading-relaxed whitespace-pre-line ${akpsiFonts.bodyFont} ${colors.bg.primary}/50 rounded-xl p-4 border-l-4 ${colors.section.title}`}>
+                      <div className={`text-base ${colors.section.text} leading-relaxed whitespace-pre-line ${fontCombinations.content.body} ${colors.bg.primary}/50 rounded-xl p-4 border-l-4 ${colors.border.accent}`}>
                         {brother.bio}
                       </div>
                     </div>

@@ -95,7 +95,7 @@ export const colors = {
   // Text colors
   text: {
     primary: 'text-[#212121]',
-    secondary: 'text-[#9E9E9E]',
+    secondary: 'text-[#333333]',
     inverse: 'text-[#F8F8F8]',
     accent: 'text-[#B89334]',
     brand: 'text-[#003366]',

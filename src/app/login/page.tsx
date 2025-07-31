@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { createClient } from '../../../supabase/client';
 import { colors } from '../../styles/colors';
-import { akpsiFonts } from '../../styles/fonts';
+import { fontCombinations } from '../../styles/fonts';
 import Footer from '../../components/Footer';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../contexts/AuthContext';
@@ -78,17 +78,15 @@ export default function Login() {
           <div className="max-w-md w-full space-y-8 p-8 bg-gradient-to-br from-[#F8F8F8]/5 to-[#B3CDE0]/10 backdrop-blur-xl rounded-3xl border border-[#F8F8F8]/20 shadow-2xl">
             <div className="text-center mb-8">
               <div className="mb-4">
-                <span className={`inline-block px-4 py-2 text-[#D4AF37] bg-[#D4AF37]/10 rounded-full text-sm font-semibold uppercase tracking-wide border border-[#D4AF37]/20 backdrop-blur-sm`}>Member Login</span>
               </div>
-              <h2 className={`text-4xl bg-gradient-to-r from-[#F8F8F8] to-[#D4AF37] bg-clip-text text-transparent ${akpsiFonts.sectionTitleFont} drop-shadow-lg font-bold`}>
+              <h2 className={`text-4xl bg-gradient-to-r from-[#F8F8F8] to-[#D4AF37] bg-clip-text text-transparent ${fontCombinations.section.main} drop-shadow-lg`}>{}
                 AKPsi Nu Xi
               </h2>
-              <p className={`text-[#F8F8F8]/80 text-sm mt-2 ${akpsiFonts.bodyFont}`}>Access your member resources</p>
             </div>
             
             <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
               <div>
-                <label htmlFor="password" className="sr-only">
+                <label htmlFor="password" className={`block text-sm mb-2 ${colors.glass.text} ${fontCombinations.navigation.secondary}`}>
                   Password
                 </label>
                 <input
@@ -98,13 +96,13 @@ export default function Login() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className={`appearance-none rounded-lg relative block w-full px-4 py-3 border-2 ${colors.glass.border} ${colors.glass.text} placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white/50 focus:z-10 text-base ${akpsiFonts.bodyFont} ${colors.glass.bg} backdrop-blur-md shadow-lg transition-all duration-200`}
+                  className={`appearance-none rounded-lg relative block w-full px-4 py-3 border-2 ${colors.glass.border} ${colors.glass.text} placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white/50 focus:z-10 ${fontCombinations.content.body} ${colors.glass.bg} backdrop-blur-md shadow-lg transition-all duration-200`}
                   placeholder="Enter password"
                 />
               </div>
 
               {error && (
-                <div className={`text-red-300 text-sm text-center ${akpsiFonts.bodyFont}`}>
+                <div className={`text-red-300 text-center ${fontCombinations.content.small}`}>
                   {error}
                 </div>
               )}
@@ -113,7 +111,7 @@ export default function Login() {
                               <button
                 type="submit"
                 disabled={isLoading}
-                className={`group relative w-full flex justify-center py-4 px-8 border-2 border-[#B89334] hover:border-[#D4AF37] text-base font-bold rounded-xl bg-gradient-to-r from-[#B89334] to-[#D4AF37] hover:from-[#D4AF37] hover:to-[#B89334] text-[#F8F8F8] transition-all duration-300 shadow-lg hover:shadow-2xl backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed ${akpsiFonts.bodyFont} transform hover:scale-105 active:scale-95`}
+                className={`group relative w-full flex justify-center py-4 px-8 border-2 border-[#B89334] hover:border-[#D4AF37] rounded-xl bg-gradient-to-r from-[#B89334] to-[#D4AF37] hover:from-[#D4AF37] hover:to-[#B89334] text-[#F8F8F8] transition-all duration-300 shadow-lg hover:shadow-2xl backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer ${fontCombinations.interactive.primary} transform hover:scale-105 active:scale-95`}
               >
                   {isLoading ? 'Checking...' : 'Login'}
                 </button>

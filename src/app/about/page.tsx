@@ -7,7 +7,7 @@ import Footer from '../../components/Footer';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import BouncyFadeIn from '../../components/BouncyFadeIn';
 import { colors } from '../../styles/colors';
-import { akpsiFonts } from '../../styles/fonts';
+import { akpsiFonts, fontCombinations } from '../../styles/fonts';
 
 interface Company {
   image_path: string;
@@ -24,6 +24,8 @@ interface AboutImages {
   genderPie: string;
   gradePie: string;
   industryDistribution: string;
+  crestSvg: string;
+  akpsiLogoSvg: string;
 }
 
 interface StatModalData {
@@ -45,7 +47,9 @@ export default function About() {
     groupPhoto2: '',
     genderPie: '',
     gradePie: '',
-    industryDistribution: ''
+    industryDistribution: '',
+    crestSvg: '',
+    akpsiLogoSvg: ''
   });
   const [loading, setLoading] = useState(true);
   const [selectedStat, setSelectedStat] = useState<StatModalData | null>(null);
@@ -56,9 +60,9 @@ export default function About() {
   const [displayedTab, setDisplayedTab] = useState<ActiveTab>(activeTab);
   const [contentAnim, setContentAnim] = useState<'in' | 'out'>('in');
 
-  // Auto-switch tabs every 12 seconds with progress bar
+  // Auto-switch tabs every 15 seconds with progress bar
   useEffect(() => {
-    const duration = 12000; // 12 seconds
+    const duration = 15000; // 15 seconds
 
     const updateProgress = () => {
       const elapsed = Date.now() - startTime;
@@ -71,7 +75,17 @@ export default function About() {
           const tabs: ActiveTab[] = ['akpsi', 'nuxi', 'statistics'];
           const currentIndex = tabs.indexOf(activeTab);
           const nextIndex = (currentIndex + 1) % tabs.length;
-          handleTabChange(tabs[nextIndex]);
+          // Reset progress and animation state before switching
+          setProgress(0);
+          setContentAnim('out');
+          setTimeout(() => {
+            setDisplayedTab(tabs[nextIndex]);
+            setActiveTab(tabs[nextIndex]);
+            setStartTime(Date.now());
+            setTimeout(() => {
+              setContentAnim('in');
+            }, 50);
+          }, 400);
         }, 100); // Small delay to show 100% completion
       }
     };
@@ -91,12 +105,17 @@ export default function About() {
           'aboutBackground.jpeg',
           'backgroundVid3.mp4',
           'crest.png',
-          'akpsiLogo.png',
           'groupAbout1.jpeg', 
           'groupAbout2.jpeg',
           'genderPie.png',
           'gradePie.png',
           'industryDistribution.png'
+        ];
+        
+        // Additional SVG images for tab icons
+        const svgImagePaths = [
+          'crest1.svg',
+          'akpsiLogo.svg'
         ];
         
         // Generate public URLs for each image directly from storage
@@ -109,7 +128,9 @@ export default function About() {
           groupPhoto2: '',
           genderPie: '',
           gradePie: '',
-          industryDistribution: ''
+          industryDistribution: '',
+          crestSvg: '',
+          akpsiLogoSvg: ''
         };
 
         imagePaths.forEach(imagePath => {
@@ -128,9 +149,6 @@ export default function About() {
             case 'crest.png':
               imageUrls.crest = imageData.publicUrl;
               break;
-            case 'akpsiLogo.png':
-              imageUrls.akpsiLogo = imageData.publicUrl;
-              break;
             case 'groupAbout1.jpeg':
               imageUrls.groupPhoto1 = imageData.publicUrl;
               break;
@@ -145,6 +163,22 @@ export default function About() {
               break;
             case 'industryDistribution.png':
               imageUrls.industryDistribution = imageData.publicUrl;
+              break;
+          }
+        });
+        
+        // Load SVG images for tab icons
+        svgImagePaths.forEach(svgPath => {
+          const { data: svgData } = supabase.storage
+            .from('about-page')
+            .getPublicUrl(svgPath);
+          
+          switch (svgPath) {
+            case 'crest1.svg':
+              imageUrls.crestSvg = svgData.publicUrl;
+              break;
+            case 'akpsiLogo.svg':
+              imageUrls.akpsiLogoSvg = svgData.publicUrl;
               break;
           }
         });
@@ -254,23 +288,23 @@ export default function About() {
         content = (
           <div className={`transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
             <div className="text-center mb-12">
-              <h2 className={`text-4xl font-bold mb-6 ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
+              <h2 className={`text-4xl mb-6 ${colors.section.title} ${fontCombinations.section.main}`}>
                 {pageContent.akpsiInfo.title}
               </h2>
             </div>
             
             <div className="grid md:grid-cols-2 gap-8 mb-8">
               {/* Founding Card */}
-              <div className="bg-gradient-to-br from-[#F8F8F8] to-[#B3CDE0]/10 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-[#B3CDE0]/20 hover:border-[#D4AF37]/40 transition-all duration-300 group">
+              <div className="bg-gradient-to-br from-[#F8F8F8] to-[#B3CDE0]/10 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-[#D4AF37]/20 hover:border-[#B89334]/40  transition-all duration-300 group">
                 <div className="flex items-center mb-6">
                   <div className="w-14 h-14 bg-gradient-to-br from-[#003366] to-[#6497B1] rounded-full flex items-center justify-center mr-4 shadow-lg group-hover:shadow-xl transition-all duration-300">
-                    <span className="text-[#F8F8F8] font-bold text-sm">1904</span>
+                    <span className="text-[#F8F8F8] text-sm ${fontCombinations.technical.label}">1904</span>
                   </div>
-                  <h3 className={`text-2xl font-bold bg-gradient-to-r from-[#003366] to-[#6497B1] bg-clip-text text-transparent ${akpsiFonts.sectionTitleFont}`}>
+                  <h3 className={`text-2xl bg-gradient-to-r from-[#003366] to-[#6497B1] bg-clip-text text-transparent ${fontCombinations.section.secondary}`}>
                     {pageContent.akpsiInfo.foundingTitle}
                   </h3>
                 </div>
-                <p className={`text-base leading-relaxed ${colors.section.text} ${akpsiFonts.sectionTextFont} relative pl-4 border-l-2 border-[#D4AF37]/30`}>
+                <p className={`text-base relative pl-4 border-l-2 border-[#D4AF37]/30 ${colors.section.text} ${fontCombinations.content.body}`}>
                   {pageContent.akpsiInfo.foundingText}
                 </p>
               </div>
@@ -278,14 +312,14 @@ export default function About() {
               {/* Network Card */}
               <div className="bg-gradient-to-br from-[#F8F8F8] to-[#D4AF37]/10 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-[#D4AF37]/20 hover:border-[#B89334]/40 transition-all duration-300 group">
                 <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                    <span className="text-blue-900 font-bold text-xs">298K+</span>
+                <div className="w-14 h-14 bg-gradient-to-br from-[#003366] to-[#6497B1] rounded-full flex items-center justify-center mr-4 shadow-lg group-hover:shadow-xl transition-all duration-300">
+                <span className="text-[#F8F8F8] text-sm ${fontCombinations.technical.label}">298K+</span>
                   </div>
-                  <h3 className={`text-2xl font-bold ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
+                  <h3 className={`text-2xl ${colors.section.title} ${fontCombinations.section.secondary}`}>
                     {pageContent.akpsiInfo.networkTitle}
                   </h3>
                 </div>
-                <p className={`text-base leading-relaxed ${colors.section.text} ${akpsiFonts.sectionTextFont}`}>
+                <p className={`text-base relative pl-4 border-l-2 border-[#003366]/30 ${colors.section.text} ${fontCombinations.content.body}`}>
                   {pageContent.akpsiInfo.networkText}
                 </p>
               </div>
@@ -297,7 +331,7 @@ export default function About() {
                 <img src={images.groupPhoto1} alt="Group Photo About Page" className="w-full h-64 object-cover" />
               ) : (
                 <div className={`w-full h-64 ${colors.bg.surfaceAlt} flex items-center justify-center`}>
-                  <span className={`${colors.text.secondary}`}>Loading group photo...</span>
+                  <span className={`${colors.text.secondary} ${fontCombinations.content.small}`}>Loading group photo...</span>
                 </div>
               )}
             </div>
@@ -309,10 +343,10 @@ export default function About() {
         content = (
           <div className={`transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
             <div className="text-center mb-12">
-              <h2 className={`text-4xl font-bold mb-4 ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
+              <h2 className={`text-4xl mb-4 ${colors.section.title} ${fontCombinations.section.main}`}>
                 {pageContent.nuXiInfo.title}
               </h2>
-              <h3 className={`text-xl font-medium mb-6 ${colors.section.subtitle} ${akpsiFonts.sectionSubtitleFont}`}>
+              <h3 className={`text-xl mb-6 ${colors.section.subtitle} ${fontCombinations.section.tertiary}`}>
                 {pageContent.nuXiInfo.subtitle}
               </h3>
             </div>
@@ -321,35 +355,35 @@ export default function About() {
               {/* Content Cards */}
               <div className="space-y-6">
                 {/* Professional Excellence Card */}
-                <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
+                <div className="bg-gradient-to-br from-[#F8F8F8] to-[#B3CDE0]/10 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-[#D4AF37]/20 hover:border-[#B89334]/40">
                   <div className="flex items-center mb-4">
                     <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
                       <svg className="w-5 h-5 text-blue-900" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
                       </svg>
                     </div>
-                    <h3 className={`text-xl font-bold ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
+                    <h3 className={`text-xl ${colors.section.title} ${fontCombinations.section.tertiary}`}>
                       {pageContent.nuXiInfo.professionalTitle}
                     </h3>
                   </div>
-                  <p className={`text-base leading-relaxed ${colors.section.text} ${akpsiFonts.sectionTextFont}`}>
+                  <p className={`text-base ${colors.section.text} ${fontCombinations.content.body}`}>
                     {pageContent.nuXiInfo.professionalText}
                   </p>
                 </div>
 
                 {/* Brotherhood & Community Card */}
-                <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
+                <div className="bg-gradient-to-br from-[#F8F8F8] to-[#B3CDE0]/10 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-[#D4AF37]/20 hover:border-[#B89334]/40">
                   <div className="flex items-center mb-4">
                     <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
                       <svg className="w-5 h-5 text-blue-900" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                       </svg>
                     </div>
-                    <h3 className={`text-xl font-bold ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
+                    <h3 className={`text-xl ${colors.section.title} ${fontCombinations.section.tertiary}`}>
                       {pageContent.nuXiInfo.communityTitle}
                     </h3>
                   </div>
-                  <p className={`text-base leading-relaxed ${colors.section.text} ${akpsiFonts.sectionTextFont}`}>
+                  <p className={`text-base ${colors.section.text} ${fontCombinations.content.body}`}>
                     {pageContent.nuXiInfo.communityText}
                   </p>
                 </div>
@@ -380,15 +414,15 @@ export default function About() {
         content = (
           <div className={`transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
             <div className="text-center mb-12">
-              <h2 className={`text-4xl font-bold mb-6 ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
+              <h2 className={`text-4xl mb-6 ${colors.section.title} ${fontCombinations.section.main}`}>
                 {pageContent.statistics.title}
               </h2>
             </div>
             
             <div className="grid md:grid-cols-2 gap-8 mb-8">
               {/* Gender Statistics Card */}
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg text-center">
-                <h3 className={`text-2xl font-bold mb-6 ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
+              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg text-center border border-[#D4AF37]/20 hover:border-[#B89334]/40">
+                <h3 className={`text-2xl mb-6 ${colors.section.title} ${fontCombinations.section.secondary}`}>
                   {pageContent.statistics.genderTitle}
                 </h3>
                 <div className="flex justify-center items-center mb-6">
@@ -407,7 +441,7 @@ export default function About() {
                   )}
                 </div>
                 <button 
-                  className="group inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-lg hover:from-blue-800 hover:to-blue-600 transition-all duration-300 font-semibold hover:scale-105 shadow-lg hover:shadow-xl transform cursor-pointer"
+                  className="group inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-lg hover:from-blue-800 hover:to-blue-600 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl transform cursor-pointer fontCombinations.interactive.primary"
                   onClick={() => openStatModal('gender')}
                 >
                   View Details
@@ -418,8 +452,8 @@ export default function About() {
               </div>
 
               {/* Grade Level Statistics Card */}
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg text-center">
-                <h3 className={`text-2xl font-bold mb-6 ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
+              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg text-center border border-[#D4AF37]/20 hover:border-[#B89334]/40">
+                <h3 className={`text-2xl mb-6 ${colors.section.title} ${fontCombinations.section.secondary}`}>
                   {pageContent.statistics.gradeLevelTitle}
                 </h3>
                 <div className="flex justify-center items-center mb-6">
@@ -438,7 +472,7 @@ export default function About() {
                   )}
                 </div>
                 <button 
-                  className="group inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-lg hover:from-blue-800 hover:to-blue-600 transition-all duration-300 font-semibold hover:scale-105 shadow-lg hover:shadow-xl transform cursor-pointer"
+                  className="group inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-lg hover:from-blue-800 hover:to-blue-600 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl transform cursor-pointer fontCombinations.interactive.primary"
                   onClick={() => openStatModal('grade')}
                 >
                   View Details
@@ -450,8 +484,8 @@ export default function About() {
             </div>
 
             {/* Industry Distribution */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
-              <h3 className={`text-2xl font-bold text-center mb-8 ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-[#D4AF37]/20 hover:border-[#B89334]/40">
+              <h3 className={`text-2xl text-center mb-8 ${colors.section.title} ${fontCombinations.section.secondary}`}>
                 INDUSTRY DISTRIBUTION
               </h3>
               <div className="flex flex-col lg:flex-row items-center justify-center gap-8">
@@ -465,7 +499,7 @@ export default function About() {
                     />
                   ) : (
                     <div className={`w-64 h-64 ${colors.bg.surfaceAlt} rounded-full flex items-center justify-center`}>
-                      <span className={`${colors.text.secondary}`}>Loading industry chart...</span>
+                      <span className={`${colors.text.secondary} ${fontCombinations.content.small}`}>Loading industry chart...</span>
                     </div>
                   )}
                 </div>
@@ -481,7 +515,7 @@ export default function About() {
                   ].map((industry, index) => (
                     <div key={index} className="flex items-center p-3 bg-gray-50 rounded-lg">
                       <div className="w-4 h-4 rounded-full mr-3" style={{ backgroundColor: industry.color }}></div>
-                      <span className={`text-sm font-semibold ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
+                      <span className={`text-sm ${colors.section.title} ${fontCombinations.technical.label}`}>
                         {industry.label}
                       </span>
                     </div>
@@ -571,112 +605,124 @@ export default function About() {
               {/* Combined Modal Card and Companies Section */}
               <section className="relative py-20 z-10 px-4 sm:px-6 lg:px-8" data-modal-card>
                 {/* Enhanced background layer */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#F8F8F8]/95 via-[#F8F8F8]/90 to-[#B3CDE0]/20 backdrop-blur-lg rounded-3xl border border-[#B3CDE0]/30 shadow-2xl"></div>
+                <div className="absolute inset-0 bg-white/85 backdrop-blur-lg rounded-3xl border border-[#B3CDE0]/30 shadow-2xl"></div>
                 <div className="relative z-10 max-w-6xl mx-auto">
-                  <div className="flex flex-col space-y-6">
-                    {/* Tab Buttons - Sliding Flex Group */}
-                    <BouncyFadeIn delay={0.3}>
-                      <div className="relative flex flex-col md:flex-row w-full max-w-6xl mx-auto gap-2 md:gap-x-2 mb-1" style={{minHeight: 64, height: 'auto'}}>
-                        {['akpsi', 'nuxi', 'statistics'].map((tab) => (
-                        <button
-                          key={tab}
-                          onClick={() => handleTabChange(tab as ActiveTab)}
-                          className={`transition-all duration-500 font-semibold rounded-2xl flex items-center justify-start relative h-16 cursor-pointer ${activeTab === tab ? 'bg-gradient-to-r from-[#6497B1] to-[#B3CDE0] text-[#F8F8F8]' : 'bg-gradient-to-r from-[#F8F8F8] to-[#E0E0E0] text-[#212121] hover:from-[#B3CDE0]/20 hover:to-[#D4AF37]/10'} shadow-lg overflow-hidden border ${activeTab === tab ? 'border-[#6497B1]' : 'border-[#E0E0E0] hover:border-[#B3CDE0]/40'}`}
-                          style={{
-                            flexGrow: activeTab === tab ? 1.5 : 1,
-                            flexShrink: 1,
-                            flexBasis: 0,
-                            height: '64px',
-                            minHeight: '64px',
-                            maxHeight: '64px',
-                            transition: 'flex-grow 0.5s cubic-bezier(0.4,0,0.2,1), background 0.3s, color 0.3s',
-                            boxShadow: 'none',
-                          }}
-                        >
-                          {/* Progress bar - fills button edge to edge */}
-                          {activeTab === tab && (
-                            <div
-                              className="absolute top-0 bottom-0 left-0 right-0 z-0 overflow-hidden"
-                            >
+                  {/* Tab group and content card wrapped together for synchronized bounce */}
+                  <BouncyFadeIn delay={0.3} threshold={.05} bounce={0}>
+                    <div className="space-y-0">
+                      <div className="relative flex flex-col md:flex-row w-full max-w-6xl mx-auto gap-0 mb-0">
+                        {['akpsi', 'nuxi', 'statistics'].map((tab, index) => {
+                          const isLastTab = index === 2;
+                          const isFirstTab = index === 0;
+                          
+                          return (
+                            <button
+                              key={tab}
+                              onClick={() => handleTabChange(tab as ActiveTab)}
+                              className={`transition-all duration-500 
+                                ${/* Desktop: top rounded corners only */ ''}
+                                md:rounded-t-2xl
+                                ${/* Mobile: conditional rounding based on position */ ''}
+                                ${isFirstTab ? 'rounded-t-2xl' : ''}
+                                ${isLastTab ? 'md:rounded-b-none' : ''}
+                                ${!isFirstTab && !isLastTab ? '' : ''}
+                                flex items-center justify-start relative h-16 cursor-pointer 
+                                ${activeTab === tab ? 'bg-gray-200 text-[#212121] z-10' : 'bg-gray-200 text-[#212121] hover:bg-white hover:text-[#212121] hover:z-10 z-0'} 
+                                border-t border-l border-r border-[#B3CDE0]/30 hover:border-[#B3CDE0]/40 shadow-lg overflow-hidden ${fontCombinations.interactive.primary}`}
+                            style={{
+                              flexGrow: activeTab === tab ? 1.5 : 1,
+                              flexShrink: 1,
+                              flexBasis: 0,
+                              height: '64px',
+                              minHeight: '64px',
+                              maxHeight: '64px',
+                              marginBottom: '0px',
+                              transition: 'flex-grow 0.5s cubic-bezier(0.4,0,0.2,1), background 0.3s, color 0.3s',
+                              boxShadow: 'none',
+                            }}
+                          >
+                            {/* Progress bar - fills button edge to edge */}
+                            {activeTab === tab && (
                               <div
-                                className="bg-blue-200 h-full transition-all duration-50 ease-linear rounded-2xl"
-                                style={{ 
-                                  width: `${progress}%`,
-                                }}
-                              />
-                            </div>
-                          )}
-                          <span className="relative z-10 text-left w-full flex items-center pr-8">
-                            <div className={`h-14 w-14 mr-3 ml-1 rounded-2xl flex items-center justify-center bg-blue-700
-                            }`}>
-                              {tab === 'akpsi' && images.crest && (
-                                <img 
-                                  src={images.crest} 
-                                  alt="AKPsi Crest" 
-                                  className="w-12 h-12 object-contain"
+                                className="absolute top-0 bottom-0 left-0 right-0 z-0 overflow-hidden"
+                              >
+                                <div
+                                  className="bg-white h-full transition-all duration-50 ease-linear md:rounded-tr-2xl"
+                                  style={{ 
+                                    width: `${progress}%`,
+                                  }}
                                 />
-                              )}
-                              {tab === 'nuxi' && images.akpsiLogo && (
-                                <img 
-                                  src={images.akpsiLogo} 
-                                  alt="AKPsi Logo" 
-                                  className="w-10 h-10 object-contain"
-                                />
-                              )}
-                              {tab === 'statistics' && (
-                                <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" strokeWidth="0.5" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 18v-4M8 18v-8M12 18v-6M16 18v-10M20 18v-2"/>
-                                </svg>
-                              )}
-                            </div>
-                            <span className="font-semibold text-base">
-                              {tab === 'akpsi' && 'WHAT IS AKPSI'}
-                              {tab === 'nuxi' && 'NU XI CHAPTER'}
-                              {tab === 'statistics' && 'STATISTICS'}
+                              </div>
+                            )}
+                            <span className="relative z-10 text-left w-full flex items-center pr-8">
+                              <div className="h-14 w-14 mr-3 ml-1 rounded-2xl flex items-center justify-center">
+                                {tab === 'akpsi' && images.crestSvg && (
+                                  <img 
+                                    src={images.crestSvg} 
+                                    alt="AKPsi Crest" 
+                                    className="w-12 h-12 object-contain"
+                                  />
+                                )}
+                                {tab === 'nuxi' && images.akpsiLogoSvg && (
+                                  <img 
+                                    src={images.akpsiLogoSvg} 
+                                    alt="AKPsi Logo" 
+                                    className="w-10 h-10 object-contain"
+                                  />
+                                )}
+                                {tab === 'statistics' && (
+                                  <svg className="w-12 h-12 text-[#003366]" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 18v-4M8 18v-8M12 18v-6M16 18v-10M20 18v-2"/>
+                                  </svg>
+                                )}
+                              </div>
+                              <span className={`text-base ${fontCombinations.navigation.primary}`}>
+                                {tab === 'akpsi' && 'ABOUT AKPSI'}
+                                {tab === 'nuxi' && 'OUR CHAPTER'}
+                                {tab === 'statistics' && 'CHAPTER STATISTICS'}
+                              </span>
                             </span>
-                          </span>
-                        </button>
-                      ))}
+                          </button>
+                          );
+                        })}
                       </div>
-                    </BouncyFadeIn>
-                                         {/* Main Card */}
-                     <BouncyFadeIn delay={0.2}>
-                       <div 
-                         className="bg-gradient-to-br from-[#F8F8F8]/95 via-[#F8F8F8]/90 to-[#B3CDE0]/10 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden border border-[#B3CDE0]/30"
-                         style={{ height: '800px' }}
-                       >
-                       {/* Tab Content */}
-                       <div className="p-8 lg:p-12 h-full overflow-y-auto">
-                         {renderTabContent()}
-                       </div>
-                                            </div>
-                     </BouncyFadeIn>
-                    {/* Companies Section */}
-                    <BouncyFadeIn delay={.1} threshold={.2} className="mt-[-100px] pt-[100px]">
-                      <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl p-8 lg:p-12 mt-8">
+                      <div 
+                        className="bg-white backdrop-blur-md rounded-b-2xl shadow-2xl border-b border-r border-l border-[#B3CDE0]/30 overflow-hidden relative z-0"
+                        style={{ height: '900px', marginTop: '0px' }}
+                      >
+                        {/* Tab Content */}
+                        <div className="p-8 lg:p-12 h-full overflow-y-auto">
+                          {renderTabContent()}
+                        </div>
+                      </div>
+                    </div>
+                  </BouncyFadeIn>
+                  {/* Companies Section */}
+                  <BouncyFadeIn delay={.1} threshold={.2} bounce={0} className="mt-[-100px] pt-[100px]">
+                    <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl p-8 lg:p-12 mt-8">
                       <div className="text-center mb-12">
-                        <h2 className={`text-4xl font-bold mb-6 ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
+                        <h2 className={`text-4xl mb-6 ${colors.section.title} ${fontCombinations.section.main}`}>
                           WHERE WE&apos;RE AT
                         </h2>
-                        <p className={`text-lg max-w-3xl mx-auto ${colors.section.text} ${akpsiFonts.sectionTextFont}`}>
+                        <p className={`text-lg max-w-3xl mx-auto ${colors.section.text} ${fontCombinations.content.lead}`}>
                           Our brothers have secured positions at leading companies across various industries
                         </p>
                       </div>
                       {companies.length === 0 ? (
                         <div className="text-center py-12">
-                          <div className={`w-16 h-16 ${colors.bg.surfaceAlt} rounded-full flex items-center justify-center mx-auto mb-4`}>
+                          <div className={`w-16 h-16 ${colors.bg.surfaceAlt} rounded-full flex items-center justify-center mx-auto mb-4 `}>
                             <svg className="w-8 h-8 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                               <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
                             </svg>
                           </div>
-                          <span className={`text-xl ${colors.section.text}`}>No companies found</span>
+                          <span className={`text-xl ${colors.section.text} ${fontCombinations.content.lead}`}>No companies found</span>
                         </div>
                       ) : (
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
                           {companies.map((company, index) => (
                             <div 
                               key={index}
-                              className="group relative bg-white/80 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 hover:scale-105"
+                              className="group relative bg-white/80 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 hover:scale-105 border border-[#D4AF37]/20 hover:border-[#B89334]/40"
                             >
                               <div className="aspect-square flex items-center justify-center">
                                 <img 
@@ -692,7 +738,6 @@ export default function About() {
                       )}
                     </div>
                   </BouncyFadeIn>
-                  </div>
                 </div>
               </section>
               {/* Contact Section */}
@@ -701,17 +746,17 @@ export default function About() {
                   <div className="max-w-4xl mx-auto">
                     <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl p-8 lg:p-12 text-center">
                     <div className="mb-8">
-                      <h2 className={`text-4xl font-bold mb-6 ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
+                      <h2 className={`text-4xl mb-6 ${colors.section.title} ${fontCombinations.section.main}`}>
                         {pageContent.contact.title}
                       </h2>
-                      <p className={`text-lg leading-relaxed max-w-2xl mx-auto ${colors.section.text} ${akpsiFonts.sectionTextFont}`}>
+                      <p className={`text-lg max-w-2xl mx-auto ${colors.section.text} ${fontCombinations.content.lead}`}>
                         {pageContent.contact.subtitle}
                       </p>
                     </div>
                     <div className="flex justify-center">
                       <a
                         href="/contact"
-                        className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-lg hover:from-blue-800 hover:to-blue-600 transition-all duration-300 font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105"
+                        className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-lg hover:from-blue-800 hover:to-blue-600 transition-all duration-300 text-lg shadow-lg hover:shadow-xl transform hover:scale-105 ${fontCombinations.interactive.primary}"
                       >
                         {pageContent.contact.buttonText}
                         <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -721,47 +766,47 @@ export default function About() {
                     </div>
                   </div>
                 </div>
-                  </BouncyFadeIn>
+                </BouncyFadeIn>
               </section>
               {/* Footer */}
               <Footer />
             </>
           )}
         </div>
-      </div>
-      {/* Statistics Modal */}
-      {selectedStat && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className={`${colors.section.bg} rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-auto transition-transform duration-300`}>
-            <div className="p-8">
-              <div className="flex justify-between items-center mb-6">
-                <h3 className={`text-3xl font-bold ${colors.section.title} ${akpsiFonts.sectionTitleFont}`}>
-                  {selectedStat?.title}
-                </h3>
-                <button
-                  onClick={() => setSelectedStat(null)}
-                  className={`w-10 h-10 ${colors.bg.surfaceAlt} hover:bg-gray-200 rounded-md flex items-center justify-center transition-colors duration-200 cursor-pointer`}>
-                  <svg className={`w-6 h-6 ${colors.text.secondary}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-              <div className="flex justify-center items-center mb-6">
-                <div className="relative flex items-center justify-center w-80 h-80">
-                  <img 
-                    src={selectedStat?.image} 
-                    alt={selectedStat?.title} 
-                    className="max-w-full max-h-full object-contain"
-                  />
+        {/* Statistics Modal */}
+        {selectedStat && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div className={`${colors.section.bg} rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-auto transition-transform duration-300`}>
+              <div className="p-8">
+                <div className="flex justify-between items-center mb-6">
+                  <h3 className={`text-3xl ${colors.section.title} ${fontCombinations.section.main}`}>
+                    {selectedStat?.title}
+                  </h3>
+                  <button
+                    onClick={() => setSelectedStat(null)}
+                    className={`w-10 h-10 ${colors.bg.surfaceAlt} hover:bg-gray-200 rounded-md flex items-center justify-center transition-colors duration-200 cursor-pointer`}>
+                    <svg className={`w-6 h-6 ${colors.text.secondary}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
                 </div>
+                <div className="flex justify-center items-center mb-6">
+                  <div className="relative flex items-center justify-center w-80 h-80">
+                    <img 
+                      src={selectedStat?.image} 
+                      alt={selectedStat?.title} 
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  </div>
+                </div>
+                <p className={`text-lg ${colors.section.text} ${fontCombinations.content.lead}`}>
+                  {selectedStat?.description}
+                </p>
               </div>
-              <p className={`text-lg leading-relaxed ${colors.section.text} ${akpsiFonts.sectionTextFont}`}>
-                {selectedStat?.description}
-              </p>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 }

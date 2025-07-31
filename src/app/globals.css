@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 @import "tailwindcss";
 
 /**
  * AKPsi Website Global Styles & CSS Custom Properties
  * Using the refined color palette: neutrals, muted blues, sophisticated golds, and brand colors
+ * Font system is now managed through Next.js font loading in layout.tsx
  */
 
 :root {
@@ -55,7 +55,7 @@
 :root {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
 }
 
@@ -72,15 +72,28 @@
 body {
   background: var(--color-background);
   color: var(--color-text-primary);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
   min-height: 100vh;
 }
 
-/* Hero font utility */
+/* Font utilities */
+.font-inter {
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+}
+
+.font-mono {
+  font-family: var(--font-geist-mono), 'Courier New', monospace;
+}
+
+.font-serif {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+/* Legacy font utility for backward compatibility */
 .font-hero {
-  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
 }
 
 /* Typewriter cursor styles - using the new gold light color */

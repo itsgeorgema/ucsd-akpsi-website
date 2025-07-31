@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { createClient } from '../../../supabase/client';
-import { akpsiFonts } from '../../styles/fonts';
+import { fontCombinations } from '../../styles/fonts';
 import { colors } from '../../styles/colors';
 import Footer from '../../components/Footer';
 import LoadingSpinner from '../../components/LoadingSpinner';
@@ -144,8 +144,8 @@ function ActivesPageContent() {
           {/* Hero Section */}
           <section className="relative flex flex-col items-center justify-center text-center z-10 min-h-screen">
             <div className="relative z-10 flex flex-col items-center">
-              <h1 className={`text-5xl md:text-6xl mb-6 text-center ${colors.text.inverse} ${akpsiFonts.sectionTitleFont}`}>Active Member Resources</h1>
-              <p className={`text-lg ${colors.glass.textSubtle} text-center mb-8 max-w-2xl ${akpsiFonts.bodyFont}`}>Please do not share any of these resources with people outside of Nu Xi.<br />Make sure to use this responsibly, you are protecting our legacy :)</p>
+              <h1 className={`text-5xl lg:text-6xl mb-4 text-center ${colors.text.inverse} ${fontCombinations.hero.title}`}>ACTIVE MEMBER RESOURCES</h1>
+              <p className={`text-xl ${colors.glass.textSubtle} text-center mb-8 max-w-2xl ${fontCombinations.content.body}`}>Please do not share any of these resources with people outside of Nu Xi.<br />Make sure to use this responsibly, you are protecting our legacy :)</p>
               <div className="flex flex-col gap-4 w-full max-w-md">
                 {resourceButtons.map((item, idx) => {
                   const link = links[idx];
@@ -155,14 +155,14 @@ function ActivesPageContent() {
                       href={link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`block w-full py-3 px-6 rounded-lg border-2 ${colors.glass.border} ${colors.glass.text} text-lg font-semibold text-center ${colors.glass.bg} hover:bg-black/30 hover:text-white transition-colors duration-200 shadow-md backdrop-blur-md ${akpsiFonts.bodyFont}`}
+                      className={`group relative w-full flex justify-center py-4 px-8 border-2 ${colors.glass.border} ${colors.glass.borderHover} text-base rounded-xl ${colors.glass.bg} ${colors.glass.bgHover} ${colors.glass.text} transition-all duration-300 shadow-lg hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:ring-offset-2 cursor-pointer ${fontCombinations.interactive.primary} transform hover:scale-105 active:scale-95`}
                     >
                       {item.name}
                     </a>
                   ) : (
                     <button
                       key={idx}
-                      className={`block w-full py-3 px-6 rounded-lg border-2 ${colors.glass.border} ${colors.glass.text} text-lg font-semibold text-center ${colors.glass.bg} cursor-not-allowed opacity-70 shadow-md backdrop-blur-md ${akpsiFonts.bodyFont}`}
+                      className={`block w-full py-4 px-8 rounded-xl border-2 ${colors.glass.border} text-base ${colors.glass.bg} ${colors.glass.text} cursor-not-allowed opacity-50 shadow-lg ${fontCombinations.interactive.primary}`}
                       disabled
                     >
                       {item.name}

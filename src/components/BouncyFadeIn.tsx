@@ -16,7 +16,6 @@ const BouncyFadeIn: React.FC<BouncyFadeInProps> = ({
   children,
   delay = 0,
   duration = 0.6,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   bounce = 0.7, // More bounce for a more dynamic effect
   threshold = 0.5, // Trigger when 50% of the element is visible
   className,
@@ -27,11 +26,12 @@ const BouncyFadeIn: React.FC<BouncyFadeInProps> = ({
       opacity: 1,
       y: 0,
       transition: {
-        type: 'spring' as const, // Use spring physics for the bounce
-        damping: 8, // Lower damping for more oscillations
-        stiffness: 150, // Higher stiffness for faster initial movement
+        type: bounce > 0 ? 'spring' as const : 'tween' as const, // Use spring only if bounce > 0
+        damping: bounce > 0 ? 8 : undefined, // Lower damping for more oscillations
+        stiffness: bounce > 0 ? 150 : undefined, // Higher stiffness for faster initial movement
         duration: duration,
         delay: delay,
+        ease: bounce === 0 ? 'easeOut' as const : undefined, // Use easeOut for no bounce
       },
     },
   };
