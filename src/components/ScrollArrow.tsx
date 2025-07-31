@@ -18,7 +18,7 @@ export default function ScrollArrow() {
           }
         }}
         aria-label="Scroll down"
-        className="focus:outline-none"
+        className="focus:outline-none cursor-pointer"
       >
         <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth="2">
           <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />

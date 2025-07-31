@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { createClient } from '../../../supabase/client';
 import { colors } from '../../styles/colors';
 import { fontCombinations } from '../../styles/fonts';
@@ -12,60 +12,24 @@ export default function Contact() {
   const [backgroundImage, setBackgroundImage] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const [submitted, setSubmitted] = useState(false);
+  const [showCheckmark, setShowCheckmark] = useState(false);
+  const [checkmarkAnimation, setCheckmarkAnimation] = useState(false);
+  const checkmarkRef = useRef<SVGSVGElement>(null);
 
-  // Add CSS animations
   useEffect(() => {
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes drawCheckmark {
-        0% {
-          stroke-dashoffset: 24;
-        }
-        100% {
-          stroke-dashoffset: 0;
-        }
-      }
-      
-      @keyframes singlePulseFade {
-        0% {
-          opacity: 1;
-          transform: scale(1);
-        }
-        50% {
-          opacity: 0.6;
-          transform: scale(1.1);
-        }
-        100% {
-          opacity: 1;
-          transform: scale(1);
-        }
-      }
-      
-      @keyframes fadeIn {
-        0% {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-        100% {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      
-      .animate-fadeIn {
-        animation: fadeIn 0.6s ease-out forwards;
-      }
-      
-      .animate-single-pulse-fade {
-        animation: singlePulseFade 0.8s ease-in-out forwards;
-      }
-    `;
-    document.head.appendChild(style);
-    
-    return () => {
-      document.head.removeChild(style);
-    };
-  }, []);
+    if (submitted) {
+      // Delay the checkmark animation to ensure it starts after the component renders
+      const timer = setTimeout(() => {
+        console.log('Starting checkmark animation');
+        setShowCheckmark(true);
+        // Start the animation after a short delay
+        setTimeout(() => {
+          setCheckmarkAnimation(true);
+        }, 200);
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [submitted]);
 
   useEffect(() => {
     const fetchBackground = async () => {
@@ -98,12 +62,10 @@ export default function Contact() {
   return (
     <div className="relative min-h-screen w-full flex flex-col justify-between contact-page">
       {/* Full Page Background */}
-      {backgroundImage && (
-        <div 
-          className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${backgroundImage})` }}
-        />
-      )}
+      <div 
+        className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat bg-black"
+        style={{ backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined }}
+      />
       {/* Enhanced overlay with subtle gradient */}
       <div className="fixed top-0 left-0 w-full h-full z-10 bg-gradient-to-br from-black/30 via-black/20 to-[#212121]/30" />
       <div className="relative z-20 min-h-screen flex flex-col">
@@ -123,15 +85,11 @@ export default function Contact() {
                     {/* Animated Checkmark Circle */}
                     <div className="w-16 h-16 bg-gradient-to-br from-[#003366] to-[#6497B1] rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg animate-single-pulse-fade">
                       <svg 
-                        className="w-8 h-8 text-white" 
+                        ref={checkmarkRef}
+                        className="w-8 h-8 text-white"
                         fill="none" 
                         stroke="currentColor" 
                         viewBox="0 0 24 24"
-                        style={{
-                          strokeDasharray: '24',
-                          strokeDashoffset: '24',
-                          animation: 'drawCheckmark 0.8s ease-in-out forwards'
-                        }}
                       >
                         <path 
                           strokeLinecap="round" 
@@ -139,9 +97,9 @@ export default function Contact() {
                           strokeWidth="2" 
                           d="M5 13l4 4L19 7"
                           style={{
-                            strokeDasharray: '24',
-                            strokeDashoffset: '24',
-                            animation: 'drawCheckmark 0.8s ease-in-out forwards'
+                            strokeDasharray: '20',
+                            strokeDashoffset: checkmarkAnimation ? '0' : '20',
+                            transition: checkmarkAnimation ? 'stroke-dashoffset 0.8s ease-in-out' : 'none'
                           }}
                         />
                       </svg>
@@ -232,7 +190,7 @@ export default function Contact() {
                   <div>
                     <button
                       type="submit"
-                      className={`group relative w-full flex justify-center py-4 px-8 border-2 ${colors.hardcoded.contactBorder} ${colors.hardcoded.contactBorderHover} rounded-xl bg-gradient-to-r ${colors.hardcoded.contactGradient} ${colors.hardcoded.contactGradientHover} ${colors.hardcoded.contactText} transition-all duration-300 shadow-lg hover:shadow-2xl backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:ring-offset-2 cursor-pointer ${fontCombinations.interactive.primary} transform hover:scale-105 active:scale-95`}
+                      className={`group relative w-full flex justify-center py-4 px-8 border-2 border-[#B89334] hover:border-[#D4AF37] rounded-xl bg-gradient-to-r from-[#B89334] to-[#D4AF37] hover:from-[#D4AF37] hover:to-[#B89334] text-[#F8F8F8] transition-all duration-300 shadow-lg hover:shadow-2xl backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:ring-offset-2 cursor-pointer ${fontCombinations.interactive.primary} transform hover:scale-105 active:scale-95`}
                     >
                       Send Message
                     </button>
@@ -243,7 +201,7 @@ export default function Contact() {
             </div>
           )}
         </main>
-        <Footer />
+        {!loading && <Footer />}
       </div>
     </div>
   );

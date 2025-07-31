@@ -64,14 +64,12 @@ export default function ActiveBrothers() {
   return (
     <div className="relative min-h-screen flex flex-col">
       {/* Full Page Background */}
-      {backgroundImage && (
-        <div 
-          className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${backgroundImage})` }}
-        />
-      )}
+      <div 
+        className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat bg-black"
+        style={{ backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined }}
+      />
       {/* Overlay for readability */}
-      <div className={`fixed top-0 left-0 w-full h-full z-10 ${colors.hardcoded.brothersOverlay}`} />
+      <div className={`fixed top-0 left-0 w-full h-full z-10 bg-black/30`} />
       <div className="relative z-20 min-h-screen flex flex-col">
         <Navbar />
         <main className="flex-1 flex items-center justify-center py-16 px-4">
@@ -102,7 +100,7 @@ export default function ActiveBrothers() {
           </div>
           )}
         </main>
-        <Footer />
+        {!loading && <Footer />}
       </div>
     </div>
   );

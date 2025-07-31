@@ -8,64 +8,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import BouncyFadeIn from '../components/BouncyFadeIn';
 import { fontCombinations } from '../styles/fonts';
 import { colors } from '../styles/colors';
-
-// Animated Title Component
-function AnimatedTitle() {
-  const [displayText, setDisplayText] = useState('');
-  const [isTyping, setIsTyping] = useState(true);
-  const [currentTextIndex, setCurrentTextIndex] = useState(0);
-  const [currentCharIndex, setCurrentCharIndex] = useState(0);
-  const [isActivelyTyping, setIsActivelyTyping] = useState(false);
-
-  useEffect(() => {
-    const texts = [
-      'ALPHA\nKAPPA PSI.',
-      'NU XI\nCHAPTER.'
-    ];
-    const typeSpeed = 80; //lower is faster
-    const deleteSpeed = 50; //lower is faster
-    
-    if (isTyping) {
-      if (currentCharIndex < texts[currentTextIndex].length) {
-        setIsActivelyTyping(true);
-        const timer = setTimeout(() => {
-          setDisplayText(texts[currentTextIndex].slice(0, currentCharIndex + 1));
-          setCurrentCharIndex(currentCharIndex + 1);
-        }, typeSpeed);
-        return () => clearTimeout(timer);
-      } else {
-        setIsActivelyTyping(false);
-        const timer = setTimeout(() => setIsTyping(false), 2250);
-        return () => clearTimeout(timer);
-      }
-    } else {
-      if (currentCharIndex > 0) {
-        setIsActivelyTyping(true);
-        const timer = setTimeout(() => {
-          setDisplayText(texts[currentTextIndex].slice(0, currentCharIndex - 1));
-          setCurrentCharIndex(currentCharIndex - 1);
-        }, deleteSpeed);
-        return () => clearTimeout(timer);
-      } else {
-        setIsActivelyTyping(false);
-        const timer = setTimeout(() => {
-          setCurrentTextIndex((prev) => (prev + 1) % texts.length);
-          setIsTyping(true);
-        }, 1750);
-        return () => clearTimeout(timer);
-      }
-    }
-  }, [currentCharIndex, isTyping, currentTextIndex]);
-
-  return (
-    <div className="block whitespace-pre-line relative">
-      <div className="absolute bottom-0 left-0 right-0">
-        {displayText}
-        <span className={`typewriter-cursor ${isActivelyTyping ? 'no-blink' : ''}`}></span>
-      </div>
-    </div>
-  );
-}
+import AnimatedTitle from '../components/AnimatedTitle';
 
 interface President {
   name: string;
@@ -210,7 +153,7 @@ export default function Home() {
     <div className="relative">
       {/* Fixed full-page background */}
       <div 
-        className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat"
+        className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat bg-black"
         style={{ backgroundImage: homeImages.background ? `url(${homeImages.background})` : undefined }}
       />
       {/* Overlay for readability */}
@@ -384,8 +327,8 @@ export default function Home() {
           </>
         )}
 
-        {/* Footer (includes social links and login) */}
-        <Footer />
+        {/* Footer (includes social links and login) - only show when not loading */}
+        {!loading && <Footer />}
       </div>
     </div>
   );

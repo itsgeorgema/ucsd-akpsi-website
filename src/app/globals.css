@@ -266,3 +266,53 @@ body {
 .nav-shine {
   transition: background-color 0s ease-out, border-color 0s ease-out, backdrop-filter 0s ease-out;
 }
+
+/* Contact page animations */
+@keyframes drawCheckmark {
+  0% {
+    stroke-dashoffset: 20;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes singlePulseFade {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-single-pulse-fade {
+  animation: singlePulseFade 0.8s ease-in-out forwards;
+}
+
+.animate-draw-checkmark path {
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+  animation: drawCheckmark 0.8s ease-in-out forwards;
+}

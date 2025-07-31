@@ -43,28 +43,41 @@ export const akpsiFonts = {
   monoFont: 'font-mono font-normal tracking-wide',
 };
 
+// === RESPONSIVE FONT SIZES ===
+// Separated responsive sizing for flexible usage across different contexts
+export const responsiveFontSizes = {
+  heroTitle: 'text-6xl md:text-8xl',
+  heroSubtitle: 'text-xl md:text-2xl',
+  sectionMain: 'text-4xl md:text-5xl',
+  sectionSecondary: 'text-2xl md:text-3xl',
+  sectionTertiary: 'text-lg md:text-xl',
+  contentLead: 'text-lg md:text-xl',
+  contentBody: 'text-base md:text-lg',
+  contentSmall: 'text-sm md:text-base',
+};
+
 // === SPECIALIZED FONT COMBINATIONS ===
 // Pre-composed font combinations for specific use cases
 
 export const fontCombinations = {
   // Hero section - Bold, impactful
   hero: {
-    title: 'font-inter font-bold text-6xl md:text-8xl tracking-tight leading-none',
-    subtitle: 'font-inter font-medium text-xl md:text-2xl tracking-wide leading-relaxed',
+    title: `font-inter font-bold ${responsiveFontSizes.heroTitle} tracking-tight leading-none`,
+    subtitle: `font-inter font-medium ${responsiveFontSizes.heroSubtitle} tracking-wide leading-relaxed`,
   },
   
   // Section headers - Clear hierarchy
   section: {
-    main: 'font-inter font-semibold text-4xl md:text-5xl tracking-normal leading-tight',
-    secondary: 'font-inter font-medium text-2xl md:text-3xl tracking-wide leading-relaxed',
-    tertiary: 'font-inter font-normal text-lg md:text-xl tracking-wide leading-relaxed',
+    main: `font-inter font-semibold ${responsiveFontSizes.sectionMain} tracking-normal leading-tight`,
+    secondary: `font-inter font-medium ${responsiveFontSizes.sectionSecondary} tracking-wide leading-relaxed`,
+    tertiary: `font-inter font-normal ${responsiveFontSizes.sectionTertiary} tracking-wide leading-relaxed`,
   },
   
   // Content blocks - Readable and engaging
   content: {
-    lead: 'font-inter font-medium text-lg md:text-xl leading-relaxed',
-    body: 'font-inter font-normal text-base md:text-lg leading-relaxed',
-    small: 'font-inter font-light text-sm md:text-base leading-relaxed',
+    lead: `font-inter font-medium ${responsiveFontSizes.contentLead} leading-relaxed`,
+    body: `font-inter font-normal ${responsiveFontSizes.contentBody} leading-relaxed`,
+    small: `font-inter font-light ${responsiveFontSizes.contentSmall} leading-relaxed`,
   },
   
   // Interactive elements - Clear and accessible

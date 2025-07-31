@@ -75,7 +75,7 @@ export default function Login() {
       <div className="fixed top-0 left-0 w-full h-full z-10 bg-gradient-to-br from-black/30 via-black/20 to-[#212121]/30" />
       <div className="relative z-20 flex flex-col min-h-screen justify-between">
         <div className="flex-1 flex flex-col items-center justify-center px-4 py-12">
-                      <div className={`max-w-md w-full space-y-8 p-8 bg-gradient-to-br from-[#F8F8F8]/5 to-[#B3CDE0]/10 backdrop-blur-xl rounded-3xl border ${colors.hardcoded.loginCard} shadow-2xl`}>
+                      <div className={`max-w-md w-full space-y-8 p-8 bg-gradient-to-br from-[#F8F8F8]/5 to-[#B3CDE0]/10 backdrop-blur-xl rounded-3xl border border-[#F8F8F8]/20 shadow-2xl`}>
             <div className="text-center mb-8">
               <div className="mb-4">
               </div>
@@ -111,7 +111,7 @@ export default function Login() {
                               <button
                 type="submit"
                 disabled={isLoading}
-                className={`group relative w-full flex justify-center py-4 px-8 border-2 ${colors.hardcoded.contactBorder} ${colors.hardcoded.contactBorderHover} rounded-xl bg-gradient-to-r ${colors.hardcoded.loginGradient} ${colors.hardcoded.loginGradientHover} ${colors.hardcoded.loginText} transition-all duration-300 shadow-lg hover:shadow-2xl backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer ${fontCombinations.interactive.primary} transform hover:scale-105 active:scale-95`}
+                className={`group relative w-full flex justify-center py-4 px-8 border-2 border-[#B89334] hover:border-[#D4AF37] rounded-xl bg-gradient-to-r from-[#B89334] to-[#D4AF37] hover:from-[#D4AF37] hover:to-[#B89334] text-[#F8F8F8] transition-all duration-300 shadow-lg hover:shadow-2xl backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer ${fontCombinations.interactive.primary} transform hover:scale-105 active:scale-95`}
               >
                   {isLoading ? 'Checking...' : 'Login'}
                 </button>

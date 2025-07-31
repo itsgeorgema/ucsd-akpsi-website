@@ -15,7 +15,6 @@ interface Company {
 }
 
 interface AboutImages {
-  background: string;
   backgroundVideo: string;
   crest: string;
   akpsiLogo: string;
@@ -39,7 +38,6 @@ type ActiveTab = 'akpsi' | 'nuxi' | 'statistics';
 export default function About() {
   const [companies, setCompanies] = useState<Company[]>([]);
   const [images, setImages] = useState<AboutImages>({
-    background: '',
     backgroundVideo: '',
     crest: '',
     akpsiLogo: '',
@@ -56,12 +54,19 @@ export default function About() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('akpsi');
   const [isTransitioning] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [startTime, setStartTime] = useState(Date.now());
+  const [startTime, setStartTime] = useState(0);
   const [displayedTab, setDisplayedTab] = useState<ActiveTab>(activeTab);
   const [contentAnim, setContentAnim] = useState<'in' | 'out'>('in');
 
+  // Initialize start time on client side only
+  useEffect(() => {
+    setStartTime(Date.now());
+  }, []);
+
   // Auto-switch tabs every 15 seconds with progress bar
   useEffect(() => {
+    if (startTime === 0) return; // Don't start until startTime is initialized
+
     const duration = 15000; // 15 seconds
 
     const updateProgress = () => {
@@ -102,7 +107,6 @@ export default function About() {
         
         // Define image paths to fetch directly from storage bucket
         const imagePaths = [
-          'aboutBackground.jpeg',
           'backgroundVid3.mp4',
           'crest.png',
           'groupAbout1.jpeg', 
@@ -120,7 +124,6 @@ export default function About() {
         
         // Generate public URLs for each image directly from storage
         const imageUrls: AboutImages = {
-          background: '',
           backgroundVideo: '',
           crest: '',
           akpsiLogo: '',
@@ -140,9 +143,6 @@ export default function About() {
           
           // Map image paths to their corresponding state properties
           switch (imagePath) {
-            case 'aboutBackground.jpeg':
-              imageUrls.background = imageData.publicUrl;
-              break;
             case 'backgroundVid3.mp4':
               imageUrls.backgroundVideo = imageData.publicUrl;
               break;
@@ -298,13 +298,13 @@ export default function About() {
               <div className="bg-gradient-to-br from-[#F8F8F8] to-[#B3CDE0]/10 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-[#D4AF37]/20 hover:border-[#B89334]/40  transition-all duration-300 group w-full max-w-full mx-auto text-center">
                 <div className="flex items-center mb-6 w-full max-w-full">
                   <div className="w-14 h-14 aspect-square rounded-full flex items-center justify-center bg-gradient-to-br from-[#003366] to-[#6497B1] mr-4 shadow-lg group-hover:shadow-xl transition-all duration-300">
-                    <span className={`${colors.hardcoded.foundingYear} text-sm ${fontCombinations.technical.label}`}>1904</span>
+                    <span className={`text-[#F8F8F8] text-sm ${fontCombinations.technical.label}`}>1904</span>
                   </div>
                   <h3 className={`text-2xl bg-gradient-to-r from-[#003366] to-[#6497B1] bg-clip-text text-transparent ${fontCombinations.section.secondary} break-words`}>
                     {pageContent.akpsiInfo.foundingTitle}
                   </h3>
                 </div>
-                <p className={`text-base relative pl-4 border-l-2 ${colors.hardcoded.foundingBorder} ${colors.section.text} ${fontCombinations.content.body} break-words`}>
+                <p className={`text-base relative pl-4 border-l-2 border-[#D4AF37]/30 ${colors.section.text} ${fontCombinations.content.body} break-words`}>
                   {pageContent.akpsiInfo.foundingText}
                 </p>
               </div>
@@ -313,13 +313,13 @@ export default function About() {
               <div className="bg-gradient-to-br from-[#F8F8F8] to-[#D4AF37]/10 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-[#D4AF37]/20 hover:border-[#B89334]/40 transition-all duration-300 group w-full max-w-full mx-auto text-center">
                 <div className="flex items-center mb-6 w-full max-w-full">
                 <div className="w-14 h-14 bg-gradient-to-br from-[#003366] to-[#6497B1] aspect-square rounded-full flex items-center justify-center mr-4 shadow-lg group-hover:shadow-xl transition-all duration-300">
-                <span className={`${colors.hardcoded.networkCount} text-sm ${fontCombinations.technical.label}`}>298K+</span>
+                <span className={`text-[#F8F8F8] text-sm ${fontCombinations.technical.label}`}>298K+</span>
                   </div>
                   <h3 className={`text-2xl ${colors.section.title} ${fontCombinations.section.secondary} break-words`}>
                     {pageContent.akpsiInfo.networkTitle}
                   </h3>
                 </div>
-                <p className={`text-base relative pl-4 border-l-2 ${colors.hardcoded.networkBorder} ${colors.section.text} ${fontCombinations.content.body} break-words`}>
+                <p className={`text-base relative pl-4 border-l-2 border-[#003366]/30 ${colors.section.text} ${fontCombinations.content.body} break-words`}>
                   {pageContent.akpsiInfo.networkText}
                 </p>
               </div>
@@ -533,9 +533,6 @@ export default function About() {
     );
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const getProgressBarWidth = (progress: number) => `${progress}%`;
-
   return (
     <>
       <div className="relative">
@@ -560,12 +557,9 @@ export default function About() {
           </div>
         )}
         {/* Fallback background image if video fails to load */}
-        {!images.backgroundVideo && images.background && (
+        {!images.backgroundVideo && (
           <div 
-            className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat"
-            style={{ 
-              backgroundImage: `url(${images.background})`,
-            }}
+            className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat bg-black"
           />
         )}
         <div className="relative z-20 min-h-screen flex flex-col about-page">
@@ -598,7 +592,7 @@ export default function About() {
               {/* Combined Modal Card and Companies Section */}
               <section className="relative py-20 z-10 px-4 sm:px-6 lg:px-8" data-modal-card>
                 {/* Enhanced background layer */}
-                <div className={`absolute inset-0 bg-white/85 backdrop-blur-lg rounded-3xl border ${colors.hardcoded.backgroundLayer} shadow-2xl`}></div>
+                <div className={`absolute inset-0 bg-white/85 backdrop-blur-lg rounded-3xl border border-[#B3CDE0]/30 shadow-2xl`}></div>
                 <div className="relative z-10 w-full max-w-full mx-auto px-4 sm:px-6 lg:px-8">
                   {/* Tab group and content card wrapped together for synchronized bounce */}
                   <BouncyFadeIn delay={0.3} threshold={.05} bounce={0}>
@@ -621,7 +615,7 @@ export default function About() {
                                 ${!isFirstTab && !isLastTab ? '' : ''}
                                 flex items-center justify-start relative h-16 cursor-pointer 
                                 ${activeTab === tab ? 'bg-gray-200 text-[#212121] z-10' : 'bg-gray-200 text-[#212121] hover:bg-white hover:text-[#212121] hover:z-10 z-0'} 
-                                border-t border-l border-r ${colors.hardcoded.tabBorder} ${colors.hardcoded.tabBorderHover} shadow-lg overflow-hidden ${fontCombinations.interactive.primary}`}
+                                border-t border-l border-r border-[#B3CDE0]/30 hover:border-[#B3CDE0]/40 shadow-lg overflow-hidden ${fontCombinations.interactive.primary}`}
                             style={{
                               flexGrow: activeTab === tab ? 1.5 : 1,
                               flexShrink: 1,
@@ -680,7 +674,7 @@ export default function About() {
                         })}
                       </div>
                       <div 
-                        className={`bg-white backdrop-blur-md rounded-b-2xl shadow-2xl border-b border-r border-l ${colors.hardcoded.contentBorder} overflow-hidden overflow-x-hidden relative z-0 w-full max-w-full mx-auto box-border`}
+                        className={`bg-white backdrop-blur-md rounded-b-2xl shadow-2xl border-b border-r border-l border-[#B3CDE0]/30 overflow-hidden overflow-x-hidden relative z-0 w-full max-w-full mx-auto box-border`}
                         style={{ height: '900px', marginTop: '0px' }}
                       >
                         {/* Tab Content */}
@@ -718,7 +712,7 @@ export default function About() {
                             {companies.map((company, index) => (
                               <div 
                                 key={index}
-                                className={`group relative bg-white/80 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 hover:scale-105 border ${colors.hardcoded.companyBorder} ${colors.hardcoded.companyBorderHover}`}
+                                className={`group relative bg-white/80 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 hover:scale-105 border border-[#D4AF37]/20 hover:border-[#B89334]/40`}
                               >
                                 <div className="aspect-square flex items-center justify-center">
                                   <img 
@@ -766,7 +760,7 @@ export default function About() {
                 </BouncyFadeIn>
               </section>
               {/* Footer */}
-              <Footer />
+              {!loading && <Footer />}
             </>
           )}
         </div>

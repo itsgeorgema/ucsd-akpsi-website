@@ -125,14 +125,12 @@ function ActivesPageContent() {
   return (
     <div className="relative">
       {/* Full Page Background */}
-      {backgroundUrl && (
-        <div
-          className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${backgroundUrl})` }}
-        />
-      )}
+      <div
+        className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat bg-black"
+        style={{ backgroundImage: backgroundUrl ? `url(${backgroundUrl})` : undefined }}
+      />
       {/* Overlay for readability */}
-      <div className={`fixed top-0 left-0 w-full h-full z-10 ${colors.hardcoded.activesOverlay}`} />
+      <div className={`fixed top-0 left-0 w-full h-full z-10 bg-black/20`} />
       
       <div className="relative z-20 min-h-screen flex flex-col">
         {loading ? (
@@ -174,7 +172,7 @@ function ActivesPageContent() {
           </section>
 
           {/* Footer */}
-          <Footer />
+          {!loading && <Footer />}
         </>
         )}
       </div>

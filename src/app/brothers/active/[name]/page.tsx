@@ -78,12 +78,10 @@ export default function BrotherPage() {
   return (
     <div className="relative min-h-screen flex flex-col">
       {/* Full Page Background */}
-      {backgroundImage && (
-        <div 
-          className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${backgroundImage})` }}
-        />
-      )}
+      <div 
+        className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat bg-black"
+        style={{ backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined }}
+      />
       {/* Enhanced overlay for better readability */}
       <div className="fixed top-0 left-0 w-full h-full z-10 bg-gradient-to-br from-black/40 via-black/30 to-black/50" />
       <div className="relative z-20 min-h-screen flex flex-col">
@@ -183,7 +181,7 @@ export default function BrotherPage() {
             </div>
           )}
       </main>
-      <Footer />
+      {!loading && <Footer />}
       </div>
     </div>
   );
