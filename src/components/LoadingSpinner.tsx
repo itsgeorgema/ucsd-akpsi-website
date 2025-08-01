@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import loadingImage from '../app/assets/akpsiLogo.svg';
+import loadingImage from '../../public/assets/akpsiLogo.svg';
 
 interface LoadingSpinnerProps {
   size?: 'small' | 'medium' | 'large';
