@@ -160,8 +160,8 @@ export default function Home() {
         ) : (
           <>
             {/* HERO SECTION */}
-            <section className="relative flex flex-col justify-center min-h-screen px-4 md:px-8 lg:px-12 pt-20 md:pt-4 safe-area-inset-top safe-area-inset-bottom">
-              <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col flex-1 justify-center">
+            <section className="relative flex flex-col justify-center min-h-screen px-4 md:px-8 lg:px-12 pt-8 md:pt-4 safe-area-inset-top safe-area-inset-bottom">
+              <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col flex-1 justify-center scale-90 sm:scale-100">
                 {/* Title Section - Dynamic Height */}
                 <div className="flex-1 flex items-end justify-center mb-8 md:mb-12">
                   <h1 className={`text-4xl md:text-6xl lg:text-7xl xl:text-8xl ${colors.heroTitle} leading-tight ${fontCombinations.hero.title} w-full text-left`}>
@@ -238,7 +238,7 @@ export default function Home() {
                 </div>
 
                 {/* Scroll Arrow - Always Visible */}
-                <div className="flex justify-center flex-shrink-0 mt-2 md:mt-4 pb-0 md:pb-0">
+                <div className="flex justify-center flex-shrink-0 mt-2 md:mt-4 pb-16 md:pb-0">
                   <ScrollArrow />
                 </div>
               </div>

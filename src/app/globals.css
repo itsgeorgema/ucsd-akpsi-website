@@ -95,13 +95,6 @@ html {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* Mobile-specific adjustments for hero section */
-@media (max-width: 768px) {
-  .safe-area-inset-top {
-    padding-top: calc(env(safe-area-inset-top) + 4rem);
-  }
-}
-
 /* Ensure all containers respect viewport width */
 * {
   box-sizing: border-box;
