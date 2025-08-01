@@ -161,7 +161,7 @@ export default function Home() {
           <>
             {/* HERO SECTION */}
             <section className="relative flex flex-col justify-center min-h-screen px-4 md:px-8 lg:px-12 pt-8 md:pt-4 safe-area-inset-top safe-area-inset-bottom">
-              <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col flex-1 justify-center scale-90 sm:scale-100 translate-y-8 sm:translate-y-0">
+              <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col flex-1 justify-center scale-90 sm:scale-100 translate-y-6 sm:translate-y-0">
                 {/* Title Section - Dynamic Height */}
                 <div className="flex-1 flex items-end justify-center mb-8 md:mb-12">
                   <h1 className={`text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl ${colors.heroTitle} leading-tight ${fontCombinations.hero.title} w-full text-left`}>
@@ -170,7 +170,7 @@ export default function Home() {
                 </div>
 
                 {/* Values Section - Dynamic Spacing */}
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-1 md:gap-4 lg:gap-6 mb-2 md:mb-4 flex-shrink-0 justify-center">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-3 md:gap-4 lg:gap-6 mb-2 md:mb-4 flex-shrink-0 justify-center">
                   {/* Brotherhood */}
                   <BouncyFadeIn delay={0.1} threshold={0.1}>
                     <div className={`${colors.glass.text}`}>
@@ -179,7 +179,7 @@ export default function Home() {
                           <img src={homeImages.broho} alt="Brotherhood" className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14" />
                         </div>
                       )}
-                      <h3 className={`text-xs sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title}`}>BROTHERHOOD</h3>
+                      <h3 className={`text-sm sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title}`}>BROTHERHOOD</h3>
                       <p className={`text-xs sm:text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description}`}>We are a family of life-long friends that stick together through thick and thin.</p>
                     </div>
                   </BouncyFadeIn>
