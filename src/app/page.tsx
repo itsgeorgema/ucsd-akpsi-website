@@ -192,7 +192,7 @@ export default function Home() {
                           <img src={homeImages.integrity} alt="Integrity" className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14" />
                         </div>
                       )}
-                      <h3 className={`text-xs sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title}`}>INTEGRITY</h3>
+                      <h3 className={`text-sm sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title}`}>INTEGRITY</h3>
                       <p className={`text-xs sm:text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description}`}>We do things through hard work and dedication, while not taking any unnecessary shortcuts.</p>
                     </div>
                   </BouncyFadeIn>
@@ -205,7 +205,7 @@ export default function Home() {
                           <img src={homeImages.service} alt="Service" className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14" />
                         </div>
                       )}
-                      <h3 className={`text-xs sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title}`}>SERVICE</h3>
+                      <h3 className={`text-sm sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title}`}>SERVICE</h3>
                       <p className={`text-xs sm:text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description}`}>We believe in giving back to the communities that have shaped us into the people we are today.</p>
                     </div>
                   </BouncyFadeIn>
@@ -218,7 +218,7 @@ export default function Home() {
                           <img src={homeImages.unity} alt="Unity" className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14" />
                         </div>
                       )}
-                      <h3 className={`text-xs sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title}`}>UNITY</h3>
+                      <h3 className={`text-sm sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title}`}>UNITY</h3>
                       <p className={`text-xs sm:text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description}`}>We strive to build our bonds and strengthen the brotherhood that we are proud of.</p>
                     </div>
                   </BouncyFadeIn>
@@ -231,7 +231,7 @@ export default function Home() {
                           <img src={homeImages.knowledge} alt="Knowledge" className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14" />
                         </div>
                       )}
-                      <h3 className={`text-xs sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title}`}>KNOWLEDGE</h3>
+                      <h3 className={`text-sm sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title}`}>KNOWLEDGE</h3>
                       <p className={`text-xs sm:text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description}`}>We are scholars of diverse disciplines and professionals in varied industries.</p>
                     </div>
                   </BouncyFadeIn>
