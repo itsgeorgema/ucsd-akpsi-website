@@ -78,7 +78,7 @@ export default function ActiveBrothers() {
           ) : (
             <div className="w-full flex flex-col items-center">
               <div className="text-center mb-8 mt-8 md:mt-12">
-                <div className={`text-sm tracking-widest mb-2 ${colors.text.inverse} ${fontCombinations.navigation.secondary}`}>INTRODUCING OUR</div>
+                <div className={`text-sm tracking-tighter mb-2 ${colors.text.inverse} ${fontCombinations.navigation.secondary}`}>INTRODUCING OUR</div>
                 <h1 className={`text-5xl lg:text-6xl ${fontCombinations.hero.title} ${colors.text.inverse} mb-4`}>ACTIVE BROTHERS</h1>
               </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">

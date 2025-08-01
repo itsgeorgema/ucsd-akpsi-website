@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { createClient } from '../../../supabase/client';
 import { colors } from '../../styles/colors';
 import { fontCombinations } from '../../styles/fonts';
-import Footer from '../../components/Footer';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -119,7 +118,6 @@ export default function Login() {
             </form>
           </div>
         </div>
-        <Footer />
       </div>
     </div>
   );

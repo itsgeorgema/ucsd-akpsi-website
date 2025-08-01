@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { createClient } from '../../supabase/client';
 import { colors } from '../styles/colors';
-import { fontCombinations } from '../styles/fonts';
+import { fontCombinations, hierarchyWeights } from '../styles/fonts';
 import { useAuth } from '../contexts/AuthContext';
 
 type NavSubItem = {
@@ -103,25 +103,13 @@ export default function Navbar() {
       <div className="absolute top-4 right-4 z-50">
         <button
           onClick={toggleMenu}
-          className={`bg-white/25 cursor-pointer ${colors.glass.border} backdrop-blur-md rounded-lg p-4 shadow-lg transition-all duration-300 hover:${colors.glass.bgHover} focus:outline-none focus:ring-2 focus:ring-white/50`}
+          className={`bg-white/25 cursor-pointer border border-white backdrop-blur-md rounded-lg p-4 shadow-lg transition-all duration-300 hover:${colors.glass.bgHover}`}
           aria-label="Toggle navigation menu"
         >
-          <div className="w-6 h-5 flex flex-col justify-between">
-            <span
-              className={`${colors.glass.text} h-0.5 w-full bg-current transform transition-all duration-300 ${
-                isMenuOpen ? 'rotate-45 translate-y-2' : ''
-              }`}
-            ></span>
-            <span
-              className={`${colors.glass.text} h-0.5 w-full bg-current transition-all duration-300 ${
-                isMenuOpen ? 'opacity-0' : ''
-              }`}
-            ></span>
-            <span
-              className={`${colors.glass.text} h-0.5 w-full bg-current transform transition-all duration-300 ${
-                isMenuOpen ? '-rotate-45 -translate-y-2' : ''
-              }`}
-            ></span>
+          <div className="relative w-6 h-6">
+            <span className={`absolute top-2.5 left-0 w-6 h-0.5 ${colors.glass.text} bg-current rounded-full transition-all duration-300 ${isMenuOpen ? 'rotate-45' : 'rotate-0 -translate-y-1.5'}`}></span>
+            <span className={`absolute top-2.5 left-0 w-6 h-0.5 ${colors.glass.text} bg-current rounded-full transition-all duration-300 ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
+            <span className={`absolute top-2.5 left-0 w-6 h-0.5 ${colors.glass.text} bg-current rounded-full transition-all duration-300 ${isMenuOpen ? '-rotate-45' : 'rotate-0 translate-y-1.5'}`}></span>
           </div>
         </button>
       </div>
@@ -199,7 +187,7 @@ export default function Navbar() {
                               <span className={`${fontCombinations.navigation.secondary} transition-colors duration-50 ease-out ${
                                 isSubActive 
                                   ? colors.nav.textActive 
-                                  : `${colors.glass.textSubtle} group-hover:${colors.nav.textActive}`
+                                  : `${colors.glass.text} group-hover:${colors.nav.textActive}`
                               }`}>
                                 {subItem.label}
                               </span>
@@ -207,7 +195,7 @@ export default function Navbar() {
                                 className={`ml-auto w-4 h-4 transition-[transform,color] duration-50 ease-out transform group-hover:translate-x-1 ${
                                   isSubActive 
                                     ? colors.nav.textActive 
-                                    : `${colors.glass.textSubtle} group-hover:${colors.nav.textActive}`
+                                    : `${colors.glass.text} group-hover:${colors.nav.textActive}`
                                 }`} 
                                 fill="none" 
                                 stroke="currentColor" 
@@ -263,10 +251,10 @@ export default function Navbar() {
           {/* Footer Section */}
           <div className="border-t border-white/20 pt-6 pb-8">
             <div className="text-center">
-              <p className={`${colors.glass.textSubtle} ${fontCombinations.content.body}`}>
+              <p className={`${colors.glass.textSubtle} ${fontCombinations.content.small} ${hierarchyWeights.footer}`}>
                 ALPHA KAPPA PSI
               </p>
-              <p className={`${colors.glass.textSubtle} ${fontCombinations.content.small}`}>
+              <p className={`${colors.glass.textSubtle} ${fontCombinations.content.small} ${hierarchyWeights.footer}`}>
                 NU XI est. 2019
               </p>
             </div>

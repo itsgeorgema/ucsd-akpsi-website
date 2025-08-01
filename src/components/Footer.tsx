@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { createClient } from '../../supabase/client';
-import { colors } from '../styles/colors';
-import { akpsiFonts } from '../styles/fonts';
+import { colorPalette, colors } from '../styles/colors';
+import { akpsiFonts, hierarchyWeights } from '../styles/fonts';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -112,55 +112,161 @@ export default function Footer({ className = "" }: FooterProps) {
   ];
 
   return (
-    <section className={`relative py-4 ${colors.footer.text} z-10 ${className}`}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="px-6 py-2">
-          <div className="flex flex-col md:flex-row items-center justify-center md:justify-between space-y-4 md:space-y-0 md:space-x-0">
-            {/* Logo and Text */}
-            <div className="flex items-center justify-center mb-[-40px] md:mb-0">
+    <footer className={`relative ${colors.section.titleBg} ${className}`}>
+      {/* Top banner with grid pattern */}
+      <div className={`h-2 bg-[${colorPalette.gold.muted}] opacity-80`}></div>
+      
+      {/* Main footer content */}
+      <div className="max-w-6xl mx-auto px-6 py-6 md:py-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mb-4 md:mb-6 items-start justify-between">
+          {/* Left Column - Organization Info */}
+          <div className="space-y-2 md:space-y-3 mb-4 md:mb-0 flex flex-col items-center md:items-start">
+            <div className="flex items-center space-x-3">
               <img 
                 src={logoUrl || '/akpsilogo.png'} 
                 alt="Alpha Kappa Psi Logo" 
-                className="h-40 w-40 object-contain cursor-pointer"
+                className="h-40 w-40 object-contain cursor-pointer mb-[-55px] mt-[-50px] md:mt-[-50px]"
+                onClick={() => router.push('/')}
               />
             </div>
-            {/* Social Media Icons and Login Button */}
-            <div className="flex flex-col md:flex-row items-center space-y-0 md:space-y-0 md:space-x-6">
-              <div className="flex items-center space-x-6 mb-[-5px] md:mb-0">
-                {socialIcons.map((social) => (
-                  <a 
-                    key={social.name}
-                    href={social.href || '#'}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`${colors.footer.icon} transition-colors ${!social.href ? 'opacity-50 cursor-not-allowed' : ''}`}
-                    aria-label={social.name}
-                    onClick={!social.href ? (e) => e.preventDefault() : undefined}
-                  >
-                    {social.icon}
-                  </a>
-                ))}
-              </div>
-              {/* Login/Logout Button */}
-              <button
-                className={colors.footer.link + " " + akpsiFonts.sectionSubtitleFont + " underline cursor-pointer transition-colors mt-4 md:mt-0"}
-                onClick={() => {
-                  if (isAuthenticated) {
-                    // Logout: clear authentication
-                    logout();
-                    router.push('/');
-                  } else {
-                    // Login: go to login page
-                    router.push('/login');
-                  }
-                }}
+          </div>
+
+          {/* Middle Column - Quick Links */}
+          <div className="space-y-2 md:space-y-3 mb-4 md:mb-0 flex flex-col items-center md:items-start">
+            <h3 className={`text-3xl ${colors.text.inverse} ${akpsiFonts.sectionTitleFont} ${hierarchyWeights.footer}`}>
+              Quick Links
+            </h3>
+            <div className="space-y-2 md:space-y-2 flex flex-col items-center md:items-start">
+              
+              <a 
+                href="https://akpsiucsd.app" 
+                className={`text-sm ${colors.text.inverse} opacity-70 hover:opacity-100 transition-opacity ${colors.footer.link} underline ${akpsiFonts.bodyFont}`}
               >
-                {isAuthenticated === undefined ? 'LOGIN' : isAuthenticated ? 'LOGOUT' : 'LOGIN'}
-              </button>
+                  Rush Website
+              </a>
+              <a 
+                href="/contact" 
+                className={`text-sm ${colors.text.inverse} opacity-70 hover:opacity-100 transition-opacity ${colors.footer.link} underline ${akpsiFonts.bodyFont}`}
+              >
+                  Contact Us
+              </a>
+              <a 
+                href="https://akpsi.org" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={`text-sm ${colors.text.inverse} opacity-70 hover:opacity-100 transition-opacity ${colors.footer.link} underline ${akpsiFonts.bodyFont}`}
+              >
+                Official Website
+              </a>
+              
+            </div>
+          </div>
+
+          {/* Right Column - Rush Info */}
+          <div className="space-y-2 md:space-y-3 flex flex-col items-center md:items-start">
+            <h3 className={`text-3xl ${colors.text.inverse} ${akpsiFonts.sectionTitleFont} ${hierarchyWeights.footer}`}>
+              Fall &apos;25 Rush Contacts
+            </h3>
+            <div className="space-y-2 md:space-y-2 flex flex-col items-center md:items-start">
+              <p className={`text-sm ${colors.text.inverse} opacity-60 ${akpsiFonts.bodyFont}`}>
+              </p>
+              <div className="space-y-2 md:space-y-1 flex flex-col items-center md:items-start">
+                <div className="flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-2">
+                  <p className={`text-sm ${colors.text.inverse} opacity-60 ${akpsiFonts.bodyFont}`}>
+                    Amanda Wu:
+                  </p>
+                  <a 
+                    href="tel:+19495728948" 
+                    className={`block text-sm ${colors.text.inverse} opacity-70 hover:opacity-100 transition-opacity ${colors.footer.link} ${akpsiFonts.bodyFont}`}
+                  >
+                    <u>
+                      (949)-572-8948
+                    </u>
+                  </a>
+                </div>
+                
+                <div className="flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-2">
+                  <p className={`text-sm ${colors.text.inverse} opacity-60 ${akpsiFonts.bodyFont}`}>
+                    Joshua Hoffmann:
+                  </p>
+                  <a 
+                    href="tel:+15106349132" 
+                    className={`block text-sm ${colors.text.inverse} opacity-70 hover:opacity-100 transition-opacity ${colors.footer.link} ${akpsiFonts.bodyFont}`}
+                  >
+                    <u>
+                      (510)-634-9132
+                    </u>
+                  </a>
+                </div>
+                
+                <p className={`text-sm ${colors.text.inverse} ${akpsiFonts.bodyFont}`}>
+                  <a href="mailto:akpfallrush25@gmail.com" className={`text-sm ${colors.text.inverse} opacity-70 hover:opacity-100 transition-opacity ${colors.footer.link} ${akpsiFonts.bodyFont}`}>
+                    <u>
+                    akpfallrush25@gmail.com
+                    </u>
+                  </a>
+                </p>
+              </div>
             </div>
           </div>
         </div>
+
+        {/* Social Links and Login Section */}
+        <div className="flex flex-col md:flex-row items-center justify-start md:justify-between space-y-4 md:space-y-0 pt-6">
+          <div className="flex items-center space-x-6">
+            {socialIcons.map((social) => (
+              <a 
+                key={social.name}
+                href={social.href || '#'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${colors.footer.icon} transition-colors ${!social.href ? 'opacity-50 cursor-not-allowed' : ''}`}
+                aria-label={social.name}
+                onClick={!social.href ? (e) => e.preventDefault() : undefined}
+              >
+                {social.icon}
+              </a>
+            ))}
+          </div>
+          
+          {/* Login/Logout Button */}
+          <button
+            className={`${colors.footer.link} ${akpsiFonts.sectionSubtitleFont} underline cursor-pointer transition-colors`}
+            onClick={() => {
+              if (isAuthenticated) {
+                logout();
+                router.push('/');
+              } else {
+                router.push('/login');
+              }
+            }}
+          >
+            {isAuthenticated === undefined ? 'LOGIN' : isAuthenticated ? 'LOGOUT' : 'LOGIN'}
+          </button>
+        </div>
       </div>
-    </section>
+
+      {/* Bottom Copyright Section */}
+      <div className="border-t border-[#9E9E9E]/30 px-6 py-4">
+        <div className="max-w-6xl mx-auto flex flex-col items-center justify-center space-y-2">
+          <p className={`text-sm ${colors.text.inverse} opacity-60 ${akpsiFonts.bodyFont} text-center whitespace-nowrap`}>
+            © 2025 UCSD Alpha Kappa Psi. All rights reserved.
+          </p>
+          <p className={`text-sm ${colors.text.inverse} opacity-60 ${akpsiFonts.bodyFont} flex items-center`}>
+            <a href="/terms" className={`text-sm ${colors.text.inverse} opacity-70 hover:opacity-100 transition-opacity ${colors.footer.link} ${akpsiFonts.bodyFont}`}>
+              <u>
+                Terms of Service
+              </u>
+            </a>
+            <span className="mx-2 text-[#9E9E9E] opacity-50">|</span>
+            <a href="/privacy" className={`text-sm ${colors.text.inverse} opacity-70 hover:opacity-100 transition-opacity ${colors.footer.link} ${akpsiFonts.bodyFont}`}>
+              <u>
+                Privacy Policy
+              </u>
+            </a>
+          </p>
+        </div>
+      </div>
+    </footer>
   );
 } 

@@ -121,7 +121,7 @@ export default function BrotherPage() {
                     {/* Header Section */}
                     <div className="mb-4">
                       <div className="flex items-center mb-4">
-                        <span className={`text-sm ${colors.text.secondary} uppercase tracking-widest ${fontCombinations.navigation.secondary} ${colors.bg.surfaceAlt} px-3 py-1 rounded-full`}>
+                        <span className={`text-sm ${colors.text.secondary} uppercase tracking-tighter ${fontCombinations.navigation.secondary} ${colors.bg.surfaceAlt} px-3 py-1 rounded-full`}>
                           Brother Profile
                         </span>
                       </div>

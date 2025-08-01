@@ -173,7 +173,7 @@ export default function Recruitment() {
                 <p className={`text-lg leading-relaxed ${rushColors.rushTextBody} ${fontCombinations.content.body}`}>
                   Come out in Week 2 of Fall Quarter to meet our amazing active members and esteemed alumni. Get a glimpse of the professional development and tight-knit community we can offer.
                 </p>
-                <p className={`text-lg ${fontCombinations.navigation.secondary} ${rushColors.rushTextHighlight} ${fontCombinations.content.body}`}>
+                <p className={`text-lg ${fontCombinations.navigation.secondary} ${rushColors.rushTextHighlight} ${fontCombinations.content.lead}`}>
                   Please fill out the interest form to stay updated on our upcoming events!
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -237,10 +237,10 @@ export default function Recruitment() {
                   recruitmentEvents.map((event, index) => (
                     <div key={index} className={`${colors.glass.bg} backdrop-blur-sm rounded-lg p-6 ${colors.glass.border}`}>
                       <h3 className={`text-xl ${fontCombinations.navigation.primary} mb-2 ${rushColors.rushTextHighlight}`}>{event.eventName.toUpperCase()}</h3>
-                      <p className={`${rushColors.rushTextHighlight} ${fontCombinations.navigation.secondary} mb-2 ${fontCombinations.content.small}`}>
+                      <p className={`text-lg font-bold ${rushColors.rushTextHighlight} ${fontCombinations.navigation.primary} mb-2`}>
                         {event.day.toUpperCase()}, {event.date}
                       </p>
-                      <p className={`${rushColors.rushTextSubtitle} ${fontCombinations.navigation.secondary} mb-2 ${fontCombinations.content.small}`}>
+                      <p className={`text-lg font-medium ${rushColors.rushTextSubtitle} ${fontCombinations.navigation.secondary} mb-2 ${fontCombinations.content.small}`}>
                         {event.details}
                       </p>
                       <p className={`${rushColors.rushTextBody} ${fontCombinations.content.body}`}>
@@ -281,13 +281,26 @@ export default function Recruitment() {
                     </p>
                   ))}
                   <div className={`text-lg mt-4 ${fontCombinations.content.lead} flex flex-col md:flex-row items-center justify-center gap-2 md:gap-0 text-center flex-wrap`}>
-                    <span className={rushColors.rushTextHighlight}>@ucsdakpsi</span>
+                    <span className={rushColors.rushTextHighlight}>
+                      <u>
+                      <a href="https://www.instagram.com/ucsdakpsi/" target="_blank" rel="noopener noreferrer">@ucsdakpsi</a>
+                      </u>
+                    </span>
+
                     <span className="mx-2 hidden md:inline">|</span>
                     {contactInfo.email && (
-                      <span className={rushColors.rushTextHighlight}>{contactInfo.email}</span>
+                      <span className={rushColors.rushTextHighlight}>
+                        <u>
+                        <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a>
+                        </u>
+                      </span>
                     )}
                     {contactInfo.email && <span className="mx-2 hidden md:inline">|</span>}
-                    <span className={rushColors.rushTextHighlight}>akpsiucsd.com</span>
+                    <span className={rushColors.rushTextHighlight}> 
+                      <u>
+                      <a href="https://akpsiucsd.app" target="_blank" rel="noopener noreferrer">akpsiucsd.app</a>
+                      </u>
+                    </span>
                   </div>
                 </div>
               </div>

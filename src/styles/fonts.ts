@@ -3,44 +3,44 @@
 
 export const akpsiFonts = {
   // === PRIMARY FONT FAMILY (Inter) ===
-  // Used for most content with different weights for hierarchy
+  // Used for most content with maximum boldness and ultra-tight spacing
   
   // Display/Headline fonts - Large, impactful text
   display: {
-    large: 'font-inter font-black tracking-tight', // For hero titles, main headlines
-    medium: 'font-inter font-bold tracking-normal', // For section titles
-    small: 'font-inter font-semibold tracking-wide', // For subsection titles
+    large: 'font-inter font-black tracking-tighter', // For hero titles, main headlines
+    medium: 'font-inter font-black tracking-tighter', // For section titles
+    small: 'font-inter font-extrabold tracking-tighter', // For subsection titles
   },
   
   // Body text fonts - Readable content
   body: {
-    large: 'font-inter font-medium leading-relaxed', // For important body text
-    medium: 'font-inter font-normal leading-relaxed', // For regular body text
-    small: 'font-inter font-light leading-relaxed', // For secondary text
+    large: 'font-inter font-bold leading-relaxed tracking-tighter', // For important body text
+    medium: 'font-inter font-bold leading-relaxed tracking-tighter', // For regular body text
+    small: 'font-inter font-semibold leading-relaxed tracking-tighter', // For secondary text
   },
   
   // UI/Interactive fonts - Buttons, navigation, etc.
   ui: {
-    primary: 'font-inter font-semibold tracking-wide', // For primary buttons, nav
-    secondary: 'font-inter font-medium tracking-normal', // For secondary buttons
-    tertiary: 'font-inter font-normal tracking-wide', // For tertiary elements
+    primary: 'font-inter font-black tracking-tighter', // For primary buttons, nav
+    secondary: 'font-inter font-bold tracking-tighter', // For secondary buttons
+    tertiary: 'font-inter font-bold tracking-tighter', // For tertiary elements
   },
   
   // Accent fonts - Special use cases
   accent: {
-    mono: 'font-mono font-medium tracking-wide', // For code, technical content
-    serif: 'font-serif font-medium italic', // For quotes, emphasis
+    mono: 'font-mono font-bold tracking-wide', // For code, technical content
+    serif: 'font-serif font-bold italic', // For quotes, emphasis
   },
   
   // === LEGACY COMPATIBILITY ===
   // Maintain existing references for backward compatibility
-  navBarFont: 'font-inter font-medium tracking-wide',
-  heroTitleFont: 'font-inter font-bold tracking-tight',
-  sectionTitleFont: 'font-inter font-semibold tracking-normal',
-  sectionSubtitleFont: 'font-inter font-medium tracking-wide',
-  sectionTextFont: 'font-inter font-normal leading-relaxed',
-  bodyFont: 'font-inter font-normal leading-relaxed',
-  monoFont: 'font-mono font-normal tracking-wide',
+  navBarFont: 'font-inter font-black tracking-tighter',
+  heroTitleFont: 'font-inter font-black tracking-tighter',
+  sectionTitleFont: 'font-inter font-black tracking-tighter',
+  sectionSubtitleFont: 'font-inter font-extrabold tracking-tighter',
+  sectionTextFont: 'font-inter font-bold leading-relaxed tracking-tighter',
+  bodyFont: 'font-inter font-bold leading-relaxed tracking-tighter',
+  monoFont: 'font-mono font-bold tracking-wide',
 };
 
 // === RESPONSIVE FONT SIZES ===
@@ -60,71 +60,97 @@ export const responsiveFontSizes = {
 // Pre-composed font combinations for specific use cases
 
 export const fontCombinations = {
-  // Hero section - Bold, impactful
+  // Hero section - Maximum boldness
   hero: {
-    title: `font-inter font-bold ${responsiveFontSizes.heroTitle} tracking-tight leading-none`,
-    subtitle: `font-inter font-medium ${responsiveFontSizes.heroSubtitle} tracking-wide leading-relaxed`,
+    title: `font-inter font-black ${responsiveFontSizes.heroTitle} tracking-tighter leading-none`,
+    subtitle: `font-inter font-black ${responsiveFontSizes.heroSubtitle} tracking-tighter leading-relaxed`,
   },
   
-  // Section headers - Clear hierarchy
+  // Section headers - Maximum boldness
   section: {
-    main: `font-inter font-semibold ${responsiveFontSizes.sectionMain} tracking-normal leading-tight`,
-    secondary: `font-inter font-medium ${responsiveFontSizes.sectionSecondary} tracking-wide leading-relaxed`,
-    tertiary: `font-inter font-normal ${responsiveFontSizes.sectionTertiary} tracking-wide leading-relaxed`,
+    main: `font-inter font-black ${responsiveFontSizes.sectionMain} tracking-tighter leading-tight`,
+    secondary: `font-inter font-black ${responsiveFontSizes.sectionSecondary} tracking-tighter leading-relaxed`,
+    tertiary: `font-inter font-extrabold ${responsiveFontSizes.sectionTertiary} tracking-tighter leading-relaxed`,
   },
   
-  // Content blocks - Readable and engaging
+  // Content blocks - Maximum boldness
   content: {
     lead: `font-inter font-medium ${responsiveFontSizes.contentLead} leading-relaxed`,
     body: `font-inter font-normal ${responsiveFontSizes.contentBody} leading-relaxed`,
     small: `font-inter font-light ${responsiveFontSizes.contentSmall} leading-relaxed`,
   },
   
-  // Interactive elements - Clear and accessible
+  // Interactive elements - Maximum boldness
   interactive: {
-    primary: 'font-inter font-semibold text-base tracking-wide uppercase',
-    secondary: 'font-inter font-medium text-sm tracking-wide uppercase',
-    tertiary: 'font-inter font-normal text-xs tracking-wide uppercase',
+    primary: 'font-inter font-black text-base tracking-tighter uppercase',
+    secondary: 'font-inter font-black text-sm tracking-tighter uppercase',
+    tertiary: 'font-inter font-bold text-xs tracking-tighter uppercase',
   },
   
-  // Navigation and UI - Consistent and clear
+  // Navigation and UI - Maximum boldness
   navigation: {
-    primary: 'font-inter font-semibold text-sm tracking-wide uppercase',
-    secondary: 'font-inter font-medium text-xs tracking-wide uppercase',
-    dropdown: 'font-inter font-normal text-xs tracking-wide',
+    primary: 'font-inter font-black text-sm tracking-tighter uppercase',
+    secondary: 'font-inter font-black text-xs tracking-tighter uppercase',
+    dropdown: 'font-inter font-bold text-xs tracking-tighter',
   },
   
-  // Values and features - Stand out
+  // Values and features - Maximum boldness
   values: {
-    title: 'font-inter font-semibold text-lg md:text-xl tracking-wide uppercase',
-    description: 'font-inter font-normal text-sm md:text-base leading-relaxed',
+    title: 'font-inter font-black text-lg md:text-xl tracking-tighter uppercase',
+    description: 'font-inter font-bold text-sm md:text-base leading-relaxed tracking-tighter',
   },
   
-  // Quotes and testimonials - More personality
+  // Quotes and testimonials - Maximum boldness
   quote: {
-    text: 'font-serif font-medium text-lg md:text-xl italic leading-relaxed',
-    attribution: 'font-inter font-semibold text-sm tracking-wide uppercase',
+    text: 'font-serif font-bold text-lg md:text-xl italic leading-relaxed',
+    attribution: 'font-inter font-black text-sm tracking-tighter uppercase',
   },
   
-  // Technical content - Clear and precise
+  // Technical content - Maximum boldness
   technical: {
-    code: 'font-mono font-medium text-sm tracking-wide',
-    label: 'font-inter font-semibold text-xs tracking-wide uppercase',
-    data: 'font-mono font-normal text-sm tracking-wide',
+    code: 'font-mono font-bold text-sm tracking-wide',
+    label: 'font-inter font-black text-xs tracking-tighter uppercase',
+    data: 'font-mono font-bold text-sm tracking-wide',
   },
 };
 
 // === FONT WEIGHTS MAPPING ===
-// For consistent weight usage across the site
+// For consistent weight usage across the site - hierarchy-based weights
 export const fontWeights = {
-  thin: 'font-thin',
-  light: 'font-light',
-  normal: 'font-normal',
   medium: 'font-medium',
   semibold: 'font-semibold',
   bold: 'font-bold',
   extrabold: 'font-extrabold',
   black: 'font-black',
+};
+
+// === HIERARCHY-SPECIFIC FONT WEIGHTS ===
+// For specific use cases with appropriate boldness levels
+export const hierarchyWeights = {
+  // Maximum boldness for primary elements (900)
+  primary: 'font-black',
+  title: 'font-black', 
+  hero: 'font-black',
+  valuesTitle: 'font-black',
+  
+  // High boldness for important elements (700)
+  important: 'font-bold',
+  section: 'font-bold',
+  navbar: 'font-bold',
+  footer: 'font-bold',
+  
+  // Medium boldness for body content (600)
+  body: 'font-semibold',
+  content: 'font-semibold',
+  
+  // Normal weight for paragraph content (400)
+  paragraph: 'font-normal',
+  valuesDescription: 'font-normal',
+  
+  // Light elements (400)
+  secondary: 'font-normal',
+  signature: 'font-normal',
+  description: 'font-normal',
 };
 
 // === FONT SIZES MAPPING ===
@@ -147,4 +173,4 @@ export const fontSizes = {
 
 // === LEGACY EXPORTS ===
 // For backward compatibility
-export const heroFont = 'font-inter font-black tracking-tight'; 
+export const heroFont = 'font-inter font-black tracking-tighter'; 

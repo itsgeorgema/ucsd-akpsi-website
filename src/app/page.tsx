@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 import ScrollArrow from '../components/ScrollArrow';
 import LoadingSpinner from '../components/LoadingSpinner';
 import BouncyFadeIn from '../components/BouncyFadeIn';
-import { fontCombinations } from '../styles/fonts';
+import { fontCombinations, hierarchyWeights } from '../styles/fonts';
 import { colors } from '../styles/colors';
 import AnimatedTitle from '../components/AnimatedTitle';
 
@@ -164,7 +164,7 @@ export default function Home() {
               <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col flex-1 justify-center scale-90 sm:scale-100 translate-y-6 sm:translate-y-16 md:translate-y-0">
                 {/* Title Section - Dynamic Height */}
                 <div className="flex-1 flex items-end justify-center mb-4 md:mb-6 lg:mb-12">
-                  <h1 className={`text-3xl sm:text-7xl md:text-6xl lg:text-8xl xl:text-8xl ${colors.heroTitle} leading-tight ${fontCombinations.hero.title} w-full text-left`}>
+                  <h1 className={`text-3xl sm:text-7xl md:text-6xl lg:text-8xl xl:text-8xl ${colors.heroTitle} leading-tight ${fontCombinations.hero.title} ${hierarchyWeights.hero} w-full text-left`}>
                     <AnimatedTitle />
                   </h1>
                 </div>
@@ -179,8 +179,8 @@ export default function Home() {
                           <img src={homeImages.broho} alt="Brotherhood" className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14" />
                         </div>
                       )}
-                      <h3 className={`text-sm sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title}`}>BROTHERHOOD</h3>
-                      <p className={`text-xs sm:text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description}`}>We are a family of life-long friends that stick together through thick and thin.</p>
+                      <h3 className={`text-sm sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title} ${hierarchyWeights.valuesTitle}`}>BROTHERHOOD</h3>
+                      <p className={`text-xs sm:text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description} ${hierarchyWeights.paragraph}`}>We are a family of life-long friends that stick together through thick and thin.</p>
                     </div>
                   </BouncyFadeIn>
 
@@ -192,8 +192,8 @@ export default function Home() {
                           <img src={homeImages.integrity} alt="Integrity" className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14" />
                         </div>
                       )}
-                      <h3 className={`text-sm sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title}`}>INTEGRITY</h3>
-                      <p className={`text-xs sm:text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description}`}>We do things through hard work and dedication, while not taking any unnecessary shortcuts.</p>
+                      <h3 className={`text-sm sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title} ${hierarchyWeights.valuesTitle}`}>INTEGRITY</h3>
+                      <p className={`text-xs sm:text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description} ${hierarchyWeights.paragraph}`}>We do things through hard work and dedication, while not taking any unnecessary shortcuts.</p>
                     </div>
                   </BouncyFadeIn>
 
@@ -205,8 +205,8 @@ export default function Home() {
                           <img src={homeImages.service} alt="Service" className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14" />
                         </div>
                       )}
-                      <h3 className={`text-sm sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title}`}>SERVICE</h3>
-                      <p className={`text-xs sm:text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description}`}>We believe in giving back to the communities that have shaped us into the people we are today.</p>
+                      <h3 className={`text-sm sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title} ${hierarchyWeights.valuesTitle}`}>SERVICE</h3>
+                      <p className={`text-xs sm:text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description} ${hierarchyWeights.paragraph}`}>We believe in giving back to the communities that have shaped us into the people we are today.</p>
                     </div>
                   </BouncyFadeIn>
 
@@ -218,8 +218,8 @@ export default function Home() {
                           <img src={homeImages.unity} alt="Unity" className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14" />
                         </div>
                       )}
-                      <h3 className={`text-sm sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title}`}>UNITY</h3>
-                      <p className={`text-xs sm:text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description}`}>We strive to build our bonds and strengthen the brotherhood that we are proud of.</p>
+                      <h3 className={`text-sm sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title} ${hierarchyWeights.valuesTitle}`}>UNITY</h3>
+                      <p className={`text-xs sm:text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description} ${hierarchyWeights.paragraph}`}>We strive to build our bonds and strengthen the brotherhood that we are proud of.</p>
                     </div>
                   </BouncyFadeIn>
 
@@ -231,8 +231,8 @@ export default function Home() {
                           <img src={homeImages.knowledge} alt="Knowledge" className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14" />
                         </div>
                       )}
-                      <h3 className={`text-sm sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title}`}>KNOWLEDGE</h3>
-                      <p className={`text-xs sm:text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description}`}>We are scholars of diverse disciplines and professionals in varied industries.</p>
+                      <h3 className={`text-sm sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title} ${hierarchyWeights.valuesTitle}`}>KNOWLEDGE</h3>
+                      <p className={`text-xs sm:text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description} ${hierarchyWeights.paragraph}`}>We are scholars of diverse disciplines and professionals in varied industries.</p>
                     </div>
                   </BouncyFadeIn>
                 </div>
@@ -257,15 +257,15 @@ export default function Home() {
                   <div className="flex-1 max-w-4xl w-full lg:pr-12 relative z-10">
                     <div className="mb-6">
                     </div>
-                    <h3 className={`text-3xl md:text-4xl lg:text-5xl mb-6 md:mb-8 leading-tight text-left bg-gradient-to-r from-[#003366] to-[#6497B1] bg-clip-text text-transparent ${fontCombinations.section.main}`}>FROM<br />OUR PRESIDENT</h3>
+                    <h3 className={`text-3xl md:text-4xl lg:text-5xl mb-6 md:mb-8 leading-tight text-left bg-gradient-to-r from-[#003366] to-[#6497B1] bg-clip-text text-transparent ${fontCombinations.section.main} ${hierarchyWeights.title}`}>FROM<br />OUR PRESIDENT</h3>
                     <div className="space-y-4 md:space-y-6">
-                      <p className={`text-base md:text-lg relative pl-4 border-l-4 ${colors.border.accent} ${colors.section.text} ${fontCombinations.content.lead}`}>Welcome! This is the website for the Nu Xi Chapter of Alpha Kappa Psi. Here, you can explore our values, who our brothers are, and how you can get involved. Before diving into the details, the brothers of the Nu Xi Chapter would like to thank you for your interest in our fraternity.</p>
-                      <p className={`${colors.section.text} ${fontCombinations.content.body}`}>Alpha Kappa Psi is a pre-professional student fraternity here at UC San Diego. We are built on the key values of Brotherhood, Knowledge, Integrity, Unity, and Service. The community you&apos;ll find here at Alpha Kappa Psi is unparalleled. Not only do our brothers strive towards their personal and professional aspirations, but we do so together, building genuine bonds that last us a lifetime.</p>
-                      <p className={`${colors.section.text} ${fontCombinations.content.body}`}>With that being said, we highly encourage you to explore our website to learn more about our fraternity, our brothers, and what we stand for. If you&apos;re interested in joining our community, we encourage you to come out to our upcoming Fall 2025 Rush. At Rush, you&apos;ll get the chance to meet the brothers and learn more about how this fraternity can help you grow both personally and professionally.</p>
+                      <p className={`text-base md:text-lg relative pl-4 border-l-4 ${colors.border.accent} ${colors.section.text} ${fontCombinations.content.lead} ${hierarchyWeights.important}`}>Welcome! This is the website for the Nu Xi Chapter of Alpha Kappa Psi. Here, you can explore our values, who our brothers are, and how you can get involved. Before diving into the details, the brothers of the Nu Xi Chapter would like to thank you for your interest in our fraternity.</p>
+                      <p className={`${colors.section.text} ${fontCombinations.content.body} ${hierarchyWeights.paragraph}`}>Alpha Kappa Psi is a pre-professional student fraternity here at UC San Diego. We are built on the key values of Brotherhood, Knowledge, Integrity, Unity, and Service. The community you&apos;ll find here at Alpha Kappa Psi is unparalleled. Not only do our brothers strive towards their personal and professional aspirations, but we do so together, building genuine bonds that last us a lifetime.</p>
+                      <p className={`${colors.section.text} ${fontCombinations.content.body} ${hierarchyWeights.paragraph}`}>With that being said, we highly encourage you to explore our website to learn more about our fraternity, our brothers, and what we stand for. If you&apos;re interested in joining our community, we encourage you to come out to our upcoming Fall 2025 Rush. At Rush, you&apos;ll get the chance to meet the brothers and learn more about how this fraternity can help you grow both personally and professionally.</p>
                       <div className={`mt-4 md:mt-6 ${colors.section.text} ${fontCombinations.content.body}`}>
-                        <p className={`text-sm ${colors.text.secondary} uppercase tracking-wide mb-1 ${fontCombinations.interactive.tertiary}`}>Sincerely,</p>
-                        <p className={`text-lg md:text-xl ${colors.text.accent} ${fontCombinations.section.tertiary}`}>{president ? president.name : 'Loading...'}</p>
-                        <p className={`text-sm ${colors.text.secondary} ${fontCombinations.content.small}`}>President, Nu Xi Chapter</p>
+                        <p className={`text-sm ${colors.text.secondary} uppercase tracking-tighter mb-1 ${fontCombinations.interactive.tertiary} ${hierarchyWeights.signature}`}>Sincerely,</p>
+                        <p className={`text-lg md:text-xl ${colors.text.accent} ${fontCombinations.section.tertiary} ${hierarchyWeights.title}`}>{president ? president.name : 'Loading...'}</p>
+                        <p className={`text-sm ${colors.text.secondary} ${fontCombinations.content.small} ${hierarchyWeights.signature}`}>President, Nu Xi Chapter</p>
                       </div>
                     </div>
                   </div>
@@ -285,7 +285,7 @@ export default function Home() {
               </section>
 
                 {/* HERO DESCRIPTION SECTION WITH BACKGROUND IMAGE */}
-                <section className={`relative flex items-center justify-center w-full min-h-[60vh] ${colors.section.bg} rounded-b-3xl overflow-hidden`}>
+                <section className={`relative flex items-center justify-center w-full min-h-[60vh] ${colors.section.bg} overflow-hidden`}>
                   {/* Group Photo as background */}
                   <div className="absolute inset-0 z-0">
                     <div className="w-full h-full overflow-hidden flex items-center justify-center">
