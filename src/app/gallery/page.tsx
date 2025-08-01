@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import { createClient } from '../../../supabase/client';
 import LoadingSpinner from '../../components/LoadingSpinner';
-import { akpsiFonts } from '../../styles/fonts';
-import { akpsiColors } from '../../styles/colors';
+import { fontCombinations } from '../../styles/fonts';
+import { colors } from '../../styles/colors';
 import Footer from '../../components/Footer';
 
 interface GalleryImage {
@@ -64,14 +64,12 @@ export default function Gallery() {
   }, []);
 
   return (
-    <div className="relative min-h-screen flex flex-col">
+    <div className="relative min-h-screen flex flex-col gallery-page">
       {/* Full Page Background */}
-      {backgroundImage && (
-        <div 
-          className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${backgroundImage})` }}
-        />
-      )}
+      <div 
+        className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat bg-black"
+        style={{ backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined }}
+      />
       {/* Enhanced overlay for better readability */}
       <div className="fixed top-0 left-0 w-full h-full z-10 bg-gradient-to-br from-black/40 via-black/30 to-black/50" />
       <div className="relative z-20 min-h-screen flex flex-col">
@@ -81,18 +79,18 @@ export default function Gallery() {
           ) : (
             <>
               {galleryImages.length === 0 ? (
-                <div className={`flex flex-col items-center justify-center min-h-[60vh] ${akpsiColors.heroTitle}`}>
-                  <div className={`text-2xl ${akpsiFonts.sectionTitleFont} mb-2`}>No gallery images found</div>
-                  <div className={`text-lg opacity-80 ${akpsiFonts.bodyFont} ${akpsiColors.heroSubtitle}`}>Gallery images are not available.</div>
+                <div className={`flex flex-col items-center justify-center min-h-[60vh] ${colors.text.inverse}`}>
+                  <div className={`text-2xl ${fontCombinations.section.secondary} mb-2`}>No gallery images found</div>
+                  <div className={`text-lg opacity-80 ${fontCombinations.content.body} ${colors.glass.textSubtle}`}>Gallery images are not available.</div>
                 </div>
               ) : (
                 <div className="w-full max-w-6xl mx-auto">
                   {/* Header Section */}
                   <div className="text-center mb-16 mt-8 md:mt-12">
-                    <h1 className={`text-5xl lg:text-6xl ${akpsiFonts.heroTitleFont} ${akpsiColors.heroTitle} mb-4`}>
+                    <h1 className={`text-5xl lg:text-6xl ${fontCombinations.hero.title} ${colors.text.inverse} mb-4`}>
                       GALLERY
                     </h1>
-                    <p className={`text-xl ${akpsiColors.heroSubtitle} ${akpsiFonts.bodyFont} max-w-2xl mx-auto`}>
+                    <p className={`text-xl ${colors.glass.textSubtle} ${fontCombinations.content.body} max-w-2xl mx-auto`}>
                       BEYOND PROFESSIONALISM – BROTHERHOOD MOMENTS
                     </p>
                   </div>
@@ -116,7 +114,7 @@ export default function Gallery() {
             </>
           )}
         </main>
-        <Footer />
+        {!loading && <Footer />}
       </div>
     </div>
   );

@@ -6,6 +6,8 @@ import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import LoadingSpinner from '../../../components/LoadingSpinner';
 import Link from 'next/link';
+import { fontCombinations } from '../../../styles/fonts';
+import { colors } from '../../../styles/colors';
 
 
 export default function ActiveBrothers() {
@@ -62,14 +64,12 @@ export default function ActiveBrothers() {
   return (
     <div className="relative min-h-screen flex flex-col">
       {/* Full Page Background */}
-      {backgroundImage && (
-        <div 
-          className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${backgroundImage})` }}
-        />
-      )}
+      <div 
+        className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat bg-black"
+        style={{ backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined }}
+      />
       {/* Overlay for readability */}
-      <div className="fixed top-0 left-0 w-full h-full z-10 bg-black/30" />
+      <div className={`fixed top-0 left-0 w-full h-full z-10 bg-black/30`} />
       <div className="relative z-20 min-h-screen flex flex-col">
         <Navbar />
         <main className="flex-1 flex items-center justify-center py-16 px-4">
@@ -77,9 +77,9 @@ export default function ActiveBrothers() {
             <LoadingSpinner size="large" fullScreen={false} type="component" />
           ) : (
             <div className="w-full flex flex-col items-center">
-              <div className="text-center mb-2 mt-8 md:mt-12">
-                <div className="text-white text-sm tracking-widest mb-2">INTRODUCING OUR</div>
-                <h1 className="text-4xl lg:text-5xl font-bold text-white tracking-wide mb-7">ACTIVE BROTHERS</h1>
+              <div className="text-center mb-8 mt-8 md:mt-12">
+                <div className={`text-sm tracking-tighter mb-2 ${colors.text.inverse} ${fontCombinations.navigation.secondary}`}>INTRODUCING OUR</div>
+                <h1 className={`text-5xl lg:text-6xl ${fontCombinations.hero.title} ${colors.text.inverse} mb-4`}>ACTIVE BROTHERS</h1>
               </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
               {brothers.map((brother, idx) => (
@@ -93,14 +93,14 @@ export default function ActiveBrothers() {
                       />
                     </div>
                   </Link>
-                  <span className="text-lg font-semibold mt-2 text-white" style={{fontFamily: 'Montserrat, Arial, Helvetica, sans-serif'}}>{brother.name}</span>
+                  <span className={`text-lg mt-2 text-white ${fontCombinations.section.tertiary}`}>{brother.name}</span>
                 </div>
               ))}
             </div>
           </div>
           )}
         </main>
-        <Footer />
+        {!loading && <Footer />}
       </div>
     </div>
   );

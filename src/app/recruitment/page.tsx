@@ -4,8 +4,8 @@ import { createClient } from '../../../supabase/client';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import LoadingSpinner from '../../components/LoadingSpinner';
-import { akpsiColors } from '../../styles/colors';
-import { akpsiFonts } from '../../styles/fonts';
+import { colors } from '../../styles/colors';
+import { fontCombinations } from '../../styles/fonts';
 import { rushColors } from '../../styles/rushColors';
 import InfiniteCarousel from '../../components/InfiniteCarousel';
 
@@ -68,10 +68,8 @@ export default function Recruitment() {
         if (galleryError) {
           console.error('Error fetching gallery images:', galleryError);
         } else if (galleryData) {
-          // Shuffle all images but keep all of them
-          const shuffled = [...galleryData].sort(() => Math.random() - 0.5);
-          
-          const imagesWithUrls = shuffled.map((image) => {
+          // Use deterministic order to avoid hydration mismatch
+          const imagesWithUrls = galleryData.map((image) => {
             const cleanImagePath = image.image_path.trim();
             const { data: imageData } = supabase.storage
               .from('gallery')
@@ -148,14 +146,12 @@ export default function Recruitment() {
   return (
     <div className="relative min-h-screen flex flex-col">
       {/* Full Page Background */}
-      {backgroundImage && (
-        <div 
-          className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${backgroundImage})` }}
-        />
-      )}
+      <div 
+        className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat bg-black"
+        style={{ backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined }}
+      />
       {/* Overlay for readability */}
-      <div className="fixed top-0 left-0 w-full h-full z-10 bg-black/30" />
+      <div className={`fixed top-0 left-0 w-full h-full z-10 bg-black/30`} />
       <div className="relative z-20 min-h-screen flex flex-col">
         <Navbar />
         <main className="flex-1 flex items-center justify-center py-16 px-4 mt-20">
@@ -163,21 +159,21 @@ export default function Recruitment() {
             <LoadingSpinner size="large" fullScreen={false} type="component" />
           )}
           {!loading && (
-            <div className={`${akpsiColors.glassBg} ${akpsiColors.glassBlurMd} rounded-2xl shadow-2xl p-10 max-w-6xl w-full mx-auto ${akpsiColors.glassBorder}`}>
+            <div className={`${colors.glass.bg} backdrop-blur-md rounded-2xl shadow-2xl p-10 max-w-6xl w-full mx-auto ${colors.glass.border}`}>
             {/* ABOUT RECRUITMENT Section */}
             <div className="grid lg:grid-cols-2 gap-12 mb-12">
               {/* Left Side - About Content */}
               <div className="space-y-6">
-                <h2 className={`text-4xl ${akpsiFonts.sectionTitleFont} ${rushColors.rushTextHighlight}`}>
+                <h2 className={`text-4xl ${fontCombinations.section.main} ${rushColors.rushTextHighlight}`}>
                   ABOUT RECRUITMENT
                 </h2>
-                <p className={`text-lg leading-relaxed ${rushColors.rushTextBody} ${akpsiFonts.bodyFont}`}>
+                <p className={`text-lg leading-relaxed ${rushColors.rushTextBody} ${fontCombinations.content.body}`}>
                   The brothers of Alpha Kappa Psi cordially invite you to attend our Fall 2025 In-Person Rush:<span className={rushColors.rushTextHighlightBold}> Blueprint for Excellence</span>!
                 </p>
-                <p className={`text-lg leading-relaxed ${rushColors.rushTextBody} ${akpsiFonts.bodyFont}`}>
+                <p className={`text-lg leading-relaxed ${rushColors.rushTextBody} ${fontCombinations.content.body}`}>
                   Come out in Week 2 of Fall Quarter to meet our amazing active members and esteemed alumni. Get a glimpse of the professional development and tight-knit community we can offer.
                 </p>
-                <p className={`text-lg ${akpsiFonts.sectionSubtitleFont} ${rushColors.rushTextHighlight} ${akpsiFonts.bodyFont}`}>
+                <p className={`text-lg ${fontCombinations.navigation.secondary} ${rushColors.rushTextHighlight} ${fontCombinations.content.lead}`}>
                   Please fill out the interest form to stay updated on our upcoming events!
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -185,7 +181,7 @@ export default function Recruitment() {
                     href={links.interestForm || '#'}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`px-8 py-3 ${akpsiColors.glassBg} ${akpsiColors.glassBgHover} ${akpsiColors.glassBlur} ${akpsiFonts.sectionSubtitleFont} rounded-lg transition-all duration-300 transform hover:scale-105 ${akpsiFonts.sectionTextFont} text-center ${rushColors.rushText} ${akpsiColors.glassBorderHover} ${!links.interestForm ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    className={`px-8 py-3 ${colors.glass.bg} ${colors.glass.bgHover} backdrop-blur-sm ${fontCombinations.interactive.primary} rounded-lg transition-all duration-300 transform hover:scale-105 text-center ${rushColors.rushText} ${colors.glass.borderHover} ${!links.interestForm ? 'opacity-50 cursor-not-allowed' : ''}`}
                     onClick={(e) => {
                       console.log('Interest form clicked, link:', links.interestForm);
                       if (!links.interestForm) {
@@ -200,7 +196,7 @@ export default function Recruitment() {
                     href={links.applicationWebsite || '#'}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`px-8 py-3 ${rushColors.rushButtonSecondary} ${akpsiFonts.sectionSubtitleFont} rounded-lg transition-all duration-300 transform hover:scale-105 ${akpsiFonts.sectionTextFont} text-center ${rushColors.rushText} ${rushColors.rushButtonSecondaryBorder} ${!links.applicationWebsite ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    className={`px-8 py-3 ${rushColors.rushButtonSecondary} ${fontCombinations.interactive.primary} rounded-lg transition-all duration-300 transform hover:scale-105 text-center ${rushColors.rushText} ${rushColors.rushButtonSecondaryBorder} ${!links.applicationWebsite ? 'opacity-50 cursor-not-allowed' : ''}`}
                     onClick={!links.applicationWebsite ? (e) => e.preventDefault() : undefined}
                   >
                     APPLICATION
@@ -217,10 +213,10 @@ export default function Recruitment() {
                     className="w-full h-auto object-cover rounded-xl"
                   />
                 ) : (
-                  <div className={`${akpsiColors.statCircleBg} rounded-xl p-6 flex items-center justify-center h-64`}>
-                    <div className={`text-center ${akpsiColors.statCircleText} ${akpsiFonts.bodyFont}`}>
-                      <p className={`text-lg mb-2 ${akpsiFonts.sectionTextFont}`}>Loading flyer...</p>
-                      <p className={`text-sm ${akpsiFonts.sectionTextFont}`}>flyer.png</p>
+                  <div className={`${colors.bg.surfaceAlt} rounded-xl p-6 flex items-center justify-center h-64`}>
+                    <div className={`text-center ${colors.text.secondary} ${fontCombinations.content.body}`}>
+                      <p className={`text-lg mb-2 ${fontCombinations.content.lead}`}>Loading flyer...</p>
+                      <p className={`text-sm ${fontCombinations.content.small}`}>flyer.png</p>
                     </div>
                   </div>
                 )}
@@ -229,32 +225,32 @@ export default function Recruitment() {
 
             {/* RUSH WEEK SCHEDULE Section */}
             <div className="mb-12">
-                              <h2 className={`text-4xl ${akpsiFonts.sectionTitleFont} mb-8 text-center ${rushColors.rushText}`}>
+                              <h2 className={`text-4xl ${fontCombinations.section.main} mb-8 text-center ${rushColors.rushText}`}>
                   RUSH WEEK SCHEDULE
                 </h2>
               <div className="space-y-6">
                 {loading ? (
-                  <div className={`${akpsiColors.glassBg} ${akpsiColors.glassBlur} rounded-lg p-6 ${akpsiColors.glassBorder} text-center`}>
-                    <p className={`${rushColors.rushText} ${akpsiFonts.bodyFont}`}>Loading events...</p>
+                  <div className={`${colors.glass.bg} backdrop-blur-sm rounded-lg p-6 ${colors.glass.border} text-center`}>
+                    <p className={`${rushColors.rushText} ${fontCombinations.content.body}`}>Loading events...</p>
                   </div>
                 ) : recruitmentEvents.length > 0 ? (
                   recruitmentEvents.map((event, index) => (
-                    <div key={index} className={`${akpsiColors.glassBg} ${akpsiColors.glassBlur} rounded-lg p-6 ${akpsiColors.glassBorder}`}>
-                      <h3 className={`text-xl ${akpsiFonts.sectionTitleFont} mb-2 ${rushColors.rushTextHighlight}`}>{event.eventName.toUpperCase()}</h3>
-                      <p className={`${rushColors.rushTextHighlight} ${akpsiFonts.sectionSubtitleFont} mb-2 ${akpsiFonts.sectionTextFont}`}>
+                    <div key={index} className={`${colors.glass.bg} backdrop-blur-sm rounded-lg p-6 ${colors.glass.border}`}>
+                      <h3 className={`text-xl ${fontCombinations.navigation.primary} mb-2 ${rushColors.rushTextHighlight}`}>{event.eventName.toUpperCase()}</h3>
+                      <p className={`text-lg font-bold ${rushColors.rushTextHighlight} ${fontCombinations.navigation.primary} mb-2`}>
                         {event.day.toUpperCase()}, {event.date}
                       </p>
-                      <p className={`${rushColors.rushTextSubtitle} ${akpsiFonts.sectionSubtitleFont} mb-2 ${akpsiFonts.sectionTextFont}`}>
+                      <p className={`text-lg font-medium ${rushColors.rushTextSubtitle} ${fontCombinations.navigation.secondary} mb-2 ${fontCombinations.content.small}`}>
                         {event.details}
                       </p>
-                      <p className={`${rushColors.rushTextBody} ${akpsiFonts.bodyFont}`}>
+                      <p className={`${rushColors.rushTextBody} ${fontCombinations.content.body}`}>
                         {event.description}
                       </p>
                     </div>
                   ))
                 ) : (
-                  <div className={`${akpsiColors.glassBg} ${akpsiColors.glassBlur} rounded-lg p-6 ${akpsiColors.glassBorder} text-center`}>
-                    <p className={`${rushColors.rushText} ${akpsiFonts.bodyFont}`}>No events found. Please check back later!</p>
+                  <div className={`${colors.glass.bg} backdrop-blur-sm rounded-lg p-6 ${colors.glass.border} text-center`}>
+                    <p className={`${rushColors.rushText} ${fontCombinations.content.body}`}>No events found. Please check back later!</p>
                   </div>
                 )}
               </div>
@@ -263,7 +259,7 @@ export default function Recruitment() {
                   href={links.instagram || '#'}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`px-8 py-3 ${rushColors.rushButtonSecondary} ${akpsiFonts.sectionSubtitleFont} rounded-lg transition-all duration-300 transform hover:scale-105 ${akpsiFonts.sectionTextFont} inline-block ${rushColors.rushText} ${rushColors.rushButtonSecondaryBorder} ${!links.instagram ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  className={`px-8 py-3 ${rushColors.rushButtonSecondary} ${fontCombinations.interactive.primary} rounded-lg transition-all duration-300 transform hover:scale-105 inline-block ${rushColors.rushText} ${rushColors.rushButtonSecondaryBorder} ${!links.instagram ? 'opacity-50 cursor-not-allowed' : ''}`}
                   onClick={!links.instagram ? (e) => e.preventDefault() : undefined}
                 >
                   STAY UPDATED
@@ -273,25 +269,38 @@ export default function Recruitment() {
 
                         {/* QUESTIONS? CONTACT US! Section */}
             <div className="text-center">
-                              <h2 className={`text-4xl ${akpsiFonts.sectionTitleFont} mb-6 ${rushColors.rushText}`}>
+                              <h2 className={`text-4xl ${fontCombinations.section.main} mb-6 ${rushColors.rushText}`}>
                   QUESTIONS? CONTACT US!
                 </h2>
-              <div className={`${akpsiColors.glassBg} ${akpsiColors.glassBlur} rounded-lg p-8 ${akpsiColors.glassBorder}`}>
-                <h3 className={`text-xl ${akpsiFonts.sectionTitleFont} mb-4 ${rushColors.rushTextHighlight}`}>Rush Chairs</h3>
+              <div className={`${colors.glass.bg} backdrop-blur-sm rounded-lg p-8 ${colors.glass.border}`}>
+                <h3 className={`text-xl ${fontCombinations.section.tertiary} mb-4 ${rushColors.rushTextHighlight}`}>Rush Chairs</h3>
                 <div className={`space-y-2 ${rushColors.rushTextBody}`}>
                   {contactInfo.chairs.map((chair, index) => (
-                    <p key={index} className={`text-lg ${akpsiFonts.bodyFont}`}>
-                      {chair.name}: {chair.number}
+                    <p key={index} className={`text-lg ${fontCombinations.content.lead} break-words block`}>
+                      <span className="font-semibold">{chair.name}:</span> <span className="break-all">{chair.number}</span>
                     </p>
                   ))}
-                  <div className={`text-lg mt-4 ${akpsiFonts.bodyFont} text-center`}>
-                    <span className={rushColors.rushTextHighlight}>@ucsdakpsi</span>
-                    <span className="mx-2">|</span>
+                  <div className={`text-lg mt-4 ${fontCombinations.content.lead} flex flex-col md:flex-row items-center justify-center gap-2 md:gap-0 text-center flex-wrap`}>
+                    <span className={rushColors.rushTextHighlight}>
+                      <u>
+                      <a href="https://www.instagram.com/ucsdakpsi/" target="_blank" rel="noopener noreferrer">@ucsdakpsi</a>
+                      </u>
+                    </span>
+
+                    <span className="mx-2 hidden md:inline">|</span>
                     {contactInfo.email && (
-                      <span className={rushColors.rushTextHighlight}>{contactInfo.email}</span>
+                      <span className={rushColors.rushTextHighlight}>
+                        <u>
+                        <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a>
+                        </u>
+                      </span>
                     )}
-                    {contactInfo.email && <span className="mx-2">|</span>}
-                    <span className={rushColors.rushTextHighlight}>akpsiucsd.com</span>
+                    {contactInfo.email && <span className="mx-2 hidden md:inline">|</span>}
+                    <span className={rushColors.rushTextHighlight}> 
+                      <u>
+                      <a href="https://akpsiucsd.app" target="_blank" rel="noopener noreferrer">akpsiucsd.app</a>
+                      </u>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -308,7 +317,7 @@ export default function Recruitment() {
           </div>
           )}
         </main>
-        <Footer />
+        {!loading && <Footer />}
       </div>
     </div>
   );
