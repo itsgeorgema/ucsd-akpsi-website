@@ -170,7 +170,7 @@ export default function Home() {
                 </div>
 
                 {/* Values Section - Dynamic Spacing */}
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-3 md:gap-4 lg:gap-6 mb-2 md:mb-4 flex-shrink-0 justify-center">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-1 md:gap-4 lg:gap-6 mb-2 md:mb-4 flex-shrink-0 justify-center">
                   {/* Brotherhood */}
                   <BouncyFadeIn delay={0.1} threshold={0.1}>
                     <div className={`${colors.glass.text}`}>
