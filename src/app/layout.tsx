@@ -20,8 +20,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "UCSD AKPSI",
-  description: "Alpha Kappa Psi at UC San Diego",
+  openGraph: {
+    title: "UCSD AKPSI",
+    description: "Alpha Kappa Psi at UC San Diego",
+    url: "https://www.akpsiucsd.com",
+    siteName: "UCSD AKPSI",
+    images: [
+      {
+        url: "https://www.akpsiucsd.com/assets/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "UCSD AKPSI",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
