@@ -161,16 +161,16 @@ export default function Home() {
           <>
             {/* HERO SECTION */}
             <section className="relative flex flex-col justify-center min-h-screen px-4 md:px-8 lg:px-12 pt-8 md:pt-4 safe-area-inset-top safe-area-inset-bottom">
-              <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col flex-1 justify-center scale-90 sm:scale-100 translate-y-6 sm:translate-y-0">
+              <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col flex-1 justify-center scale-90 sm:scale-100 translate-y-6 sm:translate-y-16 md:translate-y-0">
                 {/* Title Section - Dynamic Height */}
-                <div className="flex-1 flex items-end justify-center mb-8 md:mb-12">
-                  <h1 className={`text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl ${colors.heroTitle} leading-tight ${fontCombinations.hero.title} w-full text-left`}>
+                <div className="flex-1 flex items-end justify-center mb-4 md:mb-6 lg:mb-12">
+                  <h1 className={`text-3xl sm:text-7xl md:text-6xl lg:text-8xl xl:text-8xl ${colors.heroTitle} leading-tight ${fontCombinations.hero.title} w-full text-left`}>
                     <AnimatedTitle />
                   </h1>
                 </div>
 
                 {/* Values Section - Dynamic Spacing */}
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-1 md:gap-4 lg:gap-6 mb-2 md:mb-4 flex-shrink-0 justify-center">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-1 md:gap-1 lg:gap-6 mb-2 md:mb-4 flex-shrink-0 justify-center">
                   {/* Brotherhood */}
                   <BouncyFadeIn delay={0.1} threshold={0.1}>
                     <div className={`${colors.glass.text}`}>
