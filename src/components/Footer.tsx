@@ -118,7 +118,7 @@ export default function Footer({ className = "" }: FooterProps) {
       
       {/* Main footer content */}
       <div className="max-w-6xl mx-auto px-6 py-6 md:py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mb-4 md:mb-6 items-start justify-between">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mb-4 md:mb-6 items-start justify-between mt-4">
           {/* Left Column - Organization Info */}
           <div className="space-y-2 md:space-y-3 mb-4 md:mb-0 flex flex-col items-center md:items-start">
             <div className="flex items-center space-x-3">
@@ -133,11 +133,11 @@ export default function Footer({ className = "" }: FooterProps) {
 
           {/* Middle Column - Quick Links */}
           <div className="space-y-2 md:space-y-3 mb-4 md:mb-0 flex flex-col items-center md:items-start">
-            <h3 className={`text-3xl ${colors.text.inverse} ${akpsiFonts.sectionTitleFont} ${hierarchyWeights.footer}`}>
+            <h3 className={`text-3xl ${colors.text.inverse} ${akpsiFonts.sectionTitleFont} ${hierarchyWeights.footer} mb-6`}>
               Quick Links
             </h3>
-            <div className="space-y-2 md:space-y-2 flex flex-col items-center md:items-start">
-              
+            <div className="space-y-3 md:space-y-3 flex flex-col items-center md:items-start">
+              <div className="space-y-2 md:space-y-1 flex flex-col items-center md:items-start">
               <a 
                 href="https://akpsiucsd.app" 
                 className={`text-sm ${colors.text.inverse} opacity-70 hover:opacity-100 transition-opacity ${colors.footer.link} underline ${akpsiFonts.bodyFont}`}
@@ -158,18 +158,16 @@ export default function Footer({ className = "" }: FooterProps) {
               >
                 Official Website
               </a>
-              
+              </div>
             </div>
           </div>
 
           {/* Right Column - Rush Info */}
           <div className="space-y-2 md:space-y-3 flex flex-col items-center md:items-start">
-            <h3 className={`text-3xl ${colors.text.inverse} ${akpsiFonts.sectionTitleFont} ${hierarchyWeights.footer}`}>
+            <h3 className={`text-3xl ${colors.text.inverse} ${akpsiFonts.sectionTitleFont} ${hierarchyWeights.footer} mb-6`}>
               Fall &apos;25 Rush Contacts
             </h3>
-            <div className="space-y-2 md:space-y-2 flex flex-col items-center md:items-start">
-              <p className={`text-sm ${colors.text.inverse} opacity-60 ${akpsiFonts.bodyFont}`}>
-              </p>
+            <div className="space-y-3 md:space-y-3 flex flex-col items-center md:items-start">
               <div className="space-y-2 md:space-y-1 flex flex-col items-center md:items-start">
                 <div className="flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-2">
                   <p className={`text-sm ${colors.text.inverse} opacity-60 ${akpsiFonts.bodyFont}`}>

@@ -75,10 +75,8 @@ export default function Login() {
       <div className="relative z-20 flex flex-col min-h-screen justify-between">
         <div className="flex-1 flex flex-col items-center justify-center px-4 py-12">
                       <div className={`max-w-md w-full space-y-8 p-8 bg-gradient-to-br from-[#F8F8F8]/5 to-[#B3CDE0]/10 backdrop-blur-xl rounded-3xl border border-[#F8F8F8]/20 shadow-2xl`}>
-            <div className="text-center mb-8">
-              <div className="mb-4">
-              </div>
-              <h2 className={`text-4xl bg-gradient-to-r from-[#F8F8F8] to-[#D4AF37] bg-clip-text text-transparent ${fontCombinations.section.main} drop-shadow-lg`}>{}
+            <div className="text-center mb-8 mt-4">
+              <h2 className={`text-4xl bg-gradient-to-r from-[#F8F8F8] to-[#D4AF37] bg-clip-text text-transparent ${fontCombinations.section.main} drop-shadow-lg`}>
                 AKPsi Nu Xi
               </h2>
             </div>
