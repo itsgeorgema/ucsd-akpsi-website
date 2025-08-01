@@ -161,26 +161,26 @@ export default function Home() {
           <>
             {/* HERO SECTION */}
             <section className="relative flex flex-col justify-center min-h-screen px-4 md:px-8 lg:px-12 pt-8 md:pt-4 safe-area-inset-top safe-area-inset-bottom">
-              <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col flex-1 justify-center scale-90 sm:scale-100">
+              <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col flex-1 justify-center scale-90 sm:scale-100 translate-y-8 sm:translate-y-0">
                 {/* Title Section - Dynamic Height */}
                 <div className="flex-1 flex items-end justify-center mb-8 md:mb-12">
-                  <h1 className={`text-4xl md:text-6xl lg:text-7xl xl:text-8xl ${colors.heroTitle} leading-tight ${fontCombinations.hero.title} w-full text-left`}>
+                  <h1 className={`text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl ${colors.heroTitle} leading-tight ${fontCombinations.hero.title} w-full text-left`}>
                     <AnimatedTitle />
                   </h1>
                 </div>
 
                 {/* Values Section - Dynamic Spacing */}
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-3 md:gap-4 lg:gap-6 mb-2 md:mb-4 flex-shrink-0 justify-center">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-1 md:gap-4 lg:gap-6 mb-2 md:mb-4 flex-shrink-0 justify-center">
                   {/* Brotherhood */}
                   <BouncyFadeIn delay={0.1} threshold={0.1}>
                     <div className={`${colors.glass.text}`}>
                       {homeImages.broho && (
                         <div className="mb-1 md:mb-2">
-                          <img src={homeImages.broho} alt="Brotherhood" className="h-10 w-10 md:h-12 md:w-12 lg:h-14 lg:w-14" />
+                          <img src={homeImages.broho} alt="Brotherhood" className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14" />
                         </div>
                       )}
-                      <h3 className={`text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title}`}>BROTHERHOOD</h3>
-                      <p className={`text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description}`}>We are a family of life-long friends that stick together through thick and thin.</p>
+                      <h3 className={`text-xs sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title}`}>BROTHERHOOD</h3>
+                      <p className={`text-xs sm:text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description}`}>We are a family of life-long friends that stick together through thick and thin.</p>
                     </div>
                   </BouncyFadeIn>
 
@@ -189,11 +189,11 @@ export default function Home() {
                     <div className={`${colors.glass.text}`}>
                       {homeImages.integrity && (
                         <div className="mb-1 md:mb-2">
-                          <img src={homeImages.integrity} alt="Integrity" className="h-10 w-10 md:h-12 md:w-12 lg:h-14 lg:w-14" />
+                          <img src={homeImages.integrity} alt="Integrity" className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14" />
                         </div>
                       )}
-                      <h3 className={`text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title}`}>INTEGRITY</h3>
-                      <p className={`text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description}`}>We do things through hard work and dedication, while not taking any unnecessary shortcuts.</p>
+                      <h3 className={`text-xs sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title}`}>INTEGRITY</h3>
+                      <p className={`text-xs sm:text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description}`}>We do things through hard work and dedication, while not taking any unnecessary shortcuts.</p>
                     </div>
                   </BouncyFadeIn>
 
@@ -202,11 +202,11 @@ export default function Home() {
                     <div className={`${colors.glass.text}`}>
                       {homeImages.service && (
                         <div className="mb-1 md:mb-2">
-                          <img src={homeImages.service} alt="Service" className="h-10 w-10 md:h-12 md:w-12 lg:h-14 lg:w-14" />
+                          <img src={homeImages.service} alt="Service" className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14" />
                         </div>
                       )}
-                      <h3 className={`text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title}`}>SERVICE</h3>
-                      <p className={`text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description}`}>We believe in giving back to the communities that have shaped us into the people we are today.</p>
+                      <h3 className={`text-xs sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title}`}>SERVICE</h3>
+                      <p className={`text-xs sm:text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description}`}>We believe in giving back to the communities that have shaped us into the people we are today.</p>
                     </div>
                   </BouncyFadeIn>
 
@@ -215,11 +215,11 @@ export default function Home() {
                     <div className={`${colors.glass.text}`}>
                       {homeImages.unity && (
                         <div className="mb-1 md:mb-2">
-                          <img src={homeImages.unity} alt="Unity" className="h-10 w-10 md:h-12 md:w-12 lg:h-14 lg:w-14" />
+                          <img src={homeImages.unity} alt="Unity" className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14" />
                         </div>
                       )}
-                      <h3 className={`text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title}`}>UNITY</h3>
-                      <p className={`text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description}`}>We strive to build our bonds and strengthen the brotherhood that we are proud of.</p>
+                      <h3 className={`text-xs sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title}`}>UNITY</h3>
+                      <p className={`text-xs sm:text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description}`}>We strive to build our bonds and strengthen the brotherhood that we are proud of.</p>
                     </div>
                   </BouncyFadeIn>
 
@@ -228,11 +228,11 @@ export default function Home() {
                     <div className={`${colors.glass.text}`}>
                       {homeImages.knowledge && (
                         <div className="mb-1 md:mb-2">
-                          <img src={homeImages.knowledge} alt="Knowledge" className="h-10 w-10 md:h-12 md:w-12 lg:h-14 lg:w-14" />
+                          <img src={homeImages.knowledge} alt="Knowledge" className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14" />
                         </div>
                       )}
-                      <h3 className={`text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title}`}>KNOWLEDGE</h3>
-                      <p className={`text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description}`}>We are scholars of diverse disciplines and professionals in varied industries.</p>
+                      <h3 className={`text-xs sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title}`}>KNOWLEDGE</h3>
+                      <p className={`text-xs sm:text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description}`}>We are scholars of diverse disciplines and professionals in varied industries.</p>
                     </div>
                   </BouncyFadeIn>
                 </div>
