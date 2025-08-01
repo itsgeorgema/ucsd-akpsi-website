@@ -14,6 +14,11 @@ export default function Contact() {
   const [loading, setLoading] = useState(true);
   const [submitted, setSubmitted] = useState(false);
   const [checkmarkAnimation, setCheckmarkAnimation] = useState(false);
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
   const checkmarkRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
@@ -52,8 +57,29 @@ export default function Contact() {
     fetchBackground();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    try {
+      const response = await fetch('api/email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: `${firstName} ${lastName}`,
+          email: email,
+          message: message,
+        }),
+      });
+      
+      if (!response.ok){
+        const err = await response.text()
+        throw new Error(`Server error: ${response.status} ${err}`);
+      }
+      
+      const data = await response.json();
+      console.log('Email sent successfully:', data);
+    } catch (err) {
+      console.log('Error sending email:', err)
+    }
     setSubmitted(true);
   };
 
@@ -135,6 +161,7 @@ export default function Contact() {
                           required
                           className={`appearance-none rounded-lg relative block w-full px-4 py-3 border-2 ${colors.glass.border} text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37] text-base ${fontCombinations.content.body} ${colors.glass.bg} shadow-lg transition-all duration-200`}
                           placeholder="Enter your first name"
+                          onChange={(e) => {setFirstName(e.target.value)}}
                         />
                       </div>
 
@@ -150,6 +177,7 @@ export default function Contact() {
                           required
                           className={`appearance-none rounded-lg relative block w-full px-4 py-3 border-2 ${colors.glass.border} text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37] text-base ${fontCombinations.content.body} ${colors.glass.bg} shadow-lg transition-all duration-200`}
                           placeholder="Enter your last name"
+                          onChange={(e) => {setLastName(e.target.value)}}
                         />
                       </div>
                     </div>
@@ -166,6 +194,7 @@ export default function Contact() {
                         required
                         className={`appearance-none rounded-lg relative block w-full px-4 py-3 border-2 ${colors.glass.border} text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37] text-base ${fontCombinations.content.body} ${colors.glass.bg} shadow-lg transition-all duration-200`}
                         placeholder="Enter your email"
+                        onChange={(e) => {setEmail(e.target.value)}}
                       />
                     </div>
 
@@ -181,6 +210,7 @@ export default function Contact() {
                       required
                       className={`appearance-none rounded-lg relative block w-full px-4 py-3 border-2 ${colors.glass.border} text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37] text-base ${fontCombinations.content.body} ${colors.glass.bg} shadow-lg transition-all duration-200 resize-none`}
                       placeholder="Enter your message"
+                      onChange={(e) => {setMessage(e.target.value)}}
                     />
                   </div>
 
