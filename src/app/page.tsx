@@ -238,7 +238,7 @@ export default function Home() {
                 </div>
 
                 {/* Scroll Arrow - Always Visible */}
-                <div className="flex justify-center flex-shrink-0 mt-2 md:mt-4 pb-20 md:pb-0">
+                <div className="flex justify-center flex-shrink-0 mt-2 md:mt-4 pb-0 md:pb-0">
                   <ScrollArrow />
                 </div>
               </div>
