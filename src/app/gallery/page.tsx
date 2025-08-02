@@ -5,7 +5,6 @@ import { createClient } from '../../../supabase/client';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { fontCombinations } from '../../styles/fonts';
 import { colors } from '../../styles/colors';
-import Footer from '../../components/Footer';
 
 interface GalleryImage {
   imageUrl: string;
@@ -114,7 +113,6 @@ export default function Gallery() {
             </>
           )}
         </main>
-        {!loading && <Footer />}
       </div>
     </div>
   );

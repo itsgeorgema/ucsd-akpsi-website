@@ -248,7 +248,7 @@ export default function Footer({ className = "" }: FooterProps) {
       <div className="border-t border-[#9E9E9E]/30 px-6 py-4">
         <div className="max-w-6xl mx-auto flex flex-col items-center justify-center space-y-2">
           <p className={`text-sm ${colors.text.inverse} opacity-60 ${akpsiFonts.bodyFont} text-center whitespace-nowrap`}>
-            © 2025 UCSD Alpha Kappa Psi. All rights reserved.
+            &copy; {new Date().getFullYear()} UCSD Alpha Kappa Psi. All rights reserved.
           </p>
           <p className={`text-sm ${colors.text.inverse} opacity-60 ${akpsiFonts.bodyFont} flex items-center`}>
             <a href="/terms" className={`text-sm ${colors.text.inverse} opacity-70 hover:opacity-100 transition-opacity ${colors.footer.link} ${akpsiFonts.bodyFont}`}>
