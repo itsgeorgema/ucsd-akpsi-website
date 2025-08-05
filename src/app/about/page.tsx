@@ -2,16 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import { createClient } from '../../../supabase/client';
-import ScrollArrow from '../../components/ScrollArrow';
 import LoadingSpinner from '../../components/LoadingSpinner';
-import BouncyFadeIn from '../../components/BouncyFadeIn';
+import { fontCombinations, akpsiFonts } from '../../styles/fonts';
 import { colors } from '../../styles/colors';
-import { akpsiFonts, fontCombinations } from '../../styles/fonts';
-
-interface Company {
-  image_path: string;
-  imageUrl: string;
-}
+import { getCompanyImages, Company, getAboutImages } from '../../utils/imageUtils';
+import ScrollArrow from '../../components/ScrollArrow';
+import BouncyFadeIn from '../../components/BouncyFadeIn';
 
 interface AboutImages {
   backgroundVideo: string;
@@ -35,6 +31,7 @@ interface StatModalData {
 type ActiveTab = 'akpsi' | 'nuxi' | 'statistics';
 
 export default function About() {
+  const [loading, setLoading] = useState(true);
   const [companies, setCompanies] = useState<Company[]>([]);
   const [images, setImages] = useState<AboutImages>({
     backgroundVideo: '',
@@ -48,7 +45,6 @@ export default function About() {
     crestSvg: '',
     akpsiLogoSvg: ''
   });
-  const [loading, setLoading] = useState(true);
   const [selectedStat, setSelectedStat] = useState<StatModalData | null>(null);
   const [activeTab, setActiveTab] = useState<ActiveTab>('akpsi');
   const [isTransitioning] = useState(false);
@@ -102,115 +98,14 @@ export default function About() {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const supabase = createClient();
         
-        // Define image paths to fetch directly from storage bucket
-        const imagePaths = [
-          'backgroundVid3.mp4',
-          'crest.png',
-          'groupAbout1.jpeg', 
-          'groupAbout2.jpeg',
-          'genderPie.png',
-          'gradePie.png',
-          'industryDistribution.png'
-        ];
-        
-        // Additional SVG images for tab icons
-        const svgImagePaths = [
-          'crest1.svg',
-          'akpsiLogo.svg'
-        ];
-        
-        // Generate public URLs for each image directly from storage
-        const imageUrls: AboutImages = {
-          backgroundVideo: '',
-          crest: '',
-          akpsiLogo: '',
-          groupPhoto1: '',
-          groupPhoto2: '',
-          genderPie: '',
-          gradePie: '',
-          industryDistribution: '',
-          crestSvg: '',
-          akpsiLogoSvg: ''
-        };
+        // Get about images from utility function
+        const aboutImagesData = getAboutImages();
+        setImages(aboutImagesData);
 
-        imagePaths.forEach(imagePath => {
-          const { data: imageData } = supabase.storage
-            .from('about-page')
-            .getPublicUrl(imagePath);
-          
-          // Map image paths to their corresponding state properties
-          switch (imagePath) {
-            case 'backgroundVid3.mp4':
-              imageUrls.backgroundVideo = imageData.publicUrl;
-              break;
-            case 'crest.png':
-              imageUrls.crest = imageData.publicUrl;
-              break;
-            case 'groupAbout1.jpeg':
-              imageUrls.groupPhoto1 = imageData.publicUrl;
-              break;
-            case 'groupAbout2.jpeg':
-              imageUrls.groupPhoto2 = imageData.publicUrl;
-              break;
-            case 'genderPie.png':
-              imageUrls.genderPie = imageData.publicUrl;
-              break;
-            case 'gradePie.png':
-              imageUrls.gradePie = imageData.publicUrl;
-              break;
-            case 'industryDistribution.png':
-              imageUrls.industryDistribution = imageData.publicUrl;
-              break;
-          }
-        });
-        
-        // Load SVG images for tab icons
-        svgImagePaths.forEach(svgPath => {
-          const { data: svgData } = supabase.storage
-            .from('about-page')
-            .getPublicUrl(svgPath);
-          
-          switch (svgPath) {
-            case 'crest1.svg':
-              imageUrls.crestSvg = svgData.publicUrl;
-              break;
-            case 'akpsiLogo.svg':
-              imageUrls.akpsiLogoSvg = svgData.publicUrl;
-              break;
-          }
-        });
-        setImages(imageUrls);
-        
         // Fetch companies
-        const { data: companiesData, error: companiesError } = await supabase
-          .from('companies')
-          .select('image_path');
-
-        if (companiesError) {
-          console.error('Error fetching companies:', companiesError);
-          setCompanies([]);
-        } else if (companiesData) {
-          console.log('Fetched companies data:', companiesData);
-          const companiesWithUrls = companiesData.map(company => {
-            console.log('Processing company:', company);
-            const cleanImagePath = company.image_path.trim();
-            const { data: imageData } = supabase.storage
-              .from('home-page-companies')
-              .getPublicUrl(cleanImagePath);
-            
-            console.log('Generated URL for', cleanImagePath, ':', imageData.publicUrl);
-            
-            return {
-              image_path: cleanImagePath,
-              imageUrl: imageData.publicUrl,
-            };
-          });
-
-          console.log('Final companies with URLs:', companiesWithUrls);
-          setCompanies(companiesWithUrls);
-        }
+        const companiesWithUrls = getCompanyImages();
+        setCompanies(companiesWithUrls);
       } catch (error) {
         console.error('Error:', error);
       } finally {
@@ -716,7 +611,7 @@ export default function About() {
                                 <div className="aspect-square flex items-center justify-center">
                                   <img 
                                     src={company.imageUrl} 
-                                    alt={company.image_path ? company.image_path.replace('.png', '') : 'Company logo'} 
+                                    alt={company.name ? company.name : 'Company logo'} 
                                     className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-300" 
                                     onError={() => console.error('Image failed to load:', company.imageUrl)}
                                   />

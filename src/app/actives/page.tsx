@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { createClient } from '../../../supabase/client';
 import { fontCombinations } from '../../styles/fonts';
 import { colors } from '../../styles/colors';
 import LoadingSpinner from '../../components/LoadingSpinner';
@@ -63,7 +62,7 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
 
 // The actual actives page component
 function ActivesPageContent() {
-  const [backgroundUrl, setBackgroundUrl] = useState('');
+  const backgroundUrl = '/assets/sunsetBackground.jpeg';
   const [links, setLinks] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -71,12 +70,6 @@ function ActivesPageContent() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        
-        const supabase = createClient();
-        
-        // Fetch background image for all users
-        const { data: bgData } = supabase.storage.from('background').getPublicUrl('background.jpeg');
-        setBackgroundUrl(bgData?.publicUrl || '');
         
         // Fetch links from resources table via API route (server-side with service role)
         const response = await fetch('/api/resources', {
@@ -112,7 +105,6 @@ function ActivesPageContent() {
           setLinks(linkUrls);
         }
       } catch {
-        setBackgroundUrl('');
         setLinks([]);
       } finally {
         setLoading(false);

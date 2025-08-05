@@ -18,22 +18,13 @@ interface Executive {
 
 export default function ExecutiveCommittee() {
   const [executives, setExecutives] = useState<Executive[]>([]);
-  const [backgroundImage, setBackgroundImage] = useState<string>('');
+  const backgroundImage = '/assets/sunsetBackground.jpeg';
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const supabase = createClient();
-        
-        // Fetch background image directly from storage
-        console.log('Starting to fetch background image...');
-        const { data: imageData } = supabase.storage
-          .from('background')
-          .getPublicUrl('background.jpeg');
-        
-        console.log('Background image URL:', imageData.publicUrl);
-        setBackgroundImage(imageData.publicUrl);
         
         // Fetch executives data
         const { data, error } = await supabase

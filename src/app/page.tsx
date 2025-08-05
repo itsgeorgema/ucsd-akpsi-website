@@ -8,36 +8,27 @@ import BouncyFadeIn from '../components/BouncyFadeIn';
 import { fontCombinations, hierarchyWeights } from '../styles/fonts';
 import { colors } from '../styles/colors';
 import AnimatedTitle from '../components/AnimatedTitle';
+import { getHomeImages, HomeImages } from '../utils/imageUtils';
 
 interface President {
   name: string;
   imageUrl: string;
 }
 
-interface HomeImages {
-  background: string;
-  groupPhoto1: string;
-  groupPhoto2: string;
-  industryDistribution: string;
-  broho: string;
-  integrity: string;
-  service: string;
-  unity: string;
-  knowledge: string;
-}
-
 export default function Home() {
-  const [president, setPresident] = useState<President | null>(null);
   const [homeImages, setHomeImages] = useState<HomeImages>({
     background: '',
     groupPhoto1: '',
     groupPhoto2: '',
-    industryDistribution: '',
     broho: '',
     integrity: '',
     service: '',
     unity: '',
     knowledge: '',
+  });
+  const [president, setPresident] = useState<President>({
+    name: '',
+    imageUrl: ''
   });
   const [loading, setLoading] = useState(true);
 
@@ -46,70 +37,9 @@ export default function Home() {
       try {
         const supabase = createClient();
         
-        // Fetch home page images from storage bucket
-        const imagePaths = [
-          'homePageBackground.jpg',
-          'homePageGroupPhoto.jpg',
-          'homePageGroupPhoto2.png',
-          'industryDistribution.png',
-          'broho.png',
-          'integrity.png',
-          'service.png',
-          'unity.png',
-          'knowledge.png'
-        ];
-
-        const newHomeImages: HomeImages = {
-          background: '',
-          groupPhoto1: '',
-          groupPhoto2: '',
-          industryDistribution: '',
-          broho: '',
-          integrity: '',
-          service: '',
-          unity: '',
-          knowledge: '',
-        };
-
-        imagePaths.forEach(imagePath => {
-          const { data: imageData } = supabase.storage
-            .from('home-page')
-            .getPublicUrl(imagePath);
-          
-          switch (imagePath) {
-            case 'homePageBackground.jpg':
-              newHomeImages.background = imageData.publicUrl;
-              break;
-            case 'homePageGroupPhoto.jpg':
-              newHomeImages.groupPhoto1 = imageData.publicUrl;
-              break;
-            case 'homePageGroupPhoto2.png':
-              newHomeImages.groupPhoto2 = imageData.publicUrl;
-              break;
-            case 'industryDistribution.png':
-              newHomeImages.industryDistribution = imageData.publicUrl;
-              break;
-            case 'broho.png':
-              newHomeImages.broho = imageData.publicUrl;
-              break;
-            case 'integrity.png':
-              newHomeImages.integrity = imageData.publicUrl;
-              break;
-            case 'service.png':
-              newHomeImages.service = imageData.publicUrl;
-              break;
-            case 'unity.png':
-              newHomeImages.unity = imageData.publicUrl;
-              break;
-            case 'knowledge.png':
-              newHomeImages.knowledge = imageData.publicUrl;
-              break;
-            default:
-              break;
-          }
-        });
-
-        setHomeImages(newHomeImages);
+        // Get home images from utility function
+        const homeImagesData = getHomeImages();
+        setHomeImages(homeImagesData);
 
         // Fetch president data
         const { data: presidentData, error: presidentError } = await supabase

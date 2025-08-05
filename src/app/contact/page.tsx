@@ -1,54 +1,31 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
-import { createClient } from '../../../supabase/client';
 import { colors } from '../../styles/colors';
 import { fontCombinations } from '../../styles/fonts';
 import LoadingSpinner from '../../components/LoadingSpinner';
 
 export default function Contact() {
-  const [mounted, setMounted] = useState(false);
-  const [backgroundImage, setBackgroundImage] = useState<string>('');
-  const [loading, setLoading] = useState(true);
   const [submitted, setSubmitted] = useState(false);
-  const [checkmarkAnimation, setCheckmarkAnimation] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const backgroundImage = '/assets/sunsetBackground.jpeg';
   const checkmarkRef = useRef<SVGSVGElement>(null);
+  const [checkmarkAnimation, setCheckmarkAnimation] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    setLoading(false);
   }, []);
 
   useEffect(() => {
-    if (submitted) {
-      // Start the animation after a short delay
-      setTimeout(() => {
+    if (submitted && checkmarkRef.current) {
+      const timer = setTimeout(() => {
         setCheckmarkAnimation(true);
-      }, 200);
+      }, 100);
+      return () => clearTimeout(timer);
     }
   }, [submitted]);
-
-  useEffect(() => {
-    const fetchBackground = async () => {
-      try {
-        const supabase = createClient();
-        
-        // Fetch background image directly from storage (same as executive page)
-        console.log('Starting to fetch background image...');
-        const { data: imageData } = supabase.storage
-          .from('background')
-          .getPublicUrl('background.jpeg');
-        
-        console.log('Background image URL:', imageData.publicUrl);
-        setBackgroundImage(imageData.publicUrl);
-      } catch (error) {
-        console.error('Error fetching background:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBackground();
-  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
