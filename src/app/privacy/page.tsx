@@ -21,7 +21,7 @@ export default function Privacy() {
           {!mounted || isLoading ? (
             <LoadingSpinner size="large" fullScreen={false} type="component" />
           ) : (
-            <div className="w-full max-w-4xl mx-auto">
+            <div className="w-full max-w-4xl mx-auto mt-8 md:mt-12">
               {/* Icon and Title Section */}
               <div className="flex flex-col items-center mb-8">
                 <div className={`w-12 h-12 rounded-full ${colors.bg.darkSurface} border-2 ${colors.border.darkAccent} flex items-center justify-center mb-4`}>
