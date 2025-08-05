@@ -1,61 +1,36 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
-import { createClient } from '../../../supabase/client';
 import { colors } from '../../styles/colors';
 import { fontCombinations } from '../../styles/fonts';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
 import LoadingSpinner from '../../components/LoadingSpinner';
 
 export default function Contact() {
-  const [mounted, setMounted] = useState(false);
-  const [backgroundImage, setBackgroundImage] = useState<string>('');
-  const [loading, setLoading] = useState(true);
   const [submitted, setSubmitted] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const backgroundImage = '/assets/sunsetBackground.jpeg';
+  const checkmarkRef = useRef<SVGSVGElement>(null);
   const [checkmarkAnimation, setCheckmarkAnimation] = useState(false);
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-  const checkmarkRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
     setMounted(true);
+    setLoading(false);
   }, []);
 
   useEffect(() => {
-    if (submitted) {
-      // Start the animation after a short delay
-      setTimeout(() => {
+    if (submitted && checkmarkRef.current) {
+      const timer = setTimeout(() => {
         setCheckmarkAnimation(true);
-      }, 200);
+      }, 100);
+      return () => clearTimeout(timer);
     }
   }, [submitted]);
-
-  useEffect(() => {
-    const fetchBackground = async () => {
-      try {
-        const supabase = createClient();
-        
-        // Fetch background image directly from storage (same as executive page)
-        console.log('Starting to fetch background image...');
-        const { data: imageData } = supabase.storage
-          .from('background')
-          .getPublicUrl('background.jpeg');
-        
-        console.log('Background image URL:', imageData.publicUrl);
-        setBackgroundImage(imageData.publicUrl);
-      } catch (error) {
-        console.error('Error fetching background:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBackground();
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,11 +49,8 @@ export default function Contact() {
         const err = await response.text()
         throw new Error(`Server error: ${response.status} ${err}`);
       }
-      
-      const data = await response.json();
-      console.log('Email sent successfully:', data);
     } catch (err) {
-      console.log('Error sending email:', err)
+      console.error('Error sending email:', err)
     }
     setSubmitted(true);
   };
@@ -93,7 +65,6 @@ export default function Contact() {
       {/* Enhanced overlay with subtle gradient */}
       <div className="fixed top-0 left-0 w-full h-full z-10 bg-gradient-to-br from-black/30 via-black/20 to-[#212121]/30" />
       <div className="relative z-20 min-h-screen flex flex-col">
-        <Navbar />
         <main className="flex-1 flex items-center justify-center py-16 px-4 mt-8 md:mt-12">
           {!mounted || loading ? (
             <LoadingSpinner size="large" fullScreen={false} type="component" />
@@ -229,7 +200,6 @@ export default function Contact() {
             </div>
           )}
         </main>
-        {mounted && !loading && <Footer />}
       </div>
     </div>
   );

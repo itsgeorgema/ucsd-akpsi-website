@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { createClient } from '../../supabase/client';
 import { colors } from '../styles/colors';
 import { fontCombinations, hierarchyWeights } from '../styles/fonts';
 import { useAuth } from '../contexts/AuthContext';
@@ -26,26 +25,9 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const { isAuthenticated } = useAuth();
-  
-  const [logoUrl, setLogoUrl] = useState('');
 
   useEffect(() => {
     setMounted(true);
-    
-    const fetchLogo = async () => {
-      try {
-        const supabase = createClient();
-        const { data: logoData } = supabase.storage
-          .from('misc')
-          .getPublicUrl('akpsiLogo.png');
-        
-        setLogoUrl(logoData?.publicUrl || '');
-      } catch (error) {
-        console.error('Error fetching logo:', error);
-      }
-    };
-
-    fetchLogo();
   }, []);
 
   const baseNavItems: NavItem[] = [
@@ -89,13 +71,11 @@ export default function Navbar() {
       {/* Logo */}
       <div className="absolute top-[-2.25rem] left-4 z-50">
         <Link href="/" onClick={closeMenu}>
-          {logoUrl && (
-            <img
-              src={logoUrl}
-              alt="Alpha Kappa Psi Logo"
-              className="h-40 w-40 object-contain cursor-pointer"
-            />
-          )}
+          <img
+            src="/assets/akpsiLogo.png"
+            alt="Alpha Kappa Psi Logo"
+            className="h-40 w-40 object-contain cursor-pointer"
+          />
         </Link>
       </div>
 
@@ -117,13 +97,13 @@ export default function Navbar() {
       {/* Mobile Menu Overlay */}
       {isMenuOpen && (
         <div 
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999]"
           onClick={closeMenu}
         ></div>
       )}
 
       {/* Slide-out Menu */}
-      <nav className={`fixed top-0 right-0 h-full w-80 ${colors.glass.bg} backdrop-blur-xl border-l ${colors.glass.border} shadow-2xl transform transition-transform duration-300 ease-in-out z-40 ${
+      <nav className={`fixed top-0 right-0 h-full w-80 ${colors.glass.bg} backdrop-blur-xl border-l ${colors.glass.border} shadow-2xl transform transition-transform duration-300 ease-in-out z-[9999] ${
         isMenuOpen ? 'translate-x-0' : 'translate-x-full'
       }`}>
         <div className="flex flex-col h-full pt-20 px-6">

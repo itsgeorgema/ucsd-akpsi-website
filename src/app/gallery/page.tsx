@@ -1,66 +1,31 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { createClient } from '../../../supabase/client';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import { fontCombinations } from '../../styles/fonts';
-import { colors } from '../../styles/colors';
-import Footer from '../../components/Footer';
-
-interface GalleryImage {
-  imageUrl: string;
-  num: number;
-}
+import { useState, useEffect } from "react";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import { fontCombinations } from "../../styles/fonts";
+import { colors } from "../../styles/colors";
+import { getGalleryImages, GalleryImage } from "../../utils/imageUtils";
 
 export default function Gallery() {
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
-  const [backgroundImage, setBackgroundImage] = useState<string>('');
+  const backgroundImage = '/assets/sunsetBackground.jpeg';
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchGalleryImages = async () => {
       try {
-        const supabase = createClient();
-        
-        // Fetch background image directly from storage
-        console.log('Starting to fetch background image...');
-        const { data: imageData } = supabase.storage
-          .from('background')
-          .getPublicUrl('background.jpeg');
-        
-        console.log('Background image URL:', imageData.publicUrl);
-        setBackgroundImage(imageData.publicUrl);
-        
-        // Fetch gallery images
-        const { data, error } = await supabase
-          .from('gallery')
-          .select('image_path, num')
-          .order('num', { ascending: true });
-
-        if (error) {
-          console.error('Error fetching gallery images:', error);
-          setGalleryImages([]);
-        } else if (data) {
-          const imagesWithUrls = data.map((image: { image_path: string; num: number }) => {
-            const cleanImagePath = image.image_path.trim();
-            const { data: imageData } = supabase.storage
-              .from('gallery')
-              .getPublicUrl(cleanImagePath);
-            return {
-              imageUrl: imageData.publicUrl,
-              num: image.num,
-            };
-          });
-          setGalleryImages(imagesWithUrls);
-        }
+        // Get gallery images from utility function
+        const images = getGalleryImages();
+        setGalleryImages(images);
       } catch (error) {
-        console.error('Error:', error);
+        console.error('Error fetching gallery images:', error);
         setGalleryImages([]);
       } finally {
         setLoading(false);
       }
     };
-    fetchData();
+
+    fetchGalleryImages();
   }, []);
 
   return (
@@ -114,7 +79,6 @@ export default function Gallery() {
             </>
           )}
         </main>
-        {!loading && <Footer />}
       </div>
     </div>
   );

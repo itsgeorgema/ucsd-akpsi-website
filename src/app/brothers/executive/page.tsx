@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { createClient } from '../../../../supabase/client';
-import Navbar from '../../../components/Navbar';
-import Footer from '../../../components/Footer';
 import LoadingSpinner from '../../../components/LoadingSpinner';
 import { fontCombinations } from '../../../styles/fonts';
 import { colors } from '../../../styles/colors';
@@ -20,22 +18,13 @@ interface Executive {
 
 export default function ExecutiveCommittee() {
   const [executives, setExecutives] = useState<Executive[]>([]);
-  const [backgroundImage, setBackgroundImage] = useState<string>('');
+  const backgroundImage = '/assets/sunsetBackground.jpeg';
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const supabase = createClient();
-        
-        // Fetch background image directly from storage
-        console.log('Starting to fetch background image...');
-        const { data: imageData } = supabase.storage
-          .from('background')
-          .getPublicUrl('background.jpeg');
-        
-        console.log('Background image URL:', imageData.publicUrl);
-        setBackgroundImage(imageData.publicUrl);
         
         // Fetch executives data
         const { data, error } = await supabase
@@ -88,7 +77,6 @@ export default function ExecutiveCommittee() {
       {/* Enhanced overlay for better readability */}
       <div className="fixed top-0 left-0 w-full h-full z-10 bg-gradient-to-br from-black/40 via-black/30 to-black/50" />
       <div className="relative z-20 min-h-screen flex flex-col">
-        <Navbar />
         <main className="flex-1 flex items-center justify-center py-16 px-4">
           {loading && (
             <LoadingSpinner size="large" fullScreen={false} type="component" />
@@ -199,7 +187,6 @@ export default function ExecutiveCommittee() {
             </div>
           )}
         </main>
-        {!loading && <Footer />}
       </div>
     </div>
   );

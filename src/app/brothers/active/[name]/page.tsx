@@ -3,8 +3,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { createClient } from '../../../../../supabase/client';
-import Navbar from '../../../../components/Navbar';
-import Footer from '../../../../components/Footer';
 import { fontCombinations } from '../../../../styles/fonts';
 import { colors } from '../../../../styles/colors';
 import LoadingSpinner from '../../../../components/LoadingSpinner';
@@ -20,10 +18,10 @@ interface Brother {
 
 export default function BrotherPage() {
   const [brother, setBrother] = useState<Brother | null>(null);
-  const [backgroundImage, setBackgroundImage] = useState<string>('');
+  const backgroundImage = '/assets/sunsetBackground.jpeg';
   const [loading, setLoading] = useState(true);
   const params = useParams();
-  const name = Array.isArray(params.name) ? params.name[0] : params.name;
+  const name = params.name as string;
 
   useEffect(() => {
     if (!name) return;
@@ -32,15 +30,6 @@ export default function BrotherPage() {
       try {
         const supabase = createClient();
         const decodedName = decodeURIComponent(name);
-        
-        // Fetch background image directly from storage
-        console.log('Starting to fetch background image...');
-        const { data: imageData } = supabase.storage
-          .from('background')
-          .getPublicUrl('background.jpeg');
-        
-        console.log('Background image URL:', imageData.publicUrl);
-        setBackgroundImage(imageData.publicUrl);
         
         // Fetch brother data
         const { data, error } = await supabase
@@ -85,7 +74,6 @@ export default function BrotherPage() {
       {/* Enhanced overlay for better readability */}
       <div className="fixed top-0 left-0 w-full h-full z-10 bg-gradient-to-br from-black/40 via-black/30 to-black/50" />
       <div className="relative z-20 min-h-screen flex flex-col">
-      <Navbar />
         <main className="flex-1 flex items-center justify-center py-16 px-4 mt-24">
                     {loading && (
             <LoadingSpinner size="large" fullScreen={false} type="component" />
@@ -181,7 +169,6 @@ export default function BrotherPage() {
             </div>
           )}
       </main>
-      {!loading && <Footer />}
       </div>
     </div>
   );

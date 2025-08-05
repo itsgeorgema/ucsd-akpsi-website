@@ -38,6 +38,13 @@ export const colorPalette = {
   // Brand - AKPsi identity colors
   brand: {
     royalBlue: '#003366',       // AKPsi royal blue for key brand elements
+  },
+  
+  // Dark theme colors for legal pages
+  dark: {
+    background: '#0A192F',      // Very dark blue background
+    surface: '#1a4d80',         // Darker blue for content areas
+    accent: '#B3CDE0',          // Light blue for accents and text
   }
 } as const;
 
@@ -78,6 +85,11 @@ export const semanticColors = {
   hover: colorPalette.blue.soft,
   active: colorPalette.blue.medium,
   focus: colorPalette.gold.light,
+  
+  // Dark theme colors
+  darkBackground: colorPalette.dark.background,
+  darkSurface: colorPalette.dark.surface,
+  darkAccent: colorPalette.dark.accent,
 } as const;
 
 // Tailwind utility classes for easy component usage
@@ -90,6 +102,8 @@ export const colors = {
     surfaceAlt: 'bg-[#E0E0E0]',
     overlay: 'bg-black/40',
     overlayLight: 'bg-black/20',
+    dark: 'bg-[#0A192F]',
+    darkSurface: 'bg-[#1a4d80]',
   },
   
   // Text colors
@@ -100,6 +114,10 @@ export const colors = {
     accent: 'text-[#B89334]',
     brand: 'text-[#003366]',
     white: 'text-white',
+    darkAccent: 'text-[#B3CDE0]',
+    gold: 'text-[#B89334]',
+    goldLight: 'text-[#D4AF37]',
+    goldBright: 'text-[#FFD700]',
   },
   
   // Buttons
@@ -116,6 +134,8 @@ export const colors = {
     hover: 'hover:border-[#9E9E9E]',
     accent: 'border-[#B89334]',
     brand: 'border-[#003366]',
+    darkAccent: 'border-[#B3CDE0]',
+    darkAccentTransparent: 'border-[#B3CDE0]/30',
   },
   
   // Glass morphism effects
