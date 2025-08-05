@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { createClient } from '../../../supabase/client';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { fontCombinations, akpsiFonts } from '../../styles/fonts';
 import { colors } from '../../styles/colors';
