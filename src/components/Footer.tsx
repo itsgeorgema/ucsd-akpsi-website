@@ -180,7 +180,7 @@ export default function Footer({ className = "" }: FooterProps) {
 
       {/* Bottom Copyright Section */}
       <div className="border-t border-[#9E9E9E]/30 px-6 py-4">
-        <div className="max-w-6xl mx-auto flex flex-col items-center justify-center space-y-2">
+        <div className="max-w-6xl mx-auto flex flex-col items-center justify-center space-y-0">
           <p className={`text-sm ${colors.text.inverse} opacity-60 ${akpsiFonts.bodyFont} text-center whitespace-nowrap`}>
             &copy; {new Date().getFullYear()} UCSD Alpha Kappa Psi. All rights reserved.
           </p>

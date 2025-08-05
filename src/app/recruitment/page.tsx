@@ -27,7 +27,6 @@ export default function Recruitment() {
     day: string;
     description: string;
     details: string;
-    order: number;
   }>>([]);
 
   useEffect(() => {
@@ -65,7 +64,7 @@ export default function Recruitment() {
         // Fetch recruitment events
         const { data: eventsData, error: eventsError } = await supabase
           .from('recruitmentEvents')
-          .select('eventName, date, day, description, details, order')
+          .select('eventName, date, day, description, details')
           .order('order', { ascending: true });
         if (eventsError) {
           console.error('Error fetching recruitment events:', eventsError);

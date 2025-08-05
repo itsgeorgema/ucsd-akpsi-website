@@ -4,22 +4,9 @@ import { useState, useEffect } from 'react';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { fontCombinations, akpsiFonts } from '../../styles/fonts';
 import { colors } from '../../styles/colors';
-import { getCompanyImages, Company, getAboutImages } from '../../utils/imageUtils';
+import { getCompanyImages, Company, getAboutImages, AboutImages } from '../../utils/imageUtils';
 import ScrollArrow from '../../components/ScrollArrow';
 import BouncyFadeIn from '../../components/BouncyFadeIn';
-
-interface AboutImages {
-  backgroundVideo: string;
-  crest: string;
-  akpsiLogo: string;
-  groupPhoto1: string;
-  groupPhoto2: string;
-  genderPie: string;
-  gradePie: string;
-  industryDistribution: string;
-  crestSvg: string;
-  akpsiLogoSvg: string;
-}
 
 interface StatModalData {
   title: string;
@@ -41,8 +28,7 @@ export default function About() {
     genderPie: '',
     gradePie: '',
     industryDistribution: '',
-    crestSvg: '',
-    akpsiLogoSvg: ''
+    crestSvg: ''
   });
   const [selectedStat, setSelectedStat] = useState<StatModalData | null>(null);
   const [activeTab, setActiveTab] = useState<ActiveTab>('akpsi');
@@ -543,9 +529,9 @@ export default function About() {
                                     className="w-12 h-12 object-contain"
                                   />
                                 )}
-                                {tab === 'nuxi' && images.akpsiLogoSvg && (
+                                {tab === 'nuxi' && images.akpsiLogo && (
                                   <img 
-                                    src={images.akpsiLogoSvg} 
+                                    src={images.akpsiLogo} 
                                     alt="AKPsi Logo" 
                                     className="w-10 h-10 object-contain"
                                   />
