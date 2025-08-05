@@ -10,7 +10,7 @@ import { colors } from '../../../styles/colors';
 
 export default function ActiveBrothers() {
   const [brothers, setBrothers] = useState<Array<{ name: string; imageUrl: string }>>([]);
-  const [backgroundImage, setBackgroundImage] = useState<string>('');
+  const backgroundImage = '/assets/sunsetBackground.jpeg';
   const [loading, setLoading] = useState(true);
   const pathname = usePathname();
 
@@ -19,22 +19,12 @@ export default function ActiveBrothers() {
       try {
         const supabase = await createClient();
         
-        // Fetch background image directly from storage
-        console.log('Starting to fetch background image...');
-        const { data: imageData } = supabase.storage
-          .from('background')
-          .getPublicUrl('background.jpeg');
-        
-        console.log('Background image URL:', imageData.publicUrl);
-        setBackgroundImage(imageData.publicUrl);
-        
         // Fetch brothers data
         const { data, error } = await supabase
           .from('actives-spring25')
           .select('image_path, name')
           .order('name', { ascending: true });
         if (error || !data || data.length === 0) {
-          console.log('No data or error fetching from actives-spring25');
           setBrothers([]);
         } else {
           const brothersWithUrls = data.map((row: { image_path: string; name: string }) => {

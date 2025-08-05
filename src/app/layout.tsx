@@ -1,61 +1,52 @@
-import type { Metadata } from "next";
-import { Inter, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import { AuthProvider } from "@/contexts/AuthContext";
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import { AuthProvider } from '../contexts/AuthContext';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import ScrollToTop from '../components/ScrollToTop';
 
-// Load fonts with bolder weights and tighter spacing to match the design
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-  // Include bolder weights: normal(400), medium(500), semibold(600), bold(700), extrabold(800), black(900)
-  weight: ["400", "500", "600", "700", "800", "900"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
+  title: 'UCSD Alpha Kappa Psi',
+  description: 'Official website for the Nu Xi Chapter of Alpha Kappa Psi at UC San Diego',
   openGraph: {
-    title: "UCSD AKPSI",
-    description: "Alpha Kappa Psi at UC San Diego",
-    url: "https://www.akpsiucsd.com",
-    siteName: "UCSD AKPSI",
+    title: 'UCSD Alpha Kappa Psi',
+    description: 'Official website for the Nu Xi Chapter of Alpha Kappa Psi at UC San Diego',
+    url: 'https://akpsiucsd.com',
+    siteName: 'UCSD Alpha Kappa Psi',
     images: [
       {
         url: "https://www.akpsiucsd.com/assets/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "UCSD AKPSI",
+        alt: 'UCSD Alpha Kappa Psi',
       },
     ],
+    locale: 'en_US',
+    type: 'website',
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en" className="h-full">
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+        <link rel="icon" href="/favicon.ico" />
       </head>
-      <body
-        className={`${inter.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${inter.className} h-full`}>
         <AuthProvider>
           <Navbar />
-          <main className="min-h-screen">
+          <main>
             {children}
           </main>
           <Footer />
+          <ScrollToTop />
         </AuthProvider>
       </body>
     </html>

@@ -6,22 +6,13 @@ import { colors } from '../../styles/colors';
 import { fontCombinations } from '../../styles/fonts';
 import { rushColors } from '../../styles/rushColors';
 import InfiniteCarousel from '../../components/InfiniteCarousel';
+import { getGalleryImages } from '../../utils/imageUtils';
 
 export default function Recruitment() {
   const [backgroundImage, setBackgroundImage] = useState<string>('');
   const [flyerImage, setFlyerImage] = useState<string>('');
   const [galleryImages, setGalleryImages] = useState<Array<{ imageUrl: string; num: number }>>([]);
   const [loading, setLoading] = useState(true);
-  const [links, setLinks] = useState<{
-    interestForm: string;
-    applicationWebsite: string;
-    instagram: string;
-  }>({
-    interestForm: '',
-    applicationWebsite: '',
-    instagram: ''
-  });
-
   const [contactInfo, setContactInfo] = useState<{
     chairs: Array<{ name: string; number: string }>;
     email: string;
@@ -57,75 +48,23 @@ export default function Recruitment() {
         
         setFlyerImage(flyerImageData.publicUrl);
 
-        // Fetch all gallery images
-        const { data: galleryData, error: galleryError } = await supabase
-          .from('gallery')
-          .select('image_path, num')
-          .order('num', { ascending: true });
+        // Get gallery images from utility function
+        const galleryImagesData = getGalleryImages();
+        setGalleryImages(galleryImagesData);
 
-        if (galleryError) {
-          console.error('Error fetching gallery images:', galleryError);
-        } else if (galleryData) {
-          // Use deterministic order to avoid hydration mismatch
-          const imagesWithUrls = galleryData.map((image) => {
-            const cleanImagePath = image.image_path.trim();
-            const { data: imageData } = supabase.storage
-              .from('gallery')
-              .getPublicUrl(cleanImagePath);
-            return {
-              imageUrl: imageData.publicUrl,
-              num: image.num,
-            };
-          });
-          
-          setGalleryImages(imagesWithUrls);
-        }
-
-        // Fetch links by name
-        const { data: allLinksData, error: linksError } = await supabase
-          .from('links')
-          .select('name, link');
-        if (linksError) {
-          console.error('Error fetching links:', linksError);
-        } else if (allLinksData) {
-          // Find specific links by name
-          const interestFormItem = allLinksData.find(item => item.name === 'interestForm');
-          const applicationWebsiteItem = allLinksData.find(item => item.name === 'applicationWebsite');
-          const instagramItem = allLinksData.find(item => item.name === 'instagram');
-          const interestFormLink = interestFormItem?.link || '';
-          const applicationWebsiteLink = applicationWebsiteItem?.link || '';
-          const instagramLink = instagramItem?.link || '';
-          setLinks({
-            interestForm: interestFormLink,
-            applicationWebsite: applicationWebsiteLink,
-            instagram: instagramLink
-          });
-        }
-
-        // Fetch recruitment contact information
-        const { data: contactData, error: contactError } = await supabase
-          .from('recruitmentContact')
-          .select('name, number, email');
-        if (contactError) {
-          console.error('Error fetching contact information:', contactError);
-        } else if (contactData && contactData.length > 0) {
-          // Get the email from the first person (should be the same for all)
-          const email = contactData[0].email || '';
-          // Get all chairs' names and numbers
-          const chairs = contactData.map(person => ({
-            name: person.name,
-            number: person.number
-          }));
-          setContactInfo({
-            chairs,
-            email
-          });
-        }
+        // Hardcoded contact information
+        setContactInfo({
+          chairs: [
+            { name: 'Amanda Wu', number: '(949) 572-8948' },
+            { name: 'Josh Hoffmann', number: '(510) 634-9132' }
+          ],
+          email: 'akpfallrush25@gmail.com'
+        });
 
         // Fetch recruitment events
         const { data: eventsData, error: eventsError } = await supabase
           .from('recruitmentEvents')
-          .select('eventName, date, day, description, details, order')
+          .select('eventName, date, day, description, details')
           .order('order', { ascending: true });
         if (eventsError) {
           console.error('Error fetching recruitment events:', eventsError);
@@ -175,26 +114,18 @@ export default function Recruitment() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <a 
-                    href={links.interestForm || '#'}
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSe2ooyLbCv2zen2gl0OFc75oJJgqQq-_HbpK2sl0VLHw5mADQ/viewform?usp=sharing&ouid=114377584957303722556"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`px-8 py-3 ${colors.glass.bg} ${colors.glass.bgHover} backdrop-blur-sm ${fontCombinations.interactive.primary} rounded-lg transition-all duration-300 transform hover:scale-105 text-center ${rushColors.rushText} ${colors.glass.borderHover} ${!links.interestForm ? 'opacity-50 cursor-not-allowed' : ''}`}
-                    onClick={(e) => {
-                      console.log('Interest form clicked, link:', links.interestForm);
-                      if (!links.interestForm) {
-                        e.preventDefault();
-                        console.log('Prevented navigation - no link available');
-                      }
-                    }}
+                    className={`px-8 py-3 ${colors.glass.bg} ${colors.glass.bgHover} backdrop-blur-sm ${fontCombinations.interactive.primary} rounded-lg transition-all duration-300 transform hover:scale-105 text-center ${rushColors.rushText} ${colors.glass.borderHover}`}
                   >
                     INTEREST FORM
                   </a>
                   <a 
-                    href={links.applicationWebsite || '#'}
+                    href="https://www.akpsiucsd.app/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`px-8 py-3 ${rushColors.rushButtonSecondary} ${fontCombinations.interactive.primary} rounded-lg transition-all duration-300 transform hover:scale-105 text-center ${rushColors.rushText} ${rushColors.rushButtonSecondaryBorder} ${!links.applicationWebsite ? 'opacity-50 cursor-not-allowed' : ''}`}
-                    onClick={!links.applicationWebsite ? (e) => e.preventDefault() : undefined}
+                    className={`px-8 py-3 ${rushColors.rushButtonSecondary} ${fontCombinations.interactive.primary} rounded-lg transition-all duration-300 transform hover:scale-105 inline-block ${rushColors.rushText} ${rushColors.rushButtonSecondaryBorder}`}
                   >
                     APPLICATION
                   </a>
@@ -253,11 +184,10 @@ export default function Recruitment() {
               </div>
               <div className="text-center mt-8">
                 <a 
-                  href={links.instagram || '#'}
+                  href="https://www.instagram.com/ucsdakpsi/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`px-8 py-3 ${rushColors.rushButtonSecondary} ${fontCombinations.interactive.primary} rounded-lg transition-all duration-300 transform hover:scale-105 inline-block ${rushColors.rushText} ${rushColors.rushButtonSecondaryBorder} ${!links.instagram ? 'opacity-50 cursor-not-allowed' : ''}`}
-                  onClick={!links.instagram ? (e) => e.preventDefault() : undefined}
+                  className={`px-8 py-3 ${rushColors.rushButtonSecondary} ${fontCombinations.interactive.primary} rounded-lg transition-all duration-300 transform hover:scale-105 inline-block ${rushColors.rushText} ${rushColors.rushButtonSecondaryBorder}`}
                 >
                   STAY UPDATED
                 </a>

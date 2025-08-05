@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { createClient } from '../../supabase/client';
 import { colors } from '../styles/colors';
 import { fontCombinations, hierarchyWeights } from '../styles/fonts';
 import { useAuth } from '../contexts/AuthContext';
@@ -26,26 +25,9 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const { isAuthenticated } = useAuth();
-  
-  const [logoUrl, setLogoUrl] = useState('');
 
   useEffect(() => {
     setMounted(true);
-    
-    const fetchLogo = async () => {
-      try {
-        const supabase = createClient();
-        const { data: logoData } = supabase.storage
-          .from('misc')
-          .getPublicUrl('akpsiLogo.png');
-        
-        setLogoUrl(logoData?.publicUrl || '');
-      } catch (error) {
-        console.error('Error fetching logo:', error);
-      }
-    };
-
-    fetchLogo();
   }, []);
 
   const baseNavItems: NavItem[] = [
@@ -89,13 +71,11 @@ export default function Navbar() {
       {/* Logo */}
       <div className="absolute top-[-2.25rem] left-4 z-50">
         <Link href="/" onClick={closeMenu}>
-          {logoUrl && (
-            <img
-              src={logoUrl}
-              alt="Alpha Kappa Psi Logo"
-              className="h-40 w-40 object-contain cursor-pointer"
-            />
-          )}
+          <img
+            src="/assets/akpsiLogo.png"
+            alt="Alpha Kappa Psi Logo"
+            className="h-40 w-40 object-contain cursor-pointer"
+          />
         </Link>
       </div>
 

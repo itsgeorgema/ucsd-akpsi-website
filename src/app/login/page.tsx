@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { createClient } from '../../../supabase/client';
+import { useState } from 'react';
 import { colors } from '../../styles/colors';
 import { fontCombinations } from '../../styles/fonts';
 import { useRouter } from 'next/navigation';
@@ -11,23 +10,10 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [backgroundUrl, setBackgroundUrl] = useState('');
   const router = useRouter();
   const { checkAuth } = useAuth();
   
-  useEffect(() => {
-    const fetchBackground = async () => {
-      try {
-        const supabase = createClient();
-        // Fetch background image
-        const { data: bgData } = supabase.storage.from('background').getPublicUrl('background.jpeg');
-        setBackgroundUrl(bgData?.publicUrl || '');
-      } catch {
-        setBackgroundUrl('');
-      }
-    };
-    fetchBackground();
-  }, []);
+  const backgroundUrl = '/assets/sunsetBackground.jpeg';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

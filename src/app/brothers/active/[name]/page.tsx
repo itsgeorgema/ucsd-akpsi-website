@@ -18,10 +18,10 @@ interface Brother {
 
 export default function BrotherPage() {
   const [brother, setBrother] = useState<Brother | null>(null);
-  const [backgroundImage, setBackgroundImage] = useState<string>('');
+  const backgroundImage = '/assets/sunsetBackground.jpeg';
   const [loading, setLoading] = useState(true);
   const params = useParams();
-  const name = Array.isArray(params.name) ? params.name[0] : params.name;
+  const name = params.name as string;
 
   useEffect(() => {
     if (!name) return;
@@ -30,15 +30,6 @@ export default function BrotherPage() {
       try {
         const supabase = createClient();
         const decodedName = decodeURIComponent(name);
-        
-        // Fetch background image directly from storage
-        console.log('Starting to fetch background image...');
-        const { data: imageData } = supabase.storage
-          .from('background')
-          .getPublicUrl('background.jpeg');
-        
-        console.log('Background image URL:', imageData.publicUrl);
-        setBackgroundImage(imageData.publicUrl);
         
         // Fetch brother data
         const { data, error } = await supabase
