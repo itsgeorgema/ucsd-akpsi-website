@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { createClient } from '../../../supabase/client';
 import { fontCombinations } from '../../styles/fonts';
 import { colors } from '../../styles/colors';
-import Footer from '../../components/Footer';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { useRouter } from 'next/navigation';
 
@@ -171,8 +170,6 @@ function ActivesPageContent() {
             </div>
           </section>
 
-          {/* Footer */}
-          {!loading && <Footer />}
         </>
         )}
       </div>

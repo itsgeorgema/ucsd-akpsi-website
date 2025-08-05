@@ -4,8 +4,6 @@ import { useState, useEffect, useRef } from 'react';
 import { createClient } from '../../../supabase/client';
 import { colors } from '../../styles/colors';
 import { fontCombinations } from '../../styles/fonts';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
 import LoadingSpinner from '../../components/LoadingSpinner';
 
 export default function Contact() {
@@ -67,7 +65,6 @@ export default function Contact() {
       {/* Enhanced overlay with subtle gradient */}
       <div className="fixed top-0 left-0 w-full h-full z-10 bg-gradient-to-br from-black/30 via-black/20 to-[#212121]/30" />
       <div className="relative z-20 min-h-screen flex flex-col">
-        <Navbar />
         <main className="flex-1 flex items-center justify-center py-16 px-4 mt-8 md:mt-12">
           {!mounted || loading ? (
             <LoadingSpinner size="large" fullScreen={false} type="component" />
@@ -199,7 +196,6 @@ export default function Contact() {
             </div>
           )}
         </main>
-        {mounted && !loading && <Footer />}
       </div>
     </div>
   );

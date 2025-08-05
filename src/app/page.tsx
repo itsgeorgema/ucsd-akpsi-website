@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { createClient } from '../../supabase/client';
-import Footer from '../components/Footer';
 import ScrollArrow from '../components/ScrollArrow';
 import LoadingSpinner from '../components/LoadingSpinner';
 import BouncyFadeIn from '../components/BouncyFadeIn';
@@ -321,8 +320,6 @@ export default function Home() {
           </>
         )}
 
-        {/* Footer (includes social links and login) - only show when not loading */}
-        {!loading && <Footer />}
       </div>
     </div>
   );

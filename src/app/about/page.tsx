@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { createClient } from '../../../supabase/client';
 import ScrollArrow from '../../components/ScrollArrow';
-import Footer from '../../components/Footer';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import BouncyFadeIn from '../../components/BouncyFadeIn';
 import { colors } from '../../styles/colors';
@@ -759,8 +758,6 @@ export default function About() {
                 </div>
                 </BouncyFadeIn>
               </section>
-              {/* Footer */}
-              {!loading && <Footer />}
             </>
           )}
         </div>
