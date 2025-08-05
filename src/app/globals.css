@@ -386,3 +386,9 @@ body {
   stroke-dashoffset: 20;
   animation: drawCheckmark 0.8s ease-in-out forwards;
 }
+
+@media (max-width: 768px) {
+  .pb-safe-area-inset-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}

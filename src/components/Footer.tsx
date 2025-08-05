@@ -44,7 +44,7 @@ export default function Footer({ className = "" }: FooterProps) {
   ];
 
   return (
-    <footer className={`relative ${colors.section.titleBg} ${className}`}>
+    <footer className={`relative ${colors.section.titleBg} ${className} pb-safe-area-inset-bottom`}>
       {/* Top banner with grid pattern */}
       <div className={`h-2 bg-[${colorPalette.gold.muted}] opacity-80`}></div>
       
