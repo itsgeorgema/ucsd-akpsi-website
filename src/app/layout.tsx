@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'UCSD Alpha Kappa Psi',
     description: 'Official website for the Nu Xi Chapter of Alpha Kappa Psi at UC San Diego',
-    url: 'https://akpsiucsd.org',
+    url: 'https://akpsiucsd.com',
     siteName: 'UCSD Alpha Kappa Psi',
     images: [
       {
