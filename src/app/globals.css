@@ -414,4 +414,9 @@ body {
   footer .max-w-6xl {
     padding-bottom: 1rem;
   }
+  
+  /* Reduce bottom margin for copyright section on mobile */
+  .copyright-section {
+    padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
+  }
 }
