@@ -32,7 +32,6 @@ export interface AboutImages {
   gradePie: string;
   industryDistribution: string;
   crestSvg: string;
-  akpsiLogoSvg: string;
 }
 
 // Gallery images from /public/gallery directory
@@ -133,6 +132,5 @@ export const getAboutImages = (): AboutImages => {
     gradePie: '/about/gradePie.png',
     industryDistribution: '/about/industryDistribution.png',
     crestSvg: '/about/crest1.svg',
-    akpsiLogoSvg: '/about/akpsiLogo.svg'
   };
 }; 
