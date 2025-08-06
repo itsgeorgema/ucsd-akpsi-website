@@ -17,6 +17,7 @@ export default function Contact() {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     setMounted(true);
@@ -48,11 +49,13 @@ export default function Contact() {
       if (!response.ok){
         const err = await response.text()
         throw new Error(`Server error: ${response.status} ${err}`);
+      } else {
+        setSubmitted(true);
       }
     } catch (err) {
       console.error('Error sending email:', err)
+      setError('An error occurred. Please try again.');
     }
-    setSubmitted(true);
   };
 
   return (
@@ -193,6 +196,9 @@ export default function Contact() {
                     >
                       Send Message
                     </button>
+                  </div>
+                  <div>
+                    <h1 className="text-red-400">{error}</h1>  
                   </div>
                 </form>
                 )}
