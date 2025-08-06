@@ -27,9 +27,14 @@ export async function POST(request: NextRequest) {
     await transporter.sendMail({
       from: `"${name}" <${email}>`,
       to: 'jiangalan21@gmail.com',
-      subject: `New message from ${name} ${email}`,
-      text: message,
-    });
+      subject: `[UCSD Alpha Kappa Psi] Contact Us - new submission`,
+      html: `
+        <h3>Name: ${name}</h3>
+        <h3>Email: 
+          <a href="mailto:${email}">${email}</a>
+        </h3>
+        <h3>Message: ${message}</h3>`
+      });
 
     return NextResponse.json({ success: true });
   } catch (error) {
