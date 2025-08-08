@@ -80,11 +80,14 @@ body {
   min-height: 100vh;
   min-height: 100dvh; /* Dynamic viewport height for mobile */
   overflow-x: hidden;
+  overflow-y: auto; /* Allow vertical scrolling but hide scrollbar */
   position: relative;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: none;
   display: flex;
   flex-direction: column;
+  width: 100vw; /* Ensure full viewport width */
+  max-width: 100vw; /* Prevent any overflow */
 }
 
 /* Ensure the main content area takes up available space */
@@ -100,6 +103,10 @@ footer {
   position: relative;
   z-index: 1000;
   min-height: fit-content;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
 }
 
 /* Prevent any overscroll or bounce effects */
@@ -122,11 +129,30 @@ html {
   overflow-x: hidden;
 }
 
-/* Only prevent overscroll at the document level */
+/* Hide scrollbars and ensure full viewport coverage */
 html, body {
   overscroll-behavior: none;
   overscroll-behavior-y: none;
   overscroll-behavior-x: none;
+  /* Hide scrollbars on all browsers */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+/* Hide scrollbars in WebKit browsers (Chrome, Safari, Edge) */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ensure all elements can have hidden scrollbars */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
 }
 
 /* Allow normal scrolling within sections but enable scroll chaining */
@@ -162,9 +188,46 @@ div, section, main {
   box-sizing: border-box;
 }
 
+/* Full-width sections should use the entire viewport */
+.full-width-section {
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+}
+
+/* Ensure all sections that should be full-width get proper styling */
+section[id="akpsi-info"],
+section:has(.InfiniteCarousel),
+section:has([href="/about"]) {
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+}
+
+/* Ensure all fixed background elements cover full viewport */
+.fixed.top-0.left-0.w-full.h-full {
+  width: 100vw;
+  max-width: 100vw;
+}
+
 /* Only apply max-width restrictions to body and html */
 body {
   overflow-x: hidden;
+}
+
+/* Ensure all page main content areas are full-width */
+main {
+  width: 100vw;
+  max-width: 100vw;
+}
+
+/* Ensure all page containers are full-width */
+.relative.min-h-screen.w-full,
+.relative.flex.flex-col.justify-between {
+  width: 100vw;
+  max-width: 100vw;
 }
 
 /* Gallery and Contact pages - allow wider scaling */

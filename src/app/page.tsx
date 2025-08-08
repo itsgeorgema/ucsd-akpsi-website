@@ -191,100 +191,97 @@ export default function Home() {
               </div>
             </section>
 
-                        {/* CONNECTED SECTIONS CONTAINER */}
-            <div className="relative z-10 flex flex-col w-full">
-              {/* PRESIDENT'S MESSAGE SECTION */}
-              <section id="akpsi-info" className={`flex flex-col lg:flex-row items-start lg:items-center rounded-t-3xl justify-between w-full py-16 md:py-20 px-6 md:px-12 ${colors.section.bg} relative overflow-hidden`}>
-                {/* Subtle background pattern */}
-                <div className="absolute inset-0 opacity-5">
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#B89334] via-transparent to-[#6497B1]"></div>
+            {/* PRESIDENT'S MESSAGE SECTION */}
+            <section id="akpsi-info" className={`flex flex-col lg:flex-row items-start lg:items-center rounded-t-3xl justify-between w-full py-16 md:py-20 px-6 md:px-12 ${colors.section.bg} relative overflow-hidden`}>
+              {/* Subtle background pattern */}
+              <div className="absolute inset-0 opacity-5">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#B89334] via-transparent to-[#6497B1]"></div>
+              </div>
+              
+              <BouncyFadeIn delay={0.1} threshold={0.1} bounce={0}>
+                <div className="flex-1 max-w-4xl w-full lg:pr-12 relative z-10">
+                  <div className="mb-6">
+                  </div>
+                  <h3 className={`text-3xl md:text-4xl lg:text-5xl mb-6 md:mb-8 leading-tight text-left bg-gradient-to-r from-[#003366] to-[#6497B1] bg-clip-text text-transparent ${fontCombinations.section.main} ${hierarchyWeights.title}`}>FROM<br />OUR PRESIDENT</h3>
+                  <div className="space-y-4 md:space-y-6">
+                    <p className={`text-base md:text-lg relative pl-4 border-l-4 ${colors.border.accent} ${colors.section.text} ${fontCombinations.content.lead} ${hierarchyWeights.important}`}>Welcome! This is the website for the Nu Xi Chapter of Alpha Kappa Psi. Here, you can explore our values, who our brothers are, and how you can get involved. Before diving into the details, the brothers of the Nu Xi Chapter would like to thank you for your interest in our fraternity.</p>
+                    <p className={`${colors.section.text} ${fontCombinations.content.body} ${hierarchyWeights.paragraph}`}>Alpha Kappa Psi is a pre-professional student fraternity here at UC San Diego. We are built on the key values of Brotherhood, Knowledge, Integrity, Unity, and Service. The community you&apos;ll find here at Alpha Kappa Psi is unparalleled. Not only do our brothers strive towards their personal and professional aspirations, but we do so together, building genuine bonds that last us a lifetime.</p>
+                    <p className={`${colors.section.text} ${fontCombinations.content.body} ${hierarchyWeights.paragraph}`}>With that being said, we highly encourage you to explore our website to learn more about our fraternity, our brothers, and what we stand for. If you&apos;re interested in joining our community, we encourage you to come out to our upcoming Fall 2025 Rush. At Rush, you&apos;ll get the chance to meet the brothers and learn more about how this fraternity can help you grow both personally and professionally.</p>
+                    <div className={`mt-4 md:mt-6 ${colors.section.text} ${fontCombinations.content.body}`}>
+                      <p className={`text-sm ${colors.text.secondary} uppercase tracking-tighter mb-1 ${fontCombinations.interactive.tertiary} ${hierarchyWeights.signature}`}>Sincerely,</p>
+                      <p className={`text-lg md:text-xl ${colors.text.accent} ${fontCombinations.section.tertiary} ${hierarchyWeights.title}`}>{president ? president.name : 'Loading...'}</p>
+                      <p className={`text-sm ${colors.text.secondary} ${fontCombinations.content.small} ${hierarchyWeights.signature}`}>President, Nu Xi Chapter</p>
+                    </div>
+                  </div>
                 </div>
-                
-                <BouncyFadeIn delay={0.1} threshold={0.1} bounce={0}>
-                  <div className="flex-1 max-w-4xl w-full lg:pr-12 relative z-10">
-                    <div className="mb-6">
-                    </div>
-                    <h3 className={`text-3xl md:text-4xl lg:text-5xl mb-6 md:mb-8 leading-tight text-left bg-gradient-to-r from-[#003366] to-[#6497B1] bg-clip-text text-transparent ${fontCombinations.section.main} ${hierarchyWeights.title}`}>FROM<br />OUR PRESIDENT</h3>
-                    <div className="space-y-4 md:space-y-6">
-                      <p className={`text-base md:text-lg relative pl-4 border-l-4 ${colors.border.accent} ${colors.section.text} ${fontCombinations.content.lead} ${hierarchyWeights.important}`}>Welcome! This is the website for the Nu Xi Chapter of Alpha Kappa Psi. Here, you can explore our values, who our brothers are, and how you can get involved. Before diving into the details, the brothers of the Nu Xi Chapter would like to thank you for your interest in our fraternity.</p>
-                      <p className={`${colors.section.text} ${fontCombinations.content.body} ${hierarchyWeights.paragraph}`}>Alpha Kappa Psi is a pre-professional student fraternity here at UC San Diego. We are built on the key values of Brotherhood, Knowledge, Integrity, Unity, and Service. The community you&apos;ll find here at Alpha Kappa Psi is unparalleled. Not only do our brothers strive towards their personal and professional aspirations, but we do so together, building genuine bonds that last us a lifetime.</p>
-                      <p className={`${colors.section.text} ${fontCombinations.content.body} ${hierarchyWeights.paragraph}`}>With that being said, we highly encourage you to explore our website to learn more about our fraternity, our brothers, and what we stand for. If you&apos;re interested in joining our community, we encourage you to come out to our upcoming Fall 2025 Rush. At Rush, you&apos;ll get the chance to meet the brothers and learn more about how this fraternity can help you grow both personally and professionally.</p>
-                      <div className={`mt-4 md:mt-6 ${colors.section.text} ${fontCombinations.content.body}`}>
-                        <p className={`text-sm ${colors.text.secondary} uppercase tracking-tighter mb-1 ${fontCombinations.interactive.tertiary} ${hierarchyWeights.signature}`}>Sincerely,</p>
-                        <p className={`text-lg md:text-xl ${colors.text.accent} ${fontCombinations.section.tertiary} ${hierarchyWeights.title}`}>{president ? president.name : 'Loading...'}</p>
-                        <p className={`text-sm ${colors.text.secondary} ${fontCombinations.content.small} ${hierarchyWeights.signature}`}>President, Nu Xi Chapter</p>
-                      </div>
-                    </div>
-                  </div>
-                </BouncyFadeIn>
-                <BouncyFadeIn delay={0.1} threshold={0.1} bounce={0}>
-                  <div className="flex-1 flex justify-center lg:justify-end items-center w-full max-w-xl mt-8 lg:mt-0">
-                    {president ? (
-                      <div className="relative w-full max-w-sm md:max-w-md lg:max-w-lg h-auto">
-                        <Image src={president.imageUrl} alt={`${president.name} - President`} width={400} height={500} className="w-full h-auto rounded-md object-cover scale-110" />
-                      </div>
-                    ) : (
-                      <div className={`w-full max-w-sm md:max-w-md lg:max-w-lg h-64 md:h-80 bg-gradient-to-br from-[#B3CDE0]/20 to-[#D4AF37]/10 rounded-2xl flex items-center justify-center ${colors.border.default} shadow-lg backdrop-blur-sm relative overflow-hidden`}>
-                          <div className="absolute inset-0 bg-gradient-to-br from-[#6497B1]/5 to-[#B89334]/5"></div>
-                          <span className={`${colors.text.secondary} relative z-10 ${fontCombinations.content.body}`}>Loading president image...</span>
-                        </div>
-                    )}
-                  </div>
-                </BouncyFadeIn>
-              </section>
-
-              {/* GALLERY CAROUSEL SECTION - Bottom of President Section */}
-              <section className={`relative w-full overflow-hidden ${colors.section.bg} -mt-8`}>
-                  {galleryImages.length > 0 ? (
-                    <div className="relative">
-                      <InfiniteCarousel images={galleryImages} />
+              </BouncyFadeIn>
+              <BouncyFadeIn delay={0.1} threshold={0.1} bounce={0}>
+                <div className="flex-1 flex justify-center lg:justify-end items-center w-full max-w-xl mt-8 lg:mt-0">
+                  {president ? (
+                    <div className="relative w-full max-w-sm md:max-w-md lg:max-w-lg h-auto">
+                      <Image src={president.imageUrl} alt={`${president.name} - President`} width={400} height={500} className="w-full h-auto rounded-md object-cover scale-110" />
                     </div>
                   ) : (
-                    <div className={`text-center py-12 ${colors.section.text}`}>
-                      <div className={`w-16 h-16 ${colors.bg.surfaceAlt} rounded-full flex items-center justify-center mx-auto mb-4`}>
-                        <svg className="w-8 h-8 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
-                        </svg>
+                    <div className={`w-full max-w-sm md:max-w-md lg:max-w-lg h-64 md:h-80 bg-gradient-to-br from-[#B3CDE0]/20 to-[#D4AF37]/10 rounded-2xl flex items-center justify-center ${colors.border.default} shadow-lg backdrop-blur-sm relative overflow-hidden`}>
+                        <div className="absolute inset-0 bg-gradient-to-br from-[#6497B1]/5 to-[#B89334]/5"></div>
+                        <span className={`${colors.text.secondary} relative z-10 ${fontCombinations.content.body}`}>Loading president image...</span>
                       </div>
-                      <span className={`text-xl ${fontCombinations.content.lead}`}>Gallery images loading...</span>
+                  )}
+                </div>
+              </BouncyFadeIn>
+            </section>
+
+            {/* GALLERY CAROUSEL SECTION - Bottom of President Section */}
+            <section className={`relative w-full overflow-hidden ${colors.section.bg} -mt-8`}>
+                {galleryImages.length > 0 ? (
+                  <div className="relative">
+                    <InfiniteCarousel images={galleryImages} />
+                  </div>
+                ) : (
+                  <div className={`text-center py-12 ${colors.section.text}`}>
+                    <div className={`w-16 h-16 ${colors.bg.surfaceAlt} rounded-full flex items-center justify-center mx-auto mb-4`}>
+                      <svg className="w-8 h-8 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className={`text-xl ${fontCombinations.content.lead}`}>Gallery images loading...</span>
+                  </div>
+                )}
+            </section>
+
+            {/* HERO DESCRIPTION SECTION WITH BACKGROUND IMAGE */}
+            <section className={`relative flex items-center justify-center w-full min-h-[60vh] ${colors.section.bg} overflow-hidden`}>
+              {/* Group Photo as background */}
+              <div className="absolute inset-0 z-0">
+                <div className="w-full h-full overflow-hidden flex items-center justify-center">
+                  {homeImages.groupPhoto1 && (
+                    <div className="relative w-full h-full">
+                      <Image src={homeImages.groupPhoto1} alt="AKPsi Group Photo" fill sizes="100%" className="object-cover object-[center_35%]" />
                     </div>
                   )}
-              </section>
-
-                {/* HERO DESCRIPTION SECTION WITH BACKGROUND IMAGE */}
-                <section className={`relative flex items-center justify-center w-full min-h-[60vh] ${colors.section.bg} overflow-hidden`}>
-                  {/* Group Photo as background */}
-                  <div className="absolute inset-0 z-0">
-                    <div className="w-full h-full overflow-hidden flex items-center justify-center">
-                      {homeImages.groupPhoto1 && (
-                        <div className="relative w-full h-full">
-                          <Image src={homeImages.groupPhoto1} alt="AKPsi Group Photo" fill sizes="100%" className="object-cover object-[center_35%]" />
-                        </div>
-                      )}
-                    </div>
+                </div>
+              </div>
+              
+              {/* Glass morphism background - Static backdrop-filter layer */}
+              <div className={`absolute inset-0 backdrop-blur-md ${colors.glass.bg} ${colors.glass.border} z-10`}></div>
+              
+              {/* Content container - Dynamic width and positioning */}
+              <div className="relative z-20 max-w-2xl md:max-w-4xl w-full px-6 md:px-10 lg:px-16 flex flex-col items-start justify-center mx-auto">
+                <BouncyFadeIn delay={0.1} threshold={0.1} bounce={0}>
+                  <div className="relative z-30">
+                    <h2 className={`${colors.glass.text} text-xl md:text-2xl lg:text-3xl xl:text-4xl mb-6 leading-snug text-left ${fontCombinations.section.main}`} style={{textShadow: '0 2px 16px rgba(0,0,0,0.25), 0 0 1px rgba(0,0,0,0.8)'}}>
+                      Alpha Kappa Psi <b>(ΑΚΨ)</b> is the nation&apos;s premier co-ed Business fraternity, providing mentorship and resources to students.
+                    </h2>
+                    <Link href="/about" className={`mt-6 inline-flex items-center px-6 py-3 ${colors.glass.bg} ${colors.glass.bgHover} ${colors.glass.border} ${colors.glass.borderHover} ${colors.glass.text} rounded-lg transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg backdrop-blur-sm border border-white/30 hover:border-white/50 ${fontCombinations.interactive.primary} text-sm md:text-base`}>
+                      <span>LEARN MORE</span>
+                      <svg className="ml-1.5 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </Link>
                   </div>
-                  
-                  {/* Glass morphism background - Static backdrop-filter layer */}
-                  <div className={`absolute inset-0 backdrop-blur-md ${colors.glass.bg} ${colors.glass.border} z-10`}></div>
-                  
-                  {/* Content container - Dynamic width and positioning */}
-                  <div className="relative z-20 max-w-2xl md:max-w-4xl w-full px-6 md:px-10 lg:px-16 flex flex-col items-start justify-center mx-auto">
-                    <BouncyFadeIn delay={0.1} threshold={0.1} bounce={0}>
-                      <div className="relative z-30">
-                        <h2 className={`${colors.glass.text} text-xl md:text-2xl lg:text-3xl xl:text-4xl mb-6 leading-snug text-left ${fontCombinations.section.main}`} style={{textShadow: '0 2px 16px rgba(0,0,0,0.25), 0 0 1px rgba(0,0,0,0.8)'}}>
-                          Alpha Kappa Psi <b>(ΑΚΨ)</b> is the nation&apos;s premier co-ed Business fraternity, providing mentorship and resources to students.
-                        </h2>
-                        <Link href="/about" className={`mt-6 inline-flex items-center px-6 py-3 ${colors.glass.bg} ${colors.glass.bgHover} ${colors.glass.border} ${colors.glass.borderHover} ${colors.glass.text} rounded-lg transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg backdrop-blur-sm border border-white/30 hover:border-white/50 ${fontCombinations.interactive.primary} text-sm md:text-base`}>
-                          <span>LEARN MORE</span>
-                          <svg className="ml-1.5 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                          </svg>
-                        </Link>
-                      </div>
-                    </BouncyFadeIn>
-                  </div>
-                </section>
-            </div>
+                </BouncyFadeIn>
+              </div>
+            </section>
 
 
           </>
