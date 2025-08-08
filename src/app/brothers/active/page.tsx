@@ -8,6 +8,7 @@ import { fontCombinations } from '../../../styles/fonts';
 import { colors } from '../../../styles/colors';
 import BouncyFadeIn from '../../../components/BouncyFadeIn';
 import { useResponsiveColumns } from '../../../hooks/useResponsiveColumns';
+import Image from 'next/image';
 
 
 export default function ActiveBrothers() {
@@ -88,11 +89,15 @@ export default function ActiveBrothers() {
                 <div className="flex flex-col items-center">
                   <Link href={`/brothers/active/${encodeURIComponent(brother.name.replace(/\s/g, ""))}`}>
                     <div className="w-72 h-96 rounded-lg overflow-hidden cursor-pointer hover:scale-105 transition-transform">
-                      <img
-                        src={brother.imageUrl}
-                        alt={brother.name}
-                        className="w-full h-full object-cover object-center scale-110"
-                      />
+                      <div className="relative w-full h-full">
+                        <Image
+                          src={brother.imageUrl}
+                          alt={brother.name}
+                          fill
+                          sizes="(max-width: 768px) 288px, 288px"
+                          className="object-cover object-center scale-110"
+                        />
+                      </div>
                     </div>
                   </Link>
                   <span className={`text-lg mt-2 text-white ${fontCombinations.section.tertiary}`}>{brother.name}</span>

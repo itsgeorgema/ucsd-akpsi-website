@@ -1,12 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { createClient } from '../../../../../supabase/client';
 import { fontCombinations } from '../../../../styles/fonts';
 import { colors } from '../../../../styles/colors';
 import LoadingSpinner from '../../../../components/LoadingSpinner';
 import BouncyFadeIn from '../../../../components/BouncyFadeIn';
+import Image from 'next/image';
 
 interface Executive {
   name: string;
@@ -92,13 +93,16 @@ export default function ExecutivePage() {
               <div className="grid lg:grid-cols-3 gap-8 items-stretch">
                 {/* Enhanced Profile Image Section */}
                 <BouncyFadeIn delay={0.1} bounce={0} threshold={0} className="lg:col-span-1 flex flex-col items-center lg:items-start h-full">
-                  <div className="relative group h-full">
+                  <div className="relative group w-full">
                     {/* Main Profile Image */}
-                    <div className="relative overflow-hidden rounded-2xl shadow-2xl h-full">
-                      <img 
+                    <div className="relative overflow-hidden rounded-2xl shadow-2xl w-full h-[35rem] md:h-[41rem] lg:h-[45rem]">
+                      <Image 
                         src={executive.imageUrl} 
                         alt={executive.name} 
-                        className="w-full h-full object-cover object-top" 
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 33vw"
+                        priority
+                        className="object-cover object-center scale-110" 
                       />
                       {/* Gradient overlay for better text contrast */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>

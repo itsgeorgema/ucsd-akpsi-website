@@ -7,6 +7,7 @@ import { colors } from '../../styles/colors';
 import { getCompanyImages, Company, getAboutImages, AboutImages } from '../../utils/imageUtils';
 import ScrollArrow from '../../components/ScrollArrow';
 import BouncyFadeIn from '../../components/BouncyFadeIn';
+import Image from 'next/image';
 
 interface StatModalData {
   title: string;
@@ -226,7 +227,9 @@ export default function About() {
             {/* Featured Image */}
             <div className="relative rounded-2xl overflow-hidden shadow-lg w-full max-w-full mx-auto">
               {images.groupPhoto1 ? (
-                <img src={images.groupPhoto1} alt="Group Photo About Page" className="w-full h-64 object-cover" />
+                <div className="relative w-full h-64">
+                  <Image src={images.groupPhoto1} alt="Group Photo About Page" fill sizes="(max-width: 768px) 100vw, 768px" className="object-cover" />
+                </div>
               ) : (
                 <div className={`w-full h-64 ${colors.bg.surfaceAlt} flex items-center justify-center`}>
                   <span className={`${colors.text.secondary} ${fontCombinations.content.small}`}>Loading group photo...</span>
@@ -291,10 +294,15 @@ export default function About() {
               <div className="relative w-full max-w-full mx-auto">
                 <div className="relative rounded-2xl overflow-hidden shadow-lg w-full max-w-full mx-auto">
                   {images.groupPhoto2 ? (
-                    <img 
-                      src={images.groupPhoto2} 
-                      alt="Nu Xi Chapter Group Photo" 
-                      className="w-full h-80 object-cover"/>
+                    <div className="relative w-full h-80">
+                      <Image 
+                        src={images.groupPhoto2} 
+                        alt="Nu Xi Chapter Group Photo" 
+                        fill
+                        sizes="(max-width: 768px) 100vw, 768px"
+                        className="object-cover"
+                      />
+                    </div>
                   ) : (
                     <div className={`w-full h-80 ${colors.bg.surfaceAlt} flex items-center justify-center`}>
                       <span className={`${colors.text.secondary}`}>Loading chapter photo...</span>
@@ -325,9 +333,11 @@ export default function About() {
                 <div className="flex justify-center items-center mb-6">
                   {images.genderPie ? (
                     <div className="relative flex items-center justify-center w-50 h-50 md:w-56 md:h-56 lg:w-64 lg:h-64">
-                      <img 
+                      <Image 
                         src={images.genderPie} 
                         alt="Gender Distribution Pie Chart" 
+                        width={256}
+                        height={256}
                         className="max-w-full max-h-full object-contain" 
                       />
                     </div>
@@ -356,9 +366,11 @@ export default function About() {
                 <div className="flex justify-center items-center mb-6">
                   {images.gradePie ? (
                     <div className="relative flex items-center justify-center w-50 h-50 md:w-56 md:h-56 lg:w-64 lg:h-64 mx-auto">
-                      <img 
+                      <Image 
                         src={images.gradePie} 
                         alt="Grade Level Distribution Pie Chart" 
+                        width={256}
+                        height={256}
                         className="max-w-full max-h-full object-contain" 
                       />
                     </div>
@@ -388,9 +400,11 @@ export default function About() {
               <div className="flex flex-col lg:flex-row items-center justify-center gap-8">
                 {/* Industry Chart */}
                 <div className="relative flex-shrink-0 w-40 h-40 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full mx-auto">
-                  <img 
+                  <Image 
                     src={images.industryDistribution} 
                     alt="Industries Distribution Chart" 
+                    width={256}
+                    height={256}
                     className="w-full h-full object-contain rounded-full" 
                   />
                 </div>
@@ -471,7 +485,9 @@ export default function About() {
                 <div className="relative z-10 flex flex-col items-center">
                   <div className="mb-8">
                     {images.crest ? (
-                      <img src={images.crest} alt="AKPsi Crest" className="object-contain w-72 h-80 mx-auto" />
+                      <div className="relative w-72 h-80 mx-auto">
+                        <Image src={images.crest} alt="AKPsi Crest" fill sizes="288px" className="object-contain" />
+                      </div>
                     ) : (
                       <div className={`w-72 h-80 ${colors.bg.surfaceAlt} flex items-center justify-center`}>
                         <span className={`${colors.text.secondary} ${akpsiFonts.bodyFont}`}>Loading crest...</span>
@@ -540,18 +556,26 @@ export default function About() {
                             <span className="relative z-10 text-left w-full flex items-center pr-8">
                               <div className="h-14 w-14 mr-3 ml-1 rounded-2xl flex items-center justify-center">
                                 {tab === 'akpsi' && images.crestSvg && (
-                                  <img 
-                                    src={images.crestSvg} 
-                                    alt="AKPsi Crest" 
-                                    className="w-12 h-12 object-contain"
-                                  />
+                                  <div className="relative w-12 h-12">
+                                    <Image 
+                                      src={images.crestSvg} 
+                                      alt="AKPsi Crest" 
+                                      fill
+                                      sizes="48px"
+                                      className="object-contain"
+                                    />
+                                  </div>
                                 )}
                                 {tab === 'nuxi' && images.akpsiLogo && (
-                                  <img 
-                                    src={images.akpsiLogo} 
-                                    alt="AKPsi Logo" 
-                                    className="w-10 h-10 object-contain"
-                                  />
+                                  <div className="relative w-10 h-10">
+                                    <Image 
+                                      src={images.akpsiLogo} 
+                                      alt="AKPsi Logo" 
+                                      fill
+                                      sizes="40px"
+                                      className="object-contain"
+                                    />
+                                  </div>
                                 )}
                                 {tab === 'statistics' && (
                                   <svg className="w-12 h-12 text-[#003366]" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
@@ -628,12 +652,16 @@ export default function About() {
                                 className={`group relative bg-white/80 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 hover:scale-105 border border-[#D4AF37]/20 hover:border-[#B89334]/40`}
                               >
                                 <div className="aspect-square flex items-center justify-center">
-                                  <img 
-                                    src={company.imageUrl} 
-                                    alt={company.name ? company.name : 'Company logo'} 
-                                    className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-300" 
-                                    onError={() => console.error('Image failed to load:', company.imageUrl)}
-                                  />
+                                  <div className="relative w-full h-full">
+                                    <Image 
+                                      src={company.imageUrl} 
+                                      alt={company.name ? company.name : 'Company logo'} 
+                                      fill
+                                      sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                                      className="object-contain group-hover:scale-110 transition-transform duration-300" 
+                                      onError={() => console.error('Image failed to load:', company.imageUrl)}
+                                    />
+                                  </div>
                                 </div>
                               </div>
                             ))}
@@ -694,9 +722,11 @@ export default function About() {
                 </div>
                 <div className="flex justify-center items-center mb-6">
                   <div className="relative flex items-center justify-center w-80 h-80">
-                    <img 
+                    <Image 
                       src={selectedStat?.image} 
                       alt={selectedStat?.title} 
+                      width={320}
+                      height={320}
                       className="max-w-full max-h-full object-contain"
                     />
                   </div>

@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 interface GalleryImage {
   imageUrl: string;
@@ -45,11 +46,15 @@ export default function InfiniteCarousel({ images }: InfiniteCarouselProps) {
           {images.map((image, index) => (
             <div key={index} className="flex-shrink-0">
               <div className="relative overflow-hidden rounded-none shadow-lg">
-                <img 
-                  src={image.imageUrl} 
-                  alt={`Gallery image ${index + 1}`} 
-                  className="w-48 h-36 sm:w-56 sm:h-42 md:w-64 md:h-48 lg:w-72 lg:h-54 object-cover"
-                />
+                <div className="relative w-48 h-36 sm:w-56 sm:h-42 md:w-64 md:h-48 lg:w-72 lg:h-54">
+                  <Image 
+                    src={image.imageUrl} 
+                    alt={`Gallery image ${index + 1}`} 
+                    fill
+                    sizes="(max-width: 640px) 192px, (max-width: 768px) 224px, (max-width: 1024px) 256px, 288px"
+                    className="object-cover"
+                  />
+                </div>
               </div>
             </div>
           ))}
@@ -79,11 +84,15 @@ export default function InfiniteCarousel({ images }: InfiniteCarouselProps) {
           {images.map((image, index) => (
             <div key={`set1-${index}`} className="flex-shrink-0">
               <div className="relative overflow-hidden rounded-none shadow-lg">
-                <img 
-                  src={image.imageUrl} 
-                  alt={`Gallery image ${index + 1}`} 
-                  className="w-48 h-36 sm:w-56 sm:h-42 md:w-64 md:h-48 lg:w-72 lg:h-54 object-cover"
-                />
+                <div className="relative w-48 h-36 sm:w-56 sm:h-42 md:w-64 md:h-48 lg:w-72 lg:h-54">
+                  <Image 
+                    src={image.imageUrl} 
+                    alt={`Gallery image ${index + 1}`} 
+                    fill
+                    sizes="(max-width: 640px) 192px, (max-width: 768px) 224px, (max-width: 1024px) 256px, 288px"
+                    className="object-cover"
+                  />
+                </div>
               </div>
             </div>
           ))}
@@ -91,11 +100,15 @@ export default function InfiniteCarousel({ images }: InfiniteCarouselProps) {
           {images.map((image, index) => (
             <div key={`set2-${index}`} className="flex-shrink-0">
               <div className="relative overflow-hidden rounded-none shadow-lg">
-                <img 
-                  src={image.imageUrl} 
-                  alt={`Gallery image ${index + 1}`} 
-                  className="w-48 h-36 sm:w-56 sm:h-42 md:w-64 md:h-48 lg:w-72 lg:h-54 object-cover"
-                />
+                <div className="relative w-48 h-36 sm:w-56 sm:h-42 md:w-64 md:h-48 lg:w-72 lg:h-54">
+                  <Image 
+                    src={image.imageUrl} 
+                    alt={`Gallery image ${index + 1}`} 
+                    fill
+                    sizes="(max-width: 640px) 192px, (max-width: 768px) 224px, (max-width: 1024px) 256px, 288px"
+                    className="object-cover"
+                  />
+                </div>
               </div>
             </div>
           ))}
@@ -103,11 +116,15 @@ export default function InfiniteCarousel({ images }: InfiniteCarouselProps) {
           {images.map((image, index) => (
             <div key={`set3-${index}`} className="flex-shrink-0">
               <div className="relative overflow-hidden rounded-none shadow-lg">
-                <img 
-                  src={image.imageUrl} 
-                  alt={`Gallery image ${index + 1}`} 
-                  className="w-48 h-36 sm:w-56 sm:h-42 md:w-64 md:h-48 lg:w-72 lg:h-54 object-cover"
-                />
+                <div className="relative w-48 h-36 sm:w-56 sm:h-42 md:w-64 md:h-48 lg:w-72 lg:h-54">
+                  <Image 
+                    src={image.imageUrl} 
+                    alt={`Gallery image ${index + 1}`} 
+                    fill
+                    sizes="(max-width: 640px) 192px, (max-width: 768px) 224px, (max-width: 1024px) 256px, 288px"
+                    className="object-cover"
+                  />
+                </div>
               </div>
             </div>
           ))}
@@ -115,11 +132,15 @@ export default function InfiniteCarousel({ images }: InfiniteCarouselProps) {
           {images.map((image, index) => (
             <div key={`set4-${index}`} className="flex-shrink-0">
               <div className="relative overflow-hidden rounded-none shadow-lg">
-                <img 
-                  src={image.imageUrl} 
-                  alt={`Gallery image ${index + 1}`} 
-                  className="w-48 h-36 sm:w-56 sm:h-42 md:w-64 md:h-48 lg:w-72 lg:h-54 object-cover"
-                />
+                <div className="relative w-48 h-36 sm:w-56 sm:h-42 md:w-64 md:h-48 lg:w-72 lg:h-54">
+                  <Image 
+                    src={image.imageUrl} 
+                    alt={`Gallery image ${index + 1}`} 
+                    fill
+                    sizes="(max-width: 640px) 192px, (max-width: 768px) 224px, (max-width: 1024px) 256px, 288px"
+                    className="object-cover"
+                  />
+                </div>
               </div>
             </div>
           ))}
@@ -127,11 +148,15 @@ export default function InfiniteCarousel({ images }: InfiniteCarouselProps) {
           {images.map((image, index) => (
             <div key={`set5-${index}`} className="flex-shrink-0">
               <div className="relative overflow-hidden rounded-none shadow-lg">
-                <img 
-                  src={image.imageUrl} 
-                  alt={`Gallery image ${index + 1}`} 
-                  className="w-48 h-36 sm:w-56 sm:h-42 md:w-64 md:h-48 lg:w-72 lg:h-54 object-cover"
-                />
+                <div className="relative w-48 h-36 sm:w-56 sm:h-42 md:w-64 md:h-48 lg:w-72 lg:h-54">
+                  <Image 
+                    src={image.imageUrl} 
+                    alt={`Gallery image ${index + 1}`} 
+                    fill
+                    sizes="(max-width: 640px) 192px, (max-width: 768px) 224px, (max-width: 1024px) 256px, 288px"
+                    className="object-cover"
+                  />
+                </div>
               </div>
             </div>
           ))}

@@ -12,6 +12,7 @@ import { colors } from '../styles/colors';
 import AnimatedTitle from '../components/AnimatedTitle';
 import { getHomeImages, HomeImages } from '../utils/imageUtils';
 import { getGalleryImages, GalleryImage } from '../utils/imageUtils';
+import Image from 'next/image';
 
 interface President {
   name: string;
@@ -112,7 +113,9 @@ export default function Home() {
                     <div className={`${colors.glass.text}`}>
                       {homeImages.broho && (
                         <div className="mb-1 md:mb-2">
-                          <img src={homeImages.broho} alt="Brotherhood" className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14" />
+                          <div className="relative h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14">
+                            <Image src={homeImages.broho} alt="Brotherhood" fill sizes="(max-width: 640px) 32px, (max-width: 768px) 40px, (max-width: 1024px) 48px, 56px" className="object-contain" />
+                          </div>
                         </div>
                       )}
                       <h3 className={`text-sm sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title} ${hierarchyWeights.valuesTitle}`}>BROTHERHOOD</h3>
@@ -125,7 +128,9 @@ export default function Home() {
                     <div className={`${colors.glass.text}`}>
                       {homeImages.integrity && (
                         <div className="mb-1 md:mb-2">
-                          <img src={homeImages.integrity} alt="Integrity" className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14" />
+                          <div className="relative h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14">
+                            <Image src={homeImages.integrity} alt="Integrity" fill sizes="(max-width: 640px) 32px, (max-width: 768px) 40px, (max-width: 1024px) 48px, 56px" className="object-contain" />
+                          </div>
                         </div>
                       )}
                       <h3 className={`text-sm sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title} ${hierarchyWeights.valuesTitle}`}>INTEGRITY</h3>
@@ -138,7 +143,9 @@ export default function Home() {
                     <div className={`${colors.glass.text}`}>
                       {homeImages.service && (
                         <div className="mb-1 md:mb-2">
-                          <img src={homeImages.service} alt="Service" className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14" />
+                          <div className="relative h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14">
+                            <Image src={homeImages.service} alt="Service" fill sizes="(max-width: 640px) 32px, (max-width: 768px) 40px, (max-width: 1024px) 48px, 56px" className="object-contain" />
+                          </div>
                         </div>
                       )}
                       <h3 className={`text-sm sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title} ${hierarchyWeights.valuesTitle}`}>SERVICE</h3>
@@ -151,7 +158,9 @@ export default function Home() {
                     <div className={`${colors.glass.text}`}>
                       {homeImages.unity && (
                         <div className="mb-1 md:mb-2">
-                          <img src={homeImages.unity} alt="Unity" className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14" />
+                          <div className="relative h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14">
+                            <Image src={homeImages.unity} alt="Unity" fill sizes="(max-width: 640px) 32px, (max-width: 768px) 40px, (max-width: 1024px) 48px, 56px" className="object-contain" />
+                          </div>
                         </div>
                       )}
                       <h3 className={`text-sm sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title} ${hierarchyWeights.valuesTitle}`}>UNITY</h3>
@@ -164,7 +173,9 @@ export default function Home() {
                     <div className={`${colors.glass.text}`}>
                       {homeImages.knowledge && (
                         <div className="mb-1 md:mb-2">
-                          <img src={homeImages.knowledge} alt="Knowledge" className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14" />
+                          <div className="relative h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14">
+                            <Image src={homeImages.knowledge} alt="Knowledge" fill sizes="(max-width: 640px) 32px, (max-width: 768px) 40px, (max-width: 1024px) 48px, 56px" className="object-contain" />
+                          </div>
                         </div>
                       )}
                       <h3 className={`text-sm sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title} ${hierarchyWeights.valuesTitle}`}>KNOWLEDGE</h3>
@@ -209,12 +220,14 @@ export default function Home() {
                 <BouncyFadeIn delay={0.1} threshold={0.1} bounce={0}>
                   <div className="flex-1 flex justify-center lg:justify-end items-center w-full max-w-xl mt-8 lg:mt-0">
                     {president ? (
-                      <img src={president.imageUrl} alt={`${president.name} - President`} className="w-full max-w-sm md:max-w-md lg:max-w-lg h-auto rounded-md object-cover scale-110" />
+                      <div className="relative w-full max-w-sm md:max-w-md lg:max-w-lg h-auto">
+                        <Image src={president.imageUrl} alt={`${president.name} - President`} width={400} height={500} className="w-full h-auto rounded-md object-cover scale-110" />
+                      </div>
                     ) : (
                       <div className={`w-full max-w-sm md:max-w-md lg:max-w-lg h-64 md:h-80 bg-gradient-to-br from-[#B3CDE0]/20 to-[#D4AF37]/10 rounded-2xl flex items-center justify-center ${colors.border.default} shadow-lg backdrop-blur-sm relative overflow-hidden`}>
-                        <div className="absolute inset-0 bg-gradient-to-br from-[#6497B1]/5 to-[#B89334]/5"></div>
-                        <span className={`${colors.text.secondary} relative z-10 ${fontCombinations.content.body}`}>Loading president image...</span>
-                      </div>
+                          <div className="absolute inset-0 bg-gradient-to-br from-[#6497B1]/5 to-[#B89334]/5"></div>
+                          <span className={`${colors.text.secondary} relative z-10 ${fontCombinations.content.body}`}>Loading president image...</span>
+                        </div>
                     )}
                   </div>
                 </BouncyFadeIn>
@@ -244,7 +257,9 @@ export default function Home() {
                   <div className="absolute inset-0 z-0">
                     <div className="w-full h-full overflow-hidden flex items-center justify-center">
                       {homeImages.groupPhoto1 && (
-                        <img src={homeImages.groupPhoto1} alt="AKPsi Group Photo" className="w-full h-full object-cover object-[center_35%]" />
+                        <div className="relative w-full h-full">
+                          <Image src={homeImages.groupPhoto1} alt="AKPsi Group Photo" fill sizes="100vw" className="object-cover object-[center_35%]" />
+                        </div>
                       )}
                     </div>
                   </div>

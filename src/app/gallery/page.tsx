@@ -7,6 +7,7 @@ import { colors } from "../../styles/colors";
 import { getGalleryImages, GalleryImage } from "../../utils/imageUtils";
 import BouncyFadeIn from "../../components/BouncyFadeIn";
 import { useResponsiveColumns } from "../../hooks/useResponsiveColumns";
+import Image from 'next/image';
 
 export default function Gallery() {
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
@@ -80,11 +81,15 @@ export default function Gallery() {
                         <BouncyFadeIn key={index} delay={delay} bounce={0} threshold={0}>
                           <div className="group">
                             <div className="relative overflow-hidden rounded-lg shadow-2xl transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                              <img 
-                                src={image.imageUrl} 
-                                alt={`Gallery image ${index + 1}`} 
-                                className="w-full h-80 object-cover"
-                              />
+                              <div className="relative w-full h-80">
+                                <Image 
+                                  src={image.imageUrl} 
+                                  alt={`Gallery image ${index + 1}`} 
+                                  fill
+                                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                  className="object-cover"
+                                />
+                              </div>
                             </div>
                           </div>
                         </BouncyFadeIn>

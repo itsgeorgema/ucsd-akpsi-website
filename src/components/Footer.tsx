@@ -4,6 +4,7 @@ import { colorPalette, colors } from '../styles/colors';
 import { akpsiFonts, hierarchyWeights } from '../styles/fonts';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../contexts/AuthContext';
+import Image from 'next/image';
 
 interface FooterProps {
   className?: string;
@@ -54,12 +55,16 @@ export default function Footer({ className = "" }: FooterProps) {
           {/* Left Column - Organization Info */}
           <div className="space-y-2 md:space-y-3 mb-4 md:mb-0 flex flex-col items-center md:items-start">
             <div className="flex items-center space-x-3">
-              <img 
-                src="/assets/akpsiLogo.png" 
-                alt="Alpha Kappa Psi Logo" 
-                className="h-40 w-40 object-contain cursor-pointer mb-[-55px] mt-[-50px] md:mt-[-50px]"
-                onClick={() => router.push('/')}
-              />
+              <div className="relative h-40 w-40 cursor-pointer mb-[-55px] mt-[-50px] md:mt-[-50px]">
+                <Image 
+                  src="/assets/akpsiLogo.png" 
+                  alt="Alpha Kappa Psi Logo" 
+                  fill
+                  sizes="160px"
+                  className="object-contain"
+                  onClick={() => router.push('/')}
+                />
+              </div>
             </div>
           </div>
 

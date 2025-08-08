@@ -7,6 +7,7 @@ import { fontCombinations } from '../../../styles/fonts';
 import { colors } from '../../../styles/colors';
 import BouncyFadeIn from '../../../components/BouncyFadeIn';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface Executive {
   name: string;
@@ -138,11 +139,15 @@ export default function ExecutiveCommittee() {
                                 aria-label={`View ${executive.name}'s profile - ${executive.position}`}
                               >
                                 <div className="w-72 h-96 rounded-lg overflow-hidden cursor-pointer hover:scale-105 transition-transform">
-                                  <img
-                                    src={executive.imageUrl}
-                                    alt={`${executive.name} - ${executive.position}`}
-                                    className="w-full h-full object-cover object-center scale-110"
-                                  />
+                                  <div className="relative w-full h-full">
+                                    <Image
+                                      src={executive.imageUrl}
+                                      alt={`${executive.name} - ${executive.position}`}
+                                      fill
+                                      sizes="(max-width: 768px) 288px, 288px"
+                                      className="object-cover object-center scale-110"
+                                    />
+                                  </div>
                                 </div>
                               </Link>
                               <span className={`text-lg mt-2 text-white ${fontCombinations.section.tertiary}`}>{executive.name}</span>

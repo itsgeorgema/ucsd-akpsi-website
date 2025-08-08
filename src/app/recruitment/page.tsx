@@ -8,6 +8,7 @@ import { rushColors } from '../../styles/rushColors';
 import InfiniteCarousel from '../../components/InfiniteCarousel';
 import { getGalleryImages } from '../../utils/imageUtils';
 import BouncyFadeIn from '../../components/BouncyFadeIn';
+import Image from 'next/image';
 
 export default function Recruitment() {
   const [backgroundImage, setBackgroundImage] = useState<string>('');
@@ -137,11 +138,15 @@ export default function Recruitment() {
               {/* Right Side - Flyer Image */}
               <div className="rounded-xl overflow-hidden">
                 {flyerImage ? (
-                  <img 
-                    src={flyerImage} 
-                    alt="Rush Flyer"
-                    className="w-full h-auto object-cover rounded-xl"
-                  />
+                  <div className="relative w-full h-auto">
+                    <Image 
+                      src={flyerImage} 
+                      alt="Rush Flyer"
+                      width={600}
+                      height={800}
+                      className="w-full h-auto object-cover rounded-xl"
+                    />
+                  </div>
                 ) : (
                   <div className={`${colors.bg.surfaceAlt} rounded-xl p-6 flex items-center justify-center h-64`}>
                     <div className={`text-center ${colors.text.secondary} ${fontCombinations.content.body}`}>

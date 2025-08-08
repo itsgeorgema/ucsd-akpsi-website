@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { colors } from '../styles/colors';
 import { fontCombinations, hierarchyWeights } from '../styles/fonts';
 import { useAuth } from '../contexts/AuthContext';
+import Image from 'next/image'
 
 type NavSubItem = {
   href: string;
@@ -70,12 +71,17 @@ export default function Navbar() {
     <>
       {/* Logo */}
       <div className="absolute top-[-2.25rem] left-4 z-50">
-        <Link href="/" onClick={closeMenu}>
-          <img
-            src="/assets/akpsiLogo.png"
-            alt="Alpha Kappa Psi Logo"
-            className="h-40 w-40 object-contain cursor-pointer"
-          />
+        <Link href="/" onClick={closeMenu} aria-label="Go to home">
+          <div className="relative h-40 w-40 cursor-pointer">
+            <Image
+              src="/assets/akpsiLogo.png"
+              alt="Alpha Kappa Psi Logo"
+              fill
+              priority
+              sizes="160px"
+              className="object-contain"
+            />
+          </div>
         </Link>
       </div>
 
