@@ -6,7 +6,6 @@ import LoadingSpinner from '../../../components/LoadingSpinner';
 import { fontCombinations } from '../../../styles/fonts';
 import { colors } from '../../../styles/colors';
 import BouncyFadeIn from '../../../components/BouncyFadeIn';
-import { useResponsiveColumns } from '../../../hooks/useResponsiveColumns';
 import Link from 'next/link';
 
 interface Executive {
@@ -23,13 +22,7 @@ export default function ExecutiveCommittee() {
   const [executives, setExecutives] = useState<Executive[]>([]);
   const backgroundImage = '/assets/sunsetBackground.jpeg';
   const [loading, setLoading] = useState(true);
-  const columns = useResponsiveColumns(
-    [
-      { minWidth: 768, columns: 4 }, // md and up
-      { minWidth: 640, columns: 2 }, // sm and up
-    ],
-    1,
-  );
+
 
   useEffect(() => {
     const fetchData = async () => {

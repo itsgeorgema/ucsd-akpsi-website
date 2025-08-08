@@ -84,7 +84,7 @@ export default function ExecutivePage() {
           {!loading && !executive && (
             <div className={`flex flex-col items-center justify-center min-h-[60vh] ${colors.text.inverse}`}>
               <div className={`text-2xl ${fontCombinations.section.secondary} mb-2`}>Executive not found</div>
-              <div className={`text-lg opacity-80 ${fontCombinations.content.body} ${colors.glass.textSubtle}`}>The executive you're looking for doesn't exist in our database.</div>
+              <div className={`text-lg opacity-80 ${fontCombinations.content.body} ${colors.glass.textSubtle}`}>The brother you&apos;re looking for doesn&apos;t exist in our database.</div>
             </div>
           )}
           {!loading && executive && (
