@@ -80,8 +80,8 @@ export default function Contact() {
         }),
       });
       
-      if (!response.ok){
-        const err = await response.text()
+      if (!response.ok) {
+        const err = await response.text();
         throw new Error(`Server error: ${response.status} ${err}`);
       } else {
         setSubmitted(true);
@@ -91,7 +91,7 @@ export default function Contact() {
         setTimeout(triggerScrollToTop, 100);
       }
     } catch (err) {
-      console.error('Error sending email:', err)
+      console.error('Error sending email:', err);
       setError('An error occurred. Please try again.');
     }
   };
@@ -182,7 +182,7 @@ export default function Contact() {
                           required
                           className={`appearance-none rounded-lg relative block w-full px-4 py-3 border-2 ${colors.glass.border} text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37] text-base ${fontCombinations.content.body} ${colors.glass.bg} shadow-lg transition-all duration-200`}
                           placeholder="Enter your first name"
-                          onChange={(e) => {setFirstName(e.target.value)}}
+                          onChange={(e) => { setFirstName(e.target.value) }}
                         />
                       </div>
 
@@ -245,7 +245,7 @@ export default function Contact() {
                     </button>
                   </div>
                   <div>
-                    <h1 className="text-red-400">{error}</h1>  
+                    <p className="text-red-400">{error}</p>  
                   </div>
                 </form>
                 )}

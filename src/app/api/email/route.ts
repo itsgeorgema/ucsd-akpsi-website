@@ -5,7 +5,6 @@ export async function POST(request: NextRequest) {
   try {
     // Parse the JSON body from the request
     const { name, email, message } = await request.json();
-    console.log(email);
     if (!name || !email || !message) {
       return NextResponse.json(
         { error: 'Missing required fields' },
@@ -25,7 +24,8 @@ export async function POST(request: NextRequest) {
     // Send mail (it will always send the message as an email to itself)
     // so we include email sender in subject
     await transporter.sendMail({
-      from: `"${name}" <${email}>`,
+      from: `"${name}" <${process.env.APP_EMAIL}>`,
+      replyTo: email,
       to: `${process.env.APP_EMAIL}`,
       subject: `[UCSD Alpha Kappa Psi] Contact Us - New Mail`,
       html: `

@@ -427,8 +427,6 @@ export default function About() {
               className="w-full h-full object-cover"
               style={{ objectPosition: 'center' }}
               onError={(e) => console.error('Video error:', e)}
-              onLoadStart={() => console.log('Video loading started')}
-              onCanPlay={() => console.log('Video can play')}
             >
               <source src={images.backgroundVideo} type="video/mp4" />
               Your browser does not support the video tag.
