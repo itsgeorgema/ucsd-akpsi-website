@@ -17,8 +17,8 @@ export async function POST(request: NextRequest) {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: process.env.APP_EMAIL,
+        pass: process.env.APP_PASSWORD,
       },
     });
 
@@ -26,8 +26,8 @@ export async function POST(request: NextRequest) {
     // so we include email sender in subject
     await transporter.sendMail({
       from: `"${name}" <${email}>`,
-      to: 'jiangalan21@gmail.com',
-      subject: `[UCSD Alpha Kappa Psi] Contact Us - new submission`,
+      to: `${process.env.APP_EMAIL}`,
+      subject: `[UCSD Alpha Kappa Psi] Contact Us - New Mail`,
       html: `
         <h3>Name: ${name}</h3>
         <h3>Email: 
