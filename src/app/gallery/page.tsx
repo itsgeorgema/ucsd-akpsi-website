@@ -86,7 +86,7 @@ export default function Gallery() {
                                   src={image.imageUrl} 
                                   alt={`Gallery image ${index + 1}`} 
                                   fill
-                                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                  sizes="(max-width: 768px) 100%, (max-width: 1024px) 50vw, 33vw"
                                   className="object-cover"
                                 />
                               </div>

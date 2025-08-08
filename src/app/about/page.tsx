@@ -228,7 +228,7 @@ export default function About() {
             <div className="relative rounded-2xl overflow-hidden shadow-lg w-full max-w-full mx-auto">
               {images.groupPhoto1 ? (
                 <div className="relative w-full h-64">
-                  <Image src={images.groupPhoto1} alt="Group Photo About Page" fill sizes="(max-width: 768px) 100vw, 768px" className="object-cover" />
+                  <Image src={images.groupPhoto1} alt="Group Photo About Page" fill sizes="(max-width: 768px) 100%, 768px" className="object-cover" />
                 </div>
               ) : (
                 <div className={`w-full h-64 ${colors.bg.surfaceAlt} flex items-center justify-center`}>
@@ -299,7 +299,7 @@ export default function About() {
                         src={images.groupPhoto2} 
                         alt="Nu Xi Chapter Group Photo" 
                         fill
-                        sizes="(max-width: 768px) 100vw, 768px"
+                        sizes="(max-width: 768px) 100%, 768px"
                         className="object-cover"
                       />
                     </div>

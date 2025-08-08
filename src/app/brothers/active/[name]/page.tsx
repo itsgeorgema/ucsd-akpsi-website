@@ -98,7 +98,7 @@ export default function BrotherPage() {
                         src={brother.imageUrl} 
                         alt={brother.name} 
                         fill
-                        sizes="(max-width: 1024px) 100vw, 33vw"
+                        sizes="(max-width: 1024px) 100%, 33vw"
                         priority
                         className="object-cover object-center scale-110" 
                       />

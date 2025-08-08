@@ -100,7 +100,7 @@ export default function ExecutivePage() {
                         src={executive.imageUrl} 
                         alt={executive.name} 
                         fill
-                        sizes="(max-width: 1024px) 100vw, 33vw"
+                        sizes="(max-width: 1024px) 100%, 33vw"
                         priority
                         className="object-cover object-center scale-110" 
                       />

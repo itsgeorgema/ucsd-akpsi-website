@@ -258,7 +258,7 @@ export default function Home() {
                     <div className="w-full h-full overflow-hidden flex items-center justify-center">
                       {homeImages.groupPhoto1 && (
                         <div className="relative w-full h-full">
-                          <Image src={homeImages.groupPhoto1} alt="AKPsi Group Photo" fill sizes="100vw" className="object-cover object-[center_35%]" />
+                          <Image src={homeImages.groupPhoto1} alt="AKPsi Group Photo" fill sizes="100%" className="object-cover object-[center_35%]" />
                         </div>
                       )}
                     </div>
