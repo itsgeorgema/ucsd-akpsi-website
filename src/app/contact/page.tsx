@@ -13,6 +13,32 @@ export default function Contact() {
   const checkmarkRef = useRef<SVGSVGElement>(null);
   const [checkmarkAnimation, setCheckmarkAnimation] = useState(false);
 
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+
+  const triggerScrollToTop = () => {
+    const eventName = 'akpsi-scroll-to-top';
+    window.dispatchEvent(new Event(eventName));
+    document.dispatchEvent(new Event(eventName));
+  };
+
+  const handleReset = () => {
+    setSubmitted(false);
+    setCheckmarkAnimation(false);
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setMessage('');
+    setError('');
+    // Ensure scroll to top when switching back to the form
+    triggerScrollToTop();
+    requestAnimationFrame(triggerScrollToTop);
+    setTimeout(triggerScrollToTop, 80);
+  };
+
   useEffect(() => {
     setMounted(true);
     setLoading(false);
@@ -22,14 +48,52 @@ export default function Contact() {
     if (submitted && checkmarkRef.current) {
       const timer = setTimeout(() => {
         setCheckmarkAnimation(true);
+        // Ensure scroll occurs after success UI renders
+        triggerScrollToTop();
       }, 100);
       return () => clearTimeout(timer);
     }
   }, [submitted]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // After successful submission, request global scroll-to-top handler
+  useEffect(() => {
+    if (submitted) {
+      const fire = () => triggerScrollToTop();
+      // Fire immediately and after a short delay to ensure it runs after DOM updates
+      fire();
+      const t = setTimeout(fire, 50);
+      requestAnimationFrame(fire);
+      return () => clearTimeout(t);
+    }
+  }, [submitted]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    try {
+      const response = await fetch('/api/email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: `${firstName} ${lastName}`,
+          email: email,
+          message: message,
+        }),
+      });
+      
+      if (!response.ok) {
+        const err = await response.text();
+        throw new Error(`Server error: ${response.status} ${err}`);
+      } else {
+        setSubmitted(true);
+        // Redundant triggers to guarantee scroll after successful submit
+        triggerScrollToTop();
+        requestAnimationFrame(triggerScrollToTop);
+        setTimeout(triggerScrollToTop, 100);
+      }
+    } catch (err) {
+      console.error('Error sending email:', err);
+      setError('An error occurred. Please try again.');
+    }
   };
 
   return (
@@ -92,6 +156,15 @@ export default function Contact() {
                         We&apos;ll get back to you soon.
                       </p>
                     </div>
+                    <div className="mt-8">
+                      <button
+                        type="button"
+                        onClick={handleReset}
+                        className={`group relative flex items-center justify-center py-4 px-8 border-2 border-[#B89334] hover:border-[#D4AF37] rounded-xl bg-gradient-to-r from-[#B89334] to-[#D4AF37] hover:from-[#D4AF37] hover:to-[#B89334] text-[#F8F8F8] transition-all duration-300 shadow-lg hover:shadow-2xl backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:ring-offset-2 cursor-pointer ${fontCombinations.interactive.primary} transform hover:scale-105 active:scale-95 mx-auto`}
+                      >
+                        Send another message
+                      </button>
+                    </div>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">
@@ -109,6 +182,7 @@ export default function Contact() {
                           required
                           className={`appearance-none rounded-lg relative block w-full px-4 py-3 border-2 ${colors.glass.border} text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37] text-base ${fontCombinations.content.body} ${colors.glass.bg} shadow-lg transition-all duration-200`}
                           placeholder="Enter your first name"
+                          onChange={(e) => { setFirstName(e.target.value) }}
                         />
                       </div>
 
@@ -124,6 +198,7 @@ export default function Contact() {
                           required
                           className={`appearance-none rounded-lg relative block w-full px-4 py-3 border-2 ${colors.glass.border} text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37] text-base ${fontCombinations.content.body} ${colors.glass.bg} shadow-lg transition-all duration-200`}
                           placeholder="Enter your last name"
+                          onChange={(e) => {setLastName(e.target.value)}}
                         />
                       </div>
                     </div>
@@ -140,6 +215,7 @@ export default function Contact() {
                         required
                         className={`appearance-none rounded-lg relative block w-full px-4 py-3 border-2 ${colors.glass.border} text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37] text-base ${fontCombinations.content.body} ${colors.glass.bg} shadow-lg transition-all duration-200`}
                         placeholder="Enter your email"
+                        onChange={(e) => {setEmail(e.target.value)}}
                       />
                     </div>
 
@@ -155,6 +231,7 @@ export default function Contact() {
                       required
                       className={`appearance-none rounded-lg relative block w-full px-4 py-3 border-2 ${colors.glass.border} text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37] text-base ${fontCombinations.content.body} ${colors.glass.bg} shadow-lg transition-all duration-200 resize-none`}
                       placeholder="Enter your message"
+                      onChange={(e) => {setMessage(e.target.value)}}
                     />
                   </div>
 
@@ -166,6 +243,9 @@ export default function Contact() {
                     >
                       Send Message
                     </button>
+                  </div>
+                  <div>
+                    <p className="text-red-400">{error}</p>  
                   </div>
                 </form>
                 )}
