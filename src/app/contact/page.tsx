@@ -111,8 +111,8 @@ export default function Contact() {
           {!mounted || loading ? (
             <LoadingSpinner size="large" fullScreen={false} type="component" />
           ) : (
-            <BouncyFadeIn delay={0.1} bounce={0} threshold={0} className="w-full max-w-4xl">
-            <div className="max-w-4xl w-full bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-2xl overflow-hidden">
+            <BouncyFadeIn delay={0.1} bounce={0} threshold={0} className="w-full max-w-6xl">
+            <div className="max-w-6xl w-full bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-2xl overflow-hidden">
               <div className="p-8 lg:p-12">
                 <div className="mb-8">
                 <h2 className={`text-3xl font-bold mb-8 text-center md:text-left ${colors.glass.text} ${fontCombinations.section.main}`}>Contact Us</h2>
