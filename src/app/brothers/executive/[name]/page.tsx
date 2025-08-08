@@ -8,8 +8,9 @@ import { colors } from '../../../../styles/colors';
 import LoadingSpinner from '../../../../components/LoadingSpinner';
 import BouncyFadeIn from '../../../../components/BouncyFadeIn';
 
-interface Brother {
+interface Executive {
   name: string;
+  position: string;
   pronouns: string;
   location: string;
   bio: string;
@@ -17,8 +18,8 @@ interface Brother {
   imageUrl: string;
 }
 
-export default function BrotherPage() {
-  const [brother, setBrother] = useState<Brother | null>(null);
+export default function ExecutivePage() {
+  const [executive, setExecutive] = useState<Executive | null>(null);
   const backgroundImage = '/assets/sunsetBackground.jpeg';
   const [loading, setLoading] = useState(true);
   const params = useParams();
@@ -32,31 +33,32 @@ export default function BrotherPage() {
         const supabase = createClient();
         const decodedName = decodeURIComponent(name);
         
-        // Fetch brother data
+        // Fetch executive data
         const { data, error } = await supabase
-          .from('actives-spring25')
+          .from('ecomm-spring-25')
           .select('*');
         
         if (error) {
-          console.error('Error fetching brother:', error);
-          setBrother(null);
+          console.error('Error fetching executive:', error);
+          setExecutive(null);
         } else if (data) {
-          // Find brother by comparing the name without spaces
-          const found = data.find(b => b.name.replace(/\s/g, '') === decodedName);
+          // Find executive by comparing the name without spaces
+          const found = data.find(e => e.name.replace(/\s/g, '') === decodedName);
           if (found) {
+            const cleanImagePath = found.image_path.trim();
             const { data: publicUrlData } = supabase
               .storage
               .from('brothers-spring25')
-              .getPublicUrl(found.image_path);
+              .getPublicUrl(cleanImagePath);
 
-            setBrother({ ...found, imageUrl: publicUrlData?.publicUrl || '' });
+            setExecutive({ ...found, imageUrl: publicUrlData?.publicUrl || '' });
           } else {
-            setBrother(null);
+            setExecutive(null);
           }
         }
       } catch (error) {
         console.error('Error:', error);
-        setBrother(null);
+        setExecutive(null);
       } finally {
         setLoading(false);
       }
@@ -76,16 +78,16 @@ export default function BrotherPage() {
       <div className="fixed top-0 left-0 w-full h-full z-10 bg-gradient-to-br from-black/40 via-black/30 to-black/50" />
       <div className="relative z-20 min-h-screen flex flex-col">
         <main className="flex-1 flex items-center justify-center py-16 px-4 mt-24">
-                    {loading && (
+          {loading && (
             <LoadingSpinner size="large" fullScreen={false} type="component" />
           )}
-          {!loading && !brother && (
+          {!loading && !executive && (
             <div className={`flex flex-col items-center justify-center min-h-[60vh] ${colors.text.inverse}`}>
-              <div className={`text-2xl ${fontCombinations.section.secondary} mb-2`}>Brother not found</div>
-              <div className={`text-lg opacity-80 ${fontCombinations.content.body} ${colors.glass.textSubtle}`}>The brother you&apos;re looking for doesn&apos;t exist in our database.</div>
+              <div className={`text-2xl ${fontCombinations.section.secondary} mb-2`}>Executive not found</div>
+              <div className={`text-lg opacity-80 ${fontCombinations.content.body} ${colors.glass.textSubtle}`}>The executive you're looking for doesn't exist in our database.</div>
             </div>
           )}
-          {!loading && brother && (
+          {!loading && executive && (
             <div className="w-full max-w-8xl mx-auto">
               <div className="grid lg:grid-cols-3 gap-8 items-stretch">
                 {/* Enhanced Profile Image Section */}
@@ -94,8 +96,8 @@ export default function BrotherPage() {
                     {/* Main Profile Image */}
                     <div className="relative overflow-hidden rounded-2xl shadow-2xl h-full">
                       <img 
-                        src={brother.imageUrl} 
-                        alt={brother.name} 
+                        src={executive.imageUrl} 
+                        alt={executive.name} 
                         className="w-full h-full object-cover object-top" 
                       />
                       {/* Gradient overlay for better text contrast */}
@@ -111,19 +113,19 @@ export default function BrotherPage() {
                     <div className="mb-4">
                       <div className="flex items-center mb-4">
                         <span className={`text-sm ${colors.text.secondary} uppercase tracking-tighter ${fontCombinations.navigation.secondary} ${colors.bg.surfaceAlt} px-3 py-1 rounded-full`}>
-                          Brother Profile
+                          {executive.position}
                         </span>
                       </div>
                       
-                                              <div className="flex items-center gap-2 mb-2">
+                      <div className="flex items-center gap-2 mb-2">
                         <h1 className={`text-3xl lg:text-4xl ${fontCombinations.section.main} ${colors.section.title} leading-tight`}>
-                          {brother.name}
+                          {executive.name}
                         </h1>
                         
                         {/* LinkedIn Section */}
-                        {brother.linkedin ? (
+                        {executive.linkedin ? (
                           <a 
-                            href={brother.linkedin}
+                            href={executive.linkedin}
                             target="_blank"
                             rel="noopener noreferrer"
                             className={`inline-flex items-center justify-center w-12 h-12 ${colors.section.bg} border-2 ${colors.bg.surfaceAlt} rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200`}
@@ -146,13 +148,13 @@ export default function BrotherPage() {
                           <svg className={`w-5 h-5 mr-2 ${colors.text.secondary}`} fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                           </svg>
-                          {brother.pronouns}
+                          {executive.pronouns}
                         </div>
                         <div className={`flex items-center text-sm ${colors.section.text} ${fontCombinations.content.small}`}>
                           <svg className={`w-5 h-5 mr-2 ${colors.text.secondary}`} fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                           </svg>
-                          {brother.location}
+                          {executive.location}
                         </div>
                       </div>
                     </div>
@@ -160,7 +162,7 @@ export default function BrotherPage() {
                     {/* Bio Section */}
                     <div className="mb-6">
                       <div className={`text-base ${colors.section.text} leading-relaxed whitespace-pre-line ${fontCombinations.content.body} ${colors.bg.primary}/50 rounded-xl p-4 border-l-4 ${colors.border.accent}`}>
-                        {brother.bio}
+                        {executive.bio}
                       </div>
                     </div>
                     
@@ -169,7 +171,7 @@ export default function BrotherPage() {
               </div>
             </div>
           )}
-      </main>
+        </main>
       </div>
     </div>
   );

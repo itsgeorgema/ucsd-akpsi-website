@@ -6,12 +6,19 @@ import { fontCombinations } from "../../styles/fonts";
 import { colors } from "../../styles/colors";
 import { getGalleryImages, GalleryImage } from "../../utils/imageUtils";
 import BouncyFadeIn from "../../components/BouncyFadeIn";
+import { useResponsiveColumns } from "../../hooks/useResponsiveColumns";
 
 export default function Gallery() {
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
   const backgroundImage = '/assets/sunsetBackground.jpeg';
   const [loading, setLoading] = useState(true);
-  const [columns, setColumns] = useState(1);
+  const columns = useResponsiveColumns(
+    [
+      { minWidth: 1024, columns: 3 }, // lg
+      { minWidth: 768, columns: 2 },  // md
+    ],
+    1,
+  );
 
   useEffect(() => {
     const fetchGalleryImages = async () => {
@@ -30,19 +37,7 @@ export default function Gallery() {
     fetchGalleryImages();
   }, []);
 
-  // Track responsive columns so delays reset each row and avoid window usage during render
-  useEffect(() => {
-    const updateColumns = () => {
-      if (typeof window === 'undefined') return;
-      const lg = window.matchMedia('(min-width: 1024px)').matches; // lg breakpoint
-      const md = window.matchMedia('(min-width: 768px)').matches;   // md breakpoint
-      setColumns(lg ? 3 : md ? 2 : 1);
-    };
-    updateColumns();
-    const onResize = () => updateColumns();
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
+  // columns is memoized & updated efficiently by the hook
 
   return (
     <div className="relative min-h-screen flex flex-col gallery-page">
@@ -84,7 +79,7 @@ export default function Gallery() {
                       return (
                         <BouncyFadeIn key={index} delay={delay} bounce={0} threshold={0}>
                           <div className="group">
-                            <div className="relative overflow-hidden rounded-lg shadow-2xl transform transition-all duration-300 hover:scale-105 hover:shadow-3xl">
+                            <div className="relative overflow-hidden rounded-lg shadow-2xl transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
                               <img 
                                 src={image.imageUrl} 
                                 alt={`Gallery image ${index + 1}`} 
