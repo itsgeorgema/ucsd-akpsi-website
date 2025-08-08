@@ -133,11 +133,14 @@ export default function ExecutiveCommittee() {
                         return (
                           <BouncyFadeIn key={idx} delay={delay} bounce={0} threshold={0}>
                             <div className="flex flex-col items-center">
-                              <Link href={`/brothers/executive/${encodeURIComponent(executive.name.replace(/\s/g, ""))}`}>
+                              <Link 
+                                href={`/brothers/executive/${encodeURIComponent(executive.name.replace(/\s/g, ""))}`}
+                                aria-label={`View ${executive.name}'s profile - ${executive.position}`}
+                              >
                                 <div className="w-72 h-96 rounded-lg overflow-hidden cursor-pointer hover:scale-105 transition-transform">
                                   <img
                                     src={executive.imageUrl}
-                                    alt={executive.name}
+                                    alt={`${executive.name} - ${executive.position}`}
                                     className="w-full h-full object-cover object-center scale-110"
                                   />
                                 </div>

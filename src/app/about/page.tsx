@@ -491,7 +491,7 @@ export default function About() {
                 <div className={`absolute inset-0 bg-white/85 backdrop-blur-lg rounded-3xl border border-[#B3CDE0]/30 shadow-2xl`}></div>
                 <div className="relative z-10 w-full max-w-full mx-auto px-4 sm:px-6 lg:px-8">
                   {/* Tab group and content card wrapped together for synchronized bounce */}
-                  <BouncyFadeIn delay={0.3} threshold={.05} bounce={0}>
+                  <BouncyFadeIn delay={0.2} threshold={0} bounce={0}>
                     <div className="space-y-0 w-full mx-auto">
                       <div className="relative flex flex-col md:flex-row w-full mx-auto gap-0 mb-0">
                         {['akpsi', 'nuxi', 'statistics'].map((tab, index) => {
@@ -601,7 +601,7 @@ export default function About() {
                   </BouncyFadeIn>
                   {/* Companies Section */}
                   <div className="w-full max-w-full mx-auto px-4 sm:px-6 lg:px-0">
-                    <BouncyFadeIn delay={.1} threshold={.2} bounce={0} className="mt-[-100px] pt-[100px]">
+                    <BouncyFadeIn delay={.1} threshold={0.1} bounce={0} className="mt-[-100px] pt-[100px]">
                       <div className="w-full bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl p-8 lg:p-12 mt-8">
                         <div className="text-center mb-12">
                           <h2 className={`text-4xl mb-6 ${colors.section.title} ${fontCombinations.section.main}`}>
@@ -646,7 +646,7 @@ export default function About() {
               </section>
               {/* Contact Section */}
               <section className="relative py-20 z-10 px-4 sm:px-6 lg:px-8">
-                <BouncyFadeIn delay={0.1} threshold={.4} className="mt-[-100px] pt-[100px]">
+                <BouncyFadeIn delay={0.1} threshold={0} className="mt-[-100px] pt-[100px]">
                   <div className="max-w-4xl mx-auto px-4">
                     <div className="w-full max-w-full bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl p-8 lg:p-12 text-center">
                     <div className="mb-8">
