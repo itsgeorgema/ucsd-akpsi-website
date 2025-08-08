@@ -6,10 +6,12 @@ import { createClient } from '../../supabase/client';
 import ScrollArrow from '../components/ScrollArrow';
 import LoadingSpinner from '../components/LoadingSpinner';
 import BouncyFadeIn from '../components/BouncyFadeIn';
+import InfiniteCarousel from '../components/InfiniteCarousel';
 import { fontCombinations, hierarchyWeights } from '../styles/fonts';
 import { colors } from '../styles/colors';
 import AnimatedTitle from '../components/AnimatedTitle';
 import { getHomeImages, HomeImages } from '../utils/imageUtils';
+import { getGalleryImages, GalleryImage } from '../utils/imageUtils';
 
 interface President {
   name: string;
@@ -27,6 +29,7 @@ export default function Home() {
     unity: '',
     knowledge: '',
   });
+  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
   const [president, setPresident] = useState<President>({
     name: '',
     imageUrl: ''
@@ -41,6 +44,10 @@ export default function Home() {
         // Get home images from utility function
         const homeImagesData = getHomeImages();
         setHomeImages(homeImagesData);
+
+        // Get gallery images from utility function
+        const galleryImagesData = getGalleryImages();
+        setGalleryImages(galleryImagesData);
 
         // Fetch president data
         const { data: presidentData, error: presidentError } = await supabase
@@ -211,6 +218,24 @@ export default function Home() {
                     )}
                   </div>
                 </BouncyFadeIn>
+              </section>
+
+              {/* GALLERY CAROUSEL SECTION - Bottom of President Section */}
+              <section className={`relative w-full overflow-hidden ${colors.section.bg} -mt-8`}>
+                  {galleryImages.length > 0 ? (
+                    <div className="relative">
+                      <InfiniteCarousel images={galleryImages} />
+                    </div>
+                  ) : (
+                    <div className={`text-center py-12 ${colors.section.text}`}>
+                      <div className={`w-16 h-16 ${colors.bg.surfaceAlt} rounded-full flex items-center justify-center mx-auto mb-4`}>
+                        <svg className="w-8 h-8 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <span className={`text-xl ${fontCombinations.content.lead}`}>Gallery images loading...</span>
+                    </div>
+                  )}
               </section>
 
                 {/* HERO DESCRIPTION SECTION WITH BACKGROUND IMAGE */}

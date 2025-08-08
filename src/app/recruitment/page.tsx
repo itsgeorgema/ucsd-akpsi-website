@@ -96,8 +96,8 @@ export default function Recruitment() {
             <LoadingSpinner size="large" fullScreen={false} type="component" />
           )}
           {!loading && (
-            <BouncyFadeIn delay={0.1} bounce={0} threshold={0}>
-            <div className={`${colors.glass.bg} backdrop-blur-md rounded-2xl shadow-2xl p-10 max-w-6xl w-full mx-auto ${colors.glass.border}`}>
+            <BouncyFadeIn delay={0.1} bounce={0} threshold={0} className={`${colors.glass.bg} backdrop-blur-md rounded-2xl shadow-2xl p-10 max-w-6xl w-full mx-auto ${colors.glass.border}`}>
+            <div>
             {/* ABOUT RECRUITMENT Section */}
             <div className="grid lg:grid-cols-2 gap-12 mb-12">
               {/* Left Side - About Content */}
