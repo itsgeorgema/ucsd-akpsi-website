@@ -5,11 +5,20 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import { fontCombinations } from "../../styles/fonts";
 import { colors } from "../../styles/colors";
 import { getGalleryImages, GalleryImage } from "../../utils/imageUtils";
+import BouncyFadeIn from "../../components/BouncyFadeIn";
+import { useResponsiveColumns } from "../../hooks/useResponsiveColumns";
 
 export default function Gallery() {
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
   const backgroundImage = '/assets/sunsetBackground.jpeg';
   const [loading, setLoading] = useState(true);
+  const columns = useResponsiveColumns(
+    [
+      { minWidth: 1024, columns: 3 }, // lg
+      { minWidth: 768, columns: 2 },  // md
+    ],
+    1,
+  );
 
   useEffect(() => {
     const fetchGalleryImages = async () => {
@@ -27,6 +36,8 @@ export default function Gallery() {
 
     fetchGalleryImages();
   }, []);
+
+  // columns is memoized & updated efficiently by the hook
 
   return (
     <div className="relative min-h-screen flex flex-col gallery-page">
@@ -62,17 +73,23 @@ export default function Gallery() {
 
                   {/* Gallery Grid */}
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {galleryImages.map((image, index) => (
-                      <div key={index} className="group">
-                        <div className="relative overflow-hidden rounded-sm shadow-2xl transform transition-all duration-300 hover:scale-105 hover:shadow-3xl">
-                          <img 
-                            src={image.imageUrl} 
-                            alt={`Gallery image ${index + 1}`} 
-                            className="w-full h-80 object-cover"
-                          />
-                        </div>
-                      </div>
-                    ))}
+                    {galleryImages.map((image, index) => {
+                      const colIndex = columns > 0 ? index % columns : 0;
+                      const delay = colIndex * 0.06;
+                      return (
+                        <BouncyFadeIn key={index} delay={delay} bounce={0} threshold={0}>
+                          <div className="group">
+                            <div className="relative overflow-hidden rounded-lg shadow-2xl transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                              <img 
+                                src={image.imageUrl} 
+                                alt={`Gallery image ${index + 1}`} 
+                                className="w-full h-80 object-cover"
+                              />
+                            </div>
+                          </div>
+                        </BouncyFadeIn>
+                      );
+                    })}
                   </div>
                 </div>
               )}

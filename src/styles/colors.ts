@@ -12,6 +12,7 @@
  */
 
 // Raw color values (hex codes)
+// HEX TOKENS (source of truth)
 export const colorPalette = {
   // Neutrals - Foundation colors
   neutral: {
@@ -48,9 +49,8 @@ export const colorPalette = {
   }
 } as const;
 
-// Semantic color mappings for different use cases
-export const semanticColors = {
-  // Primary colors
+// SEMANTIC TOKENS (HEX) – derived from palette
+export const semanticColorTokens = {
   primary: colorPalette.blue.medium,
   primaryHover: colorPalette.blue.soft,
   primaryText: colorPalette.neutral.white,
@@ -92,7 +92,30 @@ export const semanticColors = {
   darkAccent: colorPalette.dark.accent,
 } as const;
 
+// Semantic color mappings for different use cases
+// Back-compat alias for HEX semantic tokens
+export const semanticColors = semanticColorTokens;
+
+// CSS Custom Property map (optional, for use in stylesheets if needed)
+export const colorCSSVariables: Record<string, string> = {
+  '--color-neutral-white': colorPalette.neutral.white,
+  '--color-neutral-black': colorPalette.neutral.black,
+  '--color-neutral-light-gray': colorPalette.neutral.lightGray,
+  '--color-neutral-medium-gray': colorPalette.neutral.mediumGray,
+  '--color-neutral-dark-gray': colorPalette.neutral.darkGray,
+
+  '--color-blue-soft': colorPalette.blue.soft,
+  '--color-blue-medium': colorPalette.blue.medium,
+
+  '--color-gold-muted': colorPalette.gold.muted,
+  '--color-gold-light': colorPalette.gold.light,
+  '--color-gold-bright': colorPalette.gold.bright,
+
+  '--color-brand-royal-blue': colorPalette.brand.royalBlue,
+};
+
 // Tailwind utility classes for easy component usage
+// LEGACY/CONVENIENCE: Tailwind utility strings (keep literal strings)
 export const colors = {
   // Backgrounds
   bg: {
@@ -213,4 +236,12 @@ export const colors = {
   },
   
 
-} as const; 
+} as const;
+
+// Clean, modular export grouping everything together without changing outputs
+export const akpsiColors = {
+  palette: colorPalette,
+  semantic: semanticColorTokens,
+  cssVars: colorCSSVariables,
+  utilities: colors,
+} as const;

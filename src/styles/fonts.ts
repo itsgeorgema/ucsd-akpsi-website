@@ -1,35 +1,53 @@
 // UCSD AKPsi Website Font System
 // Comprehensive font hierarchy with depth and complexity while maintaining consistency
 
+// FONT FAMILY TOKENS
+export const fontFamilies = {
+  sans: 'font-inter',
+  mono: 'font-mono',
+  serif: 'font-serif',
+} as const;
+
+// HIERARCHY ROLES (weights, tracking, casing) – no sizes here
+export const fontRoles = {
+  displayStrong: 'font-black tracking-tighter',
+  display: 'font-extrabold tracking-tighter',
+  bodyStrong: 'font-bold tracking-tighter',
+  body: 'font-semibold tracking-tighter',
+  label: 'font-bold tracking-tighter uppercase',
+  code: 'font-bold tracking-wide',
+} as const;
+
+// Back-compat composite map preserving previous names
 export const akpsiFonts = {
   // === PRIMARY FONT FAMILY (Inter) ===
   // Used for most content with maximum boldness and ultra-tight spacing
   
   // Display/Headline fonts - Large, impactful text
   display: {
-    large: 'font-inter font-black tracking-tighter', // For hero titles, main headlines
-    medium: 'font-inter font-black tracking-tighter', // For section titles
-    small: 'font-inter font-extrabold tracking-tighter', // For subsection titles
+    large: `${fontFamilies.sans} ${fontRoles.displayStrong}`,
+    medium: `${fontFamilies.sans} ${fontRoles.displayStrong}`,
+    small: `${fontFamilies.sans} ${fontRoles.display}`,
   },
   
   // Body text fonts - Readable content
   body: {
-    large: 'font-inter font-bold leading-relaxed tracking-tighter', // For important body text
-    medium: 'font-inter font-bold leading-relaxed tracking-tighter', // For regular body text
-    small: 'font-inter font-semibold leading-relaxed tracking-tighter', // For secondary text
+    large: `${fontFamilies.sans} font-bold leading-relaxed tracking-tighter`,
+    medium: `${fontFamilies.sans} font-bold leading-relaxed tracking-tighter`,
+    small: `${fontFamilies.sans} font-semibold leading-relaxed tracking-tighter`,
   },
   
   // UI/Interactive fonts - Buttons, navigation, etc.
   ui: {
-    primary: 'font-inter font-black tracking-tighter', // For primary buttons, nav
-    secondary: 'font-inter font-bold tracking-tighter', // For secondary buttons
-    tertiary: 'font-inter font-bold tracking-tighter', // For tertiary elements
+    primary: `${fontFamilies.sans} ${fontRoles.displayStrong}`,
+    secondary: `${fontFamilies.sans} ${fontRoles.bodyStrong}`,
+    tertiary: `${fontFamilies.sans} ${fontRoles.bodyStrong}`,
   },
   
   // Accent fonts - Special use cases
   accent: {
-    mono: 'font-mono font-bold tracking-wide', // For code, technical content
-    serif: 'font-serif font-bold italic', // For quotes, emphasis
+    mono: `${fontFamilies.mono} ${fontRoles.code}`,
+    serif: `${fontFamilies.serif} font-bold italic`,
   },
   
   // === LEGACY COMPATIBILITY ===
@@ -62,55 +80,57 @@ export const responsiveFontSizes = {
 export const fontCombinations = {
   // Hero section - Maximum boldness
   hero: {
-    title: `font-inter font-black ${responsiveFontSizes.heroTitle} tracking-tighter leading-none`,
-    subtitle: `font-inter font-black ${responsiveFontSizes.heroSubtitle} tracking-tighter leading-relaxed`,
+    // Keep exact order for hydration parity
+    title: `${fontFamilies.sans} font-black ${responsiveFontSizes.heroTitle} tracking-tighter leading-none`,
+    subtitle: `${fontFamilies.sans} font-black ${responsiveFontSizes.heroSubtitle} tracking-tighter leading-relaxed`,
   },
   
   // Section headers - Maximum boldness
   section: {
-    main: `font-inter font-black ${responsiveFontSizes.sectionMain} tracking-tighter leading-tight`,
-    secondary: `font-inter font-black ${responsiveFontSizes.sectionSecondary} tracking-tighter leading-relaxed`,
-    tertiary: `font-inter font-extrabold ${responsiveFontSizes.sectionTertiary} tracking-tighter leading-relaxed`,
+    main: `${fontFamilies.sans} font-black ${responsiveFontSizes.sectionMain} tracking-tighter leading-tight`,
+    secondary: `${fontFamilies.sans} font-black ${responsiveFontSizes.sectionSecondary} tracking-tighter leading-relaxed`,
+    tertiary: `${fontFamilies.sans} font-extrabold ${responsiveFontSizes.sectionTertiary} tracking-tighter leading-relaxed`,
   },
   
   // Content blocks - Maximum boldness
   content: {
-    lead: `font-inter font-medium ${responsiveFontSizes.contentLead} leading-relaxed`,
-    body: `font-inter font-normal ${responsiveFontSizes.contentBody} leading-relaxed`,
-    small: `font-inter font-light ${responsiveFontSizes.contentSmall} leading-relaxed`,
+    lead: `${fontFamilies.sans} font-medium ${responsiveFontSizes.contentLead} leading-relaxed`,
+    body: `${fontFamilies.sans} font-normal ${responsiveFontSizes.contentBody} leading-relaxed`,
+    small: `${fontFamilies.sans} font-light ${responsiveFontSizes.contentSmall} leading-relaxed`,
   },
   
   // Interactive elements - Maximum boldness
   interactive: {
-    primary: 'font-inter font-black text-base tracking-tighter uppercase',
-    secondary: 'font-inter font-black text-sm tracking-tighter uppercase',
-    tertiary: 'font-inter font-bold text-xs tracking-tighter uppercase',
+    primary: `${fontFamilies.sans} font-black text-base tracking-tighter uppercase`,
+    secondary: `${fontFamilies.sans} font-black text-sm tracking-tighter uppercase`,
+    tertiary: `${fontFamilies.sans} font-bold text-xs tracking-tighter uppercase`,
   },
   
   // Navigation and UI - Maximum boldness
   navigation: {
-    primary: 'font-inter font-black text-sm tracking-tighter uppercase',
-    secondary: 'font-inter font-black text-xs tracking-tighter uppercase',
-    dropdown: 'font-inter font-bold text-xs tracking-tighter',
+    // Order matches server-rendered HTML to avoid hydration diffs
+    primary: `${fontFamilies.sans} font-black text-sm tracking-tighter uppercase`,
+    secondary: `${fontFamilies.sans} font-black text-xs tracking-tighter uppercase`,
+    dropdown: `${fontFamilies.sans} font-bold text-xs tracking-tighter`,
   },
   
   // Values and features - Maximum boldness
   values: {
-    title: 'font-inter font-black text-lg md:text-xl tracking-tighter uppercase',
-    description: 'font-inter font-bold text-sm md:text-base leading-relaxed tracking-tighter',
+    title: `${fontFamilies.sans} font-black text-lg md:text-xl tracking-tighter uppercase`,
+    description: `${fontFamilies.sans} font-bold text-sm md:text-base leading-relaxed tracking-tighter`,
   },
   
   // Quotes and testimonials - Maximum boldness
   quote: {
-    text: 'font-serif font-bold text-lg md:text-xl italic leading-relaxed',
-    attribution: 'font-inter font-black text-sm tracking-tighter uppercase',
+    text: `${fontFamilies.serif} font-bold text-lg md:text-xl italic leading-relaxed`,
+    attribution: `${fontFamilies.sans} font-black text-sm tracking-tighter uppercase`,
   },
   
   // Technical content - Maximum boldness
   technical: {
-    code: 'font-mono font-bold text-sm tracking-wide',
-    label: 'font-inter font-black text-xs tracking-tighter uppercase',
-    data: 'font-mono font-bold text-sm tracking-wide',
+    code: `${fontFamilies.mono} font-bold text-sm tracking-wide`,
+    label: `${fontFamilies.sans} font-black text-xs tracking-tighter uppercase`,
+    data: `${fontFamilies.mono} font-bold text-sm tracking-wide`,
   },
 };
 
@@ -174,3 +194,11 @@ export const fontSizes = {
 // === LEGACY EXPORTS ===
 // For backward compatibility
 export const heroFont = 'font-inter font-black tracking-tighter'; 
+
+// Clean, modular export for consumers who want explicit tokens/roles
+export const akpsiTypography = {
+  families: fontFamilies,
+  roles: fontRoles,
+  sizes: responsiveFontSizes,
+  combinations: fontCombinations,
+} as const;

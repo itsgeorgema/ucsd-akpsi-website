@@ -12,7 +12,7 @@ interface ResourceButton {
 }
 
 const resourceButtons: ResourceButton[] = [
-  { name: 'Active Member Resources' },
+  { name: 'Active Resources' },
   { name: 'Active Linktree' },
   { name: 'Alumni Contacts' },
   { name: 'Family Trees' },
@@ -133,7 +133,7 @@ function ActivesPageContent() {
           {/* Hero Section */}
           <section className="relative flex flex-col items-center justify-center text-center z-10 min-h-screen">
             <div className="relative z-10 flex flex-col items-center">
-              <h1 className={`text-5xl lg:text-6xl mb-4 text-center ${colors.text.inverse} ${fontCombinations.hero.title}`}>ACTIVE MEMBER RESOURCES</h1>
+              <h1 className={`text-5xl lg:text-6xl mb-4 text-center ${colors.text.inverse} ${fontCombinations.hero.title}`}>ACTIVE RESOURCES</h1>
               <p className={`text-xl ${colors.glass.textSubtle} text-center mb-8 max-w-2xl ${fontCombinations.content.body}`}>Please do not share any of these resources with people outside of Nu Xi.<br />Make sure to use this responsibly, you are protecting our legacy :)</p>
               <div className="flex flex-col gap-4 w-full max-w-md">
                 {resourceButtons.map((item, idx) => {

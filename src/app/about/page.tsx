@@ -37,6 +37,8 @@ export default function About() {
   const [startTime, setStartTime] = useState(0);
   const [displayedTab, setDisplayedTab] = useState<ActiveTab>(activeTab);
   const [contentAnim, setContentAnim] = useState<'in' | 'out'>('in');
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [pausedTime, setPausedTime] = useState(0);
 
   // Initialize start time on client side only
   useEffect(() => {
@@ -47,10 +49,12 @@ export default function About() {
   useEffect(() => {
     if (startTime === 0) return; // Don't start until startTime is initialized
 
-    const duration = 15000; // 15 seconds
+    const duration = 12000; // 12 seconds
 
     const updateProgress = () => {
-      const elapsed = Date.now() - startTime;
+      if (!isAutoPlaying) return; // Don't update progress when paused
+      
+      const elapsed = Date.now() - startTime - pausedTime;
       const newProgress = Math.min((elapsed / duration) * 100, 100);
       setProgress(newProgress);
 
@@ -62,6 +66,7 @@ export default function About() {
           const nextIndex = (currentIndex + 1) % tabs.length;
           // Reset progress and animation state before switching
           setProgress(0);
+          setPausedTime(0);
           setContentAnim('out');
           setTimeout(() => {
             setDisplayedTab(tabs[nextIndex]);
@@ -78,7 +83,21 @@ export default function About() {
     const interval = setInterval(updateProgress, 50); // Update every 50ms for smooth animation
 
     return () => clearInterval(interval);
-  }, [activeTab, startTime]);
+  }, [activeTab, startTime, isAutoPlaying, pausedTime]);
+
+  // Handle pause/play toggle
+  const handlePlayPauseToggle = () => {
+    if (isAutoPlaying) {
+      // Pausing: calculate how much time has elapsed and store it
+      const elapsed = Date.now() - startTime;
+      setPausedTime(elapsed);
+    } else {
+      // Playing: reset start time to account for paused time
+      setStartTime(Date.now() - pausedTime);
+      setPausedTime(0);
+    }
+    setIsAutoPlaying(!isAutoPlaying);
+  };
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -472,7 +491,7 @@ export default function About() {
                 <div className={`absolute inset-0 bg-white/85 backdrop-blur-lg rounded-3xl border border-[#B3CDE0]/30 shadow-2xl`}></div>
                 <div className="relative z-10 w-full max-w-full mx-auto px-4 sm:px-6 lg:px-8">
                   {/* Tab group and content card wrapped together for synchronized bounce */}
-                  <BouncyFadeIn delay={0.3} threshold={.05} bounce={0}>
+                  <BouncyFadeIn delay={0.2} threshold={0} bounce={0}>
                     <div className="space-y-0 w-full mx-auto">
                       <div className="relative flex flex-col md:flex-row w-full mx-auto gap-0 mb-0">
                         {['akpsi', 'nuxi', 'statistics'].map((tab, index) => {
@@ -554,8 +573,25 @@ export default function About() {
                         className={`bg-white backdrop-blur-md rounded-b-2xl shadow-2xl border-b border-r border-l border-[#B3CDE0]/30 overflow-hidden overflow-x-hidden relative z-0 w-full max-w-full mx-auto box-border`}
                         style={{ height: '900px', marginTop: '0px' }}
                       >
+                        {/* Pause/Play Button */}
+                        <button
+                          onClick={handlePlayPauseToggle}
+                          className="absolute top-4 right-4 z-20 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-lg shadow-lg hover:shadow-xl cursor-pointer transition-all duration-300 hover:scale-110 flex items-center justify-center border border-[#B3CDE0]/30 hover:border-[#B3CDE0]/50"
+                          aria-label={isAutoPlaying ? 'Pause auto-switching' : 'Play auto-switching'}
+                        >
+                          {isAutoPlaying ? (
+                            <svg className="w-5 h-5 text-[#003366]" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+                            </svg>
+                          ) : (
+                            <svg className="w-5 h-5 text-[#003366]" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M8 5v14l11-7z"/>
+                            </svg>
+                          )}
+                        </button>
+                        
                         {/* Tab Content */}
-                        <div className="p-6 md:p-8 lg:p-12 h-full w-full overflow-y-auto box-border flex flex-col items-center justify-start">
+                        <div className="p-6 md:p-8 lg:p-12 pt-16 md:pt-8 lg:pt-12 h-full w-full overflow-y-auto box-border flex flex-col items-center justify-start">
                           <div className="w-full max-w-sm md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto">
                             {renderTabContent()}
                           </div>
@@ -565,7 +601,7 @@ export default function About() {
                   </BouncyFadeIn>
                   {/* Companies Section */}
                   <div className="w-full max-w-full mx-auto px-4 sm:px-6 lg:px-0">
-                    <BouncyFadeIn delay={.1} threshold={.2} bounce={0} className="mt-[-100px] pt-[100px]">
+                    <BouncyFadeIn delay={.1} threshold={0.1} bounce={0} className="mt-[-100px] pt-[100px]">
                       <div className="w-full bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl p-8 lg:p-12 mt-8">
                         <div className="text-center mb-12">
                           <h2 className={`text-4xl mb-6 ${colors.section.title} ${fontCombinations.section.main}`}>
@@ -610,7 +646,7 @@ export default function About() {
               </section>
               {/* Contact Section */}
               <section className="relative py-20 z-10 px-4 sm:px-6 lg:px-8">
-                <BouncyFadeIn delay={0.1} threshold={.4} className="mt-[-100px] pt-[100px]">
+                <BouncyFadeIn delay={0.1} threshold={0} className="mt-[-100px] pt-[100px]">
                   <div className="max-w-4xl mx-auto px-4">
                     <div className="w-full max-w-full bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl p-8 lg:p-12 text-center">
                     <div className="mb-8">

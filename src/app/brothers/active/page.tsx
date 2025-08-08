@@ -6,6 +6,8 @@ import LoadingSpinner from '../../../components/LoadingSpinner';
 import Link from 'next/link';
 import { fontCombinations } from '../../../styles/fonts';
 import { colors } from '../../../styles/colors';
+import BouncyFadeIn from '../../../components/BouncyFadeIn';
+import { useResponsiveColumns } from '../../../hooks/useResponsiveColumns';
 
 
 export default function ActiveBrothers() {
@@ -13,6 +15,13 @@ export default function ActiveBrothers() {
   const backgroundImage = '/assets/sunsetBackground.jpeg';
   const [loading, setLoading] = useState(true);
   const pathname = usePathname();
+  const columns = useResponsiveColumns(
+    [
+      { minWidth: 768, columns: 4 }, // md and up
+      { minWidth: 640, columns: 2 }, // sm and up
+    ],
+    1,
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,6 +58,8 @@ export default function ActiveBrothers() {
     fetchData();
   }, [pathname]);
 
+  // columns is memoized & updated efficiently by the hook
+
   return (
     <div className="relative min-h-screen flex flex-col">
       {/* Full Page Background */}
@@ -68,11 +79,15 @@ export default function ActiveBrothers() {
                 <div className={`text-sm tracking-tighter mb-2 ${colors.text.inverse} ${fontCombinations.navigation.secondary}`}>INTRODUCING OUR</div>
                 <h1 className={`text-5xl lg:text-6xl ${fontCombinations.hero.title} ${colors.text.inverse} mb-4`}>ACTIVE BROTHERS</h1>
               </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
-              {brothers.map((brother, idx) => (
-                <div key={idx} className="flex flex-col items-center">
+            <div className="flex flex-wrap justify-center gap-10">
+              {brothers.map((brother, idx) => {
+                const colIndex = columns > 0 ? idx % columns : 0;
+                const delay = colIndex * 0.06;
+                return (
+                <BouncyFadeIn key={idx} delay={delay} bounce={0} threshold={0}>
+                <div className="flex flex-col items-center">
                   <Link href={`/brothers/active/${encodeURIComponent(brother.name.replace(/\s/g, ""))}`}>
-                    <div className="w-72 h-96 rounded-sm overflow-hidden cursor-pointer hover:scale-105 transition-transform">
+                    <div className="w-72 h-96 rounded-lg overflow-hidden cursor-pointer hover:scale-105 transition-transform">
                       <img
                         src={brother.imageUrl}
                         alt={brother.name}
@@ -82,7 +97,8 @@ export default function ActiveBrothers() {
                   </Link>
                   <span className={`text-lg mt-2 text-white ${fontCombinations.section.tertiary}`}>{brother.name}</span>
                 </div>
-              ))}
+                </BouncyFadeIn>
+              );})}
             </div>
           </div>
           )}

@@ -1,14 +1,17 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { createClient } from '../../supabase/client';
 import ScrollArrow from '../components/ScrollArrow';
 import LoadingSpinner from '../components/LoadingSpinner';
 import BouncyFadeIn from '../components/BouncyFadeIn';
+import InfiniteCarousel from '../components/InfiniteCarousel';
 import { fontCombinations, hierarchyWeights } from '../styles/fonts';
 import { colors } from '../styles/colors';
 import AnimatedTitle from '../components/AnimatedTitle';
 import { getHomeImages, HomeImages } from '../utils/imageUtils';
+import { getGalleryImages, GalleryImage } from '../utils/imageUtils';
 
 interface President {
   name: string;
@@ -26,6 +29,7 @@ export default function Home() {
     unity: '',
     knowledge: '',
   });
+  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
   const [president, setPresident] = useState<President>({
     name: '',
     imageUrl: ''
@@ -40,6 +44,10 @@ export default function Home() {
         // Get home images from utility function
         const homeImagesData = getHomeImages();
         setHomeImages(homeImagesData);
+
+        // Get gallery images from utility function
+        const galleryImagesData = getGalleryImages();
+        setGalleryImages(galleryImagesData);
 
         // Fetch president data
         const { data: presidentData, error: presidentError } = await supabase
@@ -212,6 +220,24 @@ export default function Home() {
                 </BouncyFadeIn>
               </section>
 
+              {/* GALLERY CAROUSEL SECTION - Bottom of President Section */}
+              <section className={`relative w-full overflow-hidden ${colors.section.bg} -mt-8`}>
+                  {galleryImages.length > 0 ? (
+                    <div className="relative">
+                      <InfiniteCarousel images={galleryImages} />
+                    </div>
+                  ) : (
+                    <div className={`text-center py-12 ${colors.section.text}`}>
+                      <div className={`w-16 h-16 ${colors.bg.surfaceAlt} rounded-full flex items-center justify-center mx-auto mb-4`}>
+                        <svg className="w-8 h-8 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <span className={`text-xl ${fontCombinations.content.lead}`}>Gallery images loading...</span>
+                    </div>
+                  )}
+              </section>
+
                 {/* HERO DESCRIPTION SECTION WITH BACKGROUND IMAGE */}
                 <section className={`relative flex items-center justify-center w-full min-h-[60vh] ${colors.section.bg} overflow-hidden`}>
                   {/* Group Photo as background */}
@@ -233,12 +259,12 @@ export default function Home() {
                         <h2 className={`${colors.glass.text} text-xl md:text-2xl lg:text-3xl xl:text-4xl mb-6 leading-snug text-left ${fontCombinations.section.main}`} style={{textShadow: '0 2px 16px rgba(0,0,0,0.25), 0 0 1px rgba(0,0,0,0.8)'}}>
                           Alpha Kappa Psi <b>(ΑΚΨ)</b> is the nation&apos;s premier co-ed Business fraternity, providing mentorship and resources to students.
                         </h2>
-                        <a href="/about" className={`mt-6 inline-flex items-center px-6 py-3 ${colors.glass.bg} ${colors.glass.bgHover} ${colors.glass.border} ${colors.glass.borderHover} ${colors.glass.text} rounded-lg transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg backdrop-blur-sm border border-white/30 hover:border-white/50 ${fontCombinations.interactive.primary} text-sm md:text-base`}>
+                        <Link href="/about" className={`mt-6 inline-flex items-center px-6 py-3 ${colors.glass.bg} ${colors.glass.bgHover} ${colors.glass.border} ${colors.glass.borderHover} ${colors.glass.text} rounded-lg transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg backdrop-blur-sm border border-white/30 hover:border-white/50 ${fontCombinations.interactive.primary} text-sm md:text-base`}>
                           <span>LEARN MORE</span>
                           <svg className="ml-1.5 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                           </svg>
-                        </a>
+                        </Link>
                       </div>
                     </BouncyFadeIn>
                   </div>

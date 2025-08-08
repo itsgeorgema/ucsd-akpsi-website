@@ -7,6 +7,7 @@ import { fontCombinations } from '../../styles/fonts';
 import { rushColors } from '../../styles/rushColors';
 import InfiniteCarousel from '../../components/InfiniteCarousel';
 import { getGalleryImages } from '../../utils/imageUtils';
+import BouncyFadeIn from '../../components/BouncyFadeIn';
 
 export default function Recruitment() {
   const [backgroundImage, setBackgroundImage] = useState<string>('');
@@ -95,7 +96,8 @@ export default function Recruitment() {
             <LoadingSpinner size="large" fullScreen={false} type="component" />
           )}
           {!loading && (
-            <div className={`${colors.glass.bg} backdrop-blur-md rounded-2xl shadow-2xl p-10 max-w-6xl w-full mx-auto ${colors.glass.border}`}>
+            <BouncyFadeIn delay={0.1} bounce={0} threshold={0} className={`${colors.glass.bg} backdrop-blur-md rounded-2xl shadow-2xl p-10 max-w-6xl w-full mx-auto ${colors.glass.border}`}>
+            <div>
             {/* ABOUT RECRUITMENT Section */}
             <div className="grid lg:grid-cols-2 gap-12 mb-12">
               {/* Left Side - About Content */}
@@ -125,7 +127,7 @@ export default function Recruitment() {
                     href="https://www.akpsiucsd.app/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`px-8 py-3 ${rushColors.rushButtonSecondary} ${fontCombinations.interactive.primary} rounded-lg transition-all duration-300 transform hover:scale-105 inline-block ${rushColors.rushText} ${rushColors.rushButtonSecondaryBorder}`}
+                    className={`px-8 py-3 ${rushColors.rushButtonSecondary} ${fontCombinations.interactive.primary} rounded-lg transition-all duration-300 transform hover:scale-105 inline-block text-center ${rushColors.rushText} ${rushColors.rushButtonSecondaryBorder}`}
                   >
                     APPLICATION
                   </a>
@@ -242,8 +244,9 @@ export default function Recruitment() {
               </div>
             )}
           </div>
-          )}
+          </BouncyFadeIn>)}
         </main>
+
       </div>
     </div>
   );

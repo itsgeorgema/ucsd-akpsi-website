@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { colors } from '../../styles/colors';
 import { fontCombinations } from '../../styles/fonts';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import BouncyFadeIn from '../../components/BouncyFadeIn';
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
@@ -110,6 +111,7 @@ export default function Contact() {
           {!mounted || loading ? (
             <LoadingSpinner size="large" fullScreen={false} type="component" />
           ) : (
+            <BouncyFadeIn delay={0.1} bounce={0} threshold={0} className="w-full max-w-4xl">
             <div className="max-w-4xl w-full bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-2xl overflow-hidden">
               <div className="p-8 lg:p-12">
                 <div className="mb-8">
@@ -251,6 +253,7 @@ export default function Contact() {
                 )}
               </div>
             </div>
+            </BouncyFadeIn>
           )}
         </main>
       </div>

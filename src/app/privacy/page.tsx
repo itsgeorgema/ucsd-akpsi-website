@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { colors } from "@/styles/colors";
 import { fontCombinations } from "@/styles/fonts";
+import BouncyFadeIn from "@/components/BouncyFadeIn";
 
 export default function Privacy() {
   const [mounted, setMounted] = useState(false);
@@ -21,6 +22,7 @@ export default function Privacy() {
           {!mounted || isLoading ? (
             <LoadingSpinner size="large" fullScreen={false} type="component" />
           ) : (
+            <BouncyFadeIn delay={0.1} threshold={0} bounce={0}>
             <div className="w-full max-w-4xl mx-auto mt-8 md:mt-12">
               {/* Icon and Title Section */}
               <div className="flex flex-col items-center mb-8">
@@ -116,9 +118,10 @@ export default function Privacy() {
                   <div className={`pt-6 border-t ${colors.border.darkAccentTransparent}`}>
                     <p className={`${fontCombinations.content.small} ${colors.text.goldLight}`}>Last Updated: August 5, 2025</p>
                   </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            </BouncyFadeIn>
           )}
         </main>
       </div>
