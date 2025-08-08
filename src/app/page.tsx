@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { createClient } from '../../supabase/client';
 import ScrollArrow from '../components/ScrollArrow';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -233,12 +234,12 @@ export default function Home() {
                         <h2 className={`${colors.glass.text} text-xl md:text-2xl lg:text-3xl xl:text-4xl mb-6 leading-snug text-left ${fontCombinations.section.main}`} style={{textShadow: '0 2px 16px rgba(0,0,0,0.25), 0 0 1px rgba(0,0,0,0.8)'}}>
                           Alpha Kappa Psi <b>(ΑΚΨ)</b> is the nation&apos;s premier co-ed Business fraternity, providing mentorship and resources to students.
                         </h2>
-                        <a href="/about" className={`mt-6 inline-flex items-center px-6 py-3 ${colors.glass.bg} ${colors.glass.bgHover} ${colors.glass.border} ${colors.glass.borderHover} ${colors.glass.text} rounded-lg transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg backdrop-blur-sm border border-white/30 hover:border-white/50 ${fontCombinations.interactive.primary} text-sm md:text-base`}>
+                        <Link href="/about" className={`mt-6 inline-flex items-center px-6 py-3 ${colors.glass.bg} ${colors.glass.bgHover} ${colors.glass.border} ${colors.glass.borderHover} ${colors.glass.text} rounded-lg transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg backdrop-blur-sm border border-white/30 hover:border-white/50 ${fontCombinations.interactive.primary} text-sm md:text-base`}>
                           <span>LEARN MORE</span>
                           <svg className="ml-1.5 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                           </svg>
-                        </a>
+                        </Link>
                       </div>
                     </BouncyFadeIn>
                   </div>

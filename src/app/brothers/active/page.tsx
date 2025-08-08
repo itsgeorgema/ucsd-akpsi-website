@@ -72,7 +72,7 @@ export default function ActiveBrothers() {
               {brothers.map((brother, idx) => (
                 <div key={idx} className="flex flex-col items-center">
                   <Link href={`/brothers/active/${encodeURIComponent(brother.name.replace(/\s/g, ""))}`}>
-                    <div className="w-72 h-96 rounded-sm overflow-hidden cursor-pointer hover:scale-105 transition-transform">
+                    <div className="w-72 h-96 rounded-lg overflow-hidden cursor-pointer hover:scale-105 transition-transform">
                       <img
                         src={brother.imageUrl}
                         alt={brother.name}
