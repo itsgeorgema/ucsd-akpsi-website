@@ -12,7 +12,7 @@ export default function ScrollToTop() {
   }, [pathname]);
 
   useEffect(() => {
-    const handleScrollToTop = (_e: Event) => {
+    const handleScrollToTop: EventListener = () => {
       const scrollToTopNow = () => {
         try {
           window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -27,9 +27,11 @@ export default function ScrollToTop() {
             scrollRoot.scrollTo(0, 0);
           }
         }
-        // Fallbacks for various browsers/containers
-        (document.documentElement || ({} as any)).scrollTop = 0;
-        (document.body || ({} as any)).scrollTop = 0;
+        // Fallbacks for various browsers/containers without using 'any'
+        const htmlElement = document.documentElement as HTMLElement | null;
+        const bodyElement = document.body as HTMLElement | null;
+        if (htmlElement) htmlElement.scrollTop = 0;
+        if (bodyElement) bodyElement.scrollTop = 0;
       };
 
       // Run now, on next frame, and after a short delay to account for layout changes
@@ -39,11 +41,11 @@ export default function ScrollToTop() {
     };
 
     const eventName = 'akpsi-scroll-to-top';
-    window.addEventListener(eventName, handleScrollToTop as EventListener);
-    document.addEventListener(eventName, handleScrollToTop as EventListener);
+    window.addEventListener(eventName, handleScrollToTop);
+    document.addEventListener(eventName, handleScrollToTop);
     return () => {
-      window.removeEventListener(eventName, handleScrollToTop as EventListener);
-      document.removeEventListener(eventName, handleScrollToTop as EventListener);
+      window.removeEventListener(eventName, handleScrollToTop);
+      document.removeEventListener(eventName, handleScrollToTop);
     };
   }, []);
 
