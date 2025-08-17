@@ -5,6 +5,7 @@ import { AuthProvider } from '../contexts/AuthContext';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ScrollToTop from '../components/ScrollToTop';
+import { Analytics } from "@vercel/analytics/next"
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -49,6 +50,7 @@ export default function RootLayout({
           <Footer />
           <ScrollToTop />
         </AuthProvider>
+        <Analytics />
       </body>
     </html>
   );
