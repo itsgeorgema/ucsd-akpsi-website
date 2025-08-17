@@ -165,7 +165,9 @@ export default function About() {
     setTimeout(() => {
       setContentAnim('in'); // Then animate to "in"
     }, 50); // Small delay to ensure DOM update
+    // Reset progress and timing when switching tabs
     setProgress(0);
+    setPausedTime(0);
     setActiveTab(tab);
     setStartTime(Date.now());
   }, 400); // match animation duration
