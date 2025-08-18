@@ -78,7 +78,7 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  min-height: 100dvh; /* Dynamic viewport height for mobile */
+  min-height: 100svh; /* Small viewport height - more stable for popup windows */
   overflow-x: hidden;
   overflow-y: auto; /* Allow vertical scrolling but hide scrollbar */
   position: relative;
@@ -171,6 +171,56 @@ div, section, main {
   div, section, main {
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: auto;
+  }
+}
+
+/* Safari popup window viewport fixes */
+@media screen and (max-width: 768px) {
+  /* Use small viewport height for mobile to handle popup windows better */
+  .min-h-screen-safe {
+    min-height: 100vh;
+    min-height: 100svh; /* Small viewport - stable in popup windows */
+  }
+  
+  /* Alternative for very constrained viewports (popup windows) */
+  @media (max-height: 600px) {
+    .min-h-screen-safe {
+      min-height: 100vh;
+      min-height: calc(100vh - 60px); /* Account for browser UI */
+    }
+    
+    /* Reduce padding and margins in very constrained viewports */
+    .hero-constrained {
+      padding-top: 0.5rem !important;
+      padding-bottom: 0.5rem !important;
+    }
+    
+    .hero-constrained .flex-1 {
+      margin-bottom: 0.25rem !important;
+    }
+    
+    .hero-constrained .grid {
+      margin-bottom: 0.25rem !important;
+    }
+  }
+  
+  /* For extremely constrained popup windows */
+  @media (max-height: 500px) {
+    .min-h-screen-safe {
+      min-height: calc(100vh - 40px);
+    }
+    
+    .hero-constrained {
+      transform: scale(0.85);
+      transform-origin: center;
+    }
+  }
+}
+
+/* Desktop uses standard viewport */
+@media screen and (min-width: 769px) {
+  .min-h-screen-safe {
+    min-height: 100vh;
   }
 }
 

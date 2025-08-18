@@ -12,6 +12,7 @@ import { colors } from '../styles/colors';
 import AnimatedTitle from '../components/AnimatedTitle';
 import { getHomeImages, HomeImages } from '../utils/imageUtils';
 import { getGalleryImages, GalleryImage } from '../utils/imageUtils';
+import { useViewportHeight } from '../hooks/useViewportHeight';
 import Image from 'next/image';
 
 interface President {
@@ -20,6 +21,7 @@ interface President {
 }
 
 export default function Home() {
+  const { isPopupWindow, cssVarHeight } = useViewportHeight();
   const [homeImages, setHomeImages] = useState<HomeImages>({
     background: '',
     groupPhoto1: '',
@@ -82,6 +84,7 @@ export default function Home() {
 
   return (
     <div className="relative">
+
       {/* Fixed full-page background */}
       <div 
         className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat bg-black"
@@ -97,29 +100,40 @@ export default function Home() {
         ) : (
           <>
             {/* HERO SECTION */}
-            <section className="relative flex flex-col justify-center min-h-screen px-4 md:px-8 lg:px-12 pt-8 md:pt-4 safe-area-inset-top safe-area-inset-bottom">
-              <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col flex-1 justify-center scale-90 sm:scale-100 translate-y-6 sm:translate-y-16 md:translate-y-0">
+            <section 
+              className={`relative flex flex-col justify-center px-4 md:px-8 lg:px-12 pt-8 md:pt-4 safe-area-inset-top safe-area-inset-bottom ${
+                isPopupWindow ? 'min-h-0 hero-constrained' : 'min-h-screen-safe'
+              }`}
+              style={isPopupWindow ? { minHeight: cssVarHeight } : {}}
+            >
+              <div className={`relative z-10 max-w-7xl mx-auto w-full flex flex-col flex-1 justify-center scale-90 sm:scale-100 ${
+                isPopupWindow ? 'translate-y-0' : 'translate-y-8 md:translate-y-0'
+              }`}>
                 {/* Title Section - Dynamic Height */}
-                <div className="flex-1 flex items-end justify-center mb-4 md:mb-6 lg:mb-12">
+                <div className={`flex-1 flex items-end justify-center ${
+                  isPopupWindow ? 'mb-1 md:mb-2' : 'mb-1 sm:mb-2 md:mb-4 lg:mb-8'
+                }`}>
                   <h1 className={`text-3xl sm:text-7xl md:text-6xl lg:text-8xl xl:text-8xl ${colors.heroTitle} leading-tight ${fontCombinations.hero.title} ${hierarchyWeights.hero} w-full text-left`}>
                     <AnimatedTitle />
                   </h1>
                 </div>
 
                 {/* Values Section - Dynamic Spacing */}
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-1 md:gap-1 lg:gap-6 mb-2 md:mb-4 flex-shrink-0 justify-center">
+                <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-1 md:gap-1 lg:gap-6 ${
+                  isPopupWindow ? 'mb-1 md:mb-1' : 'mb-1 sm:mb-1 md:mb-2'
+                } flex-shrink-0 justify-center`}>
                   {/* Brotherhood */}
                   <BouncyFadeIn delay={0.1} threshold={0.1}>
                     <div className={`${colors.glass.text}`}>
                       {homeImages.broho && (
-                        <div className="mb-1 md:mb-2">
-                          <div className="relative h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14">
-                            <Image src={homeImages.broho} alt="Brotherhood" fill sizes="(max-width: 640px) 32px, (max-width: 768px) 40px, (max-width: 1024px) 48px, 56px" className="object-contain" />
+                        <div className="mb-0.5 sm:mb-1 md:mb-2">
+                          <div className="relative h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 lg:h-12 lg:w-12">
+                            <Image src={homeImages.broho} alt="Brotherhood" fill sizes="(max-width: 640px) 24px, (max-width: 768px) 32px, (max-width: 1024px) 40px, 48px" className="object-contain" />
                           </div>
                         </div>
                       )}
-                      <h3 className={`text-sm sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title} ${hierarchyWeights.valuesTitle}`}>BROTHERHOOD</h3>
-                      <p className={`text-xs sm:text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description} ${hierarchyWeights.paragraph}`}>We are a family of life-long friends that stick together through thick and thin.</p>
+                      <h3 className={`text-xs sm:text-sm md:text-base lg:text-lg mb-0.5 sm:mb-1 ${colors.glass.text} ${fontCombinations.values.title} ${hierarchyWeights.valuesTitle}`}>BROTHERHOOD</h3>
+                      <p className={`text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description} ${hierarchyWeights.paragraph}`}>We are a family of life-long friends that stick together through thick and thin.</p>
                     </div>
                   </BouncyFadeIn>
 
@@ -127,14 +141,14 @@ export default function Home() {
                   <BouncyFadeIn delay={0.2} threshold={0.1}>
                     <div className={`${colors.glass.text}`}>
                       {homeImages.integrity && (
-                        <div className="mb-1 md:mb-2">
-                          <div className="relative h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14">
-                            <Image src={homeImages.integrity} alt="Integrity" fill sizes="(max-width: 640px) 32px, (max-width: 768px) 40px, (max-width: 1024px) 48px, 56px" className="object-contain" />
+                        <div className="mb-0.5 sm:mb-1 md:mb-2">
+                          <div className="relative h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 lg:h-12 lg:w-12">
+                            <Image src={homeImages.integrity} alt="Integrity" fill sizes="(max-width: 640px) 24px, (max-width: 768px) 32px, (max-width: 1024px) 40px, 48px" className="object-contain" />
                           </div>
                         </div>
                       )}
-                      <h3 className={`text-sm sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title} ${hierarchyWeights.valuesTitle}`}>INTEGRITY</h3>
-                      <p className={`text-xs sm:text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description} ${hierarchyWeights.paragraph}`}>We do things through hard work and dedication, while not taking any unnecessary shortcuts.</p>
+                      <h3 className={`text-xs sm:text-sm md:text-base lg:text-lg mb-0.5 sm:mb-1 ${colors.glass.text} ${fontCombinations.values.title} ${hierarchyWeights.valuesTitle}`}>INTEGRITY</h3>
+                      <p className={`text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description} ${hierarchyWeights.paragraph}`}>We do things through hard work and dedication, while not taking any unnecessary shortcuts.</p>
                     </div>
                   </BouncyFadeIn>
 
@@ -142,14 +156,14 @@ export default function Home() {
                   <BouncyFadeIn delay={0.3} threshold={0.1}>
                     <div className={`${colors.glass.text}`}>
                       {homeImages.service && (
-                        <div className="mb-1 md:mb-2">
-                          <div className="relative h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14">
-                            <Image src={homeImages.service} alt="Service" fill sizes="(max-width: 640px) 32px, (max-width: 768px) 40px, (max-width: 1024px) 48px, 56px" className="object-contain" />
+                        <div className="mb-0.5 sm:mb-1 md:mb-2">
+                          <div className="relative h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 lg:h-12 lg:w-12">
+                            <Image src={homeImages.service} alt="Service" fill sizes="(max-width: 640px) 24px, (max-width: 768px) 32px, (max-width: 1024px) 40px, 48px" className="object-contain" />
                           </div>
                         </div>
                       )}
-                      <h3 className={`text-sm sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title} ${hierarchyWeights.valuesTitle}`}>SERVICE</h3>
-                      <p className={`text-xs sm:text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description} ${hierarchyWeights.paragraph}`}>We believe in giving back to the communities that have shaped us into the people we are today.</p>
+                      <h3 className={`text-xs sm:text-sm md:text-base lg:text-lg mb-0.5 sm:mb-1 ${colors.glass.text} ${fontCombinations.values.title} ${hierarchyWeights.valuesTitle}`}>SERVICE</h3>
+                      <p className={`text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description} ${hierarchyWeights.paragraph}`}>We believe in giving back to the communities that have shaped us into the people we are today.</p>
                     </div>
                   </BouncyFadeIn>
 
@@ -157,14 +171,14 @@ export default function Home() {
                   <BouncyFadeIn delay={0.4} threshold={0.1}>
                     <div className={`${colors.glass.text}`}>
                       {homeImages.unity && (
-                        <div className="mb-1 md:mb-2">
-                          <div className="relative h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14">
-                            <Image src={homeImages.unity} alt="Unity" fill sizes="(max-width: 640px) 32px, (max-width: 768px) 40px, (max-width: 1024px) 48px, 56px" className="object-contain" />
+                        <div className="mb-0.5 sm:mb-1 md:mb-2">
+                          <div className="relative h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 lg:h-12 lg:w-12">
+                            <Image src={homeImages.unity} alt="Unity" fill sizes="(max-width: 640px) 24px, (max-width: 768px) 32px, (max-width: 1024px) 40px, 48px" className="object-contain" />
                           </div>
                         </div>
                       )}
-                      <h3 className={`text-sm sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title} ${hierarchyWeights.valuesTitle}`}>UNITY</h3>
-                      <p className={`text-xs sm:text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description} ${hierarchyWeights.paragraph}`}>We strive to build our bonds and strengthen the brotherhood that we are proud of.</p>
+                      <h3 className={`text-xs sm:text-sm md:text-base lg:text-lg mb-0.5 sm:mb-1 ${colors.glass.text} ${fontCombinations.values.title} ${hierarchyWeights.valuesTitle}`}>UNITY</h3>
+                      <p className={`text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description} ${hierarchyWeights.paragraph}`}>We strive to build our bonds and strengthen the brotherhood that we are proud of.</p>
                     </div>
                   </BouncyFadeIn>
 
@@ -172,20 +186,22 @@ export default function Home() {
                   <BouncyFadeIn delay={0.5} threshold={0.1}>
                     <div className={`${colors.glass.text}`}>
                       {homeImages.knowledge && (
-                        <div className="mb-1 md:mb-2">
-                          <div className="relative h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14">
-                            <Image src={homeImages.knowledge} alt="Knowledge" fill sizes="(max-width: 640px) 32px, (max-width: 768px) 40px, (max-width: 1024px) 48px, 56px" className="object-contain" />
+                        <div className="mb-0.5 sm:mb-1 md:mb-2">
+                          <div className="relative h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 lg:h-12 lg:w-12">
+                            <Image src={homeImages.knowledge} alt="Knowledge" fill sizes="(max-width: 640px) 24px, (max-width: 768px) 32px, (max-width: 1024px) 40px, 48px" className="object-contain" />
                           </div>
                         </div>
                       )}
-                      <h3 className={`text-sm sm:text-sm md:text-base lg:text-lg mb-1 ${colors.glass.text} ${fontCombinations.values.title} ${hierarchyWeights.valuesTitle}`}>KNOWLEDGE</h3>
-                      <p className={`text-xs sm:text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description} ${hierarchyWeights.paragraph}`}>We are scholars of diverse disciplines and professionals in varied industries.</p>
+                      <h3 className={`text-xs sm:text-sm md:text-base lg:text-lg mb-0.5 sm:mb-1 ${colors.glass.text} ${fontCombinations.values.title} ${hierarchyWeights.valuesTitle}`}>KNOWLEDGE</h3>
+                      <p className={`text-xs md:text-sm lg:text-base ${colors.glass.textBody} ${fontCombinations.values.description} ${hierarchyWeights.paragraph}`}>We are scholars of diverse disciplines and professionals in varied industries.</p>
                     </div>
                   </BouncyFadeIn>
                 </div>
 
                 {/* Scroll Arrow - Always Visible */}
-                <div className="flex justify-center flex-shrink-0 mt-2 md:mt-4 pb-16 md:pb-0">
+                <div className={`flex justify-center flex-shrink-0 ${
+                  isPopupWindow ? 'mt-1 md:mt-1 pb-4 md:pb-2' : 'mt-1 sm:mt-1 md:mt-2 pb-8 md:pb-0'
+                }`}>
                   <ScrollArrow />
                 </div>
               </div>

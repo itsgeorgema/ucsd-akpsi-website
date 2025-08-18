@@ -39,9 +39,9 @@ export default function RootLayout({
     <html lang="en" className="h-full">
       <head>
         <link rel="icon" href="/favicon.ico" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
       </head>
-      <body className={`${inter.className} h-full min-h-screen min-h-dvh flex flex-col`} suppressHydrationWarning>
+      <body className={`${inter.className} h-full min-h-screen min-h-svh flex flex-col`} suppressHydrationWarning>
         <AuthProvider>
           <Navbar />
           <main className="flex-1">
