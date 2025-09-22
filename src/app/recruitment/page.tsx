@@ -232,7 +232,7 @@ export default function Recruitment() {
                     {contactInfo.email && <span className="mx-2 hidden md:inline">|</span>}
                     <span className={rushColors.rushTextHighlight}> 
                       <u>
-                      <a href="https://akpsiucsd.app" target="_blank" rel="noopener noreferrer">akpsiucsd.app</a>
+                      <a href="https://akpsiucsd.app" target="_blank" rel="noopener noreferrer">rush.akpsiatucsd.com</a>
                       </u>
                     </span>
                   </div>
