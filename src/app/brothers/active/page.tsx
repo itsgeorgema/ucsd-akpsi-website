@@ -31,20 +31,16 @@ export default function ActiveBrothers() {
         
         // Fetch brothers data
         const { data, error } = await supabase
-          .from('actives-spring25')
+          .from('actives-fall25')
           .select('image_path, name')
           .order('name', { ascending: true });
         if (error || !data || data.length === 0) {
           setBrothers([]);
         } else {
           const brothersWithUrls = data.map((row: { image_path: string; name: string }) => {
-            const { data: publicUrlData } = supabase
-              .storage
-              .from('brothers-spring25')
-              .getPublicUrl(row.image_path);
             return {
               name: row.name,
-              imageUrl: publicUrlData?.publicUrl || '',
+              imageUrl: `/brothers/${row.image_path}`,
             };
           });
           setBrothers(brothersWithUrls);

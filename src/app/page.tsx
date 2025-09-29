@@ -54,7 +54,7 @@ export default function Home() {
 
         // Fetch president data
         const { data: presidentData, error: presidentError } = await supabase
-          .from('ecomm-spring-25')
+          .from('ecomm-fall25')
           .select('name, image_path')
           .eq('position', 'President')
           .single();

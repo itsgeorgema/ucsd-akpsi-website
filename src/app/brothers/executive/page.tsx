@@ -32,21 +32,16 @@ export default function ExecutiveCommittee() {
         
         // Fetch executives data
         const { data, error } = await supabase
-          .from('ecomm-spring-25')
-          .select('*');
+          .from('ecomm-fall25')
+          .select('*')
+          .order('number', { ascending: true });
 
         if (error) {
           console.error('Error fetching executives:', error);
           setExecutives([]);
         } else if (data) {
-          // Generate public URLs for each executive image
+          // Generate URLs for each executive image from local directory
           const executivesWithUrls = data.map(executive => {
-            // Clean the image_path by trimming whitespace and newlines
-            const cleanImagePath = executive.image_path.trim();
-            const { data: imageData } = supabase.storage
-              .from('brothers-spring25')
-              .getPublicUrl(cleanImagePath);
-            
             return {
               name: executive.name,
               position: executive.position,
@@ -54,7 +49,7 @@ export default function ExecutiveCommittee() {
               location: executive.location,
               bio: executive.bio,
               linkedin: executive.linkedin,
-              imageUrl: imageData.publicUrl,
+              imageUrl: `/brothers/${executive.image_path}`,
             };
           });
 

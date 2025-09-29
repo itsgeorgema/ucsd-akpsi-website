@@ -36,7 +36,7 @@ export default function ExecutivePage() {
         
         // Fetch executive data
         const { data, error } = await supabase
-          .from('ecomm-spring-25')
+          .from('ecomm-fall25')
           .select('*');
         
         if (error) {
@@ -46,13 +46,7 @@ export default function ExecutivePage() {
           // Find executive by comparing the name without spaces
           const found = data.find(e => e.name.replace(/\s/g, '') === decodedName);
           if (found) {
-            const cleanImagePath = found.image_path.trim();
-            const { data: publicUrlData } = supabase
-              .storage
-              .from('brothers-spring25')
-              .getPublicUrl(cleanImagePath);
-
-            setExecutive({ ...found, imageUrl: publicUrlData?.publicUrl || '' });
+            setExecutive({ ...found, imageUrl: `/brothers/${found.image_path}` });
           } else {
             setExecutive(null);
           }

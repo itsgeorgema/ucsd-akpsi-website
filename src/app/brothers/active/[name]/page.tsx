@@ -35,7 +35,7 @@ export default function BrotherPage() {
         
         // Fetch brother data
         const { data, error } = await supabase
-          .from('actives-spring25')
+          .from('actives-fall25')
           .select('*');
         
         if (error) {
@@ -45,12 +45,7 @@ export default function BrotherPage() {
           // Find brother by comparing the name without spaces
           const found = data.find(b => b.name.replace(/\s/g, '') === decodedName);
           if (found) {
-            const { data: publicUrlData } = supabase
-              .storage
-              .from('brothers-spring25')
-              .getPublicUrl(found.image_path);
-
-            setBrother({ ...found, imageUrl: publicUrlData?.publicUrl || '' });
+            setBrother({ ...found, imageUrl: `/brothers/${found.image_path}` });
           } else {
             setBrother(null);
           }
