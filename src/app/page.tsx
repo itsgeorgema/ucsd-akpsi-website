@@ -62,14 +62,9 @@ export default function Home() {
         if (presidentError) {
           console.error('Error fetching president:', presidentError);
         } else if (presidentData) {
-          const cleanImagePath = presidentData.image_path.trim();
-          const { data: imageData } = supabase.storage
-            .from('brothers-spring25')
-            .getPublicUrl(cleanImagePath);
-          
           setPresident({
             name: presidentData.name,
-            imageUrl: imageData.publicUrl
+            imageUrl: `/brothers/${presidentData.image_path}`
           });
         }
       } catch (error) {
