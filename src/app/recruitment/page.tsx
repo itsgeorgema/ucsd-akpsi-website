@@ -35,20 +35,10 @@ export default function Recruitment() {
     const fetchData = async () => {
       try {
         const supabase = createClient();
-        
-        // Fetch background image directly from storage
-        const { data: bgImageData } = supabase.storage
-          .from('rush-fall25')
-          .getPublicUrl('fall25Background.png');
-        
-        setBackgroundImage(bgImageData.publicUrl);
 
-        // Fetch flyer image directly from storage
-        const { data: flyerImageData } = supabase.storage
-          .from('rush-fall25')
-          .getPublicUrl('fall25Flyer.png');
-        
-        setFlyerImage(flyerImageData.publicUrl);
+        // Use local public assets for background and flyer
+        setBackgroundImage('/rush/fall25Background.png');
+        setFlyerImage('/rush/fall25Flyer.png');
 
         // Get gallery images from utility function
         const galleryImagesData = getGalleryImages();
@@ -151,7 +141,7 @@ export default function Recruitment() {
                   <div className={`${colors.bg.surfaceAlt} rounded-xl p-6 flex items-center justify-center h-64`}>
                     <div className={`text-center ${colors.text.secondary} ${fontCombinations.content.body}`}>
                       <p className={`text-lg mb-2 ${fontCombinations.content.lead}`}>Loading flyer...</p>
-                      <p className={`text-sm ${fontCombinations.content.small}`}>flyer.png</p>
+                      <p className={`text-sm ${fontCombinations.content.small}`}>fall25Flyer.png</p>
                     </div>
                   </div>
                 )}
