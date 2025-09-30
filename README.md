@@ -1,1 +1,1 @@
-akpsi website 
+Alpha Kappa Psi @ UC San Diego
