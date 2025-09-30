@@ -44,7 +44,7 @@ export default function Navbar() {
       ]
     },
     { href: '/gallery', label: 'GALLERY' },
-    { href: '/recruitment', label: 'RECRUITMENT' },
+    { href: 'https://rush.akpsiatucsd.com/', label: 'RECRUITMENT' },
     { href: '/contact', label: 'CONTACT' },
   ];
 
@@ -199,6 +199,45 @@ export default function Navbar() {
               }
               
               // Regular menu item
+              const isExternal = item.href.startsWith('http');
+              
+              if (isExternal) {
+                return (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={closeMenu}
+                    className={`group flex items-center px-6 py-4 rounded-lg border nav-shine ${
+                      isActive 
+                        ? `${colors.glass.bgHover} ${colors.glass.borderHover} backdrop-blur-sm` 
+                        : `border-transparent`
+                    }`}
+                  >
+                    <span className={`${fontCombinations.navigation.primary} transition-colors duration-50 ease-out ${
+                      isActive 
+                        ? colors.nav.textActive 
+                        : `${colors.glass.text} group-hover:${colors.nav.textActive}`
+                    }`}>
+                      {item.label}
+                    </span>
+                    <svg 
+                      className={`ml-auto w-5 h-5 transition-[transform,color] duration-50 ease-out transform group-hover:translate-x-1 ${
+                        isActive 
+                          ? colors.nav.textActive 
+                          : `${colors.glass.textSubtle} group-hover:${colors.nav.textActive}`
+                      }`} 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                );
+              }
+              
               return (
                 <Link
                   key={item.href}
