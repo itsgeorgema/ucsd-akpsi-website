@@ -47,7 +47,6 @@ export default function Recruitment() {
         // Hardcoded contact information
         setContactInfo({
           chairs: [
-            { name: 'Amanda Wu', number: '(949) 572-8948' },
             { name: 'Josh Hoffmann', number: '(510) 634-9132' }
           ],
           email: 'akpfallrush25@gmail.com'

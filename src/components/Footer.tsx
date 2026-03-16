@@ -108,19 +108,6 @@ export default function Footer({ className = "" }: FooterProps) {
             </h3>
             <div className="space-y-3 md:space-y-3 flex flex-col items-center md:items-start">
               <div className="space-y-2 md:space-y-1 flex flex-col items-center md:items-start">
-                <div className="flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-2">
-                  <p className={`text-sm ${colors.text.inverse} opacity-60 ${akpsiFonts.bodyFont}`}>
-                    Amanda Wu:
-                  </p>
-                  <a 
-                    href="tel:+19495728948" 
-                    className={`block text-sm ${colors.text.inverse} opacity-70 hover:opacity-100 transition-opacity ${colors.footer.link} ${akpsiFonts.bodyFont}`}
-                  >
-                    <u>
-                      (949)-572-8948
-                    </u>
-                  </a>
-                </div>
                 
                 <div className="flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-2">
                   <p className={`text-sm ${colors.text.inverse} opacity-60 ${akpsiFonts.bodyFont}`}>
