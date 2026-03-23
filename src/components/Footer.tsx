@@ -104,29 +104,43 @@ export default function Footer({ className = "" }: FooterProps) {
           {/* Right Column - Rush Info */}
           <div className="space-y-2 md:space-y-3 flex flex-col items-center md:items-start">
             <h3 className={`text-3xl ${colors.text.inverse} ${akpsiFonts.sectionTitleFont} ${hierarchyWeights.footer} mb-6`}>
-              Fall &apos;25 Rush Contacts
+              Spring &apos;26 Rush Contacts
             </h3>
             <div className="space-y-3 md:space-y-3 flex flex-col items-center md:items-start">
               <div className="space-y-2 md:space-y-1 flex flex-col items-center md:items-start">
                 
                 <div className="flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-2">
                   <p className={`text-sm ${colors.text.inverse} opacity-60 ${akpsiFonts.bodyFont}`}>
-                    Joshua Hoffmann:
+                    Heather Jeon:
                   </p>
                   <a 
-                    href="tel:+15106349132" 
+                    href="tel:+12139993685" 
                     className={`block text-sm ${colors.text.inverse} opacity-70 hover:opacity-100 transition-opacity ${colors.footer.link} ${akpsiFonts.bodyFont}`}
                   >
                     <u>
-                      (510)-634-9132
+                      (213) 999-3685
+                    </u>
+                  </a>
+                </div>
+
+                <div className="flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-2">
+                  <p className={`text-sm ${colors.text.inverse} opacity-60 ${akpsiFonts.bodyFont}`}>
+                    Hailey Kim:
+                  </p>
+                  <a 
+                    href="tel:+17147150072" 
+                    className={`block text-sm ${colors.text.inverse} opacity-70 hover:opacity-100 transition-opacity ${colors.footer.link} ${akpsiFonts.bodyFont}`}
+                  >
+                    <u>
+                      (714) 715-0072
                     </u>
                   </a>
                 </div>
                 
                 <p className={`text-sm ${colors.text.inverse} ${akpsiFonts.bodyFont}`}>
-                  <a href="mailto:akpfallrush25@gmail.com" className={`text-sm ${colors.text.inverse} opacity-70 hover:opacity-100 transition-opacity ${colors.footer.link} ${akpsiFonts.bodyFont}`}>
+                  <a href="mailto:akpspringrush26@gmail.com" className={`text-sm ${colors.text.inverse} opacity-70 hover:opacity-100 transition-opacity ${colors.footer.link} ${akpsiFonts.bodyFont}`}>
                     <u>
-                    akpfallrush25@gmail.com
+                    akpspringrush26@gmail.com
                     </u>
                   </a>
                 </p>
