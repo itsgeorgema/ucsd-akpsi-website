@@ -13,7 +13,16 @@ interface FooterProps {
 export default function Footer({ className = "" }: FooterProps) {
   const { isAuthenticated, logout } = useAuth();
   const router = useRouter();
-  
+
+  const rushInfo = {
+    year: "Spring '26",
+    email: "akpspringrush26@gmail.com",
+    chairs: [
+      { name: "Heather Jeon", phone: "(213) 999-3685", tel: "+12139993685" },
+      { name: "Hailey Kim", phone: "(714) 715-0072", tel: "+17147150072" },
+    ],
+  };
+
   const socialIcons = [
     {
       name: 'Instagram',
@@ -104,44 +113,27 @@ export default function Footer({ className = "" }: FooterProps) {
           {/* Right Column - Rush Info */}
           <div className="space-y-2 md:space-y-3 flex flex-col items-center md:items-start">
             <h3 className={`text-3xl ${colors.text.inverse} ${akpsiFonts.sectionTitleFont} ${hierarchyWeights.footer} mb-6`}>
-              Spring &apos;26 Rush Contacts
+              {rushInfo.year} Rush Contacts
             </h3>
             <div className="space-y-3 md:space-y-3 flex flex-col items-center md:items-start">
               <div className="space-y-2 md:space-y-1 flex flex-col items-center md:items-start">
-                
-                <div className="flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-2">
-                  <p className={`text-sm ${colors.text.inverse} opacity-60 ${akpsiFonts.bodyFont}`}>
-                    Heather Jeon:
-                  </p>
-                  <a 
-                    href="tel:+12139993685" 
-                    className={`block text-sm ${colors.text.inverse} opacity-70 hover:opacity-100 transition-opacity ${colors.footer.link} ${akpsiFonts.bodyFont}`}
-                  >
-                    <u>
-                      (213) 999-3685
-                    </u>
-                  </a>
-                </div>
-
-                <div className="flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-2">
-                  <p className={`text-sm ${colors.text.inverse} opacity-60 ${akpsiFonts.bodyFont}`}>
-                    Hailey Kim:
-                  </p>
-                  <a 
-                    href="tel:+17147150072" 
-                    className={`block text-sm ${colors.text.inverse} opacity-70 hover:opacity-100 transition-opacity ${colors.footer.link} ${akpsiFonts.bodyFont}`}
-                  >
-                    <u>
-                      (714) 715-0072
-                    </u>
-                  </a>
-                </div>
+                {rushInfo.chairs.map((rushChair) => (
+                  <div key={rushChair.tel} className="flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-2">
+                    <p className={`text-sm ${colors.text.inverse} opacity-60 ${akpsiFonts.bodyFont}`}>
+                      {rushChair.name}:
+                    </p>
+                    <a 
+                      href={`tel:${rushChair.tel}`}
+                      className={`block text-sm ${colors.text.inverse} opacity-70 hover:opacity-100 transition-opacity ${colors.footer.link} ${akpsiFonts.bodyFont}`}
+                    >
+                      <u>{rushChair.phone}</u>
+                    </a>
+                  </div>
+                ))}
                 
                 <p className={`text-sm ${colors.text.inverse} ${akpsiFonts.bodyFont}`}>
-                  <a href="mailto:akpspringrush26@gmail.com" className={`text-sm ${colors.text.inverse} opacity-70 hover:opacity-100 transition-opacity ${colors.footer.link} ${akpsiFonts.bodyFont}`}>
-                    <u>
-                    akpspringrush26@gmail.com
-                    </u>
+                  <a href={`mailto:${rushInfo.email}`} className={`text-sm ${colors.text.inverse} opacity-70 hover:opacity-100 transition-opacity ${colors.footer.link} ${akpsiFonts.bodyFont}`}>
+                    <u>{rushInfo.email}</u>
                   </a>
                 </p>
               </div>
