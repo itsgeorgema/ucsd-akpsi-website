@@ -20,6 +20,9 @@ interface President {
   imageUrl: string;
 }
 
+/** Rush season named in the president's message (update each term). */
+const homePresidentMessageRushSeason = 'Spring 2026 Rush';
+
 export default function Home() {
   const { isPopupWindow, cssVarHeight } = useViewportHeight();
   const [homeImages, setHomeImages] = useState<HomeImages>({
@@ -217,7 +220,7 @@ export default function Home() {
                   <div className="space-y-4 md:space-y-6">
                     <p className={`text-base md:text-lg relative pl-4 border-l-4 ${colors.border.accent} ${colors.section.text} ${fontCombinations.content.lead} ${hierarchyWeights.important}`}>Welcome! This is the website for the Nu Xi Chapter of Alpha Kappa Psi. Here, you can explore our values, who our brothers are, and how you can get involved. Before diving into the details, the brothers of the Nu Xi Chapter would like to thank you for your interest in our fraternity.</p>
                     <p className={`${colors.section.text} ${fontCombinations.content.body} ${hierarchyWeights.paragraph}`}>Alpha Kappa Psi is a pre-professional student fraternity here at UC San Diego. We are built on the key values of Brotherhood, Knowledge, Integrity, Unity, and Service. The community you&apos;ll find here at Alpha Kappa Psi is unparalleled. Not only do our brothers strive towards their personal and professional aspirations, but we do so together, building genuine bonds that last us a lifetime.</p>
-                    <p className={`${colors.section.text} ${fontCombinations.content.body} ${hierarchyWeights.paragraph}`}>With that being said, we highly encourage you to explore our website to learn more about our fraternity, our brothers, and what we stand for. If you&apos;re interested in joining our community, we encourage you to come out to our upcoming Fall 2025 Rush. At Rush, you&apos;ll get the chance to meet the brothers and learn more about how this fraternity can help you grow both personally and professionally.</p>
+                    <p className={`${colors.section.text} ${fontCombinations.content.body} ${hierarchyWeights.paragraph}`}>With that being said, we highly encourage you to explore our website to learn more about our fraternity, our brothers, and what we stand for. If you&apos;re interested in joining our community, we encourage you to come out to our upcoming {homePresidentMessageRushSeason}. At Rush, you&apos;ll get the chance to meet the brothers and learn more about how this fraternity can help you grow both personally and professionally.</p>
                     <div className={`mt-4 md:mt-6 ${colors.section.text} ${fontCombinations.content.body}`}>
                       <p className={`text-sm ${colors.text.secondary} uppercase tracking-tighter mb-1 ${fontCombinations.interactive.tertiary} ${hierarchyWeights.signature}`}>Sincerely,</p>
                       <p className={`text-lg md:text-xl ${colors.text.accent} ${fontCombinations.section.tertiary} ${hierarchyWeights.title}`}>{president ? president.name : 'Loading...'}</p>
