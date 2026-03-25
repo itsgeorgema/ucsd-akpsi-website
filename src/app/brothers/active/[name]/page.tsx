@@ -35,7 +35,7 @@ export default function BrotherPage() {
         
         // Fetch brother data
         const { data, error } = await supabase
-          .from('actives-fall25')
+          .from('actives-spring26')
           .select('*');
         
         if (error) {

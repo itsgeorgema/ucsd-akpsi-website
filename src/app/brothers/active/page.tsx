@@ -31,7 +31,7 @@ export default function ActiveBrothers() {
         
         // Fetch brothers data
         const { data, error } = await supabase
-          .from('actives-fall25')
+          .from('actives-spring26')
           .select('image_path, name')
           .order('name', { ascending: true });
         if (error || !data || data.length === 0) {

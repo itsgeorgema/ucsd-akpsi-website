@@ -32,7 +32,7 @@ export default function ExecutiveCommittee() {
         
         // Fetch executives data
         const { data, error } = await supabase
-          .from('ecomm-fall25')
+          .from('ecomm-spring-26')
           .select('*')
           .order('number', { ascending: true });
 

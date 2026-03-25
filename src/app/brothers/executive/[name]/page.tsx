@@ -36,7 +36,7 @@ export default function ExecutivePage() {
         
         // Fetch executive data
         const { data, error } = await supabase
-          .from('ecomm-fall25')
+          .from('ecomm-spring-26')
           .select('*');
         
         if (error) {
