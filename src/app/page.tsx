@@ -206,27 +206,22 @@ export default function Home() {
             </section>
 
             {/* PRESIDENT'S MESSAGE SECTION */}
-            <section
-              id="akpsi-info"
-              className={`flex flex-col lg:flex-row items-start lg:items-center rounded-t-3xl justify-between w-full px-6 md:px-12 safe-area-inset-top safe-area-inset-bottom ${
-                isPopupWindow ? 'py-8 md:py-10 min-h-0 hero-constrained' : 'py-12 md:py-16 h-screen min-h-screen-safe'
-              } ${colors.section.bg} relative overflow-hidden`}
-              style={isPopupWindow ? { minHeight: cssVarHeight } : {}}
-            >
+            <section id="akpsi-info" className={`flex flex-col lg:flex-row items-start lg:items-center rounded-t-3xl justify-between w-full py-16 md:py-20 px-6 md:px-12 ${colors.section.bg} relative overflow-hidden`}>
               {/* Subtle background pattern */}
               <div className="absolute inset-0 opacity-5">
                 <div className="absolute inset-0 bg-gradient-to-r from-[#B89334] via-transparent to-[#6497B1]"></div>
               </div>
               
-              <div className="relative z-10 w-full max-w-7xl mx-auto my-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 lg:gap-10 xl:gap-12">
               <BouncyFadeIn delay={0.1} threshold={0.1} bounce={0}>
-                <div className="flex-1 max-w-4xl w-full lg:pr-8 xl:pr-10">
-                  <h3 className={`text-3xl md:text-4xl lg:text-[2.6rem] mb-4 md:mb-6 leading-tight text-left bg-gradient-to-r from-[#003366] to-[#6497B1] bg-clip-text text-transparent ${fontCombinations.section.main} ${hierarchyWeights.title}`}>FROM<br />OUR PRESIDENT</h3>
-                  <div className="space-y-3 md:space-y-4">
+                <div className="flex-1 max-w-4xl w-full lg:pr-12 relative z-10">
+                  <div className="mb-6">
+                  </div>
+                  <h3 className={`text-3xl md:text-4xl lg:text-5xl mb-6 md:mb-8 leading-tight text-left bg-gradient-to-r from-[#003366] to-[#6497B1] bg-clip-text text-transparent ${fontCombinations.section.main} ${hierarchyWeights.title}`}>FROM<br />OUR PRESIDENT</h3>
+                  <div className="space-y-4 md:space-y-6">
                     <p className={`text-base md:text-lg relative pl-4 border-l-4 ${colors.border.accent} ${colors.section.text} ${fontCombinations.content.lead} ${hierarchyWeights.important}`}>Welcome! This is the website for the Nu Xi Chapter of Alpha Kappa Psi. Here, you can explore our values, who our brothers are, and how you can get involved. Before diving into the details, the brothers of the Nu Xi Chapter would like to thank you for your interest in our fraternity.</p>
                     <p className={`${colors.section.text} ${fontCombinations.content.body} ${hierarchyWeights.paragraph}`}>Alpha Kappa Psi is a pre-professional student fraternity here at UC San Diego. We are built on the key values of Brotherhood, Knowledge, Integrity, Unity, and Service. The community you&apos;ll find here at Alpha Kappa Psi is unparalleled. Not only do our brothers strive towards their personal and professional aspirations, but we do so together, building genuine bonds that last us a lifetime.</p>
                     <p className={`${colors.section.text} ${fontCombinations.content.body} ${hierarchyWeights.paragraph}`}>With that being said, we highly encourage you to explore our website to learn more about our fraternity, our brothers, and what we stand for. If you&apos;re interested in joining our community, we encourage you to come out to our upcoming {homePresidentMessageRushSeason}. At Rush, you&apos;ll get the chance to meet the brothers and learn more about how this fraternity can help you grow both personally and professionally.</p>
-                    <div className={`mt-3 md:mt-4 ${colors.section.text} ${fontCombinations.content.body}`}>
+                    <div className={`mt-4 md:mt-6 ${colors.section.text} ${fontCombinations.content.body}`}>
                       <p className={`text-sm ${colors.text.secondary} uppercase tracking-tighter mb-1 ${fontCombinations.interactive.tertiary} ${hierarchyWeights.signature}`}>Sincerely,</p>
                       <p className={`text-lg md:text-xl ${colors.text.accent} ${fontCombinations.section.tertiary} ${hierarchyWeights.title}`}>{president ? president.name : 'Loading...'}</p>
                       <p className={`text-sm ${colors.text.secondary} ${fontCombinations.content.small} ${hierarchyWeights.signature}`}>President, Nu Xi Chapter</p>
@@ -235,24 +230,23 @@ export default function Home() {
                 </div>
               </BouncyFadeIn>
               <BouncyFadeIn delay={0.1} threshold={0.1} bounce={0}>
-                <div className="flex-1 flex justify-center lg:justify-end items-center w-full max-w-xl mt-2 md:mt-4 lg:mt-0">
+                <div className="flex-1 flex justify-center lg:justify-end items-center w-full max-w-xl mt-8 lg:mt-0">
                   {president ? (
-                    <div className="relative w-full max-w-xs md:max-w-sm lg:max-w-md h-auto">
-                      <Image src={president.imageUrl} alt={`${president.name} - President`} width={400} height={500} className="w-full h-auto rounded-md object-cover" />
+                    <div className="relative w-full max-w-sm md:max-w-md lg:max-w-lg h-auto">
+                      <Image src={president.imageUrl} alt={`${president.name} - President`} width={400} height={500} className="w-full h-auto rounded-md object-cover scale-110" />
                     </div>
                   ) : (
-                    <div className={`w-full max-w-xs md:max-w-sm lg:max-w-md h-56 md:h-72 bg-gradient-to-br from-[#B3CDE0]/20 to-[#D4AF37]/10 rounded-2xl flex items-center justify-center ${colors.border.default} shadow-lg backdrop-blur-sm relative overflow-hidden`}>
+                    <div className={`w-full max-w-sm md:max-w-md lg:max-w-lg h-64 md:h-80 bg-gradient-to-br from-[#B3CDE0]/20 to-[#D4AF37]/10 rounded-2xl flex items-center justify-center ${colors.border.default} shadow-lg backdrop-blur-sm relative overflow-hidden`}>
                         <div className="absolute inset-0 bg-gradient-to-br from-[#6497B1]/5 to-[#B89334]/5"></div>
                         <span className={`${colors.text.secondary} relative z-10 ${fontCombinations.content.body}`}>Loading president image...</span>
                       </div>
                   )}
                 </div>
               </BouncyFadeIn>
-              </div>
             </section>
 
             {/* GALLERY CAROUSEL SECTION - Bottom of President Section */}
-            <section className={`relative w-full overflow-hidden pb-12 md:pb-16 ${colors.section.bg}`}>
+            <section className={`relative w-full overflow-hidden ${colors.section.bg} -mt-8`}>
                 {galleryImages.length > 0 ? (
                   <div className="relative">
                     <InfiniteCarousel images={galleryImages} />
