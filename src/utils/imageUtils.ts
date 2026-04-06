@@ -100,7 +100,27 @@ export const getCompanyImages = (): Company[] => {
     { name: 'CBS', imageUrl: '/companies/32cbs.png', num: 32 },
     { name: 'Lumentum', imageUrl: '/companies/33lumentum.png', num: 33 },
     { name: 'Warner Bros', imageUrl: '/companies/34warnerbros.png', num: 34 },
-    { name: 'Outreach', imageUrl: '/companies/35outreach.png', num: 35 }
+    { name: 'Outreach', imageUrl: '/companies/35outreach.png', num: 35 },
+    { name: 'TikTok', imageUrl: '/companies/36tiktok.png', num: 36 },
+    { name: 'US State Department', imageUrl: '/companies/37usstatedepartment.png', num: 37 },
+    { name: 'American Express', imageUrl: '/companies/38amex.png', num: 38 },
+    { name: 'Verizon', imageUrl: '/companies/39verizon.png', num: 39 },
+    { name: 'Qualcomm', imageUrl: '/companies/40qualcomm.png', num: 40 },
+    { name: 'Wells Fargo', imageUrl: '/companies/41wellsfargo.png', num: 41 },
+    { name: 'Experian', imageUrl: '/companies/42experian.png', num: 42 },
+    { name: 'Mercer', imageUrl: '/companies/43mercer.png', num: 43 },
+    { name: 'Hyundai', imageUrl: '/companies/44hyundai.png', num: 44 },
+    { name: 'Workday', imageUrl: '/companies/45workday.png', num: 45 },
+    { name: 'EY', imageUrl: '/companies/46ey.png', num: 46 },
+    { name: 'Exa', imageUrl: '/companies/47exa.png', num: 47 },
+    { name: 'JPMorgan', imageUrl: '/companies/48jpmorgan.png', num: 48 },
+    { name: 'CARB', imageUrl: '/companies/49carb.png', num: 49 },
+    { name: 'Cantor Fitzgerald', imageUrl: '/companies/50cantorfitzgerald.png', num: 50 },
+    { name: 'Juniper Networks', imageUrl: '/companies/51junipernetworks.png', num: 51 },
+    { name: 'Jack in the Box', imageUrl: '/companies/52jackinthebox.png', num: 52 },
+    { name: 'Blue Shield', imageUrl: '/companies/53blueshield.png', num: 53 },
+    { name: 'Light & Wonder', imageUrl: '/companies/54lightandwonder.png', num: 54 },
+    { name: 'Bloom', imageUrl: '/companies/55bloom.png', num: 55 }
   ];
 
   return companies;
