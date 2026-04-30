@@ -1,6 +1,6 @@
 # Webmaster Website Update Guide
 
-Use this guide when a new webmaster needs to update the active brothers, executive committee, and headshots for a new quarter or semester.
+Use this guide when a new webmaster needs to update the active brothers, executive committee, and headshots for a new rush.
 
 ## Overview
 
@@ -86,8 +86,6 @@ Before uploading, check:
 - Empty LinkedIn values are blank, not random placeholder text.
 - Bios do not contain accidental extra quotes or broken line breaks.
 
-Important: profile pages match people by removing spaces from `name`. Avoid duplicate names that become identical after spaces are removed.
-
 Example:
 
 ```text
@@ -108,7 +106,6 @@ Recommended process:
 2. Crop every image consistently before adding it to the repo.
 3. Use portrait-oriented crops because the site displays them in tall profile cards.
 4. Rename each file to match the person's name with no spaces.
-5. Use simple file names with no special characters.
 
 Recommended file format:
 
