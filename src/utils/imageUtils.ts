@@ -45,7 +45,6 @@ export const getGalleryImages = (): GalleryImage[] => {
     '/gallery/gallery6.png',
     '/gallery/gallery7.png',
     '/gallery/gallery8.png',
-    '/gallery/gallery9.png',
     '/gallery/gallery10.png',
     '/gallery/gallery11.png',
     '/gallery/gallery12.png',
