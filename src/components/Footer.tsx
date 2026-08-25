@@ -85,7 +85,7 @@ export default function Footer({ className = "" }: FooterProps) {
             <div className="space-y-3 md:space-y-3 flex flex-col items-center md:items-start">
               <div className="space-y-2 md:space-y-1 flex flex-col items-center md:items-start">
               <a 
-                href="https://akpsiucsd.app" 
+                href="https://rush.akpsiatucsd.com/" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`text-sm ${colors.text.inverse} opacity-70 hover:opacity-100 transition-opacity ${colors.footer.link} underline ${akpsiFonts.bodyFont}`}
