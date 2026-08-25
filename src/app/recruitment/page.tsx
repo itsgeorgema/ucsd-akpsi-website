@@ -114,7 +114,7 @@ export default function Recruitment() {
                     INTEREST FORM
                   </a>
                   <a 
-                    href="https://www.akpsiucsd.app/"
+                    href="https://rush.akpsiatucsd.com/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`px-8 py-3 ${rushColors.rushButtonSecondary} ${fontCombinations.interactive.primary} rounded-lg transition-all duration-300 transform hover:scale-105 inline-block text-center ${rushColors.rushText} ${rushColors.rushButtonSecondaryBorder}`}
@@ -221,7 +221,7 @@ export default function Recruitment() {
                     {contactInfo.email && <span className="mx-2 hidden md:inline">|</span>}
                     <span className={rushColors.rushTextHighlight}> 
                       <u>
-                      <a href="https://akpsiucsd.app" target="_blank" rel="noopener noreferrer">rush.akpsiatucsd.com</a>
+                      <a href="https://rush.akpsiatucsd.com/" target="_blank" rel="noopener noreferrer">rush.akpsiatucsd.com</a>
                       </u>
                     </span>
                   </div>
