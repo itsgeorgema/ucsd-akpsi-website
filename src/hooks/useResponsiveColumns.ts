@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from "react";
 
 export type ColumnsBreakpoint = {
   minWidth: number;
@@ -23,27 +23,13 @@ export function useResponsiveColumns(
   const rafIdRef = useRef<number | null>(null);
   const timeoutRef = useRef<number | null>(null);
 
-  // Sort breakpoints in descending order by minWidth for optimal performance
-  const sortedBreakpoints = [...breakpoints].sort((a, b) => b.minWidth - a.minWidth);
-
-  // Validate breakpoints are properly sorted (for development)
-  if (process.env.NODE_ENV === 'development') {
-    const isProperlySorted = breakpoints.every((breakpoint, index) => {
-      if (index === 0) return true;
-      return breakpoint.minWidth <= breakpoints[index - 1].minWidth;
-    });
-    
-    if (!isProperlySorted) {
-      console.warn(
-        'useResponsiveColumns: Breakpoints should be sorted in descending order by minWidth for optimal performance. ' +
-        'The hook will automatically sort them, but consider sorting them in your component for better performance.'
-      );
-    }
-  }
+  const sortedBreakpoints = useMemo(
+    () => [...breakpoints].sort((a, b) => b.minWidth - a.minWidth),
+    [breakpoints],
+  );
 
   useEffect(() => {
     const computeColumns = () => {
-      if (typeof window === 'undefined') return initialColumns;
       const width = window.innerWidth;
       for (const { minWidth, columns } of sortedBreakpoints) {
         if (width >= minWidth) return columns;
@@ -53,7 +39,7 @@ export function useResponsiveColumns(
 
     const applyColumns = () => {
       const next = computeColumns();
-      setColumns(prev => (prev !== next ? next : prev));
+      setColumns((prev) => (prev !== next ? next : prev));
     };
 
     // Initial apply after mount
@@ -71,9 +57,9 @@ export function useResponsiveColumns(
       }, throttleMs);
     };
 
-    window.addEventListener('resize', onResize);
+    window.addEventListener("resize", onResize);
     return () => {
-      window.removeEventListener('resize', onResize);
+      window.removeEventListener("resize", onResize);
       if (timeoutRef.current !== null) window.clearTimeout(timeoutRef.current);
       if (rafIdRef.current !== null) cancelAnimationFrame(rafIdRef.current);
     };
@@ -81,4 +67,3 @@ export function useResponsiveColumns(
 
   return columns;
 }
-
