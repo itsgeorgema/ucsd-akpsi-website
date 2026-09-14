@@ -2,10 +2,10 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
-export type ColumnsBreakpoint = {
+interface ColumnsBreakpoint {
   minWidth: number;
   columns: number;
-};
+}
 
 /**
  * Compute a responsive column count on the client without causing SSR mismatches.
@@ -14,12 +14,8 @@ export type ColumnsBreakpoint = {
  * - Only updates state when the computed column count actually changes
  * - Breakpoints should be sorted in descending order by minWidth for optimal performance
  */
-export function useResponsiveColumns(
-  breakpoints: ColumnsBreakpoint[],
-  initialColumns: number = 1,
-  throttleMs: number = 120,
-): number {
-  const [columns, setColumns] = useState<number>(initialColumns);
+export function useResponsiveColumns(breakpoints: ColumnsBreakpoint[]): number {
+  const [columns, setColumns] = useState(1);
   const rafIdRef = useRef<number | null>(null);
   const timeoutRef = useRef<number | null>(null);
 
@@ -34,7 +30,7 @@ export function useResponsiveColumns(
       for (const { minWidth, columns } of sortedBreakpoints) {
         if (width >= minWidth) return columns;
       }
-      return initialColumns;
+      return 1;
     };
 
     const applyColumns = () => {
@@ -54,7 +50,7 @@ export function useResponsiveColumns(
           applyColumns();
           rafIdRef.current = null;
         });
-      }, throttleMs);
+      }, 120);
     };
 
     window.addEventListener("resize", onResize);
@@ -63,7 +59,7 @@ export function useResponsiveColumns(
       if (timeoutRef.current !== null) window.clearTimeout(timeoutRef.current);
       if (rafIdRef.current !== null) cancelAnimationFrame(rafIdRef.current);
     };
-  }, [sortedBreakpoints, initialColumns, throttleMs]);
+  }, [sortedBreakpoints]);
 
   return columns;
 }

@@ -6,10 +6,6 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "../contexts/AuthContext";
 import Image from "next/image";
 
-interface FooterProps {
-  className?: string;
-}
-
 const rushInfo = {
   year: "Fall '26",
   email: "akpfall2026rush@gmail.com",
@@ -49,13 +45,13 @@ const socialIcons = [
   },
 ];
 
-export default function Footer({ className = "" }: FooterProps) {
+export default function Footer() {
   const { isAuthenticated, logout } = useAuth();
   const router = useRouter();
 
   return (
     <footer
-      className={`relative ${colors.section.titleBg} ${className} pb-safe-area-inset-bottom`}
+      className={`relative ${colors.section.titleBg} pb-safe-area-inset-bottom`}
     >
       {/* Top banner with grid pattern */}
       <div className={`h-2 bg-[${colorPalette.gold.muted}] opacity-80`}></div>

@@ -15,7 +15,7 @@ const columnBreakpoints = [
 
 export default function Gallery() {
   const backgroundImage = "/assets/sunsetBackground.jpeg";
-  const columns = useResponsiveColumns(columnBreakpoints, 1);
+  const columns = useResponsiveColumns(columnBreakpoints);
 
   return (
     <div className="relative min-h-screen flex flex-col gallery-page">

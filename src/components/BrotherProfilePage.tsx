@@ -76,9 +76,7 @@ export default function BrotherProfilePage({
       <div className="fixed top-0 left-0 w-full h-full z-10 bg-gradient-to-br from-black/40 via-black/30 to-black/50" />
       <div className="relative z-20 min-h-screen flex flex-col">
         <main className="flex-1 flex items-center justify-center py-16 px-4 mt-24">
-          {loading && (
-            <LoadingSpinner size="large" fullScreen={false} type="component" />
-          )}
+          {loading && <LoadingSpinner />}
           {!loading && !member && (
             <div
               className={`flex flex-col items-center justify-center min-h-[60vh] ${colors.text.inverse}`}

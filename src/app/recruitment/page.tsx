@@ -68,9 +68,7 @@ export default function Recruitment() {
       <div className={`fixed top-0 left-0 w-full h-full z-10 bg-black/30`} />
       <div className="relative z-20 min-h-screen flex flex-col">
         <main className="flex-1 flex items-center justify-center py-16 px-4 mt-20">
-          {loading && (
-            <LoadingSpinner size="large" fullScreen={false} type="component" />
-          )}
+          {loading && <LoadingSpinner />}
           {!loading && (
             <BouncyFadeIn
               delay={0.1}

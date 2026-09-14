@@ -2,25 +2,16 @@
 
 import { useState, useEffect } from "react";
 
-interface AnimatedTitleProps {
-  texts?: string[];
-  typeSpeed?: number;
-  deleteSpeed?: number;
-  pauseDuration?: number;
-  className?: string;
-}
+const TEXTS = ["ALPHA\nKAPPA PSI.", "NU XI\nCHAPTER."];
+const TYPE_SPEED = 80;
+const DELETE_SPEED = 50;
+const PAUSE_DURATION = 2250;
 
-export default function AnimatedTitle({
-  texts = ["ALPHA\nKAPPA PSI.", "NU XI\nCHAPTER."],
-  typeSpeed = 80, // lower is faster
-  deleteSpeed = 50, // lower is faster
-  pauseDuration = 2250,
-  className = "",
-}: AnimatedTitleProps) {
+export default function AnimatedTitle() {
   const [isTyping, setIsTyping] = useState(true);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
-  const currentText = texts[currentTextIndex];
+  const currentText = TEXTS[currentTextIndex];
   const isActivelyTyping = isTyping
     ? currentCharIndex < currentText.length
     : currentCharIndex > 0;
@@ -30,38 +21,30 @@ export default function AnimatedTitle({
       if (currentCharIndex < currentText.length) {
         const timer = setTimeout(() => {
           setCurrentCharIndex(currentCharIndex + 1);
-        }, typeSpeed);
+        }, TYPE_SPEED);
         return () => clearTimeout(timer);
       } else {
-        const timer = setTimeout(() => setIsTyping(false), pauseDuration);
+        const timer = setTimeout(() => setIsTyping(false), PAUSE_DURATION);
         return () => clearTimeout(timer);
       }
     } else {
       if (currentCharIndex > 0) {
         const timer = setTimeout(() => {
           setCurrentCharIndex(currentCharIndex - 1);
-        }, deleteSpeed);
+        }, DELETE_SPEED);
         return () => clearTimeout(timer);
       } else {
         const timer = setTimeout(() => {
-          setCurrentTextIndex((prev) => (prev + 1) % texts.length);
+          setCurrentTextIndex((prev) => (prev + 1) % TEXTS.length);
           setIsTyping(true);
         }, 1750);
         return () => clearTimeout(timer);
       }
     }
-  }, [
-    currentCharIndex,
-    isTyping,
-    currentText,
-    texts.length,
-    typeSpeed,
-    deleteSpeed,
-    pauseDuration,
-  ]);
+  }, [currentCharIndex, isTyping, currentText]);
 
   return (
-    <div className={`block whitespace-pre-line relative ${className}`}>
+    <div className="block whitespace-pre-line relative">
       <div className="absolute bottom-0 left-0 right-0">
         {currentText.slice(0, currentCharIndex)}
         <span

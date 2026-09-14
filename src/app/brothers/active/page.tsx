@@ -20,7 +20,7 @@ export default function ActiveBrothers() {
   >([]);
   const backgroundImage = "/assets/sunsetBackground.jpeg";
   const [loading, setLoading] = useState(true);
-  const columns = useResponsiveColumns(columnBreakpoints, 1);
+  const columns = useResponsiveColumns(columnBreakpoints);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,7 +67,7 @@ export default function ActiveBrothers() {
       <div className="relative z-20 min-h-screen flex flex-col">
         <main className="flex-1 flex items-center justify-center py-16 px-4">
           {loading ? (
-            <LoadingSpinner size="large" fullScreen={false} type="component" />
+            <LoadingSpinner />
           ) : (
             <div className="w-full flex flex-col items-center">
               <div className="text-center mb-8 mt-8 md:mt-12">

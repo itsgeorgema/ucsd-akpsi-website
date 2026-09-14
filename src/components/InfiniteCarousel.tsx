@@ -3,10 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-
-interface GalleryImage {
-  imageUrl: string;
-}
+import type { GalleryImage } from "../utils/imageUtils";
 
 interface InfiniteCarouselProps {
   images: GalleryImage[];
