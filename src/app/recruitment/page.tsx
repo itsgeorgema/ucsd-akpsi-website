@@ -47,9 +47,10 @@ export default function Recruitment() {
         // Hardcoded contact information
         setContactInfo({
           chairs: [
-            { name: 'Josh Hoffmann', number: '(510) 634-9132' }
+            { name: 'Jacqueline He', number: '(626) 454-0312' },
+            { name: 'Belle Bao', number: '(626) 390-3697' },
           ],
-          email: 'akpfallrush25@gmail.com'
+          email: 'akpfall2026rush@gmail.com'
         });
 
         // Fetch recruitment events
@@ -96,7 +97,7 @@ export default function Recruitment() {
                   ABOUT RECRUITMENT
                 </h2>
                 <p className={`text-lg leading-relaxed ${rushColors.rushTextBody} ${fontCombinations.content.body}`}>
-                  The brothers of Alpha Kappa Psi cordially invite you to attend our Fall 2025 In-Person Rush:<span className={rushColors.rushTextHighlightBold}> Blueprint for Excellence</span>!
+                  The brothers of Alpha Kappa Psi cordially invite you to attend our Fall 2026 In-Person Rush:<span className={rushColors.rushTextHighlightBold}> Blueprint for Excellence</span>!
                 </p>
                 <p className={`text-lg leading-relaxed ${rushColors.rushTextBody} ${fontCombinations.content.body}`}>
                   Come out in Week 2 of Fall Quarter to meet our amazing active members and esteemed alumni. Get a glimpse of the professional development and tight-knit community we can offer.
@@ -196,7 +197,7 @@ export default function Recruitment() {
                   QUESTIONS? CONTACT US!
                 </h2>
               <div className={`${colors.glass.bg} backdrop-blur-sm rounded-lg p-8 ${colors.glass.border}`}>
-                <h3 className={`text-xl ${fontCombinations.section.tertiary} mb-4 ${rushColors.rushTextHighlight}`}>Rush Chairs</h3>
+                <h3 className={`text-xl ${fontCombinations.section.tertiary} mb-4 ${rushColors.rushTextHighlight}`}>Fall &apos;26 Rush</h3>
                 <div className={`space-y-2 ${rushColors.rushTextBody}`}>
                   {contactInfo.chairs.map((chair, index) => (
                     <p key={index} className={`text-lg ${fontCombinations.content.lead} break-words block`}>
