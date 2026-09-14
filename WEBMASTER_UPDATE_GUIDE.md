@@ -13,7 +13,7 @@ public/brothers/
 Each Supabase row has an `image_path` value, and the code turns it into a local image URL like:
 
 ```ts
-`/brothers/${row.image_path}`
+`/brothers/${row.image_path}`;
 ```
 
 That means the value in Supabase must exactly match a file name in `public/brothers/`.
@@ -49,29 +49,29 @@ ecomm-spring-26
 
 The actives table should include:
 
-| Column | Type | Notes |
-| --- | --- | --- |
-| `name` | text | Full display name. Used for profile routes. |
+| Column       | Type | Notes                                        |
+| ------------ | ---- | -------------------------------------------- |
+| `name`       | text | Full display name. Used for profile routes.  |
 | `image_path` | text | Exact image file name in `public/brothers/`. |
-| `pronouns` | text | Example: `She/Her/Hers`. |
-| `location` | text | Example: `Sacramento, CA`. |
-| `bio` | text | Profile bio. |
-| `linkedin` | text | Full LinkedIn URL, or blank if unavailable. |
+| `pronouns`   | text | Example: `She/Her/Hers`.                     |
+| `location`   | text | Example: `Sacramento, CA`.                   |
+| `bio`        | text | Profile bio.                                 |
+| `linkedin`   | text | Full LinkedIn URL, or blank if unavailable.  |
 
 ### Executive Committee Table
 
 The ecomm table should include:
 
-| Column | Type | Notes |
-| --- | --- | --- |
-| `number` | numeric/integer | Display order on the executive committee page. |
-| `name` | text | Full display name. Used for profile routes. |
-| `position` | text | Example: `President`, `VP Brotherhood`. |
-| `image_path` | text | Exact image file name in `public/brothers/`. |
-| `pronouns` | text | Example: `He/Him/His`. |
-| `location` | text | Example: `San Diego, CA`. |
-| `bio` | text | Profile bio. |
-| `linkedin` | text | Full LinkedIn URL, or blank if unavailable. |
+| Column       | Type            | Notes                                          |
+| ------------ | --------------- | ---------------------------------------------- |
+| `number`     | numeric/integer | Display order on the executive committee page. |
+| `name`       | text            | Full display name. Used for profile routes.    |
+| `position`   | text            | Example: `President`, `VP Brotherhood`.        |
+| `image_path` | text            | Exact image file name in `public/brothers/`.   |
+| `pronouns`   | text            | Example: `He/Him/His`.                         |
+| `location`   | text            | Example: `San Diego, CA`.                      |
+| `bio`        | text            | Profile bio.                                   |
+| `linkedin`   | text            | Full LinkedIn URL, or blank if unavailable.    |
 
 ## 3. Upload Member Information
 
@@ -227,7 +227,7 @@ src/app/page.tsx
 Look for:
 
 ```ts
-const homePresidentMessageRushSeason = 'Spring 2026 Rush';
+const homePresidentMessageRushSeason = "Spring 2026 Rush";
 ```
 
 Update it to match the current recruitment cycle.
@@ -235,7 +235,9 @@ Update it to match the current recruitment cycle.
 The footer copyright year is currently generated automatically:
 
 ```tsx
-{new Date().getFullYear()}
+{
+  new Date().getFullYear();
+}
 ```
 
 Still check the footer during local testing to make sure the year, terms link, and privacy link render correctly.
