@@ -20,7 +20,7 @@ interface President {
 }
 
 /** Rush season named in the president's message (update each term). */
-const homePresidentMessageRushSeason = "Spring 2026 Rush";
+const homePresidentMessageRushSeason = "Fall 2026 Rush";
 const homeImages = getHomeImages();
 const galleryImages = getGalleryImages();
 
