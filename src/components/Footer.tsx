@@ -15,11 +15,11 @@ export default function Footer({ className = "" }: FooterProps) {
   const router = useRouter();
 
   const rushInfo = {
-    year: "Spring '26",
-    email: "akpspringrush26@gmail.com",
+    year: "Fall '26",
+    email: "akpfall2026rush@gmail.com",
     chairs: [
-      { name: "Heather Jeon", phone: "(213) 999-3685", tel: "+12139993685" },
-      { name: "Hailey Kim", phone: "(714) 715-0072", tel: "+17147150072" },
+      { name: "Jacqueline He", phone: "(626) 454-0312", tel: "+16264540312" },
+      { name: "Belle Bao", phone: "(626) 390-3697", tel: "+16263903697" },
     ],
   };
 
