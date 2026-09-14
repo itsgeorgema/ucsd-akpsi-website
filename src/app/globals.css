@@ -1,62 +1,11 @@
 @import "tailwindcss";
 
-/**
- * AKPsi Website Global Styles & CSS Custom Properties
- * Using the refined color palette: neutrals, muted blues, sophisticated golds, and brand colors
- * Font system is now managed through Next.js font loading in layout.tsx
- */
-
 :root {
-  /* === NEUTRALS (Foundation) === */
-  --color-neutral-white: #F8F8F8;
+  --color-neutral-white: #f8f8f8;
   --color-neutral-black: #212121;
-  --color-neutral-light-gray: #E0E0E0;
-  --color-neutral-medium-gray: #9E9E9E;
-  --color-neutral-dark-gray: #333333;
-  
-  /* === BLUES (Modern, Muted) === */
-  --color-blue-soft: #B3CDE0;
-  --color-blue-medium: #6497B1;
-  
-  /* === GOLDS (Sophisticated Hierarchy) === */
-  --color-gold-muted: #B89334;
-  --color-gold-light: #D4AF37;
-  --color-gold-bright: #FFD700;
-  
-  /* === BRAND === */
-  --color-brand-royal-blue: #003366;
-  
-  /* === SEMANTIC MAPPINGS === */
-  --color-primary: var(--color-blue-medium);
-  --color-primary-hover: var(--color-blue-soft);
-  --color-secondary: var(--color-gold-muted);
-  --color-secondary-hover: var(--color-gold-light);
-  --color-accent: var(--color-brand-royal-blue);
-  
+  --color-gold-light: #d4af37;
   --color-background: var(--color-neutral-white);
-  --color-background-alt: var(--color-blue-soft);
-  --color-surface: var(--color-neutral-white);
-  --color-surface-alt: var(--color-neutral-light-gray);
-  
   --color-text-primary: var(--color-neutral-black);
-  --color-text-secondary: var(--color-neutral-medium-gray);
-  --color-text-inverse: var(--color-neutral-white);
-  --color-text-accent: var(--color-gold-muted);
-  
-  --color-border: var(--color-neutral-light-gray);
-  --color-border-hover: var(--color-neutral-medium-gray);
-  
-  /* Legacy compatibility */
-  --background: var(--color-background);
-  --foreground: var(--color-text-primary);
-}
-
-/* Tailwind theme customization */
-:root {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
-  --font-mono: var(--font-geist-mono);
 }
 
 /* Dark mode support (future enhancement) */
@@ -64,8 +13,6 @@
   :root {
     --color-background: var(--color-neutral-black);
     --color-text-primary: var(--color-neutral-white);
-    --background: var(--color-background);
-    --foreground: var(--color-text-primary);
   }
 }
 
@@ -95,6 +42,8 @@ main {
   flex: 1;
   display: flex;
   flex-direction: column;
+  width: 100vw;
+  max-width: 100vw;
 }
 
 /* Footer should always be at the bottom and not shrink */
@@ -114,23 +63,14 @@ html {
   overscroll-behavior: none;
 }
 
-/* Ensure footer is absolutely the end */
-footer {
-  position: relative;
-  z-index: 1000;
-}
-
-
-
-
-
 /* Prevent horizontal scrolling globally */
 html {
   overflow-x: hidden;
 }
 
 /* Hide scrollbars and ensure full viewport coverage */
-html, body {
+html,
+body {
   overscroll-behavior: none;
   overscroll-behavior-y: none;
   overscroll-behavior-x: none;
@@ -156,7 +96,9 @@ body::-webkit-scrollbar {
 }
 
 /* Allow normal scrolling within sections but enable scroll chaining */
-div, section, main {
+div,
+section,
+main {
   overscroll-behavior: auto;
 }
 
@@ -166,9 +108,11 @@ div, section, main {
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: none;
   }
-  
+
   /* Enable scroll chaining for sections on mobile */
-  div, section, main {
+  div,
+  section,
+  main {
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: auto;
   }
@@ -181,35 +125,35 @@ div, section, main {
     min-height: 100vh;
     min-height: 100svh; /* Small viewport - stable in popup windows */
   }
-  
+
   /* Alternative for very constrained viewports (popup windows) */
   @media (max-height: 600px) {
     .min-h-screen-safe {
       min-height: 100vh;
       min-height: calc(100vh - 60px); /* Account for browser UI */
     }
-    
+
     /* Reduce padding and margins in very constrained viewports */
     .hero-constrained {
       padding-top: 0.5rem !important;
       padding-bottom: 0.5rem !important;
     }
-    
+
     .hero-constrained .flex-1 {
       margin-bottom: 0.25rem !important;
     }
-    
+
     .hero-constrained .grid {
       margin-bottom: 0.25rem !important;
     }
   }
-  
+
   /* For extremely constrained popup windows */
   @media (max-height: 500px) {
     .min-h-screen-safe {
       min-height: calc(100vh - 40px);
     }
-    
+
     .hero-constrained {
       transform: scale(0.85);
       transform-origin: center;
@@ -238,17 +182,8 @@ div, section, main {
   box-sizing: border-box;
 }
 
-/* Full-width sections should use the entire viewport */
-.full-width-section {
-  width: 100vw;
-  max-width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
-}
-
 /* Ensure all sections that should be full-width get proper styling */
 section[id="akpsi-info"],
-section:has(.InfiniteCarousel),
 section:has([href="/about"]) {
   width: 100vw;
   max-width: 100vw;
@@ -262,17 +197,6 @@ section:has([href="/about"]) {
   max-width: 100vw;
 }
 
-/* Only apply max-width restrictions to body and html */
-body {
-  overflow-x: hidden;
-}
-
-/* Ensure all page main content areas are full-width */
-main {
-  width: 100vw;
-  max-width: 100vw;
-}
-
 /* Ensure all page containers are full-width */
 .relative.min-h-screen.w-full,
 .relative.flex.flex-col.justify-between {
@@ -281,7 +205,8 @@ main {
 }
 
 /* Gallery and Contact pages - allow wider scaling */
-.gallery-page, .contact-page {
+.gallery-page,
+.contact-page {
   overflow-x: hidden;
 }
 
@@ -292,10 +217,9 @@ main {
   padding-right: 2rem;
 }
 
-/* About page sections - slightly increase vertical width */
-
 /* Allow typewriter animations to work properly */
-.typewriter-cursor, .typewriter-cursor.no-blink {
+.typewriter-cursor,
+.typewriter-cursor.no-blink {
   overflow: visible;
   max-width: none;
 }
@@ -318,25 +242,6 @@ main {
   width: auto;
 }
 
-/* Prevent horizontal scrolling on all viewports */
-@media (max-width: 640px) {
-  html, body {
-    overflow-x: hidden;
-  }
-}
-
-@media (min-width: 641px) and (max-width: 1024px) {
-  html, body {
-    overflow-x: hidden;
-  }
-}
-
-@media (min-width: 1025px) {
-  html, body {
-    overflow-x: hidden;
-  }
-}
-
 /* Font utilities */
 .font-inter {
   font-family: var(--font-inter), Arial, Helvetica, sans-serif;
@@ -346,21 +251,6 @@ main {
 /* Global ultra-tight letter spacing */
 * {
   letter-spacing: -0.025em;
-}
-
-
-
-.font-mono {
-  font-family: var(--font-geist-mono), 'Courier New', monospace;
-}
-
-.font-serif {
-  font-family: Georgia, 'Times New Roman', serif;
-}
-
-/* Legacy font utility for backward compatibility */
-.font-hero {
-  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
 }
 
 /* Typewriter cursor styles - using the new gold light color */
@@ -386,8 +276,14 @@ main {
 
 /* The typewriter cursor blink effect */
 @keyframes blink-caret {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
 }
 
 /* Class to disable blinking when actively typing */
@@ -396,37 +292,12 @@ main {
   opacity: 1;
 }
 
-/* Utility classes for the new color system */
-.bg-primary { background-color: var(--color-primary); }
-.bg-primary-hover:hover { background-color: var(--color-primary-hover); }
-.bg-secondary { background-color: var(--color-secondary); }
-.bg-secondary-hover:hover { background-color: var(--color-secondary-hover); }
-.bg-accent { background-color: var(--color-accent); }
-
-.text-primary { color: var(--color-text-primary); }
-.text-secondary { color: var(--color-text-secondary); }
-.text-inverse { color: var(--color-text-inverse); }
-.text-accent { color: var(--color-text-accent); }
-
-.border-primary { border-color: var(--color-border); }
-.border-primary-hover:hover { border-color: var(--color-border-hover); }
-
 /* Smooth transitions for interactive elements */
 .transition-colors {
-  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-}
-
-/* Glass morphism enhancements */
-.glass-effect {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background: rgba(248, 248, 248, 0.1);
-  border: 1px solid rgba(248, 248, 248, 0.2);
-}
-
-.glass-effect:hover {
-  background: rgba(248, 248, 248, 0.2);
-  border-color: rgba(248, 248, 248, 0.3);
+  transition:
+    color 0.2s ease-in-out,
+    background-color 0.2s ease-in-out,
+    border-color 0.2s ease-in-out;
 }
 
 /* Sliding shine for navbar items (full tab coverage, rounded corners) */
@@ -434,35 +305,51 @@ main {
   position: relative;
   overflow: hidden;
   border-radius: 0.75rem; /* Match tab's rounded-lg */
-  transition: background-color 0.3s ease-out 0.4s, border-color 0.3s ease-out 0.4s, backdrop-filter 0.3s ease-out 0.4s;
+  transition:
+    background-color 0.3s ease-out 0.4s,
+    border-color 0.3s ease-out 0.4s,
+    backdrop-filter 0.3s ease-out 0.4s;
 }
 .nav-shine::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -80%;
   width: 80%;
   height: 100%;
-  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.7) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
   pointer-events: none;
   z-index: 1;
   border-radius: 0.75rem;
-  transition: left 0.5s cubic-bezier(0.4,0,0.2,1);
+  transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0;
 }
 .nav-shine:hover::before {
   left: 120%;
   opacity: 1;
-  transition: left 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0s ease-out;
+  transition:
+    left 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0s ease-out;
 }
 .nav-shine:hover {
   background-color: rgba(255, 255, 255, 0.15);
   border-color: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(8px);
-  transition: background-color 0.3s ease-out 0.4s, border-color 0.3s ease-out 0.4s, backdrop-filter 0.3s ease-out 0.4s;
+  transition:
+    background-color 0.3s ease-out 0.4s,
+    border-color 0.3s ease-out 0.4s,
+    backdrop-filter 0.3s ease-out 0.4s;
 }
 .nav-shine {
-  transition: background-color 0s ease-out, border-color 0s ease-out, backdrop-filter 0s ease-out;
+  transition:
+    background-color 0s ease-out,
+    border-color 0s ease-out,
+    backdrop-filter 0s ease-out;
 }
 
 /* Contact page animations */
@@ -519,12 +406,12 @@ main {
   .pb-safe-area-inset-bottom {
     padding-bottom: env(safe-area-inset-bottom);
   }
-  
+
   /* Ensure footer content is always visible */
   footer .max-w-6xl {
     padding-bottom: 1rem;
   }
-  
+
   /* Reduce bottom margin for copyright section on mobile */
   .copyright-section {
     padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));

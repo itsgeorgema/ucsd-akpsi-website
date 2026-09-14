@@ -1,247 +1,79 @@
-/**
- * UCSD AKPsi Website Color System
- * 
- * This comprehensive color system provides both CSS custom properties 
- * and Tailwind utility classes for maximum flexibility and consistency.
- * 
- * Color Palette:
- * - Neutrals: Clean whites, grays, and blacks for foundation
- * - Blues: Soft, muted blues for modern professional feel  
- * - Golds: Sophisticated gold hierarchy for accents
- * - Brand: AKPsi royal blue for key brand elements
- */
-
-// Raw color values (hex codes)
-// HEX TOKENS (source of truth)
 export const colorPalette = {
-  // Neutrals - Foundation colors
   neutral: {
-    white: '#F8F8F8',           // Dominant background white/off-white
-    black: '#212121',           // Text black/dark grey
-    lightGray: '#E0E0E0',       // Subtle borders, light backgrounds
-    mediumGray: '#9E9E9E',      // Disabled states, secondary text
-    darkGray: '#333333',        // Alternative dark text
+    white: "#F8F8F8",
+    black: "#212121",
+    lightGray: "#E0E0E0",
+    mediumGray: "#9E9E9E",
+    darkGray: "#333333",
   },
-  
-  // Blues - Primary brand colors (modern, muted)
   blue: {
-    soft: '#B3CDE0',            // Soft/muted blue for backgrounds
-    medium: '#6497B1',          // Mid-tone blue for interactive elements
+    soft: "#B3CDE0",
+    medium: "#6497B1",
   },
-  
-  // Golds - Sophisticated accent hierarchy
   gold: {
-    muted: '#B89334',           // Muted matte gold (primary gold)
-    light: '#D4AF37',           // Lighter gold for highlights/hover
-    bright: '#FFD700',          // Bright gold pop (very limited use)
+    muted: "#B89334",
+    light: "#D4AF37",
+    bright: "#FFD700",
   },
-  
-  // Brand - AKPsi identity colors
   brand: {
-    royalBlue: '#003366',       // AKPsi royal blue for key brand elements
+    royalBlue: "#003366",
   },
-  
-  // Dark theme colors for legal pages
   dark: {
-    background: '#0A192F',      // Very dark blue background
-    surface: '#1a4d80',         // Darker blue for content areas
-    accent: '#B3CDE0',          // Light blue for accents and text
-  }
+    background: "#0A192F",
+    surface: "#1a4d80",
+    accent: "#B3CDE0",
+  },
 } as const;
 
-// SEMANTIC TOKENS (HEX) – derived from palette
-export const semanticColorTokens = {
-  primary: colorPalette.blue.medium,
-  primaryHover: colorPalette.blue.soft,
-  primaryText: colorPalette.neutral.white,
-  
-  // Secondary colors  
-  secondary: colorPalette.gold.muted,
-  secondaryHover: colorPalette.gold.light,
-  secondaryText: colorPalette.neutral.white,
-  
-  // Accent colors
-  accent: colorPalette.brand.royalBlue,
-  accentHover: colorPalette.blue.medium,
-  accentText: colorPalette.neutral.white,
-  
-  // Background colors
-  background: colorPalette.neutral.white,
-  backgroundAlt: colorPalette.blue.soft,
-  surface: colorPalette.neutral.white,
-  surfaceAlt: colorPalette.neutral.lightGray,
-  
-  // Text colors
-  textPrimary: colorPalette.neutral.black,
-  textSecondary: colorPalette.neutral.mediumGray,
-  textInverse: colorPalette.neutral.white,
-  textAccent: colorPalette.gold.muted,
-  
-  // Border colors
-  border: colorPalette.neutral.lightGray,
-  borderHover: colorPalette.neutral.mediumGray,
-  
-  // Interactive states
-  hover: colorPalette.blue.soft,
-  active: colorPalette.blue.medium,
-  focus: colorPalette.gold.light,
-  
-  // Dark theme colors
-  darkBackground: colorPalette.dark.background,
-  darkSurface: colorPalette.dark.surface,
-  darkAccent: colorPalette.dark.accent,
-} as const;
-
-// Semantic color mappings for different use cases
-// Back-compat alias for HEX semantic tokens
-export const semanticColors = semanticColorTokens;
-
-// CSS Custom Property map (optional, for use in stylesheets if needed)
-export const colorCSSVariables: Record<string, string> = {
-  '--color-neutral-white': colorPalette.neutral.white,
-  '--color-neutral-black': colorPalette.neutral.black,
-  '--color-neutral-light-gray': colorPalette.neutral.lightGray,
-  '--color-neutral-medium-gray': colorPalette.neutral.mediumGray,
-  '--color-neutral-dark-gray': colorPalette.neutral.darkGray,
-
-  '--color-blue-soft': colorPalette.blue.soft,
-  '--color-blue-medium': colorPalette.blue.medium,
-
-  '--color-gold-muted': colorPalette.gold.muted,
-  '--color-gold-light': colorPalette.gold.light,
-  '--color-gold-bright': colorPalette.gold.bright,
-
-  '--color-brand-royal-blue': colorPalette.brand.royalBlue,
-};
-
-// Tailwind utility classes for easy component usage
-// LEGACY/CONVENIENCE: Tailwind utility strings (keep literal strings)
 export const colors = {
-  // Backgrounds
   bg: {
-    primary: 'bg-[#F8F8F8]',
-    primaryAlt: 'bg-[#B3CDE0]',
-    surface: 'bg-[#F8F8F8]',
-    surfaceAlt: 'bg-[#E0E0E0]',
-    overlay: 'bg-black/40',
-    overlayLight: 'bg-black/20',
-    dark: 'bg-[#0A192F]',
-    darkSurface: 'bg-[#1a4d80]',
+    primary: "bg-[#F8F8F8]",
+    surfaceAlt: "bg-[#E0E0E0]",
+    overlay: "bg-black/40",
+    dark: "bg-[#0A192F]",
+    darkSurface: "bg-[#1a4d80]",
   },
-  
-  // Text colors
   text: {
-    primary: 'text-[#212121]',
-    secondary: 'text-[#333333]',
-    inverse: 'text-[#F8F8F8]',
-    accent: 'text-[#B89334]',
-    brand: 'text-[#003366]',
-    white: 'text-white',
-    darkAccent: 'text-[#B3CDE0]',
-    gold: 'text-[#B89334]',
-    goldLight: 'text-[#D4AF37]',
-    goldBright: 'text-[#FFD700]',
+    primary: "text-[#212121]",
+    secondary: "text-[#333333]",
+    inverse: "text-[#F8F8F8]",
+    accent: "text-[#B89334]",
+    white: "text-white",
+    darkAccent: "text-[#B3CDE0]",
+    goldLight: "text-[#D4AF37]",
   },
-  
-  // Buttons
-  button: {
-    primary: 'bg-[#6497B1] hover:bg-[#B3CDE0] text-[#F8F8F8] border-[#6497B1] hover:border-[#B3CDE0]',
-    secondary: 'bg-[#B89334] hover:bg-[#D4AF37] text-[#F8F8F8] border-[#B89334] hover:border-[#D4AF37]',
-    accent: 'bg-[#003366] hover:bg-[#6497B1] text-[#F8F8F8] border-[#003366] hover:border-[#6497B1]',
-    ghost: 'bg-transparent hover:bg-[#B3CDE0]/20 text-[#212121] border-[#E0E0E0] hover:border-[#B3CDE0]',
-  },
-  
-  // Borders  
   border: {
-    default: 'border-[#E0E0E0]',
-    hover: 'hover:border-[#9E9E9E]',
-    accent: 'border-[#B89334]',
-    brand: 'border-[#003366]',
-    darkAccent: 'border-[#B3CDE0]',
-    darkAccentTransparent: 'border-[#B3CDE0]/30',
+    default: "border-[#E0E0E0]",
+    accent: "border-[#B89334]",
+    darkAccent: "border-[#B3CDE0]",
+    darkAccentTransparent: "border-[#B3CDE0]/30",
   },
-  
-  // Glass morphism effects
   glass: {
-    bg: 'bg-[#F8F8F8]/10 backdrop-blur-md',
-    bgHover: 'hover:bg-[#F8F8F8]/30',
-    border: 'border-[#F8F8F8]/20',
-    borderHover: 'hover:border-[#F8F8F8]/40',
-    text: 'text-[#F8F8F8]',
-    textSubtle: 'text-[#F8F8F8]/80',
-    textBody: 'text-[#F8F8F8]/90',
+    bg: "bg-[#F8F8F8]/10 backdrop-blur-md",
+    bgHover: "hover:bg-[#F8F8F8]/30",
+    border: "border-[#F8F8F8]/20",
+    borderHover: "hover:border-[#F8F8F8]/40",
+    text: "text-[#F8F8F8]",
+    textSubtle: "text-[#F8F8F8]/80",
+    textBody: "text-[#F8F8F8]/90",
   },
-  
-  // Navigation specific
   nav: {
-    bg: 'bg-[#212121]/25',
-    border: 'border-[#9E9E9E]/20',
-    text: 'text-[#F8F8F8]',
-    textActive: 'text-[#D4AF37]',
-    textHover: 'hover:text-[#D4AF37]',
-    bgActive: 'bg-[#212121]/40',
-    bgHover: 'hover:bg-[#212121]/30',
+    textActive: "text-[#D4AF37]",
   },
-  
-  // Section specific  
   section: {
-    title: 'text-[#003366]',
-    titleBg: 'bg-[#003366]',
-    subtitle: 'text-[#6497B1]',
-    text: 'text-[#212121]',
-    textSecondary: 'text-[#9E9E9E]',
-    bg: 'bg-[#F8F8F8]',
-    bgAlt: 'bg-[#B3CDE0]',
+    title: "text-[#003366]",
+    titleBg: "bg-[#003366]",
+    subtitle: "text-[#6497B1]",
+    text: "text-[#212121]",
+    bg: "bg-[#F8F8F8]",
   },
-  
-  // Legacy compatibility properties
-  sectionTitle: 'text-[#003366]',
-  sectionText: 'text-[#212121]',
-  sectionBg: 'bg-[#F8F8F8]',
-  heroTitle: 'text-[#F8F8F8]',
-  heroSubtitle: 'text-[#F8F8F8]/80',
-  black: 'text-[#212121]',
-  mainBg: 'bg-[#F8F8F8]',
-  statCircleBg: 'bg-[#E0E0E0]',
-  statCircleText: 'text-[#9E9E9E]',
-  glassBg: 'bg-[#F8F8F8]/10 backdrop-blur-md',
-  glassBorder: 'border-[#F8F8F8]/20',
-  glassText: 'text-[#F8F8F8]',
-  glassBlurMd: 'backdrop-blur-md',
-  
-  // Footer specific
+  heroTitle: "text-[#F8F8F8]",
   footer: {
-    text: 'text-[#F8F8F8]',
-    textHover: 'hover:text-[#F8F8F8]/80',
-    icon: 'text-[#F8F8F8] hover:text-[#D4AF37]',
-    link: 'text-[#F8F8F8] hover:text-[#D4AF37]',
+    icon: "text-[#F8F8F8] hover:text-[#D4AF37]",
+    link: "text-[#F8F8F8] hover:text-[#D4AF37]",
   },
-  
-  // Status/feedback colors
-  status: {
-    success: 'text-green-600 bg-green-50 border-green-200',
-    error: 'text-red-600 bg-red-50 border-red-200', 
-    warning: 'text-amber-600 bg-amber-50 border-amber-200',
-    info: 'text-[#6497B1] bg-[#B3CDE0]/20 border-[#B3CDE0]',
-  },
-  
-  // Gradients
   gradient: {
-    primary: 'from-[#B3CDE0] via-[#F8F8F8] to-[#B3CDE0]',
-    accent: 'from-[#6497B1] to-[#B3CDE0]',
-    gold: 'from-[#D4AF37] to-[#B89334]',
-    neutral: 'from-[#F8F8F8] via-[#E0E0E0] to-[#F8F8F8]',
-    brand: 'from-[#003366] to-[#6497B1]',
-    brandReverse: 'from-[#6497B1] to-[#003366]',
+    brand: "from-[#003366] to-[#6497B1]",
+    brandReverse: "from-[#6497B1] to-[#003366]",
   },
-  
-
-} as const;
-
-// Clean, modular export grouping everything together without changing outputs
-export const akpsiColors = {
-  palette: colorPalette,
-  semantic: semanticColorTokens,
-  cssVars: colorCSSVariables,
-  utilities: colors,
 } as const;

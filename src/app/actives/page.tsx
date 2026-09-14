@@ -1,21 +1,16 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { fontCombinations } from '../../styles/fonts';
-import { colors } from '../../styles/colors';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState } from "react";
+import { fontCombinations } from "../../styles/fonts";
+import { colors } from "../../styles/colors";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import { useRouter } from "next/navigation";
 
-interface ResourceButton {
-  name: string;
-  link?: string;
-}
-
-const resourceButtons: ResourceButton[] = [
-  { name: 'Active Resources' },
-  { name: 'Active Linktree' },
-  { name: 'Alumni Contacts' },
-  { name: 'Family Trees' },
+const resourceButtons = [
+  "Active Resources",
+  "Active Linktree",
+  "Alumni Contacts",
+  "Family Trees",
 ];
 
 // Authentication wrapper component
@@ -23,29 +18,29 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
   const [isChecking, setIsChecking] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const router = useRouter();
-  
+
   useEffect(() => {
     const validateSession = async () => {
       try {
-        const response = await fetch('/api/validate-session', {
-          method: 'POST',
-          credentials: 'include',
+        const response = await fetch("/api/validate-session", {
+          method: "POST",
+          credentials: "include",
         });
-        
+
         const result = await response.json();
-        
+
         if (!result.valid) {
           // Not authenticated, redirect immediately
-          router.replace('/login');
+          router.replace("/login");
           return;
         }
-        
+
         // Authenticated, allow rendering
         setIsAuthenticated(true);
         setIsChecking(false);
       } catch (error) {
-        console.error('Session validation error:', error);
-        router.replace('/login');
+        console.error("Session validation error:", error);
+        router.replace("/login");
       }
     };
 
@@ -62,47 +57,49 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
 
 // The actual actives page component
 function ActivesPageContent() {
-  const backgroundUrl = '/assets/sunsetBackground.jpeg';
+  const backgroundUrl = "/assets/sunsetBackground.jpeg";
   const [links, setLinks] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
       try {
-        
         // Fetch links from resources table via API route (server-side with service role)
-        const response = await fetch('/api/resources', {
-          credentials: 'include', // Include cookies for authentication
+        const response = await fetch("/api/resources", {
+          credentials: "include", // Include cookies for authentication
         });
         const result = await response.json();
-        
-        let linksData = null;
-        let error = null;
-        
-        if (response.ok) {
-          linksData = result.data;
-        } else {
-          error = result.error;
-        }
-        
-        if (!error && linksData) {
+
+        if (response.ok && result.data) {
+          const linksData = result.data;
           // Map the resource names to the correct order
           const resourceMap = {
-            'ActiveMemberResources': linksData.find((item: { resource: string; link: string }) => item.resource === 'ActiveMemberResources')?.link,
-            'ActiveLinkTree': linksData.find((item: { resource: string; link: string }) => item.resource === 'ActiveLinkTree')?.link,
-            'AlumniContacts': linksData.find((item: { resource: string; link: string }) => item.resource === 'AlumniContacts')?.link,
-            'FamilyTrees': linksData.find((item: { resource: string; link: string }) => item.resource === 'FamilyTrees')?.link,
+            ActiveMemberResources: linksData.find(
+              (item: { resource: string; link: string }) =>
+                item.resource === "ActiveMemberResources",
+            )?.link,
+            ActiveLinkTree: linksData.find(
+              (item: { resource: string; link: string }) =>
+                item.resource === "ActiveLinkTree",
+            )?.link,
+            AlumniContacts: linksData.find(
+              (item: { resource: string; link: string }) =>
+                item.resource === "AlumniContacts",
+            )?.link,
+            FamilyTrees: linksData.find(
+              (item: { resource: string; link: string }) =>
+                item.resource === "FamilyTrees",
+            )?.link,
           };
-          
-          const linkUrls = [
-            resourceMap.ActiveMemberResources,
-            resourceMap.ActiveLinkTree,
-            resourceMap.AlumniContacts,
-            resourceMap.FamilyTrees
-          ].filter(link => link);
-          
-          setLinks(linkUrls);
+
+          setLinks(
+            [
+              resourceMap.ActiveMemberResources,
+              resourceMap.ActiveLinkTree,
+              resourceMap.AlumniContacts,
+              resourceMap.FamilyTrees,
+            ].filter((link) => link),
+          );
         }
       } catch {
         setLinks([]);
@@ -118,51 +115,62 @@ function ActivesPageContent() {
       {/* Full Page Background */}
       <div
         className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat bg-black"
-        style={{ backgroundImage: backgroundUrl ? `url(${backgroundUrl})` : undefined }}
+        style={{ backgroundImage: `url(${backgroundUrl})` }}
       />
       {/* Overlay for readability */}
       <div className={`fixed top-0 left-0 w-full h-full z-10 bg-black/20`} />
-      
+
       <div className="relative z-20 min-h-screen flex flex-col">
         {loading ? (
           <main className="flex-1 flex items-center justify-center py-16 px-4">
-            <LoadingSpinner size="large" fullScreen={false} type="component" />
+            <LoadingSpinner />
           </main>
         ) : (
-        <>
-          {/* Hero Section */}
-          <section className="relative flex flex-col items-center justify-center text-center z-10 min-h-screen">
-            <div className="relative z-10 flex flex-col items-center">
-              <h1 className={`text-5xl lg:text-6xl mb-4 text-center ${colors.text.inverse} ${fontCombinations.hero.title}`}>ACTIVE RESOURCES</h1>
-              <p className={`text-xl ${colors.glass.textSubtle} text-center mb-8 max-w-2xl ${fontCombinations.content.body}`}>Please do not share any of these resources with people outside of Nu Xi.<br />Make sure to use this responsibly, you are protecting our legacy :)</p>
-              <div className="flex flex-col gap-4 w-full max-w-md">
-                {resourceButtons.map((item, idx) => {
-                  const link = links[idx];
-                  return link ? (
-                    <a
-                      key={idx}
-                      href={link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`group relative w-full flex justify-center py-4 px-8 border-2 ${colors.glass.border} ${colors.glass.borderHover} text-base rounded-xl ${colors.glass.bg} ${colors.glass.bgHover} ${colors.glass.text} transition-all duration-300 shadow-lg hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:ring-offset-2 cursor-pointer ${fontCombinations.interactive.primary} transform hover:scale-105 active:scale-95`}
-                    >
-                      {item.name}
-                    </a>
-                  ) : (
-                    <button
-                      key={idx}
-                      className={`block w-full py-4 px-8 rounded-xl border-2 ${colors.glass.border} text-base ${colors.glass.bg} ${colors.glass.text} cursor-not-allowed opacity-50 shadow-lg ${fontCombinations.interactive.primary}`}
-                      disabled
-                    >
-                      {item.name}
-                    </button>
-                  );
-                })}
+          <>
+            {/* Hero Section */}
+            <section className="relative flex flex-col items-center justify-center text-center z-10 min-h-screen">
+              <div className="relative z-10 flex flex-col items-center">
+                <h1
+                  className={`text-5xl lg:text-6xl mb-4 text-center ${colors.text.inverse} ${fontCombinations.hero.title}`}
+                >
+                  ACTIVE RESOURCES
+                </h1>
+                <p
+                  className={`text-xl ${colors.glass.textSubtle} text-center mb-8 max-w-2xl ${fontCombinations.content.body}`}
+                >
+                  Please do not share any of these resources with people outside
+                  of Nu Xi.
+                  <br />
+                  Make sure to use this responsibly, you are protecting our
+                  legacy :)
+                </p>
+                <div className="flex flex-col gap-4 w-full max-w-md">
+                  {resourceButtons.map((name, idx) => {
+                    const link = links[idx];
+                    return link ? (
+                      <a
+                        key={idx}
+                        href={link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`group relative w-full flex justify-center py-4 px-8 border-2 ${colors.glass.border} ${colors.glass.borderHover} text-base rounded-xl ${colors.glass.bg} ${colors.glass.bgHover} ${colors.glass.text} transition-all duration-300 shadow-lg hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:ring-offset-2 cursor-pointer ${fontCombinations.interactive.primary} transform hover:scale-105 active:scale-95`}
+                      >
+                        {name}
+                      </a>
+                    ) : (
+                      <button
+                        key={idx}
+                        className={`block w-full py-4 px-8 rounded-xl border-2 ${colors.glass.border} text-base ${colors.glass.bg} ${colors.glass.text} cursor-not-allowed opacity-50 shadow-lg ${fontCombinations.interactive.primary}`}
+                        disabled
+                      >
+                        {name}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          </section>
-
-        </>
+            </section>
+          </>
         )}
       </div>
     </div>
@@ -176,4 +184,4 @@ export default function ActivesPage() {
       <ActivesPageContent />
     </AuthGuard>
   );
-} 
+}
