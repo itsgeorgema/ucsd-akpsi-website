@@ -143,7 +143,7 @@ export const getHomeImages = (): HomeImages => {
 // About page images from /public/about directory
 export const getAboutImages = (): AboutImages => {
   return {
-    backgroundVideo: "/about/backgroundVid3.mp4",
+    backgroundVideo: "/about/fall26rushteaser.mp4",
     crest: "/about/crest.png",
     akpsiLogo: "/about/akpsiLogo.svg",
     groupPhoto1: "/about/groupAbout1.jpeg",
