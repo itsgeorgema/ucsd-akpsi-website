@@ -104,7 +104,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className={`text-sm ${colors.text.inverse} opacity-70 hover:opacity-100 transition-opacity ${colors.footer.link} underline ${akpsiFonts.bodyFont}`}
                 >
-                  Official Website
+                 National Website 
                 </a>
               </div>
             </div>
