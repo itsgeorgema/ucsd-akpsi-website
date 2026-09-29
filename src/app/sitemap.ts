@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { ACTIVES_TABLE, ECOMM_TABLE } from "../utils/chapterTables";
-import { fetchMembers, memberSlug } from "../utils/members";
+import { fetchMemberNames, memberSlug } from "../utils/members";
 import { siteUrl } from "../utils/site";
 
 // Rebuild daily so a roster change reaches the sitemap without a redeploy.
@@ -24,8 +24,8 @@ const staticRoutes: Array<{
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [actives, executives] = await Promise.all([
-    fetchMembers(ACTIVES_TABLE),
-    fetchMembers(ECOMM_TABLE),
+    fetchMemberNames(ACTIVES_TABLE),
+    fetchMemberNames(ECOMM_TABLE),
   ]);
   const lastModified = new Date();
 
