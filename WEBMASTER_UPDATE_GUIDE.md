@@ -240,16 +240,18 @@ Check:
 Also update the home page rush season text in:
 
 ```text
-src/app/page.tsx
+src/utils/rush.ts
 ```
 
 Look for:
 
 ```ts
-const homePresidentMessageRushSeason = "Spring 2026 Rush";
+export const rushSeason = "Fall 2026";
 ```
 
-Update it to match the current recruitment cycle.
+Update `rushSeason`, `rushWeekLabel`, `rushSiteUrl`, and `rushInterestFormUrl`
+to match the current recruitment cycle. The home page join section reads
+from this file.
 
 The footer copyright year is currently generated automatically:
 

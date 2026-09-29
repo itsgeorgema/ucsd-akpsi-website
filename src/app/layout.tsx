@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Geist } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "../contexts/AuthContext";
 import Navbar from "../components/Navbar";
@@ -8,7 +8,7 @@ import ScrollToTop from "../components/ScrollToTop";
 import { Analytics } from "@vercel/analytics/next";
 import { ogImage, siteDescription, siteName, siteUrl } from "../utils/site";
 
-const inter = Inter({ subsets: ["latin"] });
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -66,7 +66,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body
-        className={`${inter.className} h-full min-h-screen min-h-svh flex flex-col`}
+        className={`${geist.variable} ${geist.className} min-h-screen min-h-svh flex flex-col`}
         suppressHydrationWarning
       >
         <AuthProvider>
