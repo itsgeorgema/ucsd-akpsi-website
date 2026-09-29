@@ -12,6 +12,7 @@ import { colors } from "../styles/colors";
 import AnimatedTitle from "../components/AnimatedTitle";
 import { getGalleryImages, getHomeImages } from "../utils/imageUtils";
 import { useViewportHeight } from "../hooks/useViewportHeight";
+import { ECOMM_TABLE } from "../utils/chapterTables";
 import Image from "next/image";
 
 interface President {
@@ -36,7 +37,7 @@ export default function Home() {
 
         // Fetch president data
         const { data: presidentData, error: presidentError } = await supabase
-          .from("ecomm-spring-26")
+          .from(ECOMM_TABLE)
           .select("name, image_path")
           .eq("position", "President")
           .single();

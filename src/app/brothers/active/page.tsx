@@ -7,6 +7,7 @@ import { fontCombinations } from "../../../styles/fonts";
 import { colors } from "../../../styles/colors";
 import BouncyFadeIn from "../../../components/BouncyFadeIn";
 import { useResponsiveColumns } from "../../../hooks/useResponsiveColumns";
+import { ACTIVES_TABLE } from "../../../utils/chapterTables";
 import Image from "next/image";
 
 const columnBreakpoints = [
@@ -29,7 +30,7 @@ export default function ActiveBrothers() {
 
         // Fetch brothers data
         const { data, error } = await supabase
-          .from("actives-spring26")
+          .from(ACTIVES_TABLE)
           .select("image_path, name")
           .order("name", { ascending: true });
         if (error || !data || data.length === 0) {

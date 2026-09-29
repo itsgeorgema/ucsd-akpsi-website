@@ -7,6 +7,7 @@ import { createClient } from "../../supabase/client";
 import { colors } from "../styles/colors";
 import { fontCombinations } from "../styles/fonts";
 import BouncyFadeIn from "./BouncyFadeIn";
+import type { ChapterTable } from "../utils/chapterTables";
 import LoadingSpinner from "./LoadingSpinner";
 
 interface MemberProfile {
@@ -20,7 +21,7 @@ interface MemberProfile {
 }
 
 interface BrotherProfilePageProps {
-  table: "actives-spring26" | "ecomm-spring-26";
+  table: ChapterTable;
   profileLabel: "Brother Profile" | "position";
   notFoundTitle: string;
 }

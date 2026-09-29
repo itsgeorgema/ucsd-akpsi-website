@@ -1,6 +1,15 @@
 import { colors } from "@/styles/colors";
 import { fontCombinations } from "@/styles/fonts";
 import BouncyFadeIn from "@/components/BouncyFadeIn";
+import type { Metadata } from "next";
+import { pageMetadata } from "@/utils/pageMetadata";
+
+export const metadata: Metadata = pageMetadata({
+  title: "Terms of Service",
+  description:
+    "Terms governing use of the website of the Nu Xi Chapter of Alpha Kappa Psi at UC San Diego.",
+  path: "/terms",
+});
 
 export default function Terms() {
   return (

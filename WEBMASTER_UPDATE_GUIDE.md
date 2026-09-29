@@ -129,37 +129,27 @@ Do not include `/brothers/` in Supabase. The code adds that automatically.
 
 ## 5. Update The Code To Use The New Tables
 
-After creating the new Supabase tables, update every code reference from the old table names to the new table names.
-
-Current active brothers references:
+Both table names live in one file:
 
 ```text
-src/app/brothers/active/page.tsx
-src/app/brothers/active/[name]/page.tsx
+src/utils/chapterTables.ts
 ```
 
-Current executive committee references:
-
-```text
-src/app/brothers/executive/page.tsx
-src/app/brothers/executive/[name]/page.tsx
-src/app/page.tsx
-```
-
-Search for the old table names:
-
-```bash
-rg "actives-spring26|ecomm-spring-26"
-```
-
-Then replace them with the new table names.
-
-Example:
+Edit the two constants and you are done. Every page, the sitemap, and the
+per-brother page titles all read from here.
 
 ```ts
-.from('actives-fall26')
-.from('ecomm-fall-26')
+export const ACTIVES_TABLE = "actives-fall26";
+export const ECOMM_TABLE = "ecomm-fall-26";
 ```
+
+To confirm nothing else still hardcodes a table name:
+
+```bash
+rg "actives-|ecomm-" src/
+```
+
+The only matches should be in `src/utils/chapterTables.ts`.
 
 ## 6. Confirm Image Fetching
 

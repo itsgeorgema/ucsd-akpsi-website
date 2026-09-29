@@ -8,6 +8,7 @@ import { colors } from "../../../styles/colors";
 import BouncyFadeIn from "../../../components/BouncyFadeIn";
 import Link from "next/link";
 import Image from "next/image";
+import { ECOMM_TABLE } from "../../../utils/chapterTables";
 
 interface Executive {
   name: string;
@@ -41,7 +42,7 @@ export default function ExecutiveCommittee() {
 
         // Fetch executives data
         const { data, error } = await supabase
-          .from("ecomm-spring-26")
+          .from(ECOMM_TABLE)
           .select("name, position, image_path")
           .order("number", { ascending: true });
 
