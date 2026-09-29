@@ -25,22 +25,22 @@ Create one new table for active brothers and one new table for executive committ
 Use a consistent naming pattern:
 
 ```text
-actives-spring26
-ecomm-spring-26
+actives-fall26
+ecomm-fall26
 ```
 
 For future terms, create new tables instead of editing old tables in place. Example:
 
 ```text
-actives-fall26
-ecomm-fall-26
+actives-spring27
+ecomm-spring27
 ```
 
 The current production tables are:
 
 ```text
-actives-spring26
-ecomm-spring-26
+actives-fall26
+ecomm-fall26
 ```
 
 ## 2. Required Columns
@@ -57,6 +57,33 @@ The actives table should include:
 | `location`   | text | Example: `Sacramento, CA`.                   |
 | `bio`        | text | Profile bio.                                 |
 | `linkedin`   | text | Full LinkedIn URL, or blank if unavailable.  |
+| `majors`     | text[] | One entry per major. Example: `{"Business Economics"}`. |
+| `year`       | text | One of: `First`, `Second`, `Third`, `Fourth`, `Fifth`, `Masters`. |
+
+`majors` and `year` drive the filters on the active brothers page. If either is
+blank for a brother, that brother still appears in the grid but will not match
+the corresponding filter, so fill both in for everyone.
+
+`majors` is an array so double majors are filterable under each major. List
+every major separately rather than as one combined string:
+
+```text
+{"Business Psychology","Cognitive Science: Design and Interaction"}
+```
+
+That brother then shows up under both `Business Psychology` and
+`Cognitive Science: Design and Interaction`. Writing it as a single entry like
+`{"Business Psychology and Cognitive Science"}` would instead create one
+filter option that matches only that person.
+
+Two rules keep the filter list clean:
+
+- Spell a shared major identically for everyone. `Urban Studies and Planning`
+  and `Urban Studies & Planning` become two separate filter options.
+- Keep `year` to exactly the six values above. Anything else (for example
+  `2nd` or `Sophomore`) renders as its own filter chip and looks broken.
+
+List only majors here. Minors belong in the bio.
 
 ### Executive Committee Table
 
@@ -72,6 +99,8 @@ The ecomm table should include:
 | `location`   | text            | Example: `San Diego, CA`.                      |
 | `bio`        | text            | Profile bio.                                   |
 | `linkedin`   | text            | Full LinkedIn URL, or blank if unavailable.    |
+| `majors`     | text[]          | Same format as the actives table.              |
+| `year`       | text            | Same allowed values as the actives table.      |
 
 ## 3. Upload Member Information
 
@@ -129,37 +158,27 @@ Do not include `/brothers/` in Supabase. The code adds that automatically.
 
 ## 5. Update The Code To Use The New Tables
 
-After creating the new Supabase tables, update every code reference from the old table names to the new table names.
-
-Current active brothers references:
+Both table names live in one file:
 
 ```text
-src/app/brothers/active/page.tsx
-src/app/brothers/active/[name]/page.tsx
+src/utils/chapterTables.ts
 ```
 
-Current executive committee references:
-
-```text
-src/app/brothers/executive/page.tsx
-src/app/brothers/executive/[name]/page.tsx
-src/app/page.tsx
-```
-
-Search for the old table names:
-
-```bash
-rg "actives-spring26|ecomm-spring-26"
-```
-
-Then replace them with the new table names.
-
-Example:
+Edit the two constants and you are done. Every page, the sitemap, and the
+per-brother page titles all read from here.
 
 ```ts
-.from('actives-fall26')
-.from('ecomm-fall-26')
+export const ACTIVES_TABLE = "actives-fall26";
+export const ECOMM_TABLE = "ecomm-fall26";
 ```
+
+To confirm nothing else still hardcodes a table name:
+
+```bash
+rg "actives-|ecomm-" src/
+```
+
+The only matches should be in `src/utils/chapterTables.ts`.
 
 ## 6. Confirm Image Fetching
 

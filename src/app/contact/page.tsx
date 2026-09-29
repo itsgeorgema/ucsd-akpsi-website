@@ -14,6 +14,7 @@ export default function Contact() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [website, setWebsite] = useState("");
   const [error, setError] = useState("");
 
   const triggerScrollToTop = () => {
@@ -27,6 +28,7 @@ export default function Contact() {
     setLastName("");
     setEmail("");
     setMessage("");
+    setWebsite("");
     setError("");
     requestAnimationFrame(triggerScrollToTop);
   };
@@ -43,6 +45,7 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
     try {
       const response = await fetch("/api/email", {
         method: "POST",
@@ -51,12 +54,14 @@ export default function Contact() {
           name: `${firstName} ${lastName}`,
           email,
           message,
+          website,
         }),
       });
 
       if (!response.ok) {
-        const err = await response.text();
-        throw new Error(`Server error: ${response.status} ${err}`);
+        const body = await response.json().catch(() => null);
+        setError(body?.error ?? "An error occurred. Please try again.");
+        return;
       }
       setSubmitted(true);
     } catch (err) {
@@ -166,6 +171,7 @@ export default function Contact() {
                           name="firstName"
                           type="text"
                           required
+                          maxLength={50}
                           className={`appearance-none rounded-lg relative block w-full px-4 py-3 border-2 ${colors.glass.border} text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37] text-base ${fontCombinations.content.body} ${colors.glass.bg} shadow-lg transition-all duration-200`}
                           placeholder="Enter your first name"
                           onChange={(e) => {
@@ -187,6 +193,7 @@ export default function Contact() {
                           name="lastName"
                           type="text"
                           required
+                          maxLength={50}
                           className={`appearance-none rounded-lg relative block w-full px-4 py-3 border-2 ${colors.glass.border} text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37] text-base ${fontCombinations.content.body} ${colors.glass.bg} shadow-lg transition-all duration-200`}
                           placeholder="Enter your last name"
                           onChange={(e) => {
@@ -209,6 +216,7 @@ export default function Contact() {
                         name="email"
                         type="email"
                         required
+                        maxLength={254}
                         className={`appearance-none rounded-lg relative block w-full px-4 py-3 border-2 ${colors.glass.border} text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37] text-base ${fontCombinations.content.body} ${colors.glass.bg} shadow-lg transition-all duration-200`}
                         placeholder="Enter your email"
                         onChange={(e) => {
@@ -230,10 +238,30 @@ export default function Contact() {
                         name="message"
                         rows={6}
                         required
+                        maxLength={5000}
                         className={`appearance-none rounded-lg relative block w-full px-4 py-3 border-2 ${colors.glass.border} text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37] text-base ${fontCombinations.content.body} ${colors.glass.bg} shadow-lg transition-all duration-200 resize-none`}
                         placeholder="Enter your message"
                         onChange={(e) => {
                           setMessage(e.target.value);
+                        }}
+                      />
+                    </div>
+
+                    {/* Honeypot: off-screen for people, irresistible to bots */}
+                    <div
+                      className="absolute left-[-9999px] h-px w-px overflow-hidden"
+                      aria-hidden="true"
+                    >
+                      <label htmlFor="website">Website</label>
+                      <input
+                        id="website"
+                        name="website"
+                        type="text"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        value={website}
+                        onChange={(e) => {
+                          setWebsite(e.target.value);
                         }}
                       />
                     </div>
@@ -248,7 +276,7 @@ export default function Contact() {
                       </button>
                     </div>
                     {error && (
-                      <div>
+                      <div role="alert">
                         <p className="text-red-400">{error}</p>
                       </div>
                     )}
