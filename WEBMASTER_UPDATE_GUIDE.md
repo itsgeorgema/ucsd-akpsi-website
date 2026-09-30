@@ -115,6 +115,16 @@ Before uploading, check:
 - Empty LinkedIn values are blank, not random placeholder text.
 - Bios do not contain accidental extra quotes or broken line breaks.
 
+Incomplete rows are safe to upload early. A member is hidden from the whole
+site (grid, profile page, sitemap) until `name`, `image_path`, `pronouns`,
+`location`, and `bio` are all filled in; executive rows also need `position`
+and `number`. `linkedin`, `majors`, and `year` are optional. The rule lives in
+`REQUIRED_TEXT_FIELDS` in `src/utils/members.ts`. If someone is missing from
+the site, check their row for a blank field first.
+
+This only checks that `image_path` is filled in, not that the file exists, so
+still make sure every `image_path` matches a file in `public/brothers/`.
+
 Example:
 
 ```text

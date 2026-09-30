@@ -47,6 +47,27 @@ export function memberImageUrl(imagePath: string): string {
 /** Postgres `undefined_column`, i.e. the majors/year migration hasn't run yet. */
 const UNDEFINED_COLUMN = "42703";
 
+/**
+ * A member missing any of these is left off the site entirely (grid, profile
+ * page, sitemap) until the row is filled in, so a half-entered row can never
+ * render a broken headshot or an empty profile. `linkedin`, `majors`, and
+ * `year` stay optional; see WEBMASTER_UPDATE_GUIDE.md.
+ */
+const REQUIRED_TEXT_FIELDS: Record<ChapterTable, string[]> = {
+  [ACTIVES_TABLE]: ["name", "image_path", "pronouns", "location", "bio"],
+  [ECOMM_TABLE]: [
+    "name",
+    "image_path",
+    "pronouns",
+    "location",
+    "bio",
+    "position",
+  ],
+};
+
+/** Matches empty or whitespace-only text. `NOT (NULL ~ ...)` is NULL, so nulls are excluded too. */
+const BLANK = "^\\s*$";
+
 type SelectResult<T> = { rows: T[] | null; error: unknown };
 
 /** Returns the error instead of logging so callers can expect certain failures. */
@@ -56,7 +77,11 @@ async function runSelect<T>(
   orderBy?: { column: string; ascending?: boolean },
 ): Promise<SelectResult<T>> {
   try {
-    const query = createServerClient().from(table).select(columns);
+    let query = createServerClient().from(table).select(columns);
+    for (const field of REQUIRED_TEXT_FIELDS[table]) {
+      query = query.not(field, "match", BLANK);
+    }
+    if (table === ECOMM_TABLE) query = query.not("number", "is", null);
 
     const { data, error } = orderBy
       ? await query.order(orderBy.column, {
