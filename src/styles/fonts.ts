@@ -1,13 +1,13 @@
 const fontFamilies = {
-  sans: "font-geist",
+  sans: "font-inter",
 } as const;
 
 export const akpsiFonts = {
-  heroTitleFont: "font-geist font-black tracking-tighter",
-  sectionTitleFont: "font-geist font-black tracking-tighter",
-  sectionSubtitleFont: "font-geist font-extrabold tracking-tighter",
-  sectionTextFont: "font-geist font-bold leading-relaxed tracking-tighter",
-  bodyFont: "font-geist font-bold leading-relaxed tracking-tighter",
+  heroTitleFont: "font-inter font-black tracking-tighter",
+  sectionTitleFont: "font-inter font-black tracking-tighter",
+  sectionSubtitleFont: "font-inter font-extrabold tracking-tighter",
+  sectionTextFont: "font-inter font-bold leading-relaxed tracking-tighter",
+  bodyFont: "font-inter font-bold leading-relaxed tracking-tighter",
 };
 
 const responsiveFontSizes = {

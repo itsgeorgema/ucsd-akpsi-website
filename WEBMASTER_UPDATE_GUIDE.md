@@ -115,16 +115,6 @@ Before uploading, check:
 - Empty LinkedIn values are blank, not random placeholder text.
 - Bios do not contain accidental extra quotes or broken line breaks.
 
-Incomplete rows are safe to upload early. A member is hidden from the whole
-site (grid, profile page, sitemap) until `name`, `image_path`, `pronouns`,
-`location`, and `bio` are all filled in; executive rows also need `position`
-and `number`. `linkedin`, `majors`, and `year` are optional. The rule lives in
-`REQUIRED_TEXT_FIELDS` in `src/utils/members.ts`. If someone is missing from
-the site, check their row for a blank field first.
-
-This only checks that `image_path` is filled in, not that the file exists, so
-still make sure every `image_path` matches a file in `public/brothers/`.
-
 Example:
 
 ```text
@@ -250,18 +240,16 @@ Check:
 Also update the home page rush season text in:
 
 ```text
-src/utils/rush.ts
+src/app/page.tsx
 ```
 
 Look for:
 
 ```ts
-export const rushSeason = "Fall 2026";
+const homePresidentMessageRushSeason = "Spring 2026 Rush";
 ```
 
-Update `rushSeason`, `rushWeekLabel`, `rushSiteUrl`, and `rushInterestFormUrl`
-to match the current recruitment cycle. The home page join section reads
-from this file.
+Update it to match the current recruitment cycle.
 
 The footer copyright year is currently generated automatically:
 

@@ -19,16 +19,15 @@
 body {
   background: var(--color-background);
   color: var(--color-text-primary);
-  font-family: var(--font-geist), sans-serif;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
   font-weight: 600; /* Medium bold weight as default */
   letter-spacing: -0.025em; /* Ultra-tight letter spacing for all text */
   margin: 0;
   padding: 0;
   min-height: 100vh;
   min-height: 100svh; /* Small viewport height - more stable for popup windows */
-  /* Clip sideways overflow without creating a nested scroll container. */
-  overflow-x: clip;
-  overflow-y: visible;
+  overflow-x: hidden;
+  overflow-y: auto; /* Allow vertical scrolling but hide scrollbar */
   position: relative;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: none;
@@ -66,8 +65,7 @@ html {
 
 /* Prevent horizontal scrolling globally */
 html {
-  overflow-x: clip;
-  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* Hide scrollbars and ensure full viewport coverage */
@@ -245,8 +243,8 @@ section:has([href="/about"]) {
 }
 
 /* Font utilities */
-.font-geist {
-  font-family: var(--font-geist), sans-serif;
+.font-inter {
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
   letter-spacing: -0.025em; /* Ultra-tight letter spacing */
 }
 
