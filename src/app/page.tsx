@@ -17,10 +17,16 @@ export default function Home() {
 
   return (
     <div className="relative w-full max-w-full overflow-x-clip">
-      <div
-        className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat bg-black"
-        style={{ backgroundImage: `url(${homeImages.background})` }}
-      />
+      <div className="fixed top-0 left-0 w-full h-full z-0 bg-black">
+        <Image
+          src={homeImages.background}
+          alt=""
+          fill
+          sizes="100vw"
+          preload
+          className="object-cover object-center"
+        />
+      </div>
       <div
         className={`fixed top-0 left-0 w-full h-full z-10 ${colors.bg.overlay}`}
       />
