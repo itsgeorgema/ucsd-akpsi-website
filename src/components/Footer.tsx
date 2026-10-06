@@ -8,7 +8,7 @@ import Image from "next/image";
 
 const rushInfo = {
   year: "Fall '26",
-  email: "akpfall2026rush@gmail.com",
+  email: "akpfall2026@gmail.com",
   chairs: [
     { name: "Jacqueline He", phone: "(626) 454-0312", tel: "+16264540312" },
     { name: "Belle Bao", phone: "(626) 390-3697", tel: "+16263903697" },
