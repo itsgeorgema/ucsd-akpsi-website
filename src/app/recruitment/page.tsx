@@ -18,7 +18,7 @@ const contactInfo = {
     { name: "Jacqueline He", number: "(626) 454-0312" },
     { name: "Belle Bao", number: "(626) 390-3697" },
   ],
-  email: "akpfall2026rush@gmail.com",
+  email: "akpfall2026@gmail.com",
 };
 
 export default async function Recruitment() {
