@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { colors } from "../styles/colors";
 import { fontCombinations } from "../styles/fonts";
 import BouncyFadeIn from "./BouncyFadeIn";
@@ -24,6 +25,30 @@ export default function BrotherProfilePage({
       <div className="relative z-20 min-h-screen flex flex-col">
         <main className="flex-1 flex items-center justify-center py-16 px-4 mt-24">
           <div className="w-full max-w-8xl mx-auto">
+            <BouncyFadeIn delay={0.1} bounce={0} threshold={0}>
+              <Link
+                href={
+                  profileLabel === "position"
+                    ? "/brothers/executive"
+                    : "/brothers/active"
+                }
+                className={`mb-6 inline-flex min-h-11 items-center gap-2 rounded-full border border-white/30 bg-black/30 px-5 py-2 text-sm text-white transform hover:scale-105 transition-all duration-200 hover:bg-black/50 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white ${fontCombinations.navigation.secondary}`}
+              >
+                <svg
+                  aria-hidden="true"
+                  className="h-5 w-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="m12 19-7-7 7-7M5 12h14" />
+                </svg>
+                Back
+              </Link>
+            </BouncyFadeIn>
             <div className="grid lg:grid-cols-3 gap-8 items-stretch">
               <BouncyFadeIn
                 delay={0.1}
