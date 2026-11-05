@@ -295,13 +295,12 @@ When updating the gallery:
 2. Use simple names like `gallery1.png`, `gallery2.png`, or another consistent naming pattern.
 3. Update `getGalleryImages()` in `src/utils/imageUtils.ts` so every new image path is listed.
 4. Remove old image paths from `getGalleryImages()` if those files were deleted.
-5. Check the home page, recruitment page, and gallery page because all three use gallery images.
+5. Check the home page and gallery page because both use gallery images.
 
 Relevant pages:
 
 ```text
 src/app/page.tsx
-src/app/recruitment/page.tsx
 src/app/gallery/page.tsx
 ```
 

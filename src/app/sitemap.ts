@@ -15,7 +15,6 @@ const staticRoutes: Array<{
   { path: "/about", priority: 0.9, changeFrequency: "monthly" },
   { path: "/brothers/active", priority: 0.8, changeFrequency: "monthly" },
   { path: "/brothers/executive", priority: 0.8, changeFrequency: "monthly" },
-  { path: "/recruitment", priority: 0.9, changeFrequency: "weekly" },
   { path: "/gallery", priority: 0.6, changeFrequency: "monthly" },
   { path: "/contact", priority: 0.6, changeFrequency: "yearly" },
   { path: "/privacy", priority: 0.2, changeFrequency: "yearly" },
